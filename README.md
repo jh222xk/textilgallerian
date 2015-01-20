@@ -11,3 +11,8 @@ Textilgallerian
     Övriga
   </li>
 </ul>
+
+
+<h4>
+  <a href="https://wp2013.slack.com/messages/textilgallerian/">Slack kanal<a/>
+</h4>
