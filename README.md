@@ -1,4 +1,4 @@
-Textilgallerian
+﻿Textilgallerian
 ==============
 <h4>Delade dokument: </h4>
 
@@ -20,6 +20,6 @@ Textilgallerian
 </h4>
 <h4>Git/Branch modell</h4>
 <a href="http://nvie.com/posts/a-successful-git-branching-model/"
- target="_blank">Förslag till arbetssätt i github(Jespers föralsag)
+ target="_blank">Förslag till arbetssätt i github(Jespers förslag)
 </a>
 
