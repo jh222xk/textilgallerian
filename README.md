@@ -1,10 +1,10 @@
-﻿﻿Textilgallerian
-=======
-
-  <a href="http://www.textilgallerian.se/"
-     target="_blank">
-    Textilgallerian</a>
+ Textilgallerian
 ==============
+ <a href="http://www.textilgallerian.se/"
+     target="_blank">
+    Textilgallerian.se</a>
+
+
 <h4>Delade dokument: </h4>
 
 <ul>
@@ -14,7 +14,9 @@
     Projektplan</a>
   </li>
   <li>
-    Övriga
+    <a href="https://drive.google.com/a/student.lnu.se/?usp=folder#folders/0B2GEbL4WYMY-eXk3TTBZdHV4aGc">
+    Scrum dokument
+    </a>
   </li>
 </ul>
 
