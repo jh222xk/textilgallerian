@@ -160,11 +160,9 @@
     <None Include="fonts\icons.ttf" />
     <None Include="fonts\icons.woff" />
     <None Include="packages.config" />
-<<<<<<< HEAD
     <None Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="Views\SemanticUI\Index.cshtml" />
     <None Include="Views\Shared\_Layout_Semantic.cshtml" />
-=======
     <None Include="Specs\Discount.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Discount.feature.cs</LastGenOutput>
@@ -173,7 +171,6 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>
     </None>
->>>>>>> 27a164d508af493132ce3298ee3a6ae9827d5fb7
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdminView\AdminView.csproj">
