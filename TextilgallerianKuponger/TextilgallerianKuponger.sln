@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminView", "AdminView\AdminView.csproj", "{AC86656B-B310-4BAC-A89E-D55853A5EB27}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "Domain.Test
 	ProjectSection(ProjectDependencies) = postProject
 		{A66EC58E-EF8C-4C41-91DC-FAF60AC91217} = {A66EC58E-EF8C-4C41-91DC-FAF60AC91217}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{037C3CCF-388A-4132-88F3-D2650ADFC790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

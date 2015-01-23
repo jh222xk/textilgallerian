@@ -27,7 +27,7 @@ namespace Domain.Tests.Repositories {
             couponRepository = new CouponRepository(session);
 
             // Some demo data to help testing
-            couponRepository.Store(new Coupon {
+            couponRepository.Store(new BuyProductXRecieveProductY {
                 CanBeCombined = true,
                 Code = "XMAS15",
                 CustomersUsedBy = new List<Customer>(),
@@ -42,11 +42,10 @@ namespace Domain.Tests.Repositories {
                     }
                 },
                 Start = DateTime.Now,
-                End = DateTime.Now,
-                Products = new List<Product>()
+                End = DateTime.Now
             });
 
-            couponRepository.Store(new Coupon {
+            couponRepository.Store(new BuyXProductsPayForYProducts {
                 CanBeCombined = true,
                 Code = "XMAS14",
                 CustomersUsedBy = new List<Customer>(),
@@ -60,11 +59,10 @@ namespace Domain.Tests.Repositories {
                     }
                 },
                 Start = DateTime.Now,
-                End = DateTime.Now,
-                Products = new List<Product>()
+                End = DateTime.Now
             });
 
-            couponRepository.Store(new Coupon {
+            couponRepository.Store(new TotalSumAmountDiscount {
                 CanBeCombined = true,
                 Code = "ihafi7Hsda",
                 CustomersUsedBy = new List<Customer>(),
@@ -78,8 +76,7 @@ namespace Domain.Tests.Repositories {
                     },
                 },
                 Start = DateTime.Now,
-                End = DateTime.Now,
-                Products = new List<Product>()
+                End = DateTime.Now
             });
 
             couponRepository.SaveChanges();
@@ -88,7 +85,7 @@ namespace Domain.Tests.Repositories {
         [TestMethod]
         public void TestGettingACouponByCode() {
             var coupon = couponRepository.FindByCode("XMAS15");
-            Assert.IsInstanceOfType(coupon, typeof (Coupon));
+            Assert.IsInstanceOfType(coupon, typeof(BuyProductXRecieveProductY));
             Assert.AreEqual("XMAS15", coupon.Code);
             Assert.AreEqual(2, coupon.CustomersValidFor.Count);
 

@@ -1,10 +1,11 @@
 using System.Linq;
 using System.Web.Mvc;
+using AdminView.App_Start;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Microsoft.Practices.Unity.Mvc;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(AdminView.App_Start.UnityWebActivator), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(AdminView.App_Start.UnityWebActivator), "Shutdown")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(UnityWebActivator), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
 
 namespace AdminView.App_Start
 {
