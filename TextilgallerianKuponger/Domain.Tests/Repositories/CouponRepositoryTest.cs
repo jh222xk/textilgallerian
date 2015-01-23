@@ -88,6 +88,10 @@ namespace Domain.Tests.Repositories {
             Assert.IsInstanceOfType(coupon, typeof(BuyProductXRecieveProductY));
             Assert.AreEqual("XMAS15", coupon.Code);
             Assert.AreEqual(2, coupon.CustomersValidFor.Count);
+
+            foreach (var customer in coupon.CustomersValidFor) {
+                Assert.IsInstanceOfType(customer, typeof(Customer));
+            }
         }
 
         [TestMethod]
