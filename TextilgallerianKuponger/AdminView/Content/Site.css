@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+.searchgridinput {
+    max-width: 10%;
+    margin-bottom: 20px;
+
+
+}
