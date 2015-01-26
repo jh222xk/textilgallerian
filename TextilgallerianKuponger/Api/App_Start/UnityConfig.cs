@@ -1,24 +1,34 @@
-using System.Web.Mvc;
-using Microsoft.Practices.Unity;
 using System.Web.Http;
+using Api.Controllers;
+using Domain.Entities;
+using Microsoft.Practices.Unity;
 using Raven.Client;
 using Raven.Client.Document;
 using Unity.WebApi;
-using UnityDependencyResolver = Microsoft.Practices.Unity.Mvc.UnityDependencyResolver;
 
 namespace Api
 {
     public static class UnityConfig {
-        private static readonly IDocumentStore Store = new DocumentStore { ConnectionStringName = "RavenDB" };
+        private static readonly IDocumentStore Store = new DocumentStore {
+            ConnectionStringName = "RavenDB",
+            Conventions = {
+                FindTypeTagName =
+                    type => typeof(Coupon).IsAssignableFrom(type) ? "coupons" : null
+            }
+        };
         private static UnityContainer _container;
 
         public static void RegisterComponents() {
             _container = new UnityContainer();
 
+            // Initialize the database store
+            Store.Initialize();
+
             // register all your components with the container here
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
+            _container.RegisterType<CartController>();
 
             // Creates a single DocumentStore during the applications liftime
             _container.RegisterInstance(Store);
@@ -27,7 +37,7 @@ namespace Api
                 new PerRequestLifetimeManager(),
                 new InjectionFactory(c => Store.OpenSession()));
 
-            DependencyResolver.SetResolver(new UnityDependencyResolver(_container));
+            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(_container);
         }
 
         public static UnityContainer GetConfiguredContainer() {
