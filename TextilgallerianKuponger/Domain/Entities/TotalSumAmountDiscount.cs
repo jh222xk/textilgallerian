@@ -12,5 +12,10 @@ namespace Domain.Entities
     public class TotalSumAmountDiscount : Coupon
     {
         public Decimal Amount { get; set; }
+
+        public override Cart IsValidFor(Cart cart)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

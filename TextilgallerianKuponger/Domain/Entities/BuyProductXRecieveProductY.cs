@@ -11,7 +11,14 @@ namespace Domain.Entities
     /// </summary>
     public class BuyProductXRecieveProductY : ProductCoupon
     {
-        // always one product
+        /// <summary>
+        /// A (always one) free product we can get
+        /// </summary>
         public Product FreeProduct { get; set; }
+
+        public override Cart IsValidFor(Cart cart)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

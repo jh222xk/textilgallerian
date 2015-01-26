@@ -17,5 +17,10 @@ namespace Domain.Entities
 
         // How many free products
         public int PayFor { get; set; }
+
+        public override Cart IsValidFor(Cart cart)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
