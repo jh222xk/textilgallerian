@@ -31,7 +31,7 @@ namespace Domain.Tests.Entities
         }
 
         /// <summary>
-        /// Test for checking if the calculation of the Amount
+        /// Test for checking if the calculation of the Amount is correct
         /// </summary>
         [TestMethod]
         public void TestCanGetAmount()
@@ -39,9 +39,11 @@ namespace Domain.Tests.Entities
             rowOne.NumberOfProducts.should_be(6);
             rowOne.Price.should_be(900);
 
+            // Check that the Product properties are what they should be
             rowOne.Product.ProductId.should_be("My-Faked-Product");
             rowOne.Product.Name.should_be("A faked product");
 
+            // Check the amount calculation
             rowOne.Amount.should_be(5400);
         }
     }
