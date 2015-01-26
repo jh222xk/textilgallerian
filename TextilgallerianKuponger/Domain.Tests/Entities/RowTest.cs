@@ -42,7 +42,7 @@ namespace Domain.Tests.Entities
             rowOne.Product.ProductId.should_be("My-Faked-Product");
             rowOne.Product.Name.should_be("A faked product");
 
-            rowOne.Amount.should_be(2400);
+            rowOne.Amount.should_be(5400);
         }
     }
 }
