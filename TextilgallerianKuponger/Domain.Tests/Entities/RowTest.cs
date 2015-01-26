@@ -1,14 +1,48 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Domain.Entities;
+using System.Collections.Generic;
+using NSpec;
 
 namespace Domain.Tests.Entities
 {
     [TestClass]
-    public class UnitTest1
+    public class RowTest
     {
-        [TestMethod]
-        public void TestMethod1()
+        private Row rowOne;
+        /// <summary>
+        /// Setup our test data
+        /// </summary>
+        [TestInitialize]
+        public void SetUp()
         {
+            Product productOne = new Product
+            {
+                ProductId = "My-Faked-Product",
+                Name = "A faked product"
+            };
+
+            rowOne = new Row
+            {
+                Price = 900,
+                NumberOfProducts = 6,
+                Product = productOne
+            };
+        }
+
+        /// <summary>
+        /// Test for checking if the calculation of the Amount
+        /// </summary>
+        [TestMethod]
+        public void TestCanGetAmount()
+        {
+            rowOne.NumberOfProducts.should_be(6);
+            rowOne.Price.should_be(900);
+
+            rowOne.Product.ProductId.should_be("My-Faked-Product");
+            rowOne.Product.Name.should_be("A faked product");
+
+            rowOne.Amount.should_be(2400);
         }
     }
 }
