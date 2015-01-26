@@ -49,15 +49,26 @@ namespace Domain.Tests.Entities
             };
         }
 
+        /// <summary>
+        /// Test for checking if the calculation of the TotalSum is correct
+        /// </summary>
         [TestMethod]
         public void TestCanGetTotalSum()
         {
+            // Check the TotalSum calculation
             cartOne.TotalSum.should_be(900);
+
+            // Check that we really got 2 Rows
+            cartOne.Rows.should_be(2);
         }
 
+        /// <summary>
+        /// Test for checking if the calculation of the NumberOfProducts is correct
+        /// </summary>
         [TestMethod]
         public void TestCanGetNumberOfProducts()
         {
+            // Check the NumberOfProducts calculation
             cartOne.NumberOfProducts.should_be(5);
         }
     }
