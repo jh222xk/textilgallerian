@@ -16,12 +16,14 @@ namespace AdminView {
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+            bundles.Add(new ScriptBundle("~/bundles/semantic").Include(
+                      "~/Scripts/semantic.min.js",
+                      "~/Scripts/semantic.site.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/semantic.min.css",
+                      "~/Content/semantic.site.css",
                       "~/Content/site.css"));
         }
     }
