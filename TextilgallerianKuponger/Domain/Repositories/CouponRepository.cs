@@ -46,12 +46,12 @@ namespace Domain.Repositories
                               coupon.CustomersValidFor.Any(customer => customer.Email == email));
         }
 
-        public IQueryable<BuyProductXRecieveProductY> FindByProduct(Product product)
+        public IQueryable<ProductCoupon> FindByProduct(Product product)
         {
-            return session.Query<BuyProductXRecieveProductY>()
+            return session.Query<ProductCoupon>()
                           .Where(
                               coupon =>
-                              coupon.RequiredProduct.Any(p => p.ProductId == product.ProductId));
+                              coupon.Products.Any(p => p.ProductId == product.ProductId));
         }
 
         public void SaveChanges()
