@@ -31,6 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "Domain.Test
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{037C3CCF-388A-4132-88F3-D2650ADFC790}"
+	ProjectSection(SolutionItems) = preProject
+		Domain.Tests\Repositories\CouponRepositoryTest.cs = Domain.Tests\Repositories\CouponRepositoryTest.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
