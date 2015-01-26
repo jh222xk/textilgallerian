@@ -18,6 +18,10 @@ namespace Domain.Repositories
             this.session = session;
         }
 
+        /// <summary>
+        /// Creates or updates the ccoupon
+        /// </summary>
+        /// <param name="coupon"></param>
         public void Store(Coupon coupon)
         {
             session.Store(coupon);
