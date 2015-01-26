@@ -20,8 +20,12 @@ namespace Domain.Entities
         /// <summary>
         /// When the coupon should start to be valid
         /// </summary>
+        public String Type
+        {
+            get { return GetType().Name; }
+        }
+
         public DateTime Start { get; set; }
-        // End is set to null if Unlimited time
         
         /// <summary>
         /// When the coupon should end

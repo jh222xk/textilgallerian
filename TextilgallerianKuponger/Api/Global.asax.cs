@@ -8,7 +8,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace Api {
-    public class WebApiApplication : System.Web.HttpApplication {
+    public class WebApiApplication : HttpApplication {
         protected void Application_Start() {
             AreaRegistration.RegisterAllAreas();
             UnityConfig.RegisterComponents();
