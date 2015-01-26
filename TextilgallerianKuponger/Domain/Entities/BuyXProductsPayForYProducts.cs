@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 namespace Domain.Entities
 {
     /// <summary>
-    /// Discount: Customer only pays for Y Products when buying X products from BuyProducts-list
+    /// Discount: Customer only pays for Y Products when buying X products from Products-list
     /// </summary>
-    public class BuyXProductsPayForYProducts : Coupon
+    public class BuyXProductsPayForYProducts : ProductCoupon
     {
-        // List amount of Products needed to buy. 
-        public List<Product> BuyProducts { get; set; }
 
-        // How many customer need to buy
+        // How many products customer need to buy
         public int Buy { get; set; }
 
-        // How many free
+        // How many free products
         public int PayFor { get; set; }
     }
 }

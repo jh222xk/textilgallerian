@@ -65,7 +65,7 @@ namespace Domain.Tests.Repositories
                     },
                     Start = DateTime.Now,
                     End = DateTime.Now,
-                    RequiredProduct = new List<Product> {new Product {ProductId = "Test"}}
+                    Products = new List<Product> {new Product {ProductId = "Test"}}
                 });
 
             couponRepository.Store(
@@ -187,7 +187,7 @@ namespace Domain.Tests.Repositories
             coupons[0].Code.should_be("XMAS15");
 
             // Check that our productId is correct
-            coupons[0].RequiredProduct[0].ProductId.should_be("Test");
+            coupons[0].Products[0].ProductId.should_be("Test");
         }
 
         /// <summary>
