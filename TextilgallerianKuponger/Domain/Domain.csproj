@@ -46,10 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CouponIndex.cs" />
     <Compile Include="Entities\BuyProductXRecieveProductY.cs" />
     <Compile Include="Entities\BuyXProductsPayForYProducts.cs" />
     <Compile Include="Entities\Coupon.cs" />
     <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Entities\ICoupon.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\Regular.cs" />
     <Compile Include="Entities\TotalSumPercentageDiscount.cs" />
