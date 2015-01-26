@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Entities {
+namespace Domain.Entities
+{
     /// <summary>
     /// Base class for discount coupons
     /// </summary>
-    public abstract class Coupon {
+    public abstract class Coupon
+    {
         public String Code { get; set; }
 
         public DateTime Start { get; set; }
