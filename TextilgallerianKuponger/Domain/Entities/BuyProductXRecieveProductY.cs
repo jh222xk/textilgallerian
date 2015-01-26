@@ -9,11 +9,8 @@ namespace Domain.Entities
     /// <summary>
     /// Discount: Customer gets product Y for free when buying product(s) X
     /// </summary>
-    public class BuyProductXRecieveProductY : Coupon
+    public class BuyProductXRecieveProductY : ProductCoupon
     {
-        // List, as we don't know if one, many or different products
-        public List<Product> RequiredProduct { get; set; }
-
         // always one product
         public Product FreeProduct { get; set; }
     }

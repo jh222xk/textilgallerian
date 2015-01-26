@@ -155,7 +155,7 @@ namespace Domain.Tests.Repositories
             var coupons = couponRepository.FindByProduct(new Product {ProductId = "Test"}).ToList();
             Assert.AreEqual(1, coupons.Count);
 
-            Assert.AreEqual("Test", coupons[0].RequiredProduct[0].ProductId);
+            Assert.AreEqual("Test", coupons[0].Products[0].ProductId);
             Assert.IsInstanceOfType(coupons[0], typeof (BuyProductXRecieveProductY));
             Assert.AreEqual("XMAS15", coupons[0].Code);
         }

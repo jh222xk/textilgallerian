@@ -21,6 +21,9 @@ namespace Domain.Entities
         public List<Customer> CustomersValidFor { get; set; }
         public List<Customer> CustomersUsedBy { get; set; }
 
+        //Max amount of times that a customer is allowed to use the coupon
+        public int UseLimit { get; set; }
+
         public bool CanBeCombined { get; set; }
     }
 }
