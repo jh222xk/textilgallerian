@@ -8,10 +8,9 @@ namespace Domain.Entities
 {
     /// <summary>
     ///  Class to handle % discount on total sum for regulars.
-    /// 
     /// </summary>
     class Regular : Customer
     {
-        public Decimal Percentage { get; set; }
+        public decimal Percentage { get; set; }
     }
 }

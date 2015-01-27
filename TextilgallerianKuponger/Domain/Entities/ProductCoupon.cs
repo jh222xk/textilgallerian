@@ -11,7 +11,9 @@ namespace Domain.Entities
     /// </summary>
     public abstract class ProductCoupon : Coupon
     {
-        //Products valid for this discount
+        /// <summary>
+        /// Products valid for this discount
+        /// </summary>
         public List<Product> Products { get; set; }
     }
 }

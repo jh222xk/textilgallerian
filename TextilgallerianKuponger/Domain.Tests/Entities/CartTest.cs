@@ -9,43 +9,39 @@ namespace Domain.Tests.Entities
     [TestClass]
     public class CartTest
     {
-        private Cart cartOne;
+        private Cart cart;
+
         /// <summary>
         /// Setup our test data
         /// </summary>
         [TestInitialize]
         public void SetUp()
         {
-            Product productOne = new Product
+            cart = new Cart
             {
-                ProductId = "My-Test-Product",
-                Name = "A wonderful product"
-            };
-
-            Product productTwo = new Product
-            {
-                ProductId = "My-Test-Product-2",
-                Name = "A not so wonderful product"
-            };
-
-            var rowList = new List<Row> {
-                new Row
+                Rows = new List<Row>
                 {
-                    Price = 100,
-                    NumberOfProducts = 4,
-                    Product = productOne
-                },
-                new Row
-                {
-                    Price = 500,
-                    NumberOfProducts = 1,
-                    Product = productTwo
+                    new Row
+                    {
+                        ProductPrice = 100,
+                        NumberOfProducts = 4,
+                        Product = new Product
+                        {
+                            ProductId = "My-Test-Product",
+                            Name = "A wonderful product"
+                        }
+                    },
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        NumberOfProducts = 1,
+                        Product = new Product
+                        {
+                            ProductId = "My-Test-Product-2",
+                            Name = "A not so wonderful product"
+                        }
+                    }
                 }
-            };
-
-
-            cartOne = new Cart {
-                Rows = rowList
             };
         }
 
@@ -56,10 +52,10 @@ namespace Domain.Tests.Entities
         public void TestCanGetTotalSum()
         {
             // Check the TotalSum calculation
-            cartOne.TotalSum.should_be(900);
+            cart.TotalSum.should_be(900);
 
             // Check that we really got 2 Rows
-            cartOne.Rows.Count.should_be(2);
+            cart.Rows.Count.should_be(2);
         }
 
         /// <summary>
@@ -69,7 +65,7 @@ namespace Domain.Tests.Entities
         public void TestCanGetNumberOfProducts()
         {
             // Check the NumberOfProducts calculation
-            cartOne.NumberOfProducts.should_be(5);
+            cart.NumberOfProducts.should_be(5);
         }
     }
 }

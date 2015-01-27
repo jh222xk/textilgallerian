@@ -9,6 +9,9 @@ using Raven.Client;
 
 namespace Domain.Repositories
 {
+    /// <summary>
+    /// Repository for storing or reading coupons to and from RavenDB
+    /// </summary>
     public class CouponRepository
     {
         private readonly IDocumentSession session;
@@ -19,20 +22,17 @@ namespace Domain.Repositories
         }
 
         /// <summary>
-        /// Creates or updates the ccoupon
+        /// Finds a coupon by the coupon code
         /// </summary>
-        /// <param name="coupon"></param>
-        public void Store(Coupon coupon)
-        {
-            session.Store(coupon);
-        }
-
         public Coupon FindByCode(String code)
         {
             return session.Query<Coupon>()
                           .FirstOrDefault(coupon => coupon.Code == code);
         }
 
+        /// <summary>
+        /// Finds all coupons that is valid for a customer with the specified social security number
+        /// </summary>
         public IQueryable<Coupon> FindBySocialSecurityNumber(String ssn)
         {
             return session.Query<Coupon>()
@@ -42,6 +42,9 @@ namespace Domain.Repositories
                                   customer => customer.SocialSecurityNumber == ssn));
         }
 
+        /// <summary>
+        /// Finds all coupons that is valid for a customer with the specified email
+        /// </summary>
         public IQueryable<Coupon> FindByEmail(String email)
         {
             return session.Query<Coupon>()
@@ -50,6 +53,9 @@ namespace Domain.Repositories
                               coupon.CustomersValidFor.Any(customer => customer.Email == email));
         }
 
+        /// <summary>
+        /// Finds all coupons that is valid for the specified product
+        /// </summary>
         public IQueryable<ProductCoupon> FindByProduct(Product product)
         {
             return session.Query<ProductCoupon>()
@@ -58,6 +64,17 @@ namespace Domain.Repositories
                               coupon.Products.Any(p => p.ProductId == product.ProductId));
         }
 
+        /// <summary>
+        /// Creates or updates the coupon
+        /// </summary>
+        public void Store(Coupon coupon)
+        {
+            session.Store(coupon);
+        }
+
+        /// <summary>
+        /// Save changes specified with the Store method
+        /// </summary>
         public void SaveChanges()
         {
             session.SaveChanges();

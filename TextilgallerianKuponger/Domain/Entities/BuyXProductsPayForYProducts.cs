@@ -22,7 +22,10 @@ namespace Domain.Entities
         /// </summary>
         public int PayFor { get; set; }
 
-        public override Cart IsValidFor(Cart cart)
+        /// <summary>
+        /// Check if specified Cart is valid for this Coupon
+        /// </summary>
+        public override bool IsValidFor(Cart cart)
         {
             throw new NotImplementedException();
         }
