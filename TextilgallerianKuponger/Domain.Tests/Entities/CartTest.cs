@@ -59,7 +59,7 @@ namespace Domain.Tests.Entities
             cartOne.TotalSum.should_be(900);
 
             // Check that we really got 2 Rows
-            cartOne.Rows.should_be(2);
+            cartOne.Rows.Count.should_be(2);
         }
 
         /// <summary>
