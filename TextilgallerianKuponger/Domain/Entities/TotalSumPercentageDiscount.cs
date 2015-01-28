@@ -13,7 +13,10 @@ namespace Domain.Entities
     {
         public Decimal Percentage { get; set; }
 
-        public override Cart IsValidFor(Cart cart)
+        /// <summary>
+        /// Check if specified Cart is valid for this Coupon
+        /// </summary>
+        public override bool IsValidFor(Cart cart)
         {
             throw new NotImplementedException();
         }

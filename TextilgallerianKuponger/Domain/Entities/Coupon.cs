@@ -56,11 +56,8 @@ namespace Domain.Entities
         public bool CanBeCombined { get; set; }
 
         /// <summary>
-        /// Abstract method for determine if the Cart
-        /// sent in is valid for this Coupon
+        /// Check if specified Cart is valid for this Coupon
         /// </summary>
-        /// <param name="cart"></param>
-        /// <returns>Boolean</returns>
-        public abstract Cart IsValidFor(Cart cart);
+        public abstract bool IsValidFor(Cart cart);
     }
 }

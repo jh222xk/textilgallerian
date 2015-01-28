@@ -18,13 +18,14 @@ namespace Domain.Entities
         public List<Row> Rows { get; set; }
 
         /// <summary>
-        /// Calculates the sum for the whole cart from the cartrows
+        /// Total sum for the entire cart with every product
         /// </summary>
         public decimal TotalSum
         { 
             get
             {
-                return Rows.Sum(row => row.Amount);
+                // TODO Inlude shipping cost?
+                return Rows.Sum(row => row.TotalPrice);
             }
         }
 
