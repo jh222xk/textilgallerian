@@ -21,7 +21,7 @@ namespace Domain.Entities
         /// </summary>
         public override bool IsValidFor(Cart cart)
         {
-            throw new NotImplementedException();
+            return base.IsValidFor(cart);
         }
     }
 }
