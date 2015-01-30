@@ -92,9 +92,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebActivatorEx">
-      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
@@ -178,10 +175,7 @@
       <Name>AdminView</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Start\" />
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
