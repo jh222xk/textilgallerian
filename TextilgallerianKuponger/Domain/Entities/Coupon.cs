@@ -37,17 +37,21 @@ namespace Domain.Entities
         /// Which customers is this coupon valid for
         /// If coupon is for all customers it should be set to null
         /// </summary>
+
+        // TODO: Q: Should this list be emptied?!
         public List<Customer> CustomersValidFor { get; set; }
         
         /// <summary>
         /// Which users have used this coupon
         /// </summary>
+
+        // TODO: Q: Should CustomersValidFor be inserted here when used?!
         public List<Customer> CustomersUsedBy { get; set; }
 
         /// <summary>
         /// Max amount of times that a customer is allowed to use the coupon
         /// </summary>
-        public int UseLimit { get; set; }
+        public int? UseLimit { get; set; }
 
         /// <summary>
         /// Boolean deciding if the coupon can be combined
@@ -58,6 +62,26 @@ namespace Domain.Entities
         /// <summary>
         /// Check if specified Cart is valid for this Coupon
         /// </summary>
-        public abstract bool IsValidFor(Cart cart);
+
+        // TODO: Needs refactoring and tests
+        public virtual bool IsValidFor(Cart cart)
+        {
+            // VERY MUCH NOT DRY
+            if (CustomersValidFor.Any())
+            {
+                // Get customer by SSN
+                var customer = CustomersValidFor.Find(cust => cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber);
+                return customer != null ? customer.CouponUses < UseLimit && End >= DateTime.Now : false;
+            }
+
+            if (CustomersUsedBy.Any())
+            {
+                // Get customer by SSN
+                var customer = CustomersUsedBy.Find(cust => cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber);
+                return customer != null ? customer.CouponUses < UseLimit && End >= DateTime.Now : End >= DateTime.Now;
+            }
+
+            return End >= DateTime.Now;
+        }
     }
 }

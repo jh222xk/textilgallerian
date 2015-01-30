@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="DebuggerShim.cs" />
     <Compile Include="Entities\CartTest.cs" />
+    <Compile Include="Entities\CouponTest.cs" />
     <Compile Include="Repositories\CouponRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

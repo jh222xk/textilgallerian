@@ -34,7 +34,7 @@ namespace Domain.Entities
         { 
             get
             {
-                // TODO Inlude shipping cost?
+                // TODO: Include shipping cost?
                 return Rows.Sum(row => row.TotalPrice);
             }
         }
