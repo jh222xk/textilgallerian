@@ -12,6 +12,16 @@ namespace Domain.Entities
     public class Cart
     {
         /// <summary>
+        /// Code entered by the customer
+        /// </summary>
+        public String CouponCode { get; set; }
+
+        /// <summary>
+        /// The customer checking out this cart
+        /// </summary>
+        public Customer Customer { get; set; }
+
+        /// <summary>
         /// A list with CartRows, which contains cart-items such as
         /// Price, Product, Amount and so on
         /// </summary>
