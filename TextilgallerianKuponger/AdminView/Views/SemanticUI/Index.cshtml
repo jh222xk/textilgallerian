@@ -2,9 +2,8 @@
 @{
     Layout = "~/Views/Shared/_Layout_Semantic.cshtml";
 }
-
-<div class="ui menu">
-    <div class="item">
+<div class="ui secondary pointing menu page grid" id="main-menu">
+    <a class="item">
         <div class="ui fluid category search" id="top-search">
             <div class="ui icon input">
                 <input class="prompt" placeholder="Sök/Skapa Rabattkod..." type="text">
@@ -12,18 +11,51 @@
             </div>
             <div class="results"></div>
         </div>
+    </a>
+    <div class="item">
+        <div class="ui search selection dropdown ten wide column">
+            <input type="hidden" name="discount-type">
+            <i class="dropdown icon"></i>
+            <div class="default text">Rabatt typ </div>
+            <div class="menu">
+                <div class="item" id="percent-discount">Procent</div>
+                <div class="item" id="sum-discount">Summa</div>
+                <div class="item" id="XpayY-discount">Tag X Betala Y</div>
+                <div class="item" id="XgetY-discount">Tag X Få Y</div>
+            </div>
+        </div>
+      
+    </div>
+    <div class="item ui toggle checkbox" id="combining">
+        <a class="ui toggle checkbox" id="combining">
+            <input type="checkbox" name="public">
+            <label>Går att kombineras</label>
+        </a>
     </div>
     <div class="item">
-        <div class="ui basic buttons">
-            <div class="ui button">Procent</div>
-            <div class="ui button">Summa</div>
+        <div class="ui positive left icon input">
+             <div class="ui left icon input">
+                <input type="date" placeholder="Från..">
+                <i class="calendar green icon"></i>
+            </div>
+            <div class="ui left icon input">
+                <input type="date" placeholder="Till..">
+                <i class="calendar outline icon"></i>
+            </div>
         </div>
     </div>
     <div class="item">
-        <div class="ui action input">
-            <input type="text" placeholder="Search...">
-            <div class="ui icon button">SUM/%</div>
+        <div class="ui mini horizontal statistic">
+            <div class="label">
+                Förbrukningar: 
+            </div>
+            <div class="value">
+                <input type="number" min="1" placeholder="X"/>
+            </div>
         </div>
+    </div>
+    <div class="item" id="discount-choice">
+       
     </div>
 </div>
 <div class="ui page grid overview segment">
@@ -35,10 +67,11 @@
                     <i class="users icon"></i>
                     Kunder
                 </div>
+
                 <div class="ui fluid category search" id="user-search">
                     <div class="ui icon input">
-                        <input class="prompt" type="text" placeholder="Sök Kunder..">
-                        <i class="users icon"></i>
+                        <input class="prompt" type="text" id="userinput" placeholder="Sök Kunder..">
+                        <i class="search icon" id="customer"></i>
                     </div>
                     <div class="results"></div>
                 </div>
@@ -55,44 +88,12 @@
                     <i class="barcode icon"></i>
                    Kategorier/Märken
                 </div>
-                <div class="ui floating labeled icon dropdown button">
-                    <i class="dropdown icon"></i>
-                    <span class="text">Kategorier</span>
-                    <div class="right menu">
-                        <div class="item">
-                            Alla
-                        </div>
-                        <div class="item">
-                            <i class="dropdown icon"></i>
-                            <span class="text">Tröjor</span>
-                            <div class="menu">
-                                <div class="item">
-                                  Alla
-                                </div>
-                                <div class="item">
-                                    <i class="dropdown icon"></i>
-                                    <span class="item">T-shirts</span>
-                                    <div class="menu">
-                                        <div class="item">J-lindeberg</div>
-                                        <div class="item">Cheap Monday</div>
-                                        <div class="item">Bulabasaurs shirt makery</div>
-                                    </div>
-                                </div>
-                                <div class="item">Luvtröjor</div>
-                                <div class="item">Linnen</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <i class="dropdown icon"></i>
-                            <span class="text">Byxor</span>
-                            <div class="menu">
-                                <div class="item">Tighta</div>
-                                <div class="item">Utsvängda</div>
-                                <div class="item">PizzaPantzz</div>
-                            </div>
-                        </div>
+                <div class="ui fluid category search" id="user-search">
+                    <div class="ui icon input">
+                        <input class="prompt" type="text" id="userinput" placeholder="Sök  Kategorier/Märken.">
+                        <i class="search icon" id="customer"></i>
                     </div>
-
+                    <div class="results"></div>
                 </div>
                 <div class="ui hidden divider"></div>
                 <div class="field">
@@ -106,8 +107,8 @@
                 </div>
                 <div class="ui fluid category search">
                     <div class="ui icon input">
-                        <input class="prompt" type="text" placeholder="Sök på märken..">
-                        <i class="tags icon"></i>
+                        <input class="prompt positive" type="text" placeholder="Sök på produkter..">
+                        <i class="tags  icon"></i>
                     </div>
                     <div class="result"></div>
                     <div class="ui hidden divider"></div>
@@ -117,40 +118,76 @@
                 </div>
             </div>
         </div>
+        <div class="ui hidden divider"></div>
+        <div class="ui top attached button">Spara</div>
+        <div class="ui attached segment"></div>
+        <div class="ui bottom attached button">Radera</div>
     </div>
 </div>
 
-
-
-
-
-
+<script src="~/Content/Highlighter/jquery-ui.js"></script>
+<script src="~/Content/Highlighter/jquery.highlighttextarea.js"></script>
 <script src="//code.jquery.com/jquery-2.1.3.js"></script>
 @Scripts.Render("~/bundles/semantic")
 
-<script>
-    var usercontent = [];
-    $("#readUsers").click(function () {
-        usercontent = [];
-        console.log(usercontent);
-        var users = jQuery("textarea#users").val();
-        users = users.split('\n');
-        usercontent = usercontent.concat(users);
-        console.log(usercontent);
-        for (var i = 0; i < usercontent.length; i++) {
-            usercontent[i] = { title: usercontent[i] };
 
-        }
-        hej();
-        console.log(usercontent);
+
+<script>
+
+    $("#percent-discount").click(function () {
+        $("#discount-choice").empty();
+        $("#discount-choice").append('<div class="ui input "><input type="text" id="discount-type-item"  placeholder="Mängd"><div class="ui tag label"><div class="ui buttons"><div class="ui positive button">%</div></div></div></div>');
+    });
+    $("#sum-discount").click(function () {
+        $("#discount-choice").empty();
+        $("#discount-choice").append('<div class="ui input "><input type="text" id="discount-rate"  placeholder="Mängd"><div class="ui tag label"><div class="ui buttons"><div class="ui positive button">KR</div></div></div></div>');
+    });
+    $("#XpayY-discount").click(function () {
+        $("#discount-choice").empty();
+        $("#discount-choice").append('<div class="ui left icon input"><input type="text" placeholder="3"><i class="">Köp</i></div><div class="ui left icon input"><input type="text" placeholder="2"><i class="">Betala</i></div>');
+    })
+    $("#XgetY-discount").click(function () {
+        $("#discount-choice").empty();
+        $("#discount-choice").append('<div class="ui left icon input"><input type="text" placeholder="3"><i class="">Tag</i></div><div class="ui left icon input"><input type="text" placeholder="1"><i class="">Få</i></div>');
     });
 
+    
+    
 
 </script>
 <script>
-    function hej() {
-        $('#user-search').search({
+    //skapar array för input
+    var usercontent = [];
+    $("#readUsers").click(function () {
+        //nollställer array varje gång man laddar in nya
+        usercontent = [];
+        //hämtar ut textarea elementet
+        var users = jQuery("textarea#users").val();
+        //splittar den på radbryt
+        users = users.split('\n');
+        usercontent = usercontent.concat(users);
+        //loopar igenom input och gör det till ett format som sökfunktionen kan läsa
+        for (var i = 0; i < usercontent.length; i++) {
+            usercontent[i] = { title: usercontent[i] };
+        }
+        //uppdaterar sökfuntionen
+        userSearch();
+    });
+    $('#customer').on('click', function (e) {
 
+        var value = $('#userinput').val();
+        value = value.toString();
+        $('textarea#users').highlightTextarea({
+            words: [value]
+        });
+
+        console.log(value);
+    });
+
+</script>
+<script>
+    function userSearch() {
+        $('#user-search').search({
             source: usercontent,
             searchFullText: false,
             cache: false
@@ -160,16 +197,27 @@
 
 <script>
     var usercontent = [
-      {
-          title: 'Horse',
-          description: 'An Animal',
-      },
-      {
-          title: 'Cow',
-          description: 'Another Animal',
-      }
-    ]
-    ;
+        {
+            title: 'XMAS15',
+            description: 'Mellandagsrea 50% hela sortimentet',
+        },
+        {
+            title: 'XMAS14',
+            description: 'Mellandagsrea 40% hela sortimentet',
+        },
+         {
+             title: 'SUM11',
+             description: 'Utförsälning av förra årets soffor/ 30%',
+         },
+          {
+              title: 'NEW-CUSTOMER-JULY',
+              description: 'Nya kunder får 5% på hela köpet',
+          },
+            {
+                title: 'CRAZYVIP-NOV',
+                description: '20% till alla VIP-kunder',
+            }];
+
     $('#top-search').search({
 
         source: usercontent,
@@ -188,4 +236,8 @@
         searchFullText: false,
     });
 
+</script>
+<script>
+    $('#combining')
+  .checkbox('is checked', console.log('true'));
 </script>

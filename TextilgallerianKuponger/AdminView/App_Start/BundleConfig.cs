@@ -22,6 +22,8 @@ namespace AdminView {
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                     "~/Content/jquery-ui.min.css",
+                     "~/Content/jquery.highlighttextarea.min.css",
                       "~/Content/semantic.min.css",
                       "~/Content/semantic.site.css",
                       "~/Content/site.css"));
