@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NSpec;
 using Raven.Client;
 using Raven.Client.Embedded;
-using NSpec;
 
 namespace Domain.Tests.Repositories
 {
@@ -17,7 +16,7 @@ namespace Domain.Tests.Repositories
         private IDocumentSession session;
 
         /// <summary>
-        /// Setup our configuration and conventions for all of our tests
+        ///     Setup our configuration and conventions for all of our tests
         /// </summary>
         [TestInitialize]
         public void SetUp()
@@ -46,9 +45,7 @@ namespace Domain.Tests.Repositories
             couponRepository.Store(
                 new BuyProductXRecieveProductY
                 {
-                    CanBeCombined = true,
                     Code = "XMAS15",
-                    CustomersUsedBy = new List<Customer>(),
                     CustomersValidFor = new List<Customer>
                     {
                         new Customer
@@ -62,8 +59,6 @@ namespace Domain.Tests.Repositories
                             SocialSecurityNumber = "900131-2371",
                         }
                     },
-                    Start = DateTime.Now,
-                    End = DateTime.Now,
                     UseLimit = 1,
                     Products = new List<Product> {new Product {ProductId = "Test"}}
                 });
@@ -71,9 +66,7 @@ namespace Domain.Tests.Repositories
             couponRepository.Store(
                 new BuyXProductsPayForYProducts
                 {
-                    CanBeCombined = true,
                     Code = "XMAS14",
-                    CustomersUsedBy = new List<Customer>(),
                     CustomersValidFor = new List<Customer>
                     {
                         new Customer
@@ -86,15 +79,12 @@ namespace Domain.Tests.Repositories
                             SocialSecurityNumber = "700131-2371",
                         }
                     },
-                    Start = DateTime.Now,
-                    End = DateTime.Now,
                     UseLimit = 5
                 });
 
             couponRepository.Store(
                 new TotalSumAmountDiscount
                 {
-                    CanBeCombined = true,
                     Code = "ihafi7Hsda",
                     CustomersUsedBy = new List<Customer>(),
                     CustomersValidFor = new List<Customer>
@@ -108,10 +98,7 @@ namespace Domain.Tests.Repositories
                         {
                             SocialSecurityNumber = "700131-2371",
                         },
-                    },
-                    Start = DateTime.Now,
-                    End = DateTime.Now,
-                    UseLimit = 5
+                    }
                 });
 
             couponRepository.SaveChanges();
@@ -124,7 +111,7 @@ namespace Domain.Tests.Repositories
         }
 
         /// <summary>
-        /// Test expected to find 2 results.
+        ///     Test expected to find 2 results.
         /// </summary>
         [TestMethod]
         public void TestGettingACouponByCode()
@@ -135,18 +122,20 @@ namespace Domain.Tests.Repositories
             coupon.CustomersValidFor.Count.should_be(2);
 
             // Check the type of the object
-            coupon.should_cast_to <BuyProductXRecieveProductY>();
+            coupon.should_cast_to<BuyProductXRecieveProductY>();
 
             // Check that our code is correct
             coupon.Code.should_be("XMAS15");
 
+            // Make sure that our customers are actual customers
             foreach (var customer in coupon.CustomersValidFor)
             {
                 customer.should_cast_to<Customer>();
             }
         }
+
         /// <summary>
-        /// By asking for code that does not exist i expect null result.
+        ///     By asking for code that does not exist i expect null result.
         /// </summary>
         [TestMethod]
         public void TestNotGettingACouponByCode()
@@ -156,12 +145,11 @@ namespace Domain.Tests.Repositories
 
             // Our repository rules expect null
             coupon.should_be_null();
-           
         }
 
 
         /// <summary>
-        /// Test for getting coupons by a single email
+        ///     Test for getting coupons by a single email
         /// </summary>
         [TestMethod]
         public void TestGettingCouponsByEmail()
@@ -173,7 +161,8 @@ namespace Domain.Tests.Repositories
 
             foreach (var coupon in coupons)
             {
-                coupon.CustomersValidFor.Any(customer => customer.Email == "some@email.com").should_be_true();   
+                coupon.CustomersValidFor.Any(customer => customer.Email == "some@email.com")
+                      .should_be_true();
             }
 
             // Check the type of the objects
@@ -186,7 +175,7 @@ namespace Domain.Tests.Repositories
         }
 
         /// <summary>
-        /// Test to check index is 0 if no emails match.
+        ///     Test to check index is 0 if no emails match.
         /// </summary>
         [TestMethod]
         public void TestNotGettingCouponsByEmail()
@@ -198,12 +187,13 @@ namespace Domain.Tests.Repositories
         }
 
         /// <summary>
-        /// Test for getting coupons by a product, polymorphic relation
+        ///     Test for getting coupons by a product, polymorphic relation
         /// </summary>
         [TestMethod]
         public void TestGettingCouponsByProduct()
         {
-            var coupons = couponRepository.FindByProduct(new Product {ProductId = "Test"}).ToList();
+            var coupons =
+                couponRepository.FindByProduct(new Product {ProductId = "Test"}).ToList();
 
             // We got only one coupon so check if it's count is equal to 1
             coupons.Count.should_be(1);
@@ -217,32 +207,36 @@ namespace Domain.Tests.Repositories
             // Check that our productId is correct
             coupons[0].Products[0].ProductId.should_be("Test");
         }
+
         /// <summary>
-        /// Method to check we get index of 0 if no procuts match search.
+        ///     Method to check we get index of 0 if no procuts match search.
         /// </summary>
         [TestMethod]
         public void TestNotGettingCouponsByProduct()
         {
-            var coupons = couponRepository.FindByProduct(new Product { ProductId = "noExist" }).ToList();
+            var coupons =
+                couponRepository.FindByProduct(new Product {ProductId = "noExist"}).ToList();
 
             // We got no coupon so index should be 0.
-            coupons.Count.should_be(0);       
+            coupons.Count.should_be(0);
         }
 
         /// <summary>
-        /// Test for finding coupons by a social security number
+        ///     Test for finding coupons by a social security number
         /// </summary>
         [TestMethod]
         public void TestFindCouponsBySocialSecurityNumber()
         {
-            var coupons = couponRepository.FindBySocialSecurityNumber("700131-2371").ToList();
+            var coupons =
+                couponRepository.FindBySocialSecurityNumber("700131-2371").ToList();
 
             // We got more than one coupon so check if it's count is equal to 2
             coupons.Count.should_be(2);
 
             foreach (var coupon in coupons)
             {
-                coupon.CustomersValidFor.Any(customer => customer.SocialSecurityNumber == "700131-2371").should_be_true(); 
+                coupon.CustomersValidFor.Any(
+                    customer => customer.SocialSecurityNumber == "700131-2371").should_be_true();
             }
 
             // Check the type of the objects
@@ -253,20 +247,22 @@ namespace Domain.Tests.Repositories
             coupons[0].Code.should_be("XMAS14");
             coupons[1].Code.should_be("ihafi7Hsda");
         }
+
         /// <summary>
-        /// Test to asure we get emty list when Query by socialSecurityNumber
+        ///     Test to asure we get emty list when Query by socialSecurityNumber
         /// </summary>
         [TestMethod]
         public void TestNotFindCouponsBySocialSecurityNumber()
         {
-            var coupons = couponRepository.FindBySocialSecurityNumber("820709-2371").ToList();
+            var coupons =
+                couponRepository.FindBySocialSecurityNumber("820709-2371").ToList();
 
             // We expect to find no matches from database.
             coupons.Count.should_be(0);
         }
 
         /// <summary>
-        /// Test the store method by updating a Coupon
+        ///     Test the store method by updating a Coupon
         /// </summary>
         [TestMethod]
         public void TestUpdateCoupon()
@@ -284,39 +280,31 @@ namespace Domain.Tests.Repositories
             // save update
             couponRepository.Store(coupons[1]);
 
-            var UpdatedCoupons = couponRepository.FindByEmail("some@email.com").ToList();
+            var updatedCoupons = couponRepository.FindByEmail("some@email.com").ToList();
 
             // Expect coupon[0].useLimit to have same value, but coupon[1].useLimit to have changed value.
-            UpdatedCoupons[0].UseLimit.should_be(1);
-            UpdatedCoupons[1].UseLimit.should_be(3);
+            updatedCoupons[0].UseLimit.should_be(1);
+            updatedCoupons[1].UseLimit.should_be(3);
         }
 
         /// <summary>
-        /// Test the store method by creating a new Coupon
+        ///     Test the store method by creating a new Coupon
         /// </summary>
         [TestMethod]
         public void TestCreateCoupon()
         {
             var coupon = new TotalSumAmountDiscount
-                    {
-                        Code = "NewCode",
-                        Start = DateTime.Now,
-                        End = DateTime.Now.AddDays(1),
-                        CustomersUsedBy = new List<Customer>(),
-                        CustomersValidFor = new List<Customer>(),
-                        UseLimit = 3,
-                        CanBeCombined = false
-                    };
+            {
+                Code = "NewCode",
+            };
 
-            //Store and save coupon.
-            couponRepository.Store (coupon);
+            // Store and save coupon.
+            couponRepository.Store(coupon);
             couponRepository.SaveChanges();
 
-            //We should be able to retrieve the coupon from the repo now.
+            // We should be able to retrieve the coupon from the repo now.
             var findcoupon = couponRepository.FindByCode("NewCode");
             findcoupon.should_not_be_null();
-
-
         }
     }
 }

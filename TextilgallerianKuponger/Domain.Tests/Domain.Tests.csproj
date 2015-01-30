@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Faker.NET4">
+      <HintPath>..\packages\Faker.Net.1.0.3\lib\net40\Faker.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="NSpec">
       <HintPath>..\packages\nspec.0.9.68\lib\NSpec.dll</HintPath>
     </Reference>
@@ -71,6 +74,9 @@
     <Compile Include="DebuggerShim.cs" />
     <Compile Include="Entities\CartTest.cs" />
     <Compile Include="Entities\CouponTest.cs" />
+    <Compile Include="Helpers\Testdata.cs" />
+    <Compile Include="Helpers\InvalidCoupon.cs" />
+    <Compile Include="Helpers\ValidCoupon.cs" />
     <Compile Include="Repositories\CouponRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
