@@ -11,16 +11,11 @@ namespace Domain.Tests.Entities
     {
         private Cart cart;
         private Coupon coupon;
-        private Coupon coupon2;
-        private Coupon coupon3;
-        private Coupon coupon4;
-        private Coupon coupon5;
 
         /// <summary>
         /// Setup our test data
         /// </summary>
 
-        // TODO: Needs refactoring
         [TestInitialize]
         public void SetUp()
         {
@@ -31,103 +26,6 @@ namespace Domain.Tests.Entities
                 Code = "XMAS15",
                 CustomersUsedBy = new List<Customer>(),
                 CustomersValidFor = new List<Customer>(),
-                Start = DateTime.Now,
-                End = DateTime.Now.AddDays(10),
-                UseLimit = 5,
-                Buy = 3,
-                PayFor = 2
-            };
-
-            coupon2 = new BuyXProductsPayForYProducts
-            {
-                CanBeCombined = false,
-                Code = "XMAS15",
-                CustomersUsedBy = new List<Customer>(),
-                CustomersValidFor = new List<Customer>
-                {
-                    new Customer
-                    {
-                        Email = "user@student.lnu.se",
-                        SocialSecurityNumber = "701201-3312",
-                    },
-                    new Customer
-                    {
-                        Email = "some@email.com",
-                        SocialSecurityNumber = "900131-2371",
-                    }
-                },
-                Start = DateTime.Now,
-                End = DateTime.Now.AddDays(10),
-                UseLimit = 5,
-                Buy = 3,
-                PayFor = 2
-            };
-
-            coupon3 = new BuyXProductsPayForYProducts
-            {
-                CanBeCombined = false,
-                Code = "XMAS15",
-                CustomersUsedBy = new List<Customer>
-                {
-                    new Customer
-                    {
-                        Email = "user@student.lnu.se",
-                        SocialSecurityNumber = "701201-3312",
-                    },
-                    new Customer
-                    {
-                        Email = "some@email.com",
-                        SocialSecurityNumber = "900131-2371",
-                    }
-                },
-                CustomersValidFor = new List<Customer>(),
-                Start = DateTime.Now,
-                End = DateTime.Now.AddDays(10),
-                UseLimit = 5,
-                Buy = 3,
-                PayFor = 2
-            };
-
-            coupon4 = new BuyXProductsPayForYProducts
-            {
-                CanBeCombined = false,
-                Code = "XMAS15",
-                CustomersUsedBy = new List<Customer>
-                {
-                    new Customer
-                    {
-                        CouponUses = 5,
-                        Email = "user@student.lnu.se",
-                        SocialSecurityNumber = "701201-3312"
-                    }
-                },
-                CustomersValidFor = new List<Customer>(),
-                Start = DateTime.Now,
-                End = DateTime.Now.AddDays(10),
-                UseLimit = 5,
-                Buy = 3,
-                PayFor = 2
-            };
-
-            coupon5 = new BuyXProductsPayForYProducts
-            {
-                CanBeCombined = false,
-                Code = "XMAS15",
-                CustomersUsedBy = new List<Customer>(),
-                CustomersValidFor = new List<Customer>
-                {
-                    new Customer
-                    {
-                        CouponUses = 5,
-                        Email = "user@student.lnu.se",
-                        SocialSecurityNumber = "701201-3312",
-                    },
-                    new Customer
-                    {
-                        Email = "some@email.com",
-                        SocialSecurityNumber = "900131-2371",
-                    }
-                },
                 Start = DateTime.Now,
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
@@ -170,59 +68,166 @@ namespace Domain.Tests.Entities
         }
 
         /// <summary>
-        /// 
+        /// Testing that customer is valid if coupon is for everyone and has never been used.
         /// </summary>
 
-        // TODO: Need better names and comments
         [TestMethod]
-        public void TestCanCheckIsValidFor()
+        public void TestCouponValidIfForEveryoneAndNeverUsed()
         {
             coupon.IsValidFor(cart).should_be_true();
         }
 
 
         /// <summary>
-        /// 
+        /// Testing that customer is valid if in the CustomersValidFor-list.
         /// </summary>
 
-        // TODO: Need better names and comments
         [TestMethod]
-        public void TestCanCheckIfCouponIsValidForCustomerList()
+        public void TestCouponIsValidIfCustomerIsInValidCustomerList()
         {
-            coupon2.IsValidFor(cart).should_be_true();
+            coupon.CustomersValidFor = new List<Customer>
+                {
+                    new Customer
+                    {
+                        Email = "user@student.lnu.se",
+                        SocialSecurityNumber = "701201-3312",
+                    },
+                    new Customer
+                    {
+                        Email = "some@email.com",
+                        SocialSecurityNumber = "900131-2371",
+                    }
+                };
+
+
+            coupon.IsValidFor(cart).should_be_true();
+        }
+
+
+        /// <summary>
+        /// Testing that customer is valid if coupon has already been used but not exceeded uselimit
+        /// </summary>
+
+        [TestMethod]
+        public void TestCouponValidIfUseLimitNotReached()
+        {
+            coupon.CustomersUsedBy = new List<Customer>
+                {
+                    new Customer
+                    {
+                        CouponUses = 1,
+                        Email = "user@student.lnu.se",
+                        SocialSecurityNumber = "701201-3312",
+                    },
+                    new Customer
+                    {
+                        Email = "some@email.com",
+                        SocialSecurityNumber = "900131-2371",
+                    }
+                };
+
+            coupon.IsValidFor(cart).should_be_true();
         }
 
         /// <summary>
-        /// 
+        /// Test if customer is NOT valid if uselimit has been reached.
         /// </summary>
 
-        // TODO: Need better names and comments
         [TestMethod]
-        public void TestCanCheckIfCouponIsNOTValidForCustomerList()
+        public void TestCouponNotValidIfUseLimitReachedForCustomer()
         {
-            coupon5.IsValidFor(cart).should_be_false();
+            coupon.CustomersUsedBy = new List<Customer>
+                {
+                    new Customer
+                    {
+                        CouponUses = 5,
+                        Email = "user@student.lnu.se",
+                        SocialSecurityNumber = "701201-3312"
+                    }
+                };
+
+            coupon.IsValidFor(cart).should_be_false();
+        }
+
+
+        /// <summary>
+        /// Test if customer is NOT valid if in CustomersValidFor-list but uselimit has been reached.
+        /// </summary>
+
+        [TestMethod]
+        public void TestCouponNotValidIfUseLimitReachedForValidCustomer()
+        {
+            coupon.CustomersValidFor = new List<Customer>
+                {
+                    new Customer
+                    {
+                        CouponUses = 5,
+                        Email = "user@student.lnu.se",
+                        SocialSecurityNumber = "701201-3312",
+                    },
+                    new Customer
+                    {
+                        Email = "some@email.com",
+                        SocialSecurityNumber = "900131-2371",
+                    }
+                };
+
+            coupon.IsValidFor(cart).should_be_false();
+        }
+
+
+        /// <summary>
+        /// Test so customer is not valid if not in the CustomersValidFor-list
+        /// </summary>
+        [TestMethod]
+        public void TestCustomerNotValidIfNotInCustomersValidForList()
+        {
+            coupon.CustomersValidFor = new List<Customer>
+                {
+                    new Customer
+                    {
+                        Email = "some@email.com",
+                        SocialSecurityNumber = "900131-2371"
+                    }
+                };
+
+            coupon.IsValidFor(cart).should_be_false();
         }
 
         /// <summary>
-        /// 
+        /// Test so outdated coupon is not valid.
         /// </summary>
 
-        // TODO: Need better names and comments
         [TestMethod]
-        public void TestCanCheckIfCouponIsValidForUsedByCustomerList()
+        public void TestOldCouponNotValid()
         {
-            coupon3.IsValidFor(cart).should_be_true();
+            //yesterday
+            coupon.End = DateTime.Now.AddDays(-1);
+
+            coupon.IsValidFor(cart).should_be_false();
         }
+
 
         /// <summary>
-        /// 
+        /// Test so outdated coupon is not valid even if customer is in CustomersValidFor-list
         /// </summary>
 
-        // TODO: Need better names and comments
         [TestMethod]
-        public void TestCanCheckIfCouponIsNOTValidForUsedByCustomerList()
+        public void TestOldCouponNotValidForCustomerInCustomersValidForList()
         {
-            coupon4.IsValidFor(cart).should_be_false();
+            coupon.CustomersValidFor = new List<Customer>
+                {
+                    new Customer
+                    {
+                        Email = "some@email.com",
+                        SocialSecurityNumber = "900131-2371"
+                    }
+                };
+            //yesterday
+            coupon.End = DateTime.Now.AddDays(-1);
+
+            coupon.IsValidFor(cart).should_be_false();
         }
+
     }
 }
