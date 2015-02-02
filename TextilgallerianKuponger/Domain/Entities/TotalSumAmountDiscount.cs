@@ -18,6 +18,11 @@ namespace Domain.Entities
         /// </summary>
         public override bool IsValidFor(Cart cart)
         {
+            if (base.IsValidFor(cart) == false)
+            {
+                return false;
+            }
+
             return cart.TotalSum >= Amount;
         }
     }

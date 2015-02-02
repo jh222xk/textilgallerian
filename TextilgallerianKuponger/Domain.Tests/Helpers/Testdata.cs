@@ -114,23 +114,30 @@ namespace Domain.Tests.Helpers
             {
                 var c = coupon as BuyXProductsPayForYProducts;
                 c.Buy = (c.Buy > 0) ? c.Buy : Random.Next(10);
-                c.PayFor = (c.PayFor > 0) ? c.PayFor : Random.Next(c.Buy);
+                c.PayFor = (c.PayFor > 0)
+                    ? c.PayFor
+                    : Decimal.Round(
+                        Decimal.Parse(
+                            (Random.NextDouble()*Double.Parse(c.Buy.ToString(CultureInfo.InvariantCulture))).ToString(
+                                CultureInfo.InvariantCulture)));
             }
             else if (coupon is TotalSumAmountDiscount)
             {
                 var c = coupon as TotalSumAmountDiscount;
-                c.Amount = (c.Amount > 0) ? c.Amount : Random.Next(5000);
+                c.Amount = (c.Amount > 0)
+                    ? c.Amount
+                    : Decimal.Round(Decimal.Parse((Random.NextDouble()*5000).ToString(CultureInfo.InvariantCulture)));
             }
             else if (coupon is TotalSumPercentageDiscount)
             {
                 var c = coupon as TotalSumPercentageDiscount;
                 c.Percentage = (c.Percentage > 0)
-                                   ? c.Percentage
-                                   : Decimal.Round(
-                                       Decimal.Parse(
-                                           Random.NextDouble()
-                                                 .ToString(CultureInfo.InvariantCulture)),
-                                       2);
+                    ? c.Percentage
+                    : Decimal.Round(
+                        Decimal.Parse(
+                            Random.NextDouble()
+                                .ToString(CultureInfo.InvariantCulture)),
+                        2);
             }
 
             if (coupon is ProductCoupon)
@@ -144,11 +151,11 @@ namespace Domain.Tests.Helpers
             coupon.CustomersValidFor = coupon.CustomersValidFor ?? RandomAmount(RandomCustomer);
             coupon.CustomersUsedBy = coupon.CustomersUsedBy ?? RandomAmount(RandomCustomer);
             coupon.Start = (coupon.Start > new DateTime())
-                               ? coupon.Start
-                               : DateTime.Now.AddDays(Random.Next(-10, 10));
+                ? coupon.Start
+                : DateTime.Now.AddDays(Random.Next(-10, 10));
             coupon.End = coupon.End ?? ((Random.Next(2) > 0)
-                                            ? coupon.Start.AddDays(Random.Next(20))
-                                            : (DateTime?) null);
+                ? coupon.Start.AddDays(Random.Next(20))
+                : (DateTime?) null);
 
             return coupon;
         }
@@ -162,7 +169,7 @@ namespace Domain.Tests.Helpers
             {
                 CouponUses = Random.Next(10),
                 Email = (Random.Next(2) > 0) ? Internet.Email() : null,
-                SocialSecurityNumber = (Random.Next(2) > 0) ? Phone.Number() : null,
+                SocialSecurityNumber = (Random.Next(2) > 0) ? Phone.Number() : null
             };
         }
 
