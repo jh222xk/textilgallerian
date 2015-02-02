@@ -213,17 +213,5 @@ namespace Domain.Tests.Entities
 
             _coupon.IsValidFor(_cart).should_be_false();
         }
-
-        /// <summary>
-        ///     Test so outdated coupon is not valid even if customer is in CustomersValidFor-list
-        /// </summary>
-        [TestMethod]
-        public void TestNotEnoughProductsForDiscount()
-        {
-            // ReSharper disable once PossibleNullReferenceException
-            (_coupon as BuyXProductsPayForYProducts).Buy = 10;
-
-            _coupon.IsValidFor(_cart).should_be_false();
-        }
     }
 }
