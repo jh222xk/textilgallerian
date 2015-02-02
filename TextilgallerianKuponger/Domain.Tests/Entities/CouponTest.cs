@@ -51,13 +51,13 @@ namespace Domain.Tests.Entities
                     new Row
                     {
                         ProductPrice = 100,
-                        NumberOfProducts = 2,
+                        Amount = 2,
                         Product = _validProduct
                     },
                     new Row
                     {
                         ProductPrice = 500,
-                        NumberOfProducts = 1,
+                        Amount = 1,
                         Product = Testdata.RandomProduct()
                     }
                 }

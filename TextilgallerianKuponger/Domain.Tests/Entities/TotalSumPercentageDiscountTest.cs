@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Domain.Entities;
 using Domain.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -7,9 +8,11 @@ using NSpec;
 namespace Domain.Tests.Entities
 {
     [TestClass]
-    public class CartTest
+    public class TotalSumPercentageDiscountTest
     {
-        private Cart cart;
+        private Cart _cart;
+        private TotalSumPercentageDiscount _coupon;
+        private Product _validProduct;
 
         /// <summary>
         ///     Setup our test data
@@ -17,15 +20,22 @@ namespace Domain.Tests.Entities
         [TestInitialize]
         public void SetUp()
         {
-            cart = new Cart
+            _validProduct = Testdata.RandomProduct();
+
+            _coupon = Testdata.RandomCoupon(new TotalSumPercentageDiscount
+            {
+                Percentage = 0.3m
+            });
+
+            _cart = new Cart
             {
                 Rows = new List<Row>
                 {
                     new Row
                     {
                         ProductPrice = 100,
-                        Amount = 4,
-                        Product = Testdata.RandomProduct()
+                        Amount = 2,
+                        Product = _validProduct
                     },
                     new Row
                     {
@@ -38,26 +48,12 @@ namespace Domain.Tests.Entities
         }
 
         /// <summary>
-        ///     Test for checking if the calculation of the TotalSum is correct
+        ///     The sum of the discount is in percantage of the whole cart value
         /// </summary>
         [TestMethod]
-        public void TestCanGetTotalSum()
+        public void TestThatTheCorrectDiscountIsCalculated()
         {
-            // Check the TotalSum calculation
-            cart.TotalSum.should_be(900);
-
-            // Check that we really got 2 Rows
-            cart.Rows.Count.should_be(2);
-        }
-
-        /// <summary>
-        ///     Test for checking if the calculation of the Amount is correct
-        /// </summary>
-        [TestMethod]
-        public void TestCanGetNumberOfProducts()
-        {
-            // Check the Amount calculation
-            cart.NumberOfProducts.should_be(5);
+            _coupon.CalculateDiscount(_cart).should_be(210);
         }
     }
 }

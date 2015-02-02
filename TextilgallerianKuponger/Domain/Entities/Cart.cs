@@ -30,7 +30,7 @@ namespace Domain.Entities
         /// <summary>
         /// Total sum for the entire cart with every product
         /// </summary>
-        public decimal TotalSum
+        public Decimal TotalSum
         { 
             get
             {
@@ -42,11 +42,11 @@ namespace Domain.Entities
         /// <summary>
         /// The number of products we have for the whole cart
         /// </summary>
-        public int NumberOfProducts
+        public Decimal NumberOfProducts
         {
             get
             {
-                return Rows.Sum(row => row.NumberOfProducts);
+                return Rows.Sum(row => row.Amount);
             }
         }
     }

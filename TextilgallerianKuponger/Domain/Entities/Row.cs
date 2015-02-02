@@ -15,12 +15,12 @@ namespace Domain.Entities
         /// <summary>
         /// Price for a single product for this row
         /// </summary>
-        public decimal ProductPrice { get; set; }
+        public Decimal ProductPrice { get; set; }
 
         /// <summary>
         /// The number of products for this row
         /// </summary>
-        public int NumberOfProducts { get; set; }
+        public Decimal Amount { get; set; }
 
         /// <summary>
         /// A single product for this row
@@ -28,13 +28,13 @@ namespace Domain.Entities
         public Product Product { get; set; }
 
         /// <summary>
-        /// The total price for this row (ProductPrice * NumberOfProducts)
+        /// The total price for this row (ProductPrice * Amount)
         /// </summary>
-        public decimal TotalPrice 
+        public Decimal TotalPrice 
         {
             get
             {
-                return NumberOfProducts * ProductPrice;
+                return Amount * ProductPrice;
             }
         }
     }

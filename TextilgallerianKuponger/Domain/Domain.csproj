@@ -61,6 +61,7 @@
     <Compile Include="Repositories\CouponRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Coupons.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

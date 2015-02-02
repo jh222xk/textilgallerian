@@ -46,13 +46,13 @@ namespace Domain.Tests.Entities
                     new Row
                     {
                         ProductPrice = 100,
-                        NumberOfProducts = 2,
+                        Amount = 2,
                         Product = _validProduct
                     },
                     new Row
                     {
                         ProductPrice = 500,
-                        NumberOfProducts = 1,
+                        Amount = 1,
                         Product = Testdata.RandomProduct()
                     }
                 }
@@ -101,13 +101,13 @@ namespace Domain.Tests.Entities
                     new Row
                     {
                         ProductPrice = 1500,
-                        NumberOfProducts = 2,
+                        Amount = 2,
                         Product = _validProduct
                     },
                     new Row
                     {
                         ProductPrice = 500,
-                        NumberOfProducts = 1,
+                        Amount = 1,
                         Product = Testdata.RandomProduct()
                     }
                 }
@@ -116,5 +116,13 @@ namespace Domain.Tests.Entities
             _coupon.IsValidFor(_cart).should_be_true();
         }
 
+        /// <summary>
+        ///     The sum of the discount is stated on the coupon
+        /// </summary>
+        [TestMethod]
+        public void TestThatTheCorrectDiscountIsProvided()
+        {
+            _coupon.CalculateDiscount(_cart).should_be(10000);
+        }
     }
 }

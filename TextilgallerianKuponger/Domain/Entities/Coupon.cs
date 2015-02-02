@@ -89,5 +89,12 @@ namespace Domain.Entities
 
             return true;
         }
+
+
+        /// <summary>
+        ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart
+        ///     and shuld therfore only evere be called once per coupon if it's actually valid.
+        /// </summary>
+        public abstract Decimal CalculateDiscount(Cart cart);
     }
 }
