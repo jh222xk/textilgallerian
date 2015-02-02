@@ -91,6 +91,19 @@ namespace Api.Tests.Controllers
                         }
                     }
                 }));
+            _couponRepository.Store(
+                Testdata.RandomCoupon(new ValidCoupon
+                {
+                    Code = "Double",
+                    CustomersValidFor = new List<Customer>
+                    {
+                        new Customer
+                        {
+                            Email = "double@coupon.com",
+                            SocialSecurityNumber = "2222"
+                        }
+                    }
+                }));
 
             _couponRepository.SaveChanges();
         }
@@ -158,6 +171,20 @@ namespace Api.Tests.Controllers
 
             var result2 = _cartController.Post(_cart).ToList();
             result2.Count.should_be(0);
+        }
+
+        [TestMethod]
+        public void TestThatTheSameCouponIsNotIncludedMultipleTimes()
+        {
+            _cart = Testdata.RandomCart(providedCode: "Double", customerCheckingOut: new Customer
+            {
+                Email = "double@coupon.com",
+                SocialSecurityNumber = "2222"
+            });
+
+            var result = _cartController.Post(_cart).ToList();
+            // NOTE: Count should be one becouse the other coupon is invalid
+            result.Count.should_be(1);
         }
     }
 }
