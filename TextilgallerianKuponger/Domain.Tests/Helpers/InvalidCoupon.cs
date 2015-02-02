@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using System;
+using Domain.Entities;
 
 namespace Domain.Tests.Helpers
 {
@@ -7,9 +8,14 @@ namespace Domain.Tests.Helpers
     /// </summary>
     public class InvalidCoupon : Coupon
     {
-        public override bool IsValidFor(Cart cart)
+        public override Boolean IsValidFor(Cart cart)
         {
             return false;
+        }
+
+        public override Decimal CalculateDiscount(Cart cart)
+        {
+            return 0;
         }
     }
 }

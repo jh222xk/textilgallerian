@@ -25,5 +25,10 @@ namespace Domain.Entities
 
             return cart.TotalSum >= Amount;
         }
+
+        public override Decimal CalculateDiscount(Cart cart)
+        {
+            return Amount;
+        }
     }
 }

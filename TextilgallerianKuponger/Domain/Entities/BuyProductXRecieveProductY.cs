@@ -13,13 +13,24 @@ namespace Domain.Entities
     public class BuyProductXRecieveProductY : ProductCoupon
     {
         /// <summary>
-        /// A (always one) free product we can get
+        /// A free product we can get
         /// </summary>
         public Product FreeProduct { get; set; }
 
         /// <summary>
-        /// 
+        /// How many free products
         /// </summary>
         public Decimal Amount { get; set; }
+
+        public override Decimal CalculateDiscount(Cart cart)
+        {
+            cart.Rows.Add(new Row
+            {
+                Amount = Amount,
+                Product = FreeProduct,
+                ProductPrice = 0
+            });
+            return 0; // This coupon gives a free product instead of a sum of money
+        }
     }
 }

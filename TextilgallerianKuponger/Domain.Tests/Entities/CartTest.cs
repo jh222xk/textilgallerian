@@ -24,13 +24,13 @@ namespace Domain.Tests.Entities
                     new Row
                     {
                         ProductPrice = 100,
-                        NumberOfProducts = 4,
+                        Amount = 4,
                         Product = Testdata.RandomProduct()
                     },
                     new Row
                     {
                         ProductPrice = 500,
-                        NumberOfProducts = 1,
+                        Amount = 1,
                         Product = Testdata.RandomProduct()
                     }
                 }
@@ -51,12 +51,12 @@ namespace Domain.Tests.Entities
         }
 
         /// <summary>
-        ///     Test for checking if the calculation of the NumberOfProducts is correct
+        ///     Test for checking if the calculation of the Amount is correct
         /// </summary>
         [TestMethod]
         public void TestCanGetNumberOfProducts()
         {
-            // Check the NumberOfProducts calculation
+            // Check the Amount calculation
             cart.NumberOfProducts.should_be(5);
         }
     }

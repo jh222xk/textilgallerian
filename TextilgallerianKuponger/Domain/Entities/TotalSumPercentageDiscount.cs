@@ -12,5 +12,10 @@ namespace Domain.Entities
     public class TotalSumPercentageDiscount : Coupon
     {
         public Decimal Percentage { get; set; }
+
+        public override Decimal CalculateDiscount(Cart cart)
+        {
+            return cart.TotalSum * Percentage;
+        }
     }
 }

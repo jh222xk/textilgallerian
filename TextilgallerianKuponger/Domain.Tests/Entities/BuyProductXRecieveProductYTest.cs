@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Domain.Entities;
 using Domain.Tests.Helpers;
@@ -12,6 +13,7 @@ namespace Domain.Tests.Entities
     {
         private Cart _cart;
         private Coupon _coupon;
+        private Product _freeProduct;
         private Product _validProduct;
 
         /// <summary>
@@ -20,9 +22,10 @@ namespace Domain.Tests.Entities
         [TestInitialize]
         public void SetUp()
         {
+            _freeProduct = Testdata.RandomProduct();
             _validProduct = Testdata.RandomProduct();
 
-            _coupon = new BuyXProductsPayForYProducts
+            _coupon = new BuyProductXRecieveProductY
             {
                 CanBeCombined = false,
                 Code = "XMAS15",
@@ -32,7 +35,8 @@ namespace Domain.Tests.Entities
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
                 Buy = 3,
-                PayFor = 2,
+                FreeProduct = _freeProduct,
+                Amount = 2,
                 Products = new List<Product>
                 {
                     _validProduct
@@ -51,13 +55,13 @@ namespace Domain.Tests.Entities
                     new Row
                     {
                         ProductPrice = 100,
-                        NumberOfProducts = 2,
+                        Amount = 2,
                         Product = _validProduct
                     },
                     new Row
                     {
                         ProductPrice = 500,
-                        NumberOfProducts = 1,
+                        Amount = 1,
                         Product = Testdata.RandomProduct()
                     }
                 }
@@ -76,5 +80,13 @@ namespace Domain.Tests.Entities
             _coupon.IsValidFor(_cart).should_be_false();
         }
 
+        [TestMethod]
+        public void TestThatAFreeProductIsAddedToTheCart()
+        {
+            _coupon.CalculateDiscount(_cart).should_be(0);
+            _cart.Rows.Count.should_be(3);
+            _cart.Rows.Last().Product.should_be(_freeProduct);
+            _cart.Rows.Last().Amount.should_be(2);
+        }
     }
 }

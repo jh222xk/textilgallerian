@@ -44,7 +44,7 @@ namespace Domain.Tests.Helpers
                 rows = RandomAmount(
                     () => new Row
                     {
-                        NumberOfProducts = Random.Next(1, 20),
+                        Amount = Random.Next(1, 20),
                         Product = RandomProduct()
                     });
             }

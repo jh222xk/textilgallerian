@@ -89,5 +89,7 @@ namespace Domain.Entities
 
             return true;
         }
+
+        public abstract Decimal CalculateDiscount(Cart cart);
     }
 }
