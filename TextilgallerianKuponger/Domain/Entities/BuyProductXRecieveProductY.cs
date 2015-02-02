@@ -21,6 +21,5 @@ namespace Domain.Entities
         /// 
         /// </summary>
         public Decimal Amount { get; set; }
-
     }
 }

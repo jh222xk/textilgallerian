@@ -74,6 +74,9 @@
     <Compile Include="DebuggerShim.cs" />
     <Compile Include="Entities\CartTest.cs" />
     <Compile Include="Entities\CouponTest.cs" />
+    <Compile Include="Entities\BuyXProductsPayForYProductsTest.cs" />
+    <Compile Include="Entities\BuyProductXRecieveProductYTest.cs" />
+    <Compile Include="Entities\TotalSumAmountDiscountTest.cs" />
     <Compile Include="Helpers\Testdata.cs" />
     <Compile Include="Helpers\InvalidCoupon.cs" />
     <Compile Include="Helpers\ValidCoupon.cs" />

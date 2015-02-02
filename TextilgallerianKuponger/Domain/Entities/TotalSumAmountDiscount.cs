@@ -16,7 +16,7 @@ namespace Domain.Entities
         /// <summary>
         /// Check if specified Cart is valid for this Coupon
         /// </summary>
-        public override bool IsValidFor(Cart cart)
+        public override Boolean IsValidFor(Cart cart)
         {
             if (base.IsValidFor(cart) == false)
             {

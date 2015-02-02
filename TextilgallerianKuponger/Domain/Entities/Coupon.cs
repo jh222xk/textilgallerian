@@ -64,24 +64,30 @@ namespace Domain.Entities
         /// </summary>
 
         // TODO: Needs refactoring and tests
-        public virtual bool IsValidFor(Cart cart)
+        public virtual Boolean IsValidFor(Cart cart)
         {
+
+            if (End.HasValue && End.Value < DateTime.Now)
+            {
+                return false;
+            }
+
             // VERY MUCH NOT DRY
             if (CustomersValidFor.Any())
             {
                 // Get customer by SSN
                 var customer = CustomersValidFor.Find(cust => cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber);
-                return customer != null ? customer.CouponUses < UseLimit && End >= DateTime.Now : false;
+                return customer != null && customer.CouponUses < UseLimit;
             }
 
             if (CustomersUsedBy.Any())
             {
                 // Get customer by SSN
                 var customer = CustomersUsedBy.Find(cust => cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber);
-                return customer != null ? customer.CouponUses < UseLimit && End >= DateTime.Now : End >= DateTime.Now;
+                return customer == null || customer.CouponUses < UseLimit;
             }
 
-            return End >= DateTime.Now;
+            return true;
         }
     }
 }
