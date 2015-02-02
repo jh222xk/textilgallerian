@@ -1,161 +1,163 @@
-﻿using Api.Controllers;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Api.Controllers;
 using Domain.Entities;
 using Domain.Repositories;
+using Domain.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Raven.Client;
-using Raven.Client.Embedded;
 using NSpec;
+using Raven.Client.Embedded;
 
 namespace Api.Tests.Controllers
 {
     [TestClass]
-   public class CartControllerTest
-   {
-       private CouponRepository couponRepository;
-       private CartController cartController;
-        private Cart cart;
+    public class CartControllerTest
+    {
+        private CouponRepository _couponRepository;
+        private CartController _cartController;
+        private Cart _cart;
 
-         [TestInitialize]
-         public void SetUp()
-         {
-             // Creates a database in memory that only exists during the test
-             var store = new EmbeddableDocumentStore
-             {
-                 Configuration =
-                 {
-                     RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true,
-                     RunInMemory = true,
-                 },
-                 Conventions =
-                 {
-                     FindTypeTagName =
-                         type => typeof(Coupon).IsAssignableFrom(type) ? "coupons" : null
-                 }
-             };
+        [TestInitialize]
+        public void SetUp()
+        {
+            // Creates a database in memory that only exists during the test
+            var store = new EmbeddableDocumentStore
+            {
+                Configuration =
+                {
+                    RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true,
+                    RunInMemory = true,
+                },
+                Conventions =
+                {
+                    FindTypeTagName =
+                        type => typeof (Coupon).IsAssignableFrom(type) ? "coupons" : null
+                }
+            };
 
-             store.Initialize();
-             var session = store.OpenSession();
+            store.Initialize();
+            var session = store.OpenSession();
 
-             couponRepository = new CouponRepository(session);
+            _couponRepository = new CouponRepository(session);
 
-             cartController = new CartController(couponRepository);
+            _cartController = new CartController(_couponRepository);
 
-             couponRepository.Store(new BuyProductXRecieveProductY {
-                 Code = "XMAS15"
-             });
-             couponRepository.Store(new TotalSumAmountDiscount {
-                 CustomersValidFor = new List<Customer> {
-                     new Customer {
-                         Email = "test@testmail.com"
-                     }
-                 }
-             });
-             couponRepository.Store(new BuyXProductsPayForYProducts
-             {
-                 CustomersValidFor = new List<Customer> {
-                     new Customer {
-                         SocialSecurityNumber = "8888"
-                     }
-                 }
-             });
-             couponRepository.Store(new TotalSumAmountDiscount
-             {
-                 CustomersValidFor = new List<Customer> {
-                     new Customer {
-                         Email = "test@testmail.com"
-                     }
-                 },
-                 End = DateTime.Now.AddDays(-1)
-             });
-             couponRepository.Store(new BuyXProductsPayForYProducts
-             {
-                 CustomersValidFor = new List<Customer> {
-                     new Customer {
-                         SocialSecurityNumber = "8888"
-                     }
-                 }
-             });
-         }
+            _couponRepository.Store(
+                Testdata.RandomCoupon(new ValidCoupon
+                {
+                    Code = "XMAS15"
+                }));
+            _couponRepository.Store(
+                Testdata.RandomCoupon(new ValidCoupon
+                {
+                    CustomersValidFor = new List<Customer>
+                    {
+                        new Customer
+                        {
+                            Email = "test@testmail.com"
+                        }
+                    }
+                }));
+            _couponRepository.Store(
+                Testdata.RandomCoupon(new ValidCoupon
+                {
+                    CustomersValidFor = new List<Customer>
+                    {
+                        new Customer
+                        {
+                            SocialSecurityNumber = "8888"
+                        }
+                    }
+                }));
+            _couponRepository.Store(
+                Testdata.RandomCoupon(new InvalidCoupon
+                {
+                    CustomersValidFor = new List<Customer>
+                    {
+                        new Customer
+                        {
+                            Email = "test@testmail.com"
+                        }
+                    }
+                }));
+            _couponRepository.Store(
+                Testdata.RandomCoupon(new InvalidCoupon
+                {
+                    CustomersValidFor = new List<Customer>
+                    {
+                        new Customer
+                        {
+                            SocialSecurityNumber = "8888"
+                        }
+                    }
+                }));
+
+            _couponRepository.SaveChanges();
+        }
+
+        [TestMethod]
+        public void TestThatItHandlesCheckoutsWithoutCoupon()
+        {
+            _cart = Testdata.RandomCart();
+
+            var result = _cartController.Post(_cart).ToList();
+
+            result.Count.should_be(0);
+        }
 
         [TestMethod]
         public void TestThatCouponsAreQueriedByCode()
-         {
-             cart = new Cart
-             {
-                 CouponCode = "XMAS15"
-             };
+        {
+            _cart = Testdata.RandomCart(providedCode: "XMAS15");
 
-            var result = cartController.Post(cart).ToList();
+            var result = _cartController.Post(_cart).ToList();
 
             result.Count.should_be(1);
             result[0].Code.should_be("XMAS15");
         }
+
         [TestMethod]
         public void TestThatCouponsAreQueriedByEmail()
         {
-
-            cart = new Cart
+            _cart = Testdata.RandomCart(customerCheckingOut: new Customer
             {
-                CouponCode = "XMAS15",
-                Customer = new Customer
-                {
-                    Email = "test@testmail.com"
-                }
-            };
+                Email = "test@testmail.com"
+            });
 
-            var result = cartController.Post(cart).ToList();
+            var result = _cartController.Post(_cart).ToList();
+            // NOTE: Count should be one becouse the other coupon is invalid
             result.Count.should_be(1);
-            result[0].Code.should_be("XMAS15");
-
-            cart = new Cart
+            result[0].CustomersValidFor[0].Email.should_be("test@testmail.com");
+            
+            _cart = Testdata.RandomCart(customerCheckingOut: new Customer
             {
-                CouponCode = "XMAS15",
-                Customer = new Customer
-                {
-                    Email = "wrongmail@testmail.com"
-                }
-            };
+                Email = "wrongmail@testmail.com"
+            });
 
-            var result2 = cartController.Post(cart).ToList();
+            var result2 = _cartController.Post(_cart).ToList();
             result2.Count.should_be(0);
-            result2[0].Code.should_be("XMAS15");
-
         }
 
         [TestMethod]
         public void TestThatCouponsAreQueriedBySocialSecurityNumber()
         {
-
-            cart = new Cart
+            _cart = Testdata.RandomCart(customerCheckingOut: new Customer
             {
-                CouponCode = "XMAS15",
-                Customer = new Customer
-                {
-                    SocialSecurityNumber = "8888"
-                }
-            };
+                SocialSecurityNumber = "8888"
+            });
 
-            var result = cartController.Post(cart).ToList();
+            var result = _cartController.Post(_cart).ToList();
+            // NOTE: Count should be one becouse the other coupon is invalid
             result.Count.should_be(1);
-            result[0].Code.should_be("XMAS15");
+            result[0].CustomersValidFor[0].SocialSecurityNumber.should_be("8888");
 
-            cart = new Cart
+            _cart = Testdata.RandomCart(customerCheckingOut: new Customer
             {
-                CouponCode = "XMAS15",
-                Customer = new Customer
-                {
-                    SocialSecurityNumber = "8889"
-                }
-            };
+                SocialSecurityNumber = "8889"
+            });
 
-            var result2 = cartController.Post(cart).ToList();
+            var result2 = _cartController.Post(_cart).ToList();
             result2.Count.should_be(0);
-            result2[0].Code.should_be("XMAS15");
         }
-     
     }
-
 }

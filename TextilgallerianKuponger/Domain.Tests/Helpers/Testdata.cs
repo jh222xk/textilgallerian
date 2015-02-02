@@ -6,7 +6,7 @@ using Faker;
 
 namespace Domain.Tests.Helpers
 {
-    internal static class Testdata
+    public static class Testdata
     {
         private static readonly Random Random = new Random();
 
