@@ -116,5 +116,13 @@ namespace Domain.Tests.Entities
             _coupon.IsValidFor(_cart).should_be_true();
         }
 
+        /// <summary>
+        ///     The sum of the discount is stated on the coupon
+        /// </summary>
+        [TestMethod]
+        public void TestThatTheCorrectDiscountIsProvided()
+        {
+            _coupon.CalculateDiscount(_cart).should_be(10000);
+        }
     }
 }

@@ -100,7 +100,7 @@ namespace Domain.Tests.Helpers
         /// </summary>
         /// <param name="template">Optional template, specified values will not be overwritten</param>
         /// <param name="canBeCombined">Optional flag if the genereted coupon can be combined</param>
-        public static Coupon RandomCoupon<T>(T template = null, bool? canBeCombined = null)
+        public static T RandomCoupon<T>(T template = null, bool? canBeCombined = null)
             where T : Coupon, new()
         {
             var coupon = template ?? new T();

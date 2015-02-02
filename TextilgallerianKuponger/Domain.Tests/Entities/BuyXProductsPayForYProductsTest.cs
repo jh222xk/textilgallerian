@@ -73,12 +73,19 @@ namespace Domain.Tests.Entities
             };
         }
 
+        /// <summary>
+        ///     The discount should apply to the cheapest product in the cart
+        /// </summary>
         [TestMethod]
         public void TestThatTheDiscountIsCalculatedOnTheChepestProduct()
         {
             _coupon.CalculateDiscount(_cart).should_be(50);
         }
 
+        /// <summary>
+        ///     If the discount applies for multiple products and thus spans more rows than
+        ///     one the secound cheapest product shall be given the discount.
+        /// </summary>
         [TestMethod]
         public void TestThatTheDiscountIsCalculatedOnThenNextRowIfTheFirstGotFree()
         {
@@ -87,6 +94,9 @@ namespace Domain.Tests.Entities
             _coupon.CalculateDiscount(_cart).should_be(175);
         }
 
+        /// <summary>
+        ///     The discount can only ever apply to valid products
+        /// </summary>
         [TestMethod]
         public void TestThatTheDiscountOnlyIsCalculatedOnValidProducts()
         {

@@ -89,11 +89,16 @@ namespace Domain.Tests.Entities
             _coupon.IsValidFor(_cart).should_be_true();
         }
 
+        /// <summary>
+        ///     After calling the CalculateDiscount method the free product should have been added
+        ///     to the cart
+        /// </summary>
         [TestMethod]
         public void TestThatAFreeProductIsAddedToTheCart()
         {
             _coupon.CalculateDiscount(_cart).should_be(0);
             _cart.Rows.Count.should_be(3);
+            _cart.Rows.Last().ProductPrice.should_be(0);
             _cart.Rows.Last().Product.should_be(_freeProduct);
             _cart.Rows.Last().Amount.should_be(2);
         }

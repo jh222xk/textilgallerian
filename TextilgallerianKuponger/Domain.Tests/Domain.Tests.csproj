@@ -76,6 +76,7 @@
     <Compile Include="Entities\CouponTest.cs" />
     <Compile Include="Entities\BuyXProductsPayForYProductsTest.cs" />
     <Compile Include="Entities\BuyProductXRecieveProductYTest.cs" />
+    <Compile Include="Entities\TotalSumPercentageDiscountTest.cs" />
     <Compile Include="Entities\TotalSumAmountDiscountTest.cs" />
     <Compile Include="Helpers\Testdata.cs" />
     <Compile Include="Helpers\InvalidCoupon.cs" />
