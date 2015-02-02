@@ -13,23 +13,23 @@ namespace Api.Controllers
 {
     public class CartController : ApiController
     {
-        private readonly CouponRepository couponRepository;
+        private readonly CouponRepository _couponRepository;
 
         public CartController(CouponRepository couponRepository)
         {
-            this.couponRepository = couponRepository;
+            _couponRepository = couponRepository;
         }
 
         // GET api/cart/5
         public void Get(int id)
         {
-            couponRepository.Store(new TotalSumPercentageDiscount
+            _couponRepository.Store(new TotalSumPercentageDiscount
             {
                 Percentage = 10,
                 Code = String.Format("EASTER15"),
                 CustomersValidFor = new List<Customer> { new Customer { Email = String.Format("{0}@test.com", id)} }
             });
-            couponRepository.SaveChanges();
+            _couponRepository.SaveChanges();
         }
 
         // POST api/cart
@@ -41,7 +41,7 @@ namespace Api.Controllers
             // If there is a CouponCode filled in
             if (cart.CouponCode != null)
             {
-                var coupon = couponRepository.FindByCode(cart.CouponCode);
+                var coupon = _couponRepository.FindByCode(cart.CouponCode);
                 // If the code is valid
                 if (coupon != null)
                 {
@@ -56,14 +56,14 @@ namespace Api.Controllers
                 // The customer have an email
                 if (cart.Customer.Email != null) {
                     // Add all coupons that may be valid for this customer
-                    var validCouponsByEmail = couponRepository.FindByEmail(cart.Customer.Email);
+                    var validCouponsByEmail = _couponRepository.FindByEmail(cart.Customer.Email);
                     coupons.AddRange(validCouponsByEmail);
                 }
                 // If customer have an socialsecurityNumber
                 if (cart.Customer.SocialSecurityNumber != null) {
-                    var validCouponsBySSN =
-                        couponRepository.FindBySocialSecurityNumber(cart.Customer.SocialSecurityNumber);
-                    coupons.AddRange(validCouponsBySSN);
+                    var validCouponsBySsn =
+                        _couponRepository.FindBySocialSecurityNumber(cart.Customer.SocialSecurityNumber);
+                    coupons.AddRange(validCouponsBySsn);
                 }
             }
 

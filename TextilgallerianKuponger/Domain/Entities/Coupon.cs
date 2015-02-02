@@ -26,13 +26,13 @@ namespace Domain.Entities
         }
 
         public DateTime Start { get; set; }
-        
+
         /// <summary>
         /// When the coupon should end
         /// Optional, can last forever
         /// </summary>
         public DateTime? End { get; set; }
-        
+
         /// <summary>
         /// Which customers is this coupon valid for
         /// If coupon is for all customers it should be set to null
@@ -40,7 +40,7 @@ namespace Domain.Entities
 
         // TODO: Q: Should this list be emptied?!
         public List<Customer> CustomersValidFor { get; set; }
-        
+
         /// <summary>
         /// Which users have used this coupon
         /// </summary>
