@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
 using Domain.Entities;
-using System.Collections.Generic;
+using Domain.Tests.Helpers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSpec;
 
 namespace Domain.Tests.Entities
@@ -12,7 +12,7 @@ namespace Domain.Tests.Entities
         private Cart cart;
 
         /// <summary>
-        /// Setup our test data
+        ///     Setup our test data
         /// </summary>
         [TestInitialize]
         public void SetUp()
@@ -25,28 +25,20 @@ namespace Domain.Tests.Entities
                     {
                         ProductPrice = 100,
                         NumberOfProducts = 4,
-                        Product = new Product
-                        {
-                            ProductId = "My-Test-Product",
-                            Name = "A wonderful product"
-                        }
+                        Product = Testdata.RandomProduct()
                     },
                     new Row
                     {
                         ProductPrice = 500,
                         NumberOfProducts = 1,
-                        Product = new Product
-                        {
-                            ProductId = "My-Test-Product-2",
-                            Name = "A not so wonderful product"
-                        }
+                        Product = Testdata.RandomProduct()
                     }
                 }
             };
         }
 
         /// <summary>
-        /// Test for checking if the calculation of the TotalSum is correct
+        ///     Test for checking if the calculation of the TotalSum is correct
         /// </summary>
         [TestMethod]
         public void TestCanGetTotalSum()
@@ -59,7 +51,7 @@ namespace Domain.Tests.Entities
         }
 
         /// <summary>
-        /// Test for checking if the calculation of the NumberOfProducts is correct
+        ///     Test for checking if the calculation of the NumberOfProducts is correct
         /// </summary>
         [TestMethod]
         public void TestCanGetNumberOfProducts()
