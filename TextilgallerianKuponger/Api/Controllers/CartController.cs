@@ -51,19 +51,22 @@ namespace Api.Controllers
 
             if (cart.Customer != null) {
 
+                // Question: is there a risk to store same coupon mutiple times if saving by both email and SSN?
+
                 // The customer have an email
                 if (cart.Customer.Email != null) {
                     // Add all coupons that may be valid for this customer
-                    var coupons2 = couponRepository.FindByEmail(cart.Customer.Email);
-                    coupons.AddRange(coupons2);
+                    var validCouponsByEmail = couponRepository.FindByEmail(cart.Customer.Email);
+                    coupons.AddRange(validCouponsByEmail);
                 }
-
+                // If customer have an socialsecurityNumber
                 if (cart.Customer.SocialSecurityNumber != null) {
-                    var coupons2 =
+                    var validCouponsBySSN =
                         couponRepository.FindBySocialSecurityNumber(cart.Customer.SocialSecurityNumber);
-                    coupons.AddRange(coupons2);
+                    coupons.AddRange(validCouponsBySSN);
                 }
             }
+
 
             // Return the valid coupons
             return coupons.Where(coupon => coupon.IsValidFor(cart));
