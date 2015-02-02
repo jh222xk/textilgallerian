@@ -17,19 +17,6 @@ namespace Domain.Entities
         /// </summary>
         public Decimal PayFor { get; set; }
 
-        /// <summary>
-        /// Check if specified Cart is valid for this Coupon
-        /// </summary>
-        public override bool IsValidFor(Cart cart)
-        {
-            if (base.IsValidFor(cart) == false)
-            {
-                return false;
-            }
-
-            return cart.NumberOfProducts >= Buy;
-        }
-
         public override Decimal CalculateDiscount(Cart cart)
         {
             var products = cart.Rows.Where(r => r.Product.In(Products)).OrderBy(r => r.ProductPrice).ToList();
