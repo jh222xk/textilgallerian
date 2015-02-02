@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using Domain.Entities;
 using Domain.Repositories;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Api.Controllers
 {
@@ -23,12 +19,17 @@ namespace Api.Controllers
         // GET api/cart/5
         public void Get(int id)
         {
-            _couponRepository.Store(new TotalSumPercentageDiscount
-            {
-                Percentage = 10,
-                Code = String.Format("EASTER15"),
-                CustomersValidFor = new List<Customer> { new Customer { Email = String.Format("{0}@test.com", id)} }
-            });
+            _couponRepository.Store(
+                new TotalSumPercentageDiscount
+                {
+                    Percentage = 10,
+                    Code = String.Format("EASTER15"),
+                    CustomersValidFor =
+                        new List<Customer>
+                        {
+                            new Customer {Email = String.Format("{0}@test.com", id)}
+                        }
+                });
             _couponRepository.SaveChanges();
         }
 
@@ -49,27 +50,28 @@ namespace Api.Controllers
                 }
             }
 
-            if (cart.Customer != null) {
-
-                // Question: is there a risk to store same coupon mutiple times if saving by both email and SSN?
-
+            if (cart.Customer != null)
+            {
                 // The customer have an email
-                if (cart.Customer.Email != null) {
+                if (cart.Customer.Email != null) 
+                {
                     // Add all coupons that may be valid for this customer
                     var validCouponsByEmail = _couponRepository.FindByEmail(cart.Customer.Email);
                     coupons.AddRange(validCouponsByEmail);
                 }
+
                 // If customer have an socialsecurityNumber
-                if (cart.Customer.SocialSecurityNumber != null) {
+                if (cart.Customer.SocialSecurityNumber != null)
+                {
                     var validCouponsBySsn =
-                        _couponRepository.FindBySocialSecurityNumber(cart.Customer.SocialSecurityNumber);
+                        _couponRepository.FindBySocialSecurityNumber(
+                            cart.Customer.SocialSecurityNumber);
                     coupons.AddRange(validCouponsBySsn);
                 }
             }
 
-
             // Return the valid coupons
-            return coupons.Where(coupon => coupon.IsValidFor(cart));
+            return coupons.Distinct().Where(coupon => coupon.IsValidFor(cart));
         }
     }
 }
