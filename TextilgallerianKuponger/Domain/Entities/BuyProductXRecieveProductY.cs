@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Raven.Client.Linq;
 
 namespace Domain.Entities
 {
@@ -17,11 +18,9 @@ namespace Domain.Entities
         public Product FreeProduct { get; set; }
 
         /// <summary>
-        /// Check if specified Cart is valid for this Coupon
+        /// 
         /// </summary>
-        public override bool IsValidFor(Cart cart)
-        {
-            return base.IsValidFor(cart);
-        }
+        public Decimal Amount { get; set; }
+
     }
 }
