@@ -213,5 +213,27 @@ namespace Domain.Tests.Entities
 
             _coupon.IsValidFor(_cart).should_be_false();
         }
+
+        /// <summary>
+        ///     Test so CustomerUsedBy have reached the UseLimit for this discount
+        /// </summary>
+        [TestMethod]
+        public void TestThatCustomerUsedByUseLimitReachedShouldBeNotValid()
+        {
+            _coupon.CustomersUsedBy = new List<Customer>
+            {
+                
+                new Customer
+                {
+                    Email = "user@student.lnu.se",
+                    SocialSecurityNumber = "701201-3312",
+                    CouponUses = 2
+                }
+            };
+
+            _coupon.UseLimit = 1;
+
+            _coupon.IsValidFor(_cart).should_be_false();
+        }
     }
 }
