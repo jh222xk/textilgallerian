@@ -77,9 +77,6 @@
     <Reference Include="Raven.Server">
       <HintPath>..\packages\RavenDB.Tests.Helpers.3.0.3528\lib\net45\Raven.Server.exe</HintPath>
     </Reference>
-    <Reference Include="Raven.Tests.Helpers">
-      <HintPath>..\packages\RavenDB.Tests.Helpers.3.0.3528\lib\net45\Raven.Tests.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
