@@ -59,6 +59,7 @@
     <Compile Include="Entities\TotalSumAmountDiscount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CouponRepository.cs" />
+    <Compile Include="Services\CouponService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Coupons.cd" />

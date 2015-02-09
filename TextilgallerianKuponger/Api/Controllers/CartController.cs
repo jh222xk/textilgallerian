@@ -4,16 +4,19 @@ using System.Linq;
 using System.Web.Http;
 using Domain.Entities;
 using Domain.Repositories;
+using Domain.Services;
 
 namespace Api.Controllers
 {
     public class CartController : ApiController
     {
         private readonly CouponRepository _couponRepository;
+        private readonly CouponService _couponService;
 
-        public CartController(CouponRepository couponRepository)
+        public CartController(CouponRepository couponRepository, CouponService couponService)
         {
             _couponRepository = couponRepository;
+            _couponService = couponService;
         }
 
         // GET api/cart/5
@@ -34,44 +37,9 @@ namespace Api.Controllers
         }
 
         // POST api/cart
-        public IEnumerable<Coupon> Post([FromBody] Cart cart)
+        public Cart Post([FromBody] Cart cart)
         {
-            // List with all coupons that may be valid for this cart
-            var coupons = new List<Coupon>();
-
-            // If there is a CouponCode filled in
-            if (cart.CouponCode != null)
-            {
-                var coupon = _couponRepository.FindByCode(cart.CouponCode);
-                // If the code is valid
-                if (coupon != null)
-                {
-                    coupons.Add(coupon);
-                }
-            }
-
-            if (cart.Customer != null)
-            {
-                // The customer have an email
-                if (cart.Customer.Email != null) 
-                {
-                    // Add all coupons that may be valid for this customer
-                    var validCouponsByEmail = _couponRepository.FindByEmail(cart.Customer.Email);
-                    coupons.AddRange(validCouponsByEmail);
-                }
-
-                // If customer have an socialsecurityNumber
-                if (cart.Customer.SocialSecurityNumber != null)
-                {
-                    var validCouponsBySsn =
-                        _couponRepository.FindBySocialSecurityNumber(
-                            cart.Customer.SocialSecurityNumber);
-                    coupons.AddRange(validCouponsBySsn);
-                }
-            }
-
-            // Return the valid coupons
-            return coupons.Distinct().Where(coupon => coupon.IsValidFor(cart));
+            return _couponService.FindBestCouponsForCart(cart);
         }
     }
 }

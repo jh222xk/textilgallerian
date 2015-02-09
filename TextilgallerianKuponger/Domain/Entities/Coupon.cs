@@ -73,7 +73,7 @@ namespace Domain.Entities
             }
 
             // VERY MUCH NOT DRY
-            if (CustomersValidFor.Any())
+            if (CustomersValidFor != null)
             {
                 // Get customer by SSN
                 var customer = CustomersValidFor.Find(cust => cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber);

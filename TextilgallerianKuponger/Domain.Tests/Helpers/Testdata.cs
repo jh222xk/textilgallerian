@@ -24,7 +24,8 @@ namespace Domain.Tests.Helpers
             {
                 CouponCode = providedCode,
                 Customer = customerCheckingOut ?? new Customer(),
-                Rows = new List<Row>()
+                Rows = new List<Row>(),
+                Discounts = new List<Coupon>()
             };
         }
 
@@ -53,7 +54,8 @@ namespace Domain.Tests.Helpers
             {
                 CouponCode = providedCode ?? Internet.UserName(),
                 Customer = customerCheckingOut ?? RandomCustomer(),
-                Rows = rows
+                Rows = rows,
+                Discounts = new List<Coupon>()
             };
         }
 
@@ -61,33 +63,44 @@ namespace Domain.Tests.Helpers
         ///     Generates a coupon of random type with random data
         /// </summary>
         /// <param name="code">Optional for overriding the random code</param>
-        public static Coupon RandomCoupon(String code = null)
+        /// <param name="customer">A customer the coupon should be valid for</param>
+        /// <param name="customers">A list of customers the coupon should be valid for</param>
+        public static Coupon RandomCoupon(String code = null, Customer customer = null, List<Customer> customers = null)
         {
+            if (customer != null)
+            {
+                customers = RandomAmount(() => RandomCustomer());
+                customers.Add(customer);
+            }
             switch (Random.Next(4))
             {
                 case 0:
                     return RandomCoupon(
                         new BuyProductXRecieveProductY
                         {
-                            Code = code
+                            Code = code,
+                            CustomersValidFor = customers
                         });
                 case 1:
                     return RandomCoupon(
                         new BuyXProductsPayForYProducts
                         {
-                            Code = code
+                            Code = code,
+                            CustomersValidFor = customers
                         });
                 case 2:
                     return RandomCoupon(
                         new TotalSumAmountDiscount
                         {
-                            Code = code
+                            Code = code,
+                            CustomersValidFor = customers
                         });
                 case 3:
                     return RandomCoupon(
                         new TotalSumPercentageDiscount
                         {
-                            Code = code
+                            Code = code,
+                            CustomersValidFor = customers
                         });
                 default:
                     // Should never happen
@@ -100,7 +113,7 @@ namespace Domain.Tests.Helpers
         /// </summary>
         /// <param name="template">Optional template, specified values will not be overwritten</param>
         /// <param name="canBeCombined">Optional flag if the genereted coupon can be combined</param>
-        public static T RandomCoupon<T>(T template = null, bool? canBeCombined = null)
+        public static T RandomCoupon<T>(T template = null, bool? canBeCombined = null, bool validForEveryone = false)
             where T : Coupon, new()
         {
             var coupon = template ?? new T();
@@ -118,15 +131,14 @@ namespace Domain.Tests.Helpers
                     ? c.PayFor
                     : Decimal.Round(
                         Decimal.Parse(
-                            (Random.NextDouble()*Double.Parse(c.Buy.ToString(CultureInfo.InvariantCulture))).ToString(
-                                CultureInfo.InvariantCulture)));
+                            (Random.NextDouble()*Double.Parse(c.Buy.ToString())).ToString()));
             }
             else if (coupon is TotalSumAmountDiscount)
             {
                 var c = coupon as TotalSumAmountDiscount;
                 c.Amount = (c.Amount > 0)
                     ? c.Amount
-                    : Decimal.Round(Decimal.Parse((Random.NextDouble()*5000).ToString(CultureInfo.InvariantCulture)));
+                    : Decimal.Round(Decimal.Parse((Random.NextDouble()*5000).ToString()));
             }
             else if (coupon is TotalSumPercentageDiscount)
             {
@@ -136,7 +148,7 @@ namespace Domain.Tests.Helpers
                     : Decimal.Round(
                         Decimal.Parse(
                             Random.NextDouble()
-                                .ToString(CultureInfo.InvariantCulture)),
+                                .ToString()),
                         2);
             }
 
@@ -148,13 +160,13 @@ namespace Domain.Tests.Helpers
 
             coupon.Code = coupon.Code ?? Internet.UserName();
             coupon.CanBeCombined = canBeCombined ?? Random.Next(2) > 0;
-            coupon.CustomersValidFor = coupon.CustomersValidFor ?? RandomAmount(RandomCustomer);
-            coupon.CustomersUsedBy = coupon.CustomersUsedBy ?? RandomAmount(RandomCustomer);
+            coupon.CustomersValidFor = coupon.CustomersValidFor ?? (validForEveryone ? null : RandomAmount(() => RandomCustomer()));
+            coupon.CustomersUsedBy = coupon.CustomersUsedBy ?? RandomAmount(() => RandomCustomer());
             coupon.Start = (coupon.Start > new DateTime())
                 ? coupon.Start
                 : DateTime.Now.AddDays(Random.Next(-10, 10));
             coupon.End = coupon.End ?? ((Random.Next(2) > 0)
-                ? coupon.Start.AddDays(Random.Next(20))
+                ? coupon.Start.AddDays(Random.Next(1, 20))
                 : (DateTime?) null);
 
             return coupon;
@@ -163,13 +175,13 @@ namespace Domain.Tests.Helpers
         /// <summary>
         ///     Generates a customer filled with random data
         /// </summary>
-        public static Customer RandomCustomer()
+        public static Customer RandomCustomer(String email = null, String socialSecurityNumber = null)
         {
             return new Customer
             {
                 CouponUses = Random.Next(10),
-                Email = (Random.Next(2) > 0) ? Internet.Email() : null,
-                SocialSecurityNumber = (Random.Next(2) > 0) ? Phone.Number() : null
+                Email = email ?? Internet.Email(),
+                SocialSecurityNumber = socialSecurityNumber ?? Phone.Number()
             };
         }
 
