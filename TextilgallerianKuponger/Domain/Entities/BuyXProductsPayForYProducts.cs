@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Raven.Client.Linq;
 
 namespace Domain.Entities
 {
     /// <summary>
-    /// Discount: Customer only pays for Y Products when buying X products from Products-list
+    ///     Discount: Customer only pays for Y Products when buying X products from Products-list
     /// </summary>
     public class BuyXProductsPayForYProducts : ProductCoupon
     {
         /// <summary>
-        /// How many free products
+        ///     How many free products
         /// </summary>
         public Decimal PayFor { get; set; }
 
@@ -23,7 +20,8 @@ namespace Domain.Entities
         /// </summary>
         public override Decimal CalculateDiscount(Cart cart)
         {
-            var products = cart.Rows.Where(r => r.Product.In(Products)).OrderBy(r => r.ProductPrice).ToList();
+            var products =
+                cart.Rows.Where(r => r.Product.In(Products)).OrderBy(r => r.ProductPrice).ToList();
             var free = Buy - PayFor;
             Decimal discount = 0;
 

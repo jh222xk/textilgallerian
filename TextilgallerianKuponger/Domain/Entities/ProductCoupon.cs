@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Raven.Client.Linq;
 
 namespace Domain.Entities
 {
     /// <summary>
-    /// Coupons for specified products
+    ///     Coupons for specified products
     /// </summary>
     public abstract class ProductCoupon : Coupon
     {
         /// <summary>
-        /// Products valid for this discount
+        ///     Products valid for this discount
         /// </summary>
         public List<Product> Products { get; set; }
 
         /// <summary>
-        /// How many products customer need to buy
+        ///     How many products customer need to buy
         /// </summary>
         public Decimal Buy { get; set; }
 

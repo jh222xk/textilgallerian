@@ -44,17 +44,11 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions">
-      <HintPath>..\packages\RavenDB.Tests.Helpers.3.0.3528\lib\net45\Raven.Abstractions.dll</HintPath>
-    </Reference>
     <Reference Include="Raven.Client.Lightweight">
       <HintPath>..\packages\RavenDB.Client.3.0.3528\lib\net45\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Database">
       <HintPath>..\packages\RavenDB.Database.3.0.3528\lib\net45\Raven.Database.dll</HintPath>
-    </Reference>
-    <Reference Include="Raven.Server">
-      <HintPath>..\packages\RavenDB.Tests.Helpers.3.0.3528\lib\net45\Raven.Server.exe</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -78,15 +72,19 @@
     <Compile Include="Entities\BuyProductXRecieveProductYTest.cs" />
     <Compile Include="Entities\TotalSumPercentageDiscountTest.cs" />
     <Compile Include="Entities\TotalSumAmountDiscountTest.cs" />
+    <Compile Include="Helpers\RepositoryFactory.cs" />
     <Compile Include="Helpers\Testdata.cs" />
     <Compile Include="Helpers\InvalidCoupon.cs" />
     <Compile Include="Helpers\ValidCoupon.cs" />
     <Compile Include="Repositories\CouponRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CouponServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

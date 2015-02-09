@@ -3,6 +3,7 @@ using System.Linq;
 using Api.Controllers;
 using Domain.Entities;
 using Domain.Repositories;
+using Domain.Services;
 using Domain.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSpec;
@@ -40,7 +41,7 @@ namespace Api.Tests.Controllers
 
             _couponRepository = new CouponRepository(session);
 
-            _cartController = new CartController(_couponRepository);
+            _cartController = new CartController(_couponRepository, new CouponService(_couponRepository));
 
             _couponRepository.Store(
                 Testdata.RandomCoupon(new ValidCoupon
@@ -113,7 +114,7 @@ namespace Api.Tests.Controllers
         {
             _cart = Testdata.RandomCart();
 
-            var result = _cartController.Post(_cart).ToList();
+            var result = _cartController.Post(_cart).Discounts.ToList();
 
             result.Count.should_be(0);
         }
@@ -123,7 +124,7 @@ namespace Api.Tests.Controllers
         {
             _cart = Testdata.RandomCart(providedCode: "XMAS15");
 
-            var result = _cartController.Post(_cart).ToList();
+            var result = _cartController.Post(_cart).Discounts.ToList();
 
             result.Count.should_be(1);
             result[0].Code.should_be("XMAS15");
@@ -137,7 +138,7 @@ namespace Api.Tests.Controllers
                 Email = "test@testmail.com"
             });
 
-            var result = _cartController.Post(_cart).ToList();
+            var result = _cartController.Post(_cart).Discounts.ToList();
             // NOTE: Count should be one becouse the other coupon is invalid
             result.Count.should_be(1);
             result[0].CustomersValidFor[0].Email.should_be("test@testmail.com");
@@ -147,7 +148,7 @@ namespace Api.Tests.Controllers
                 Email = "wrongmail@testmail.com"
             });
 
-            var result2 = _cartController.Post(_cart).ToList();
+            var result2 = _cartController.Post(_cart).Discounts.ToList();
             result2.Count.should_be(0);
         }
 
@@ -159,7 +160,7 @@ namespace Api.Tests.Controllers
                 SocialSecurityNumber = "8888"
             });
 
-            var result = _cartController.Post(_cart).ToList();
+            var result = _cartController.Post(_cart).Discounts.ToList();
             // NOTE: Count should be one becouse the other coupon is invalid
             result.Count.should_be(1);
             result[0].CustomersValidFor[0].SocialSecurityNumber.should_be("8888");
@@ -169,7 +170,7 @@ namespace Api.Tests.Controllers
                 SocialSecurityNumber = "8889"
             });
 
-            var result2 = _cartController.Post(_cart).ToList();
+            var result2 = _cartController.Post(_cart).Discounts.ToList();
             result2.Count.should_be(0);
         }
 
@@ -182,7 +183,7 @@ namespace Api.Tests.Controllers
                 SocialSecurityNumber = "2222"
             });
 
-            var result = _cartController.Post(_cart).ToList();
+            var result = _cartController.Post(_cart).Discounts.ToList();
             // NOTE: Count should be one becouse the other coupon is invalid
             result.Count.should_be(1);
         }

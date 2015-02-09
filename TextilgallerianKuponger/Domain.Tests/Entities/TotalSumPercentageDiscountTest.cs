@@ -43,7 +43,8 @@ namespace Domain.Tests.Entities
                         Amount = 1,
                         Product = Testdata.RandomProduct()
                     }
-                }
+                },
+                Discounts = new List<Coupon>()
             };
         }
 

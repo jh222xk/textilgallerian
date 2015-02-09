@@ -27,7 +27,7 @@ namespace Domain.Tests.Entities
                 CanBeCombined = false,
                 Code = "XMAS15",
                 CustomersUsedBy = new List<Customer>(),
-                CustomersValidFor = new List<Customer>(),
+                CustomersValidFor = null,
                 Start = DateTime.Now,
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
@@ -55,7 +55,8 @@ namespace Domain.Tests.Entities
                         Amount = 1,
                         Product = Testdata.RandomProduct()
                     }
-                }
+                },
+                Discounts = new List<Coupon>()
             };
         }
 
@@ -110,7 +111,8 @@ namespace Domain.Tests.Entities
                         Amount = 1,
                         Product = Testdata.RandomProduct()
                     }
-                }
+                },
+                Discounts = new List<Coupon>()
             };
 
             _coupon.IsValidFor(_cart).should_be_true();
