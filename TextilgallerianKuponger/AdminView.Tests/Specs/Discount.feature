@@ -1,4 +1,5 @@
-﻿@authentication
+﻿@ignore
+@authentication
 Feature: Add new discount coupon
     In order to add a new discount coupon
     As a administrator

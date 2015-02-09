@@ -1,4 +1,5 @@
-﻿Feature: Login
+﻿@ignore
+Feature: Login
 	In order to login
 	As a currently logged out user
 	I want to be logged in 
