@@ -9,7 +9,7 @@ namespace Domain.Tests.Entities
     [TestClass]
     public class CartTest
     {
-        private Cart cart;
+        private Cart _cart;
 
         /// <summary>
         ///     Setup our test data
@@ -17,7 +17,7 @@ namespace Domain.Tests.Entities
         [TestInitialize]
         public void SetUp()
         {
-            cart = new Cart
+            _cart = new Cart
             {
                 Rows = new List<Row>
                 {
@@ -45,10 +45,10 @@ namespace Domain.Tests.Entities
         public void TestCanGetTotalSum()
         {
             // Check the TotalSum calculation
-            cart.TotalSum.should_be(900);
+            _cart.TotalSum.should_be(900);
 
             // Check that we really got 2 Rows
-            cart.Rows.Count.should_be(2);
+            _cart.Rows.Count.should_be(2);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Domain.Tests.Entities
         public void TestCanGetNumberOfProducts()
         {
             // Check the Amount calculation
-            cart.NumberOfProducts.should_be(5);
+            _cart.NumberOfProducts.should_be(5);
         }
     }
 }

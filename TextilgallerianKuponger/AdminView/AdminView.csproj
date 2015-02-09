@@ -151,7 +151,6 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\SemanticUIStart.cs" />
     <Compile Include="Controllers\CouponController.cs" />
-    <Compile Include="Controllers\SemanticUIController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

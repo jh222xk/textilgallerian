@@ -1,9 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.PhantomJS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TechTalk.SpecFlow;
 
 namespace AdminView.Tests.Steps
@@ -16,8 +11,8 @@ namespace AdminView.Tests.Steps
         public void ThenIShouldBeAbleToAddANewDiscount()
         {
             ThenIWouldNeedToLogin();
-            driver.FindElement(By.Name("code"));
-            driver.FindElement(By.Name("combinable"));
+            Driver.FindElement(By.Name("code"));
+            Driver.FindElement(By.Name("combinable"));
         }
         
     }
