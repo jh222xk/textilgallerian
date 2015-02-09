@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net">
+      <HintPath>..\packages\BCrypt-Official.0.1.109\lib\BCrypt.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Raven.Abstractions">
       <HintPath>..\packages\RavenDB.Client.3.0.3528\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
@@ -46,17 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\BuyProductXRecieveProductY.cs" />
-    <Compile Include="Entities\BuyXProductsPayForYProducts.cs" />
-    <Compile Include="Entities\Cart.cs" />
-    <Compile Include="Entities\Coupon.cs" />
+    <Compile Include="Entities\Coupons\BuyProductXRecieveProductY.cs" />
+    <Compile Include="Entities\Coupons\BuyXProductsPayForYProducts.cs" />
+    <Compile Include="Entities\Cart\Cart.cs" />
+    <Compile Include="Entities\Coupons\Coupon.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Product.cs" />
-    <Compile Include="Entities\ProductCoupon.cs" />
+    <Compile Include="Entities\Coupons\ProductCoupon.cs" />
     <Compile Include="Entities\Regular.cs" />
-    <Compile Include="Entities\Row.cs" />
-    <Compile Include="Entities\TotalSumPercentageDiscount.cs" />
-    <Compile Include="Entities\TotalSumAmountDiscount.cs" />
+    <Compile Include="Entities\Cart\Row.cs" />
+    <Compile Include="Entities\Coupons\TotalSumPercentageDiscount.cs" />
+    <Compile Include="Entities\Coupons\TotalSumAmountDiscount.cs" />
+    <Compile Include="Entities\User\Role.cs" />
     <Compile Include="Entities\User\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CouponRepository.cs" />
@@ -66,7 +70,6 @@
     <None Include="Coupons.cd" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

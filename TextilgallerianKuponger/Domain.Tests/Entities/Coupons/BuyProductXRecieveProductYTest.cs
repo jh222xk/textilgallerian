@@ -6,10 +6,10 @@ using Domain.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSpec;
 
-namespace Domain.Tests.Entities
+namespace Domain.Tests.Entities.Coupons
 {
     [TestClass]
-    public class BuyXProductsPayForYProductsTest
+    public class BuyProductXRecieveProductYTest
     {
         private Cart _cart;
         private Coupon _coupon;
@@ -25,17 +25,18 @@ namespace Domain.Tests.Entities
             _freeProduct = Testdata.RandomProduct();
             _validProduct = Testdata.RandomProduct();
 
-            _coupon = new BuyXProductsPayForYProducts
+            _coupon = new BuyProductXRecieveProductY
             {
                 CanBeCombined = false,
                 Code = "XMAS15",
                 CustomersUsedBy = new List<Customer>(),
-                CustomersValidFor = new List<Customer>(),
+                CustomersValidFor = null,
                 Start = DateTime.Now,
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
                 Buy = 3,
-                PayFor = 2,
+                FreeProduct = _freeProduct,
+                Amount = 2,
                 Products = new List<Product>
                 {
                     _validProduct
@@ -54,55 +55,52 @@ namespace Domain.Tests.Entities
                     new Row
                     {
                         ProductPrice = 100,
-                        Amount = 1.5m,
+                        Amount = 2,
                         Product = _validProduct
                     },
                     new Row
                     {
                         ProductPrice = 500,
-                        Amount = 2.75m,
+                        Amount = 1,
                         Product = Testdata.RandomProduct()
-                    },
-                    new Row
-                    {
-                        ProductPrice = 50,
-                        Amount = 1.5m,
-                        Product = _validProduct
                     }
                 }
             };
         }
 
         /// <summary>
-        ///     The discount should apply to the cheapest product in the cart
+        ///     Test so if customer haven't enough products for the discount
         /// </summary>
         [TestMethod]
-        public void TestThatTheDiscountIsCalculatedOnTheChepestProduct()
+        public void TestCustomerHasNotEnoughProductsForDiscount()
         {
-            _coupon.CalculateDiscount(_cart).should_be(50);
+            // ReSharper disable once PossibleNullReferenceException
+            (_coupon as BuyProductXRecieveProductY).Buy = 10;
+
+            _coupon.IsValidFor(_cart).should_be_false();
         }
 
         /// <summary>
-        ///     If the discount applies for multiple products and thus spans more rows than
-        ///     one the secound cheapest product shall be given the discount.
+        ///     Test so outdated coupon is not valid even if customer is in CustomersValidFor-list
         /// </summary>
         [TestMethod]
-        public void TestThatTheDiscountIsCalculatedOnThenNextRowIfTheFirstGotFree()
+        public void TestCustomerHasEnoughProductsForDiscount()
         {
-            // ReSharper disable once PossibleNullReferenceException
-            (_coupon as BuyXProductsPayForYProducts).PayFor = 0.5m;
-            _coupon.CalculateDiscount(_cart).should_be(175);
+            _coupon.IsValidFor(_cart).should_be_true();
         }
 
         /// <summary>
-        ///     The discount can only ever apply to valid products
+        ///     After calling the CalculateDiscount method the free product should have been added
+        ///     to the cart
         /// </summary>
         [TestMethod]
-        public void TestThatTheDiscountOnlyIsCalculatedOnValidProducts()
+        public void TestThatAFreeProductIsAddedToTheCart()
         {
-            // ReSharper disable once PossibleNullReferenceException
-            (_coupon as BuyXProductsPayForYProducts).Buy = 10;
-            _coupon.CalculateDiscount(_cart).should_be(225);
+            _coupon.CalculateDiscount(_cart).should_be(0);
+            _cart.Rows.Count.should_be(3);
+            _cart.Rows.Last().ProductPrice.should_be(0);
+            _cart.Rows.Last().Product.should_be(_freeProduct);
+            _cart.Rows.Last().Amount.should_be(2);
         }
     }
 }

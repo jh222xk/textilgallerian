@@ -120,8 +120,6 @@
       <DependentUpon>Login.feature</DependentUpon>
     </Compile>
     <Compile Include="Steps\CommonSteps.cs" />
-    <Compile Include="App_Start\SemanticUIStart.cs" />
-    <Compile Include="Controllers\SemanticUIController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\DiscountSteps.cs" />
     <Compile Include="Steps\LoginSteps.cs" />
@@ -132,35 +130,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="App.config" />
-    <Content Include="Content\Images\bg.jpg" />
-    <Content Include="Content\Images\cat.png" />
-    <Content Include="Content\semantic.css" />
-    <Content Include="Content\semantic.min.css" />
-    <Content Include="Content\semantic.site.css" />
-    <Content Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
-    <Content Include="Scripts\jquery-2.1.3.min.js" />
-    <Content Include="Scripts\semantic.js" />
-    <Content Include="Scripts\semantic.min.js" />
-    <Content Include="Scripts\semantic.site.js" />
     <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fonts\basic.icons.eot" />
-    <None Include="fonts\basic.icons.svg" />
-    <None Include="fonts\basic.icons.ttf" />
-    <None Include="fonts\basic.icons.woff" />
-    <None Include="fonts\icons.eot" />
-    <None Include="fonts\icons.otf" />
-    <None Include="fonts\icons.svg" />
-    <None Include="fonts\icons.ttf" />
-    <None Include="fonts\icons.woff" />
     <None Include="packages.config" />
-    <None Include="Scripts\jquery-2.1.3.min.map" />
-    <None Include="Views\SemanticUI\Index.cshtml" />
-    <None Include="Views\Shared\_Layout_Semantic.cshtml" />
     <None Include="Specs\Discount.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Discount.feature.cs</LastGenOutput>
