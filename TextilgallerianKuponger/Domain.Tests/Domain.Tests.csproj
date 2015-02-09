@@ -66,12 +66,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DebuggerShim.cs" />
-    <Compile Include="Entities\CartTest.cs" />
-    <Compile Include="Entities\CouponTest.cs" />
-    <Compile Include="Entities\BuyXProductsPayForYProductsTest.cs" />
-    <Compile Include="Entities\BuyProductXRecieveProductYTest.cs" />
-    <Compile Include="Entities\TotalSumPercentageDiscountTest.cs" />
-    <Compile Include="Entities\TotalSumAmountDiscountTest.cs" />
+    <Compile Include="Entities\Cart\CartTest.cs" />
+    <Compile Include="Entities\Coupons\CouponTest.cs" />
+    <Compile Include="Entities\Coupons\BuyXProductsPayForYProductsTest.cs" />
+    <Compile Include="Entities\Coupons\BuyProductXRecieveProductYTest.cs" />
+    <Compile Include="Entities\Coupons\TotalSumPercentageDiscountTest.cs" />
+    <Compile Include="Entities\Coupons\TotalSumAmountDiscountTest.cs" />
     <Compile Include="Helpers\RepositoryFactory.cs" />
     <Compile Include="Helpers\Testdata.cs" />
     <Compile Include="Helpers\InvalidCoupon.cs" />
@@ -100,6 +100,9 @@
     <Content Include="phantomjs-license.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\User\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

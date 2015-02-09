@@ -5,8 +5,6 @@ using Domain.Repositories;
 using Domain.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSpec;
-using Raven.Client;
-using Raven.Client.Embedded;
 
 namespace Domain.Tests.Repositories
 {
