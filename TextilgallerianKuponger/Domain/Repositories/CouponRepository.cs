@@ -10,11 +10,11 @@ namespace Domain.Repositories
     /// </summary>
     public class CouponRepository
     {
-        private readonly IDocumentSession session;
+        private readonly IDocumentSession _session;
 
         public CouponRepository(IDocumentSession session)
         {
-            this.session = session;
+            _session = session;
         }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Domain.Repositories
         /// </summary>
         public Coupon FindByCode(String code)
         {
-            return session.Query<Coupon>()
+            return _session.Query<Coupon>()
                           .FirstOrDefault(coupon => coupon.Code == code);
         }
 
@@ -31,7 +31,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<Coupon> FindBySocialSecurityNumber(String ssn)
         {
-            return session.Query<Coupon>()
+            return _session.Query<Coupon>()
                           .Where(
                               coupon =>
                               coupon.CustomersValidFor.Any(
@@ -43,7 +43,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<Coupon> FindByEmail(String email)
         {
-            return session.Query<Coupon>()
+            return _session.Query<Coupon>()
                           .Where(
                               coupon =>
                               coupon.CustomersValidFor.Any(customer => customer.Email == email));
@@ -54,7 +54,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<ProductCoupon> FindByProduct(Product product)
         {
-            return session.Query<ProductCoupon>()
+            return _session.Query<ProductCoupon>()
                           .Where(
                               coupon =>
                               coupon.Products.Any(p => p.ProductId == product.ProductId));
@@ -65,7 +65,7 @@ namespace Domain.Repositories
         /// </summary>
         public void Store(Coupon coupon)
         {
-            session.Store(coupon);
+            _session.Store(coupon);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Domain.Repositories
         /// </summary>
         public void SaveChanges()
         {
-            session.SaveChanges();
+            _session.SaveChanges();
         }
     }
 }
