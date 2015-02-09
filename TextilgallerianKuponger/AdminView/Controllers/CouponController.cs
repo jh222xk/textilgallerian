@@ -1,10 +1,16 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using AdminView.ViewModel;
 
 namespace AdminView.Controllers
 {
     public class CouponController : Controller
     {
         // GET: Coupon
+        private CouponViewModel couponViewModel = new CouponViewModel();
         public ActionResult Coupons()
         {
             

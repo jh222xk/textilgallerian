@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Collections.Concurrent
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -10,9 +11,29 @@
     @Scripts.Render("~/bundles/semantic")
 </head>
 <body>
-
-
-    @RenderBody()
-    @RenderSection("scripts", required: false)
+    <div class="ui secondary pointing menu">
+      
+        @*<i class='tags icon'></i>*@ @Html.ActionLink("Rabatter", "Coupons", "Coupon", null, new { @class = "active item" })
+      
+        @*<i class="tag icon"></i>*@ @Html.ActionLink("Skapa Rabatt", "Create", "Coupon", null, new { @class = "item" })
+        
+        @*<i class="user icon"></i> Users*@ @Html.ActionLink("Användare", "Users", "User", null, new { @class = "item" })
+       
+        <div class="right menu">
+            <div class="item">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+            <a class="ui item">
+                Logout
+            </a>
+        </div>
+    </div>
+    <div class="ui page grid">
+        @RenderBody()
+    </div>
+        @RenderSection("scripts", required: false)
 </body>
 </html>
