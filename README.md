@@ -1,4 +1,4 @@
- Textilgallerian
+ Textilgallerian [![Build status](https://ci.appveyor.com/api/projects/status/iga57hux29j017kb/branch/master?svg=true)](https://ci.appveyor.com/project/Pajn/textilgallerian/branch/master)
 ==============
  <a href="http://www.textilgallerian.se/"
      target="_blank">
