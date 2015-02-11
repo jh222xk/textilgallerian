@@ -1,21 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
-using AdminView.ViewModel;
 
 namespace AdminView.Controllers
 {
+
+    public class LoggedIn : AuthorizeAttribute
+    {
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            return httpContext.Session != null && httpContext.Session["user"] != null;
+        }
+    }
+
+    [LoggedIn]
     public class CouponController : Controller
     {
         // GET: Coupon
-        private CouponViewModel couponViewModel = new CouponViewModel();
-        public ActionResult Coupons()
+        public ActionResult Index()
+
         {
-            
             return View("Coupons");
-            
         }
 
         // GET: Coupon/Details/5

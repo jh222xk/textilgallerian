@@ -1,6 +1,5 @@
-using System.Web.Mvc;
+using Domain.Entities;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Mvc;
 using Raven.Client;
 using Raven.Client.Document;
 
@@ -8,17 +7,27 @@ namespace AdminView
 {
     public static class UnityConfig
     {
-        private static readonly IDocumentStore Store = new DocumentStore { ConnectionStringName = "RavenDB" };
+        private static readonly IDocumentStore Store = new DocumentStore
+        {
+            ConnectionStringName = "RavenDB",
+            Conventions =
+            {
+                FindTypeTagName =
+                    type => typeof(Coupon).IsAssignableFrom(type) ? "coupons" : null
+            }
+        };
         private static UnityContainer _container;
 
         public static void RegisterComponents()
         {
-			_container = new UnityContainer();
-            
+            _container = new UnityContainer();
+
+
+            // Initialize the database store
+            Store.Initialize();
+
             // register all your components with the container here
             // it is NOT necessary to register your controllers
-            
-            // e.g. container.RegisterType<ITestService, TestService>();
 
             // Creates a single DocumentStore during the applications liftime
             _container.RegisterInstance(Store);
@@ -26,11 +35,10 @@ namespace AdminView
             _container.RegisterType<IDocumentSession>(
                 new PerRequestLifetimeManager(),
                 new InjectionFactory(c => Store.OpenSession()));
-            
-            DependencyResolver.SetResolver(new UnityDependencyResolver(_container));
         }
 
-        public static UnityContainer GetConfiguredContainer() {
+        public static UnityContainer GetConfiguredContainer()
+        {
             return _container;
         }
     }
