@@ -1,29 +1,131 @@
-﻿@model AdminView.ViewModel.UserViewModel
+﻿@model AdminView.ViewModel.CouponViewModel
 
 @{
-    ViewBag.Title = "Logga in";
+    ViewBag.Title = "Users";
 }
 
-<div class="four column">
-    <form class="ui form">
-        @Html.AntiForgeryToken()
 
-        <h3>Logga in</h3>
 
-        @Html.ValidationSummary(true, "", new { @class = "" })
 
-        <div class="field">
-            @Html.LabelFor(m => m.Email, new { @class = "" })
-            @Html.TextBoxFor(m => m.Email, new { required = "" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "" })
+<div class="ui grid">
+    <h2>Användare</h2>
+
+    <div class="eight wide column">
+
+
+
+
+
+        <div class="ui card">
+            <div class="image">
+                <img src="http://excusememe.com/pics/images/1300858870_kermit_human_eyes.jpg">
+            </div>
+            <div class="content">
+                <p><strong>Kermit</strong></p>
+            </div>
         </div>
-
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>E-Post</th>
+                    <th>Admin?</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <div class="ui primary button" id="form_button">
+                            Lägg till användare
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var user in Model.Users1)
+                {
+                    <tr>
+                        <td>
+                            @user.Email
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="ui hidden divider"></div>
         <div class="field">
-            @Html.LabelFor(m => m.Password, new { @class = "" })
-            @Html.TextBoxFor(m => m.Password, new { required = "" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "" })
         </div>
+    </div>
 
-        <input type="submit" class="ui button green" value="Logga in" />
-    </form>
+    
+        <div class="eight wide column">
+            <div id="uform" class="hidden">
+                <form class="ui form">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Namn</label>
+                            <div class="two fields">
+                                <div class="field">
+                                    <input name="first-name" placeholder="Förnamn" type="text">
+                                </div>
+                                <div class="field">
+                                    <input name="last-name" placeholder="Efternamn" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Behörighet</label>
+                            <select class="ui search dropdown">
+                                <option value="">Behörighet</option>
+                                <option value="AL">Admin</option>
+                                <option value="AL">Läsa</option>
+                                <option value="AK">Editera</option>
+                                <option value="AZ">Skriva</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="required field">
+                            <label>Email</label>
+                            <div class="ui icon input">
+                                <input type="text" name="email" placeholder="Email">
+                            </div>
+                        </div>
+
+                        <div class="required field">
+                            <label>Password</label>
+                            <div class="ui icon input">
+                                <input type="password">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui error message">
+                        <div class="header">Något gick fel</div>
+                    </div>
+                    <div class="ui primary button">
+                        Save
+                    </div>
+                    
+                </form>
+            </div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    $("#form_button").click(function () {
+        if ($("#uform").attr("class") == "hidden") {
+            $("#uform").attr("class", "");
+
+        }
+        else {
+            $("#uform").attr("class", "hidden");
+        }
+        
+    });
+
+</script>

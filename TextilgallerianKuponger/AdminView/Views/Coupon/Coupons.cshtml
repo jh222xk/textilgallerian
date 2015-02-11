@@ -3,20 +3,57 @@
     ViewBag.Title = "Coupons";
 }
 
-<h2>Coupons</h2>
+<h2>Cupons</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="two wide column">
+
+    <table class="ui table">
+        <thead>
+            <tr>
+                <th>Kampanjnamn</th>
+                <th>Kampanjkod</th>
+                <th>Startdatum</th>
+                <th>Slutdatum</th>
+                <th>Typ av kampanj</th>
+                <th>Skapad av</th>
+                <th>Val</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var coupon in Model.Coupon1)
+            {
+                <tr>
+                    <td>
+                         @coupon.Code
+                    </td>
+                    <td>
+                        @coupon.Code
+                    </td>
+                    <td>
+                        @coupon.Start
+                    </td>
+                    <td>
+                        @coupon.End
+                    </td>
+                    <td>
+                        @coupon.Type
+                    </td>
+                    <td>
+                        Linus
+                    </td>
+                    <td>
+                        @Html.ActionLink("Ta bort", "Delete")
+
+                        @Html.ActionLink("Redigera", "Edit")
+                    </td>
+
+                </tr>
+            }
 
 
-@*@foreach (var item in Model.Coupons) {
-    
-    
-        
-    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        
-    
-}*@
+        </tbody>
+    </table>
+    <div class="ui hidden divider"></div>
+    <div class="field">
+    </div>
+</div>
