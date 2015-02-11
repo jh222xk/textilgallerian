@@ -24,8 +24,8 @@ namespace AdminView {
             bundles.Add(new StyleBundle("~/Content/css").Include(
                      "~/Content/jquery-ui.min.css",
                      "~/Content/jquery.highlighttextarea.min.css",
-                      "~/Content/semantic.min.css"
-                      ));
+                      "~/Content/semantic.min.css",
+                      "~/Content/site.css"));
         }
     }
 }

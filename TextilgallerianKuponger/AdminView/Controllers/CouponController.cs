@@ -18,7 +18,6 @@ namespace AdminView.Controllers
     {
         // GET: Coupon
         public ActionResult Index()
-
         {
             return View("Coupons");
         }
