@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace AdminView.Controllers
 {
+    [LoggedIn]
     public class UserController : Controller
     {
         // GET: User

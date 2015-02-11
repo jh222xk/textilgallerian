@@ -33,8 +33,16 @@ namespace AdminView.Controllers
                 var users = Testdata.RandomAmount(Testdata.RandomUser);
                 foreach (var tempUser in users)
                 {
-                    _userRepository.Store(tempUser);   
+                    _userRepository.Store(tempUser);
                 }
+
+                _userRepository.Store(new User
+                {
+                    Email = "admin@admin.com",
+                    Password = "password",
+                    IsActive = true
+                });
+
                 _userRepository.SaveChanges();
             }
 
