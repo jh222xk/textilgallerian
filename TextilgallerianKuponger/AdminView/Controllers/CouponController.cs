@@ -27,7 +27,7 @@ namespace AdminView.Controllers
         // GET: Coupon/Create
         public ActionResult Create()
         {
-            return View();
+            return View(couponViewModel);
         }
 
         // POST: Coupon/Create

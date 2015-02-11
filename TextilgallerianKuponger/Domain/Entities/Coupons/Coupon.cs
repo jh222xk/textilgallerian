@@ -15,6 +15,10 @@ namespace Domain.Entities
         /// </summary>
         public String Code { get; set; }
 
+        public String Name { get; set; }
+
+        public String Description { get; set; }
+
         /// <summary>
         /// When the coupon should start to be valid
         /// </summary>
@@ -50,6 +54,10 @@ namespace Domain.Entities
         /// Max amount of times that a customer is allowed to use the coupon
         /// </summary>
         public int? UseLimit { get; set; }
+        /// <summary>
+        /// Proprty if use limits need to be set by codeusages
+        /// </summary>
+        public int? CouponUseLimit { get; set; }
 
         /// <summary>
         /// Boolean deciding if the coupon can be combined

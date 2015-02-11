@@ -1,0 +1,6 @@
+﻿@model AdminView.ViewModel.CouponViewModel
+
+<label>Tag Antal</label>
+@Html.TextBoxFor(m => Model.BuyXPayForY.TakeFor, new { type="number", min ="0" })
+<label>Betala för Antal</label>
+@Html.TextBoxFor(m => Model.BuyXPayForY.PayFor, new { type = "number", min = "0" })

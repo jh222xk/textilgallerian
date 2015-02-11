@@ -13,6 +13,7 @@ namespace Domain.Entities
         ///     How many free products
         /// </summary>
         public Decimal PayFor { get; set; }
+        public Decimal TakeFor { get; set; }
 
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart
