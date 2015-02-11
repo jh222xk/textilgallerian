@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-using System.Web;
-using System.Web.ModelBinding;
+﻿using System.Web;
 using System.Web.Mvc;
 
 namespace AdminView.Controllers
@@ -19,6 +17,7 @@ namespace AdminView.Controllers
     {
         // GET: Coupon
         public ActionResult Index()
+
         {
             return View("Coupons");
         }
