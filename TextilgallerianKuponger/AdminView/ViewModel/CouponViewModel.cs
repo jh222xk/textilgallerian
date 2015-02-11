@@ -49,32 +49,6 @@ namespace AdminView.ViewModel
                     };
             }
         }
-
-
-
-        public List<User> Users1
-        {
-            get
-            {
-                return new List<User>{
-                        new User
-                        {
-                            Username = "Anna Bok",
-                            Email = "Anna.Bok@mail.se",
-                        },
-                        new User
-                        {
-                            Username = "Roger Pontare",
-                            Email = "Roger.P@mail.com"
-                        },
-                        new User
-                        {
-                            Username = "Hannibal",
-                            Email = "Brains@mail.com"
-                        }
-                    };
-            }
-        }
         public IEnumerable<Coupon> Coupons { get; set; }
     }
 }
