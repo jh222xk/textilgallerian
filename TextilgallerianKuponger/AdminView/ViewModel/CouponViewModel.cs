@@ -16,6 +16,7 @@ namespace AdminView.ViewModel
 
 
         public BuyXProductsPayForYProducts BuyXPayForY { get; set; }
+        public ProductCoupon ProductCoupon { get; set; }
         public int ClickCount { get; set; }
         public Coupon Coupon { get; set; }
         public IEnumerable<User> Users { get; set; }

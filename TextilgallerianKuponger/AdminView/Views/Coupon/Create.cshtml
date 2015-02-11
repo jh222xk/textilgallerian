@@ -36,7 +36,7 @@
                     @Html.Label("UseLimit", "Per kod")
                     @Html.RadioButtonFor(m => Model.Coupon.UseLimit, "UseLimit")
                     @Html.Label("UseLimit", "Per Användare")
-                    @Html.TextBoxFor(m => Model.BuyXPayForY.TakeFor, new { type = "number", min = "0" })
+                    @Html.TextBoxFor(m => Model.ProductCoupon.CouponUseLimit, new { type = "number", min = "0" })
                 </div>
                 ----------------------------------------------------
                 <div class="CouponCustomers"></div>

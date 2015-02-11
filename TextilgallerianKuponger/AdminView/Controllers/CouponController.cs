@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using AdminView.ViewModel;
+using System.Web;
 using System.Web.Mvc;
 
 namespace AdminView.Controllers
@@ -31,7 +32,7 @@ namespace AdminView.Controllers
         // GET: Coupon/Create
         public ActionResult Create()
         {
-            return View(couponViewModel);
+            return View(new CouponViewModel());
         }
 
         // POST: Coupon/Create
