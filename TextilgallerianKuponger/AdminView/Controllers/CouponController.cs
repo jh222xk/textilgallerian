@@ -1,18 +1,9 @@
-﻿using AdminView.ViewModel;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using AdminView.Annotations;
+using AdminView.ViewModel;
 
 namespace AdminView.Controllers
 {
-
-    public class LoggedIn : AuthorizeAttribute
-    {
-        protected override bool AuthorizeCore(HttpContextBase httpContext)
-        {
-            return httpContext.Session != null && httpContext.Session["user"] != null;
-        }
-    }
-
     [LoggedIn]
     public class CouponController : Controller
     {
