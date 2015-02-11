@@ -213,6 +213,10 @@ namespace Domain.Tests.Helpers
             return data;
         }
 
+        /// <summary>
+        /// Generates faked users with the same password and isactive to true
+        /// </summary>
+        /// <returns></returns>
         public static User RandomUser()
         {
             return new User
