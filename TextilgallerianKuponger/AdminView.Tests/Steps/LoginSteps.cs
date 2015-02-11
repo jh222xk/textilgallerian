@@ -1,4 +1,9 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.PhantomJS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using TechTalk.SpecFlow;
 
 namespace AdminView.Tests.Steps
@@ -14,6 +19,31 @@ namespace AdminView.Tests.Steps
             Driver.FindElement(By.Name("code"));
             Driver.FindElement(By.Name("combinable"));
         }
+
+        [Given(@"I am on the login page")]
+        public void GivenIAmOnTheLoginPage()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I should be logged in")]
+        public void ThenIShouldBeLoggedIn()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I shouldn't be logged in")]
+        public void ThenIShouldntBeLoggedIn()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"the system should present ""(.*)""")]
+        public void ThenTheSystemShouldPresent(string p0)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
         
     }
 }

@@ -24,6 +24,12 @@ namespace AdminView.Tests.Steps
             Driver.Quit();
         }
 
+        [BeforeScenario("authentication")]
+        public void BeforeAuthenticationScenario()
+        {
+            ThenIWouldNeedToLogin();
+        }
+
         [Then(@"I would need to login")]
         public void ThenIWouldNeedToLogin()
         {

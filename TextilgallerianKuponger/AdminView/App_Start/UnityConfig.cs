@@ -22,7 +22,6 @@ namespace AdminView
         {
             _container = new UnityContainer();
 
-
             // Initialize the database store
             Store.Initialize();
 
