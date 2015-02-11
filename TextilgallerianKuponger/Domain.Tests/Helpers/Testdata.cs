@@ -212,5 +212,15 @@ namespace Domain.Tests.Helpers
             }
             return data;
         }
+
+        public static User RandomUser()
+        {
+            return new User
+            {
+                Email = Internet.Email(),
+                IsActive = true,
+                Password = "password"
+            };
+        }
     }
 }

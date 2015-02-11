@@ -1,11 +1,14 @@
 using System.Linq;
 using System.Web.Mvc;
+using AdminView;
 using AdminView.App_Start;
-using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Microsoft.Practices.Unity.Mvc;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(UnityWebActivator), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
+[assembly: PreApplicationStartMethod(typeof(UnityWebActivator), "Prestart")]
+[assembly: PostApplicationStartMethod(typeof(UnityWebActivator), "Start")]
+[assembly: ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
 
 namespace AdminView.App_Start
 {
@@ -17,11 +20,21 @@ namespace AdminView.App_Start
         {
             var container = UnityConfig.GetConfiguredContainer();
 
+            if (container == null)
+            {
+                UnityConfig.GetConfiguredContainer();
+                container = UnityConfig.GetConfiguredContainer();
+            }
+
             FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
             FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+        }
 
+        /// <summary>Integrates Unity when the application starts.</summary>
+        public static void Prestart()
+        {
             // Make sure PerRequestLifetimeManaged instaces are disposed on end 
             DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }
