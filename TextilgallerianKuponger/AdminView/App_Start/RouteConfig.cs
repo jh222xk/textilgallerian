@@ -15,15 +15,10 @@ namespace AdminView
 
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Coupon", action = "Coupons", id = UrlParameter.Optional }
-            );
-            routes.MapRoute(
-              name: "User",
+              name: "Default",
               url: "{controller}/{action}/{id}",
-              defaults: new { controller = "User", action = "Users", id = UrlParameter.Optional }
-          );
+              defaults: new { controller = "Authorization", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }
