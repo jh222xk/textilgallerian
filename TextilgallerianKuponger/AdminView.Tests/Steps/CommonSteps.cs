@@ -10,26 +10,32 @@ namespace AdminView.Tests.Steps
     [Binding]
     public class CommonSteps : nspec
     {
-        protected IWebDriver driver;
+        protected IWebDriver Driver;
 
         [BeforeScenario]
         public void Setup()
         {
-            driver = new PhantomJSDriver();
+            Driver = new PhantomJSDriver();
         }
 
         [AfterScenario]
         public void TearDown()
         {
-            driver.Quit();
+            Driver.Quit();
+        }
+
+        [BeforeScenario("authentication")]
+        public void BeforeAuthenticationScenario()
+        {
+            ThenIWouldNeedToLogin();
         }
 
         [Then(@"I would need to login")]
         public void ThenIWouldNeedToLogin()
         {
             WhenINavigateTo("/");
-            driver.FindElement(By.Name("username")).SendKeys("username");
-            driver.FindElement(By.Name("password")).SendKeys("password");
+            Driver.FindElement(By.Name("username")).SendKeys("username");
+            Driver.FindElement(By.Name("password")).SendKeys("password");
             WhenIPress("Login");
         }
 
@@ -38,21 +44,21 @@ namespace AdminView.Tests.Steps
         {
             var rootUrl = new Uri(ConfigurationManager.AppSettings["RootUrl"]);
             var absoluteUrl = new Uri(rootUrl, path);
-            driver.Navigate().GoToUrl(absoluteUrl);
+            Driver.Navigate().GoToUrl(absoluteUrl);
         }
 
         [Then(@"the system should present success")]
         public void ThenTheSystemShouldPresentSuccess()
         {
-            driver.FindElement(By.CssSelector("success"));
-            driver.FindElement(By.CssSelector("error")).should_be_null();
+            Driver.FindElement(By.CssSelector("success"));
+            Driver.FindElement(By.CssSelector("error")).should_be_null();
         }
 
         [Then(@"the system should present success")]
         public void ThenTheSystemShouldPresentError()
         {
-            driver.FindElement(By.CssSelector("error"));
-            driver.FindElement(By.CssSelector("success")).should_be_null();
+            Driver.FindElement(By.CssSelector("error"));
+            Driver.FindElement(By.CssSelector("success")).should_be_null();
         }
 
         [When(@"I press (.*)")]
@@ -60,11 +66,11 @@ namespace AdminView.Tests.Steps
         {
             try
             {
-                driver.FindElement(By.LinkText(button)).Click();
+                Driver.FindElement(By.LinkText(button)).Click();
             }
             catch (NoSuchElementException)
             {
-                driver.FindElement(
+                Driver.FindElement(
                     By.CssSelector(String.Format("input[type='submit'][value='{0}']", button)))
                     .Click();
             }

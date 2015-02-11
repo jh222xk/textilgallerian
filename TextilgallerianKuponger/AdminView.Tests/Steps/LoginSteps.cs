@@ -16,9 +16,34 @@ namespace AdminView.Tests.Steps
         public void ThenIShouldBeAbleToAddANewDiscount()
         {
             ThenIWouldNeedToLogin();
-            driver.FindElement(By.Name("code"));
-            driver.FindElement(By.Name("combinable"));
+            Driver.FindElement(By.Name("code"));
+            Driver.FindElement(By.Name("combinable"));
         }
+
+        [Given(@"I am on the login page")]
+        public void GivenIAmOnTheLoginPage()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I should be logged in")]
+        public void ThenIShouldBeLoggedIn()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I shouldn't be logged in")]
+        public void ThenIShouldntBeLoggedIn()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"the system should present ""(.*)""")]
+        public void ThenTheSystemShouldPresent(string p0)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
         
     }
 }

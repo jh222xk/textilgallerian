@@ -1,7 +1,8 @@
-﻿@authentication
+﻿@ignore
+@editor
 Feature: Add new discount coupon
     In order to add a new discount coupon
-    As an administrator
+    As an editor
     I want to be able to add a new discount coupon
 
 Scenario: Add new percentage discount
@@ -71,9 +72,8 @@ Scenario: Add new buy product X and recieve product Y discount
 		And I have entered "Pink curtains" in the Free Products field
 		And I have selected "can not be combined" in the combinable checkbox
 	When I press "Create"
-	The the system should present success
-		And a discount of type "buy product X and recieve product Y" should exist
+	Then the system should present success
+		And a discount of type "buy product X recieve product Y" should exist
 		And a "buy product" with value "blue carpet" should exist
 		And a "free product" with value "pink curtains" should exist
 		And a "combinable" with value "can not be combined" should exist
-

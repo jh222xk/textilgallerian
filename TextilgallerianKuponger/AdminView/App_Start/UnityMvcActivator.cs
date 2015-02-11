@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using AdminView;
-using AdminView.App_Start;
 using Microsoft.Practices.Unity.Mvc;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using WebActivatorEx;
@@ -10,11 +9,18 @@ using WebActivatorEx;
 [assembly: PostApplicationStartMethod(typeof(UnityWebActivator), "Start")]
 [assembly: ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
 
-namespace AdminView.App_Start
+namespace AdminView
 {
     /// <summary>Provides the bootstrapping for integrating Unity with ASP.NET MVC.</summary>
     public static class UnityWebActivator
     {
+        /// <summary>Integrates Unity when the application starts.</summary>
+        public static void Prestart()
+        {
+            // Make sure PerRequestLifetimeManaged instaces are disposed on end 
+            DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
+        }
+
         /// <summary>Integrates Unity when the application starts.</summary>
         public static void Start() 
         {
@@ -22,7 +28,7 @@ namespace AdminView.App_Start
 
             if (container == null)
             {
-                UnityConfig.GetConfiguredContainer();
+                UnityConfig.RegisterComponents();
                 container = UnityConfig.GetConfiguredContainer();
             }
 
@@ -30,13 +36,6 @@ namespace AdminView.App_Start
             FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-        }
-
-        /// <summary>Integrates Unity when the application starts.</summary>
-        public static void Prestart()
-        {
-            // Make sure PerRequestLifetimeManaged instaces are disposed on end 
-            DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
         }
 
         /// <summary>Disposes the Unity container when the application is shut down.</summary>
