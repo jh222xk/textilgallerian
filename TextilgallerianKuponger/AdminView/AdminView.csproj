@@ -232,6 +232,7 @@
     <Content Include="Views\Coupon\Create.cshtml" />
     <Content Include="Views\User\Users.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_numericInput.cshtml" />
     <Content Include="Views\Authorization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
