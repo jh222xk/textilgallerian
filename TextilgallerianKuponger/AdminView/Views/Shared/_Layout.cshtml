@@ -11,30 +11,30 @@
     @Scripts.Render("~/bundles/semantic")
 </head>
 <body>
-    <div class="ui stackable fourteen centered  column grid">
-        <div class="ui secondary pointing menu">
+    <div class="ui secondary pointing menu">
 
-            @*<i class='tags icon'></i>*@ @Html.ActionLink("Rabatter", "Coupons", "Coupon", null, new { @class = "active item" })
+        @*<i class='tags icon'></i>*@ @Html.ActionLink("Rabatter", "Coupons", "Coupon", null, new { @class = "active item" })
 
-            @*<i class="tag icon"></i>*@ @Html.ActionLink("Skapa Rabatt", "Create", "Coupon", null, new { @class = "item" })
+        @*<i class="tag icon"></i>*@ @Html.ActionLink("Skapa Rabatt", "Create", "Coupon", null, new { @class = "item" })
 
-            @*<i class="user icon"></i> Users*@ @Html.ActionLink("Användare", "Users", "User", null, new { @class = "item" })
+        @*<i class="user icon"></i> Users*@ @Html.ActionLink("Användare", "Users", "User", null, new { @class = "item" })
 
-            <div class="right menu">
-                <div class="item">
-                    <div class="ui icon input">
-                        <input type="text" placeholder="Search...">
-                        <i class="search link icon"></i>
-                    </div>
+        <div class="right menu">
+            <div class="item">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search link icon"></i>
                 </div>
-                <a class="ui item">
-                    Logout
-                </a>
             </div>
+            <a class="ui item">
+                Logout
+            </a>
+        </div>
+        <div class="ui stackable fourteen centered  column grid">
         </div>
 
 
-        <div class="five column centered row">
+        <div class="ui page grid">
             @RenderBody()
         </div>
     </div>

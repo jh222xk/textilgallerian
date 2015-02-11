@@ -10,7 +10,7 @@ namespace AdminView.Controllers
         // GET: Coupon
         public ActionResult Index()
         {
-            return View("Coupons");
+            return View("Coupons", new CouponViewModel().Coupon1);
         }
 
         // GET: Coupon/Details/5

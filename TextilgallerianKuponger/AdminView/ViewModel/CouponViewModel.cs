@@ -49,6 +49,28 @@ namespace AdminView.ViewModel
                     };
             }
         }
+
+        public List<User> Users1
+        {
+            get
+            {
+                return new List<User>{
+                    new User
+                    {
+                    Email = "Anna.Bok@mail.se",
+                    },
+                    new User
+                    {
+                    Email = "Roger.P@mail.com"
+                    },
+                    new User
+                    {
+                    Email = "Brains@mail.com"
+                    }
+                };
+            }
+        }
+
         public IEnumerable<Coupon> Coupons { get; set; }
     }
 }
