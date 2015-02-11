@@ -5,7 +5,7 @@ using Raven.Client;
 
 namespace Domain.Repositories
 {
-    internal class UserRepository
+    public class UserRepository
     {
         private readonly IDocumentSession _session;
 

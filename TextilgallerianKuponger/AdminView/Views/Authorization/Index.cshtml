@@ -1,27 +1,24 @@
-﻿@model AdminView.ViewModel.UserViewModel
+﻿@model AdminView.ViewModel.AuthorizationViewModel
 
 @{
     ViewBag.Title = "Logga in";
 }
 
 <div class="four column">
-    <form class="ui form">
+    <form class="ui form" method="post">
         @Html.AntiForgeryToken()
 
         <h3>Logga in</h3>
 
-        @Html.ValidationSummary(true, "", new { @class = "" })
 
         <div class="field">
             @Html.LabelFor(m => m.Email, new { @class = "" })
             @Html.TextBoxFor(m => m.Email, new { required = "" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "" })
         </div>
 
         <div class="field">
             @Html.LabelFor(m => m.Password, new { @class = "" })
-            @Html.TextBoxFor(m => m.Password, new { required = "" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "" })
+            @Html.PasswordFor(m => m.Password, new { required = "" })
         </div>
 
         <input type="submit" class="ui button green" value="Logga in" />

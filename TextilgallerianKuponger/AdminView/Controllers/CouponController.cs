@@ -1,15 +1,26 @@
-﻿using System.Web.Mvc;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Web;
+using System.Web.ModelBinding;
+using System.Web.Mvc;
 
 namespace AdminView.Controllers
 {
+
+    public class LoggedIn : AuthorizeAttribute
+    {
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            return httpContext.Session != null && httpContext.Session["user"] != null;
+        }
+    }
+
+    [LoggedIn]
     public class CouponController : Controller
     {
         // GET: Coupon
-        public ActionResult Coupons()
+        public ActionResult Index()
         {
-            
             return View("Coupons");
-            
         }
 
         // GET: Coupon/Details/5

@@ -10,9 +10,15 @@
     @Scripts.Render("~/bundles/semantic")
 </head>
 <body>
+    <div class="layout">
+        <div class="ui stackable fourteen centered  column grid">
+            <div class="five column centered row">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
 
-
-    @RenderBody()
+    
     @RenderSection("scripts", required: false)
 </body>
 </html>
