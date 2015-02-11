@@ -1,4 +1,4 @@
-﻿@model AdminView.ViewModel.CouponViewModel
+﻿@model List<Domain.Entities.Coupon>
 @{
     ViewBag.Title = "Coupons";
 }
@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var coupon in Model.Coupon1)
+            @foreach (var coupon in Model)
             {
                 <tr>
                     <td>
