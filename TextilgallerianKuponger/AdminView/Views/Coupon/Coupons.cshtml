@@ -3,59 +3,47 @@
     ViewBag.Title = "Coupons";
 }
 
-<h2>Cupons</h2>
+<h2>Kuponger</h2>
 
+<div class="column centered row">
 
+    <div class="column two wide">Kampanjnamn</div>
+    <div class="column two wide">Kampanjkod</div>
+    <div class="column two wide ">Startdatum</div>
+    <div class="column two wide ">Slutdatum</div>
+    <div class="column four wide">Typ av kampanj</div>
+    <div class="column one wide">Skapad av</div>
+    <div class="column three wide">Val</div>
 
-<div class="fourteen column">
-    @Html.Partial("_FlashMessage")
-    <table class="ui table">
-        <thead>
-            <tr>
-                <th>Kampanjnamn</th>
-                <th>Kampanjkod</th>
-                <th>Startdatum</th>
-                <th>Slutdatum</th>
-                <th>Typ av kampanj</th>
-                <th>Skapad av</th>
-                <th>Val</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var coupon in Model)
-            {
-                <tr>
-                    <td>
-                         @coupon.Code
-                    </td>
-                    <td>
-                        @coupon.Code
-                    </td>
-                    <td>
-                        @coupon.Start
-                    </td>
-                    <td>
-                        @coupon.End
-                    </td>
-                    <td>
-                        @coupon.Type
-                    </td>
-                    <td>
-                        Linus
-                    </td>
-                    <td>
-                        @Html.ActionLink("Ta bort", "Delete", new { code = coupon.Code})
-
-                        @Html.ActionLink("Redigera", "Edit")
-                    </td>
-
-                </tr>
-            }
-
-
-        </tbody>
-    </table>
-    <div class="ui hidden divider"></div>
-    <div class="field">
-    </div>
 </div>
+
+
+@foreach (var coupon in Model)
+{
+    <div class="column centered row">
+        <div class="column two wide">
+            @coupon.Code
+        </div>
+        <div class="column two wide">
+            @coupon.Code
+        </div>
+        <div class="column two wide">
+            @coupon.Start.ToString("yyyy/MM/dd")
+        </div>
+        <div class="column two wide">
+            @coupon.End
+        </div>
+        <div class="column four wide">
+            @coupon.Type
+        </div>
+        <div class="column one wide">
+            Linus
+        </div>
+        <div class="column three wide">
+            @Html.ActionLink("Ta bort", "Delete")
+
+            @Html.ActionLink("Redigera", "Edit")
+        </div>
+
+    </div>
+}
