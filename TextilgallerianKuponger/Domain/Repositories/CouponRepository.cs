@@ -80,14 +80,6 @@ namespace Domain.Repositories
         }
 
         /// <summary>
-        ///     Removes the given coupon
-        /// </summary>
-        public void Delete(Coupon coupon)
-        {
-            _session.Delete(coupon);
-        }
-
-        /// <summary>
         ///     Save changes specified with the Store method
         /// </summary>
         public void SaveChanges()

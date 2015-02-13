@@ -5,8 +5,10 @@
 
 <h2>Cupons</h2>
 
-<div class="two wide column">
 
+
+<div class="two wide column">
+    @Html.Partial("_FlashMessage")
     <table class="ui table">
         <thead>
             <tr>
@@ -42,7 +44,7 @@
                         Linus
                     </td>
                     <td>
-                        @Html.ActionLink("Ta bort", "Delete")
+                        @Html.ActionLink("Ta bort", "Delete", new { code = coupon.Code})
 
                         @Html.ActionLink("Redigera", "Edit")
                     </td>
