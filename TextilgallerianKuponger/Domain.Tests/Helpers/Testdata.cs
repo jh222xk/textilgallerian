@@ -167,6 +167,7 @@ namespace Domain.Tests.Helpers
             coupon.End = coupon.End ?? ((Random.Next(2) > 0)
                 ? coupon.Start.AddDays(Random.Next(1, 20))
                 : (DateTime?) null);
+            coupon.IsActive = true;
 
             return coupon;
         }

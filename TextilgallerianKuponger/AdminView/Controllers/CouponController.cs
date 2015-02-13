@@ -23,7 +23,7 @@ namespace AdminView.Controllers
         // GET: Coupon
         public ActionResult Index()
         {
-            var coupons = _couponRepository.FindAllCoupons().ToList();
+            var coupons = _couponRepository.FindActiveCoupons().ToList();
 
             // TestData for now
             var tempCoupons = Testdata.RandomCoupon();
@@ -107,6 +107,7 @@ namespace AdminView.Controllers
                 var coupon = _couponRepository.FindByCode(code);
                 // Sets the given coupon to unactive
                 coupon.IsActive = false;
+                _couponRepository.SaveChanges();
                 TempData["success"] = "Rabatten togs bort.";
             }
             catch (DataException)
