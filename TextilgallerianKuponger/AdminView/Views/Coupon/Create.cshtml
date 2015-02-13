@@ -8,79 +8,67 @@
 <h2>Create</h2>
 
 <div class="content">
-    @using (Html.BeginForm())
-    {
+    <form class="ui form" method="post">
+
         @Html.AntiForgeryToken()
 
     <div class="ui page grid overview segment">
         <div class="twelve wide column">
-            <div id="couponCode">
-                <h2>Kampanjnamn:</h2>
+            <div class="field">
+                <label>Kampanjnamn</label>
                 @Html.EditorFor(m => Model.Coupon.Name)
-                <h2>Kampanjkod:</h2>
+            </div>
+            <div class="field">
+                <label>Kampanjkod</label>
                 @Html.EditorFor(m => Model.Coupon.Code)
             </div>
-            <div id="couponType">
-                <h2>Välj typ  av kampanj</h2>
-                @Html.DropDownListFor(m => Model.Coupon.Type, new SelectList(Model.CouponTypes, "Value", "Key"))
-                <div id="couponDescription">
-                    @Html.TextAreaFor(m => Model.Coupon.Description)
-                </div>
-                <div id="couponSettings">
-                    @Html.Partial("_numericInput")
-                </div>
-                ---------------------------------------------------
-                <div id="couponUsageLimit">
-                    <label>Antal förbrukningar</label>
-                    @Html.RadioButtonFor(m => Model.Coupon.CouponUseLimit, "UseLimit")
-                    @Html.Label("UseLimit", "Per kod")
-                    @Html.RadioButtonFor(m => Model.Coupon.UseLimit, "UseLimit")
-                    @Html.Label("UseLimit", "Per Användare")
-                    @Html.TextBoxFor(m => Model.ProductCoupon.CouponUseLimit, new { type = "number", min = "0" })
-                </div>
-                ----------------------------------------------------
-                <div class="CouponCustomers"></div>
-                @Html.RadioButtonFor(m => Model.Coupon.UseLimit, "UseLimit")
-                @Html.Label("UseLimit", "Alla (generell kampanj)")
-                @Html.RadioButtonFor(m => Model.Coupon.UseLimit, "UseLimit")
-                @Html.Label("UseLimit", "Användare (klistra in)")
-                <div id="couponDescription">
-                    @Html.TextAreaFor(m => Model.Coupon.CustomersValidFor)
-                </div>
-                <div class="couponDuration">
-                    <label>Startdatum:</label>
-                    @Html.TextBoxFor(m => Model.Coupon.Start, new { type = "date", placeholder = "startdatum" })
-                    <label>Slutdatum:</label>
-                    @Html.TextBoxFor(m => Model.Coupon.End, new { type = "date", placeholder = "slutdatum" })
-                </div>
-                <div>
-                    <h2>Kampanjen skall gälla för följande</h2>
-                    <div id="products">
-                        <h4>Produkter/artikelnummer:</h4>
-                    </div>
-                    <div id="brands">
-                        <h4>Varumärke:</h4>
-                    </div>
-                    <div id="category">
-                        <h4>Kategori:</h4>
-                    </div>
-                </div>
-                <div>
-                    <h2>Kombination:</h2>
+            <div class="field">
+                <label>Välj typ av kampanj</label>
+                @Html.DropDownListFor(m => m.Coupon.Type, new SelectList("asd", "Value"))
+            </div>
+            <div class="field">
+                <label>Beskrivning</label>
+                @Html.TextAreaFor(m => Model.Coupon.Description, new {@readonl = true, @disabled = true})
+            </div>
 
-                </div>
+            <div class="two fields">
+                @Html.Partial("_numericInput")
+            </div>
 
-                <div>
-                    @Html.CheckBoxFor(m => Model.Coupon.CanBeCombined, "CanNotBeCombined")
-                    @Html.Label("canNotBeCombined", "Kampanjen kan ej kombineras med andra kampanjer.")
-                </div>
+            <div class="field">
+                <label>Startdatum:</label>
+                @Html.TextBoxFor(m => Model.Coupon.Start, new { type = "date", placeholder = "startdatum" })
+            </div>
+            <div class="field">
+                <label>Slutdatum:</label>
+                @Html.TextBoxFor(m => Model.Coupon.End, new { type = "date", placeholder = "slutdatum" })
+            </div>
+            <div class="field">
+                <label>Kampanjen skall gälla för följande</label>
+                <h4>Produkter/artikelnummer:</h4>
+            </div>
+            <div class="field">
+                <label>Varumärke:</label>
+            </div>
+            <div class="field">
+                <label>Kategori:</label>
+            </div>
+
+            <div class="field">
+                <label>Kombination:</label>
+
+            </div>
+
+            <div class="field">
+                @Html.CheckBoxFor(m => Model.Coupon.CanBeCombined, "CanNotBeCombined")
+                @Html.Label("canNotBeCombined", "Kampanjen kan ej kombineras med andra kampanjer.")
+            </div>
 
                 <input type="submit" class="ui button green" value="Skapa rabatt" />
 
             </div>
         </div>
-    </div>
-    }
+        </form>
 </div>
 <div>
     @Html.ActionLink("Back to List", "Coupons")
