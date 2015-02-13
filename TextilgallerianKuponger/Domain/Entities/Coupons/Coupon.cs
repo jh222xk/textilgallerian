@@ -66,6 +66,11 @@ namespace Domain.Entities
         public bool CanBeCombined { get; set; }
 
         /// <summary>
+        /// Determaines if the coupon is active
+        /// </summary>
+        public bool IsActive { get; set; }
+
+        /// <summary>
         /// Check if specified Cart is valid for this Coupon
         /// </summary>
 

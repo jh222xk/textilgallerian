@@ -1,10 +1,8 @@
 ﻿using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
-using Domain.Entities;
 using Domain.Repositories;
 using Domain.Tests.Helpers;
 
@@ -27,6 +25,7 @@ namespace AdminView.Controllers
         {
             var coupons = _couponRepository.FindAllCoupons().ToList();
 
+            // TestData for now
             var tempCoupons = Testdata.RandomCoupon();
 
             _couponRepository.Store(tempCoupons);
@@ -87,33 +86,33 @@ namespace AdminView.Controllers
         // GET: /Coupon/Delete/:code
         public ActionResult Delete(string code)
         {
-
             var coupon = _couponRepository.FindByCode(code);
 
             return View(coupon);
         }
 
+
         // POST: /Coupon/Delete/42
         /// <summary>
-        /// TODO: NEEDS TYPE?
+        ///     Not really removes the coupon
+        ///     (because of statitics) https://github.com/Textilgallerian/textilgallerian/issues/53
+        ///     We only set it to unactive
         /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string code)
         {
             try
             {
-                var couponToDelete = new BuyProductXRecieveProductY {Code = code};
-                _couponRepository.Delete(couponToDelete);
-                _couponRepository.SaveChanges();
+                var coupon = _couponRepository.FindByCode(code);
+                // Sets the given coupon to unactive
+                coupon.IsActive = false;
                 TempData["success"] = "Rabatten togs bort.";
             }
             catch (DataException)
             {
                 TempData["error"] = "Misslyckades att ta bort rabatten!";
-                return RedirectToAction("Delete", new {id = code});
+                return RedirectToAction("Delete", new { id = code });
             }
 
             return RedirectToAction("Index");
