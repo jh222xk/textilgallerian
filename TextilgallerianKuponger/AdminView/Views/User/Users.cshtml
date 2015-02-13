@@ -6,13 +6,15 @@
 
 
 
+
+<div class="ui grid">
     <h2>Användare</h2>
 
     <div class="eight wide column">
 
 
 
-<!--
+
 
         <div class="ui card">
             <div class="image">
@@ -22,86 +24,97 @@
                 <p><strong>Kermit</strong></p>
             </div>
         </div>
--->
-        <div class="ui table">
-            <div>
-                <div>
-                    <div>E-Post</div>
-                    <div>Admin?</div>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <div colspan="3">
+        <table class="ui table">
+            <thead>
+                <tr>
+                    <th>E-Post</th>
+                    <th>Admin?</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
                         <div class="ui primary button" id="form_button">
                             Lägg till användare
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div>
+                    </td>
+                </tr>
+            </tfoot>
+            <tbody>
                 @foreach (var user in Model.Users1)
                 {
-                    <div>
-                        <div>
+                    <tr>
+                        <td>
                             @user.Email
-                        </div>
-                        <div>
+                        </td>
+                        <td>
                             Yes
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
                 }
-            </div>
-        </div>
+            </tbody>
+        </table>
         <div class="ui hidden divider"></div>
         <div class="field">
         </div>
     </div>
 
-    
-        <div class="eight wide column">
-            <div id="uform" class="hidden">
-                <form class="ui form">
 
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Behörighet</label>
-                            <select class="ui search dropdown">
-                                <option value="">Behörighet</option>
-                                <option value="AL">Admin</option>
-                                <option value="AL">Läsa</option>
-                                <option value="AK">Editera</option>
-                                <option value="AZ">Skriva</option>
-                            </select>
-                        </div>
-                    </div>
+    <div class="eight wide column">
+        <div id="uform" class="hidden">
+            <form class="ui form">
+                <div class="two fields">
                     <div class="field">
-                        <div class="required field">
-                            <label>Email</label>
-                            <div class="ui icon input">
-                                <input type="text" name="email" placeholder="Email">
+                        <label>Namn</label>
+                        <div class="two fields">
+                            <div class="field">
+                                <input name="first-name" placeholder="Förnamn" type="text">
                             </div>
-                        </div>
-
-                        <div class="required field">
-                            <label>Password</label>
-                            <div class="ui icon input">
-                                <input type="password">
+                            <div class="field">
+                                <input name="last-name" placeholder="Efternamn" type="text">
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label>Behörighet</label>
+                        <select class="ui search dropdown">
+                            <option value="">Behörighet</option>
+                            <option value="AL">Admin</option>
+                            <option value="AL">Läsa</option>
+                            <option value="AK">Editera</option>
+                            <option value="AZ">Skriva</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="required field">
+                        <label>Email</label>
+                        <div class="ui icon input">
+                            <input type="text" name="email" placeholder="Email">
+                        </div>
+                    </div>
 
-                    <div class="ui error message">
-                        <div class="header">Något gick fel</div>
+                    <div class="required field">
+                        <label>Password</label>
+                        <div class="ui icon input">
+                            <input type="password">
+                        </div>
                     </div>
-                    <div class="ui primary button">
-                        Save
-                    </div>
-                    
-                </form>
-            </div>
+                </div>
+
+                <div class="ui error message">
+                    <div class="header">Något gick fel</div>
+                </div>
+                <div class="ui primary button">
+                    Save
+                </div>
+
+            </form>
+        </div>
     </div>
-
+</div>
 
 <script type="text/javascript">
     $("#form_button").click(function () {
@@ -112,7 +125,7 @@
         else {
             $("#uform").attr("class", "hidden");
         }
-        
+
     });
 
 </script>
