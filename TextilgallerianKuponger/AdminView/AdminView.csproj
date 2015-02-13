@@ -230,6 +230,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\Coupon\Delete.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">
