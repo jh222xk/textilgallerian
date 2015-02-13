@@ -28,6 +28,16 @@ namespace Domain.Repositories
             return _session.Query<Coupon>();
         }
 
+        public IEnumerable<Coupon> FindActiveCoupons()
+        {
+            return _session.Query<Coupon>().Where(coupon => coupon.IsActive);
+        }
+
+        public IEnumerable<Coupon> FindNotActiveCoupons()
+        {
+            return _session.Query<Coupon>().Where(coupon => coupon.IsActive == false);
+        }
+
         /// <summary>
         ///     Finds a coupon by the coupon code
         /// </summary>
