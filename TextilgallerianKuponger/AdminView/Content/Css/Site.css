@@ -6,3 +6,11 @@ body {
 {
     visibility:hidden;
 }
+
+.list_item:nth-child(odd) {
+    background-color: #dedada;
+
+}
+.list_item{
+    border: solid 1px #dedada;
+}

@@ -23,7 +23,8 @@ namespace AdminView.Controllers
         // GET: Coupon
         public ActionResult Index()
         {
-            var coupons = _couponRepository.FindActiveCoupons().ToList();
+            CouponViewModel cvm = new CouponViewModel();
+            cvm.Coupons = _couponRepository.FindActiveCoupons().ToList();
 
             // TestData for now
             var tempCoupons = Testdata.RandomCoupon();
@@ -32,7 +33,7 @@ namespace AdminView.Controllers
 
             _couponRepository.SaveChanges();
 
-            return View("Coupons", coupons);
+            return View("Coupons", cvm);
         }
 
         // GET: Coupon/Details/5
