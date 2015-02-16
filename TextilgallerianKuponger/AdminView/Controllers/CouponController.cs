@@ -21,7 +21,7 @@ namespace AdminView.Controllers
 
 
         // GET: Coupon
-        public ActionResult Index()
+        public ActionResult Index(int page = 0)
         {
             CouponViewModel cvm = new CouponViewModel();
             cvm.Coupons = _couponRepository.FindActiveCoupons().ToList();
@@ -32,6 +32,10 @@ namespace AdminView.Controllers
             _couponRepository.Store(tempCoupons);
 
             _couponRepository.SaveChanges();
+
+            cvm.CurrentPage = page;
+
+            cvm.Coupons = _couponRepository.FindActiveCoupons().ToList();
 
             return View("Coupons", cvm);
         }

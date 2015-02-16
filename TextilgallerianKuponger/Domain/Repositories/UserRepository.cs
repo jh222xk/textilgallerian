@@ -29,20 +29,6 @@ namespace Domain.Repositories
             return _session.Query<User>().ToList();
         }
 
-        public IEnumerable<User> FindUsersByPage(int page, int count)
-        {
-            return _session.Query<User>().OrderBy(u => u.Email).Skip((page) * count).Take(count).ToList(); 
-        }
-
-        public int AmountOfPages()
-        {
-            var amountOfPosts = FindAllUsers();
-            double calculated = (amountOfPosts.Count() / 10.0);
-
-            return (int)(Math.Ceiling(calculated));
-
-        }
-
         /// <summary>
         ///     Creates or updates the user
         /// </summary>

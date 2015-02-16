@@ -18,11 +18,13 @@ namespace AdminView.Controllers
         // GET: User
         public ActionResult Users(int page = 0)
         {
-            int amountOfPages = _userRepository.AmountOfPages();
+            UserViewModel uvm = new UserViewModel();
 
+            uvm.CurrentPage = page;
 
+            uvm.Users = _userRepository.FindAllUsers();
 
-            return View("Users", _userRepository.FindUsersByPage(page, 10));
+            return View("Users", uvm);
         }
 
         // GET: User/Details/5

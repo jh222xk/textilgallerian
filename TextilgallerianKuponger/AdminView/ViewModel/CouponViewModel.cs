@@ -1,7 +1,8 @@
-using System.Collections.Generic;
 using Domain.Entities;
 using System;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 namespace AdminView.ViewModel
 {
     public class CouponViewModel
@@ -44,5 +45,19 @@ namespace AdminView.ViewModel
 
 
         public IEnumerable<Coupon> Coupons { get; set; }
+
+        public int AmountOfPages()
+        {
+            double calculated = (Coupons.Count() / 10.0);
+
+            return (int)(Math.Ceiling(calculated));
+        }
+
+        public int CurrentPage { get; set; }
+
+        public IEnumerable<Coupon> FindCouponsByPage(int page)
+        {
+            return Coupons.OrderBy(c => c.Start).Skip((page) * 10).Take(10).ToList();
+        }
     }
 }

@@ -25,11 +25,11 @@
             $(".item.coupons").addClass("active");
         </script>
 
-        @foreach (var coupon in Model.Coupons)
+        @foreach (var coupon in Model.FindCouponsByPage(Model.CurrentPage))
         {
             <div class="column sixteen row list_item">
                 <div class="column two wide">
-                    @coupon.Name
+                    @coupon.Code
                 </div>
                 <div class="column two wide">
                     @coupon.Code
@@ -52,5 +52,18 @@
                     @Html.ActionLink("Redigera", "Edit")
                 </div>
             </div>
+            
         }
+
+    <!--Pagination-->
+    <div class="ui pagination menu">
+        <div class="ui pagination menu">
+            @for (int i = 0; i < Model.AmountOfPages(); i++)
+            {
+                var htmlClass = i == Model.CurrentPage ? new { @class = "active item" } : new { @class = "item" };
+                
+                @Html.ActionLink((i + 1).ToString(), "Index", "Coupon", new { page = i }, htmlClass)
+            }
+        </div>
+    </div>
     </div>
