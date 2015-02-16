@@ -28,12 +28,20 @@
                 </div>
             </div>
             <a class="ui item">
-                Logout
+                @if (Session["user"] == null)
+                {
+                    @Html.ActionLink("Login", "Index", "Authorization", null, new { @class = "item users" })
+                }
+                else
+                {
+                    @Html.ActionLink("Logout", "Logout", "Authorization", null, new { @class = "item users" })                 
+                }
             </a>
         </div>
     </div>
 
     <div class="ui page grid">
+        @Html.Partial("_FlashMessage")
         @RenderBody()
     </div>
     

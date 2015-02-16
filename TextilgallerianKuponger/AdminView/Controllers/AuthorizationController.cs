@@ -51,12 +51,20 @@ namespace AdminView.Controllers
             if (user != null && user.ValidatePassword(model.Password))
             {
                 Session["user"] = user;
-
+                TempData["success"] = "Du har loggat in";
                 return RedirectToAction("Index", "Coupon");
             }
 
-            ViewBag.errorMessage = "Wrong email or password";
+            TempData["error"] = "Fel användarnamn eller lösenord.";
             return View();
+        }
+
+        // GET: /
+        public ActionResult Logout()
+        {         
+                Session.Remove("user");
+                TempData["success"] = "Du har loggat ut";
+                return View("Index");         
         }
     }
 }
