@@ -3,15 +3,13 @@
 @{
     ViewBag.Title = "Users";
 }
-
-
-
-
+s
 <div class="ui grid">
     <h2>Användare</h2>
 
     <div class="eight wide column">
 
+        @*<div class="ui card">
 
         <div class="ui card">
             <div class="image">
@@ -20,7 +18,7 @@
             <div class="content">
                 <p><strong>Kermit</strong></p>
             </div>
-        </div>
+        </div>*@
         <table class="ui table">
             <thead>
                 <tr>
@@ -56,6 +54,19 @@
         </div>
     </div>
 
+        <div class="eight wide column">
+            <div id="uform" class="hidden">
+                <form class="ui form">
+                    <div class="two fields">
+                        <div class="field">
+                            <label>Namn</label>
+                            <div class="two fields">
+                                <div class="field">
+                                   
+                                </div>
+                                <div class="field">
+                                    <input name="last-name" placeholder="Efternamn" type="text">
+                                </div>
 
     <div class="eight wide column">
         <div id="uform" class="hidden">
@@ -114,15 +125,17 @@
 </div>
 
 <script type="text/javascript">
-    $("#form_button").click(function () {
+    $("#form_button").click(function() {
         if ($("#uform").attr("class") == "hidden") {
             $("#uform").attr("class", "");
 
-        }
-        else {
+        } else {
             $("#uform").attr("class", "hidden");
         }
 
     });
 
+</script>
+<script>
+    $(".item.users").addClass("active");
 </script>

@@ -11,13 +11,16 @@
     @Scripts.Render("~/bundles/semantic")
 </head>
 <body>
-    <div class="ui secondary pointing menu">
+    <div class="ui secondary pointing page grid menu">
 
-        @*<i class='tags icon'></i>*@ @Html.ActionLink("Rabatter", "Index", "Coupon", null, new { @class = "active item" })
+        @*<i class='tags icon'></i>*@ @Html.ActionLink("Rabatter", "Index", "Coupon", null, new { @class = "item coupons" })
 
-        @*<i class="tag icon"></i>*@ @Html.ActionLink("Skapa Rabatt", "Create", "Coupon", null, new { @class = "item" })
+        @*<i class="tag icon"></i>*@ @Html.ActionLink("Skapa Rabatt", "Create", "Coupon", null, new { @class = "item create-coupon" })
 
-        @*<i class="user icon"></i> Users*@ @Html.ActionLink("Användare", "Users", "User", null, new { @class = "item" })
+        @*<i class="user icon"></i> Users*@ @Html.ActionLink("Användare", "Users", "User", null, new { @class = "item users" })
+
+        @Html.ActionLink("Skapa Användare", "Create", "User", null, new { @class = "item create-user" })
+
 
         <div class="right menu">
             <div class="item">
@@ -32,10 +35,25 @@
         </div>
     </div>
 
+        <div class="ui page grid">
+            @RenderBody()
+        </div>
+    </div>
+
     <div class="ui page grid">
         @RenderBody()
     </div>
     
     @RenderSection("scripts", required: false)
+<script>
+    
+    $(".ui.secondary.pointing.page.grid.menu")
+        .on("click", ".item", function () {
+            $(this)
+                .addClass("active")
+                .siblings(".item")
+                .removeClass("active");
+        });
+</script>
 </body>
 </html>
