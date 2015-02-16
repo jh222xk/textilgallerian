@@ -25,6 +25,7 @@ namespace AdminView.Controllers
             uvm.Users = _userRepository.FindAllUsers();
 
             return View("Users", uvm);
+
         }
 
         // GET: User/Details/5

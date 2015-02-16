@@ -23,6 +23,5 @@ namespace AdminView.ViewModel
         {
             return Users.OrderBy(u => u.Email).Skip((page) * 10).Take(10).ToList(); 
         }
-
     }
 }

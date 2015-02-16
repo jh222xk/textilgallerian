@@ -38,6 +38,7 @@ namespace AdminView.ViewModel
 
                 case "TotalSumPercentageDiscount":
                     return "Rabatt i %";
+
                 default:
                     return "Okänd";
             }
