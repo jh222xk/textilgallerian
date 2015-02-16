@@ -2,9 +2,9 @@
 
 <div class="field">
     <label>Tag Antal</label>
-    @Html.TextBoxFor(m => Model.ProductCoupon.Buy, new {type = "number", min = "0"})
+    @Html.TextBoxFor(m => Model.ProductCoupon.Buy, new {type = "number", min = "0", @value = "0"})
 </div>
 <div class="field">
     <label>Betala för Antal</label>
-    @Html.TextBoxFor(m => Model.BuyXPayForY.PayFor, new { type = "number", min = "0" })
+    @Html.TextBoxFor(m => Model.BuyXPayForY.PayFor, new { type = "number", min = "0", @value = "0" })
 </div>

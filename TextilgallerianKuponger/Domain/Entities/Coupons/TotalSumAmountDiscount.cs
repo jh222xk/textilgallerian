@@ -9,6 +9,11 @@ namespace Domain.Entities
     {
         public Decimal Amount { get; set; }
 
+        public override Types Type()
+        {
+            return Types.TotalSumAmountDiscount;
+        }
+
         /// <summary>
         /// Check if specified Cart is valid for this Coupon
         /// </summary>

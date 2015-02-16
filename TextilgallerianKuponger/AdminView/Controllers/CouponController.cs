@@ -1,10 +1,12 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Linq;
 using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
+using Domain;
+using Domain.Entities;
 using Domain.Repositories;
-using Domain.Tests.Helpers;
 
 namespace AdminView.Controllers
 {
@@ -26,11 +28,11 @@ namespace AdminView.Controllers
             var coupons = _couponRepository.FindActiveCoupons().ToList();
 
             // TestData for now
-            var tempCoupons = Testdata.RandomCoupon();
+            //var tempCoupons = Testdata.RandomCoupon();
 
-            _couponRepository.Store(tempCoupons);
+            //_couponRepository.Store(tempCoupons);
 
-            _couponRepository.SaveChanges();
+            //_couponRepository.SaveChanges();
 
             return View("Coupons", coupons);
         }
@@ -41,25 +43,69 @@ namespace AdminView.Controllers
             return View();
         }
 
-        // GET: Coupon/Create
-        public ActionResult Create()
+        #region NEEDS_FIXES
+        // GET: Coupon/SelectType
+        public ActionResult SelectType()
         {
-            return View();
+            var model = new CouponViewModel();
+            return View(model);
         }
+
+        // POST: Coupon/SelectType
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SelectType(CouponViewModel model)
+        {
+            return RedirectToAction("Create", "Coupon", new { id = model.Type});
+        }
+
+        // GET: Coupon/Create
+        public ActionResult Create(Types id)
+        {
+            //var model = new CouponViewModel {Coupon = new BuyProductXRecieveProductY()};
+
+            return View(String.Format("{0}", id));
+        }
+
 
         // POST: Coupon/Create
         [HttpPost]
-        public ActionResult Create(CouponViewModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(BuyProductXRecieveProductY coupon)
         {
+
+
             try
             {
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                //    switch (model.Type)
+                //    {
+                //        case Types.BuyProductXRecieveProductY:
+                //            model.Coupon = new BuyProductXRecieveProductY();
+                //            break;
+                //        case Types.BuyXProductsPayForYProducts:
+                //            model.Coupon = new BuyXProductsPayForYProducts();
+                //            model.Coupon.Code = model.code
+                //            break;
+                //    }
+
+
+                    //CouponViewModel.Coupon = coupon;
+                    coupon.IsActive = true;
+                    _couponRepository.Store(coupon);
+                    _couponRepository.SaveChanges();
+                    TempData["success"] = "Rabatt sparad!";
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
-                return View();
+                TempData["error"] = "Misslyckades att spara rabatten!";
             }
+            return View();
         }
+        #endregion
 
         // GET: Coupon/Edit/5
         public ActionResult Edit(int id)

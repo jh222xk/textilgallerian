@@ -1,24 +1,14 @@
 ﻿@model AdminView.ViewModel.CouponViewModel
 
-@{
-    ViewBag.Title = "Create";
-
-}
-
-<h2>Create</h2>
+<h2>Välj typ av kampanj</h2>
 <div class="row">
     <div class="column">
         <form class="ui form" method="post">
             @Html.AntiForgeryToken()
             <div class="field">
-                <label>Välj typ av kampanj</label>
-                @Html.DropDownListFor(m => m.Type, new SelectList(Model.CouponTypes))
+                @Html.DropDownListFor(m => m.Type, new SelectList(Model.CouponTypes, "Value", "Key"))
             </div>
             <input type="submit" name="name" class="ui button green" value="Gå vidare" />
         </form>
     </div>
 </div>
-
-<script>
-    $(".item.create-coupon").addClass("active");
-</script>

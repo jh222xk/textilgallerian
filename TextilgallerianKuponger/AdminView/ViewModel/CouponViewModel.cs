@@ -1,77 +1,32 @@
-using System.Collections.Generic;
-using Domain.Entities;
 using System;
+using System.Collections.Generic;
+using Domain;
+using Domain.Entities;
 
 namespace AdminView.ViewModel
 {
     public class CouponViewModel
     {
-        public Dictionary<string, String> CouponTypes = new Dictionary<string, String>() 
+        public Dictionary<String, Types> CouponTypes = new Dictionary<String, Types>
         {
-            {  "Tag X betala för Y", typeof ( BuyXProductsPayForYProducts).Name },
-            {  "Köp X få Y gratis", typeof (BuyProductXRecieveProductY).Name },
-            {  "Köp för X:kr betala Y:kr", typeof ( TotalSumAmountDiscount).Name },
-            {  "Köp för X:kr få Y:% rabatt", typeof ( TotalSumPercentageDiscount).Name }
+            {  "Tag X betala för Y", Types.BuyProductXRecieveProductY },
+            {  "Köp X få Y gratis", Types.BuyXProductsPayForYProducts},
+            {  "Köp för X:kr betala Y:kr", Types.TotalSumAmountDiscount },
+            {  "Köp för X:kr få Y:% rabatt", Types.TotalSumPercentageDiscount }
         };
 
-
-        public BuyXProductsPayForYProducts BuyXPayForY { get; set; }
+        public BuyXProductsPayForYProducts BuyXProductsPayForYProducts { get; set; }
+        public BuyProductXRecieveProductY BuyProductXRecieveProductY { get; set; }
+        public TotalSumAmountDiscount TotalSumAmountDiscount { get; set; }
+        public TotalSumPercentageDiscount TotalSumPercentageDiscount { get; set; }
         public ProductCoupon ProductCoupon { get; set; }
-        public int ClickCount { get; set; }
         public Coupon Coupon { get; set; }
-        public IEnumerable<User> Users { get; set; }
-        public User User { get; set; }
 
-        public List<Coupon> Coupon1
-        {
-            get
-            {
-                return new List<Coupon>{
-                        new BuyProductXRecieveProductY
-                        {
-                            Code = "xmas14",
-                            Start = System.DateTime.Now,
-                            End = System.DateTime.Now
-                            
-                        },
-                        new TotalSumAmountDiscount
-                        {
-                            Code = "jul",
-                            Start = System.DateTime.Now,
-                            End = System.DateTime.Now                       
-                        },
-                        new TotalSumPercentageDiscount
-                        {
-                            Code = "påsk",
-                            Start = System.DateTime.Now,
-                            End = System.DateTime.Now
-                        }
-                    };
-            }
-        }
+        public Types Type { get; set; }
+        public Boolean CanBeCombined { get; set; }
 
-       
-        public List<User> Users1
-        {
-            get
-            {
-                return new List<User>{
-                    new User
-                    {
-                    Email = "Anna.Bok@mail.se",
-                    },
-                    new User
-                    {
-                    Email = "Roger.P@mail.com"
-                    },
-                    new User
-                    {
-                    Email = "Brains@mail.com"
-                    }
-                };
-            }
-        }
-
-        public IEnumerable<Coupon> Coupons { get; set; }
+        //public IEnumerable<User> Users { get; set; }
+        //public User User { get; set; }
+        //public IEnumerable<Coupon> Coupons { get; set; }
     }
 }

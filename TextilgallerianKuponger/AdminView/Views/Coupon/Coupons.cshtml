@@ -12,8 +12,8 @@
     <div class="column two wide ">Startdatum</div>
     <div class="column two wide ">Slutdatum</div>
     <div class="column four wide">Typ av kampanj</div>
-    <div class="column one wide">Skapad av</div>
-    <div class="column three wide">Val</div>
+    <div class="column two wide">Skapad av</div>
+    <div class="column two wide">Val</div>
 
 </div>
 <script>
@@ -24,7 +24,7 @@
 {
     <div class="column centered row">
         <div class="column two wide">
-            @coupon.Code
+            @coupon.Name
         </div>
         <div class="column two wide">
             @coupon.Code
@@ -36,7 +36,7 @@
             @coupon.End
         </div>
         <div class="column four wide">
-            @coupon.Type
+            INGEN TYP NU HENKE
         </div>
         <div class="column one wide">
             Linus
@@ -49,3 +49,5 @@
 
     </div>
 }
+
+<a href="~/Coupon/SelectType" class="ui button green">Skapa ny rabatt</a>
