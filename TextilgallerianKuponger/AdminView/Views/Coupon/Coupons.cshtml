@@ -4,7 +4,7 @@
 }
 <div class="ui grid">
     <div class="column eight wide">
-        <div class="ui message main">
+        <div class="ui message">
             <h1 class="ui header">Kuponger</h1>
             <p>Översikt av existerande kuponger som finns i datorbasen. Önskar du lägga till fler rabattkoder? Klicka på den <strong>blå knappen</strong> nedan för att komma till "Skapa Rabatt".</p>
             @Html.ActionLink("Skapa rabatt", "Create", "Coupon", new { @class = "ui blue button" })
@@ -20,26 +20,15 @@
         <div class="column two wide">Skapad av</div>
         <div class="column two wide">Val</div>
     </div>
-
-<<<<<<< HEAD
-    <div class="column two wide">Kampanjnamn</div>
-    <div class="column two wide">Kampanjkod</div>
-    <div class="column two wide ">Startdatum</div>
-    <div class="column two wide ">Slutdatum</div>
-    <div class="column four wide">Typ av kampanj</div>
-    <div class="column two wide">Skapad av</div>
-    <div class="column two wide">Val</div>
-=======
     <script>
         $(".item.coupons").addClass("active");
     </script>
->>>>>>> c72a0978fd39c074fc6cb7db3c8eb08212adffd0
 
     @foreach (var coupon in Model.FindCouponsByPage(Model.CurrentPage))
     {
         <div class="column sixteen row list_item">
             <div class="column two wide">
-                @coupon.Code
+                @coupon.Name
             </div>
             <div class="column two wide">
                 @coupon.Code
@@ -51,60 +40,26 @@
                 @coupon.End
             </div>
             <div class="column four wide">
-                @Model.GetCouponName(coupon.Type)
+                Kan inte använda typen här längre.
             </div>
             <div class="column two wide">
                 Linus
             </div>
             <div class="column two wide">
                 @Html.ActionLink("Ta bort", "Delete")
-
-<<<<<<< HEAD
-@foreach (var coupon in Model)
-{
-    <div class="column centered row">
-        <div class="column two wide">
-            @coupon.Name
-        </div>
-        <div class="column two wide">
-            @coupon.Code
-        </div>
-        <div class="column two wide">
-            @coupon.Start.ToString("yyyy/MM/dd")
-        </div>
-        <div class="column two wide">
-            @coupon.End
-        </div>
-        <div class="column four wide">
-            INGEN TYP NU HENKE
-        </div>
-        <div class="column one wide">
-            Linus
-        </div>
-        <div class="column three wide">
-            @Html.ActionLink("Ta bort", "Delete")
-=======
                 @Html.ActionLink("Redigera", "Edit")
             </div>
         </div>
     }
->>>>>>> c72a0978fd39c074fc6cb7db3c8eb08212adffd0
-
     <!--Pagination-->
     <div class="ui pagination menu">
         <div class="ui pagination menu">
-            @for (int i = 0; i < Model.AmountOfPages(); i++)
+            @for (var i = 0; i < Model.AmountOfPages(); i++)
             {
-                var htmlClass = i == Model.CurrentPage ? new { @class = "active item" } : new { @class = "item" };
+                var htmlClass = i == Model.CurrentPage ? new {@class = "active item"} : new {@class = "item"};
 
-                @Html.ActionLink((i + 1).ToString(), "Index", "Coupon", new { page = i }, htmlClass)
+                @Html.ActionLink((i + 1).ToString(), "Index", "Coupon", new {page = i}, htmlClass)
             }
         </div>
     </div>
-<<<<<<< HEAD
-}
-
-<a href="~/Coupon/SelectType" class="ui button green">Skapa ny rabatt</a>
-=======
 </div>
->>>>>>> c72a0978fd39c074fc6cb7db3c8eb08212adffd0
