@@ -176,11 +176,11 @@
   <ItemGroup>
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cat.png" />
-    <Content Include="Content\semantic.min.css" />
-    <Content Include="Content\semantic.site.css" />
+    <Content Include="Content\Css\semantic.min.css" />
+    <Content Include="Content\Css\semantic.site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Css\Site.css" />
     <Content Include="fonts\icons.woff" />
     <Content Include="fonts\icons.ttf" />
     <Content Include="fonts\icons.svg" />
