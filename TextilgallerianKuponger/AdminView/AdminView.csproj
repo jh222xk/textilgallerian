@@ -174,16 +174,8 @@
     <Compile Include="ViewModel\AuthorizationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Highlighter\jquery-ui.js" />
-    <Content Include="Content\Highlighter\jquery-ui.min.css" />
-    <Content Include="Content\jquery.highlighttextarea.css" />
-    <Content Include="Content\Highlighter\jquery.highlighttextarea.js" />
-    <Content Include="Content\jquery.highlighttextarea.min.css" />
-    <Content Include="Content\Highlighter\jquery.highlighttextarea.min.js" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cat.png" />
-    <Content Include="Content\jquery-ui.min.css" />
-    <Content Include="Content\semantic.css" />
     <Content Include="Content\semantic.min.css" />
     <Content Include="Content\semantic.site.css" />
     <Content Include="favicon.ico" />
