@@ -31,20 +31,20 @@ namespace AdminView.ViewModel
                         {
                             Code = "xmas14",
                             Start = System.DateTime.Now,
-                            End = System.DateTime.Now.AddDays(1)
+                            End = System.DateTime.Now
                             
                         },
                         new TotalSumAmountDiscount
                         {
                             Code = "jul",
                             Start = System.DateTime.Now,
-                            End = System.DateTime.Now.AddDays(1)                            
+                            End = System.DateTime.Now                       
                         },
                         new TotalSumPercentageDiscount
                         {
                             Code = "påsk",
                             Start = System.DateTime.Now,
-                            End = System.DateTime.Now.AddDays(1)    
+                            End = System.DateTime.Now
                         }
                     };
             }
