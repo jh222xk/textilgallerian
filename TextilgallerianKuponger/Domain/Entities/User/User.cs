@@ -20,6 +20,7 @@ namespace Domain.Entities
         /// </summary>
         public String Password
         {
+           
             set
             {
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(value);

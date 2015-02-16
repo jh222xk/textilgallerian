@@ -2,6 +2,7 @@
 using System.Linq;
 using Domain.Entities;
 using Raven.Client;
+using System.Collections.Generic;
 
 namespace Domain.Repositories
 {
@@ -21,6 +22,11 @@ namespace Domain.Repositories
         {
             return _session.Query<User>()
                 .FirstOrDefault(user => user.Email == email);
+        }
+
+        public IEnumerable<User> FindAllUsers()
+        {
+            return _session.Query<User>().ToList();
         }
 
         /// <summary>

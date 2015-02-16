@@ -1,52 +1,39 @@
-﻿@model Domain.Entities.ProductCoupon
+﻿@model AdminView.ViewModel.AuthorizationViewModel
 
 @{
     ViewBag.Title = "Create";
 }
 <h2>Create</h2>
-    <div class="row">
+
+<div class="row">
     <div class="column">
-        <form class="ui form">
-            <div class="two fields">
+        <form class="ui form" action="@Url.Action("Create", "User")" method=" post">
+            @Html.AntiForgeryToken()
+
+            @*<div class="two fields">
                 <div class="field">
-                    <label>First Name</label>
-                    <input placeholder="First Name" type="text">
+                    <label>Förnamn</label>
+                    <input placeholder="Linus" type="text">
                 </div>
                 <div class="field">
-                    <label>Last Name</label>
-                    <input placeholder="Last Name" type="text">
+                    <label>Efternamn</label>
+                    <input placeholder="Ivelid" type="text">
                 </div>
+            </div>*@
+            <div class="field">
+                <label>Email</label>
+                @Html.EditorFor(m => Model.Email)
             </div>
             <div class="field">
-                <label>Gender</label>
-                <div class="ui selection dropdown">
-                    <div class="default text">Select Gender</div>
-                    <i class="dropdown icon"></i>
-                    <input type="hidden" name="gender">
-                    <div class="menu">
-                        <div class="item" data-value="male">Male</div>
-                        <div class="item" data-value="female">Female</div>
-                    </div>
-                </div>
+                <label>Lösenord</label>
+                @Html.PasswordFor(m => Model.Password)
             </div>
-            <div class="field">
-                <label>Username</label>
-                <input placeholder="Username" type="text">
-            </div>
-            <div class="field">
-                <label>Password</label>
-                <input type="password">
-            </div>
-            <div class="inline field">
-                <div class="ui checkbox">
-                    <input type="checkbox">
-                    <label>I agree to the Terms and Conditions</label>
-                </div>
-                </div>
-                <div class="ui submit button">Submit</div>
-            </form>
-        </div>
+
+            <input type="submit" class="ui teal button" value="Skapa Användaren" />
+        </form>
     </div>
+</div>
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

@@ -7,6 +7,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/semantic")
+    <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
 </head>
 <body>
     <div class="ui secondary pointing page grid menu">
@@ -28,18 +29,26 @@
                 </div>
             </div>
             <a class="ui item">
-                Logout
+                @if (Session["user"] == null)
+                {
+                    @Html.ActionLink("Login", "Index", "Authorization", null, new { @class = "item users" })
+                }
+                else
+                {
+                    @Html.ActionLink("Logout", "Logout", "Authorization", null, new { @class = "item users" })                 
+                }
             </a>
         </div>
     </div>
 
     <div class="ui page grid">
+        @Html.Partial("_FlashMessage")
         @RenderBody()
     </div>
     
     @RenderSection("scripts", required: false)
+   
 <script>
-    
     $(".ui.secondary.pointing.page.grid.menu")
         .on("click", ".item", function () {
             $(this)

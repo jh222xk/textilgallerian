@@ -1,16 +1,31 @@
 ﻿using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
+using Domain.Repositories;
 
 namespace AdminView.Controllers
 {
     [LoggedIn]
     public class UserController : Controller
     {
-        // GET: User
-        public ActionResult Users()
+        private readonly UserRepository _userRepository;
+
+        public UserController(UserRepository userRepository)
         {
-            return View("Users", new CouponViewModel());
+            _userRepository = userRepository;
+        }
+
+        // GET: User
+        public ActionResult Users(int page = 0)
+        {
+            UserViewModel uvm = new UserViewModel();
+
+            uvm.CurrentPage = page;
+
+            uvm.Users = _userRepository.FindAllUsers();
+
+            return View("Users", uvm);
+
         }
 
         // GET: User/Details/5
