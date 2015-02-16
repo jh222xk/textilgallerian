@@ -8,7 +8,7 @@ using Domain.Tests.Helpers;
 
 namespace AdminView.Controllers
 {
-    [LoggedIn]
+   [LoggedIn]
     public class CouponController : Controller
     {
 
