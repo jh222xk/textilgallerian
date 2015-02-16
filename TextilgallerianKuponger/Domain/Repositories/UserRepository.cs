@@ -2,6 +2,7 @@
 using System.Linq;
 using Domain.Entities;
 using Raven.Client;
+using System.Collections.Generic;
 
 namespace Domain.Repositories
 {
@@ -21,6 +22,25 @@ namespace Domain.Repositories
         {
             return _session.Query<User>()
                 .FirstOrDefault(user => user.Email == email);
+        }
+
+        public IEnumerable<User> FindAllUsers()
+        {
+            return _session.Query<User>().ToList();
+        }
+
+        public IEnumerable<User> FindUsersByPage(int page, int count)
+        {
+            return _session.Query<User>().OrderBy(u => u.Email).Skip((page) * count).Take(count).ToList(); 
+        }
+
+        public int AmountOfPages()
+        {
+            var amountOfPosts = FindAllUsers();
+            double calculated = (amountOfPosts.Count() / 10.0);
+
+            return (int)(Math.Ceiling(calculated));
+
         }
 
         /// <summary>

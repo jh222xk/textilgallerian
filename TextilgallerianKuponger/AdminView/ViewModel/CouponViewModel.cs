@@ -22,55 +22,26 @@ namespace AdminView.ViewModel
         public IEnumerable<User> Users { get; set; }
         public User User { get; set; }
 
-        public List<Coupon> Coupon1
+        public String  GetCouponName(string type)
         {
-            get
+            switch (type)
             {
-                return new List<Coupon>{
-                        new BuyProductXRecieveProductY
-                        {
-                            Code = "xmas14",
-                            Start = System.DateTime.Now,
-                            End = System.DateTime.Now
-                            
-                        },
-                        new TotalSumAmountDiscount
-                        {
-                            Code = "jul",
-                            Start = System.DateTime.Now,
-                            End = System.DateTime.Now                       
-                        },
-                        new TotalSumPercentageDiscount
-                        {
-                            Code = "påsk",
-                            Start = System.DateTime.Now,
-                            End = System.DateTime.Now
-                        }
-                    };
+                case "BuyXProductsPayForYProducts":
+                    return "Köp X, Betala för Y"; 
+
+                case "BuyProductXRecieveProductY":
+                    return "Köp produkt X, få produkt Y";
+
+                case "TotalSumAmountDiscount":
+                    return "Rabatt i kr";
+
+                case "TotalSumPercentageDiscount":
+                    return "Rabatt i %";
+                default:
+                    return "Okänd";
             }
         }
 
-       
-        public List<User> Users1
-        {
-            get
-            {
-                return new List<User>{
-                    new User
-                    {
-                    Email = "Anna.Bok@mail.se",
-                    },
-                    new User
-                    {
-                    Email = "Roger.P@mail.com"
-                    },
-                    new User
-                    {
-                    Email = "Brains@mail.com"
-                    }
-                };
-            }
-        }
 
         public IEnumerable<Coupon> Coupons { get; set; }
     }
