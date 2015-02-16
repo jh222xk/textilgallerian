@@ -174,21 +174,13 @@
     <Compile Include="ViewModel\AuthorizationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Highlighter\jquery-ui.js" />
-    <Content Include="Content\Highlighter\jquery-ui.min.css" />
-    <Content Include="Content\jquery.highlighttextarea.css" />
-    <Content Include="Content\Highlighter\jquery.highlighttextarea.js" />
-    <Content Include="Content\jquery.highlighttextarea.min.css" />
-    <Content Include="Content\Highlighter\jquery.highlighttextarea.min.js" />
     <Content Include="Content\Images\bg.jpg" />
     <Content Include="Content\Images\cat.png" />
-    <Content Include="Content\jquery-ui.min.css" />
-    <Content Include="Content\semantic.css" />
-    <Content Include="Content\semantic.min.css" />
-    <Content Include="Content\semantic.site.css" />
+    <Content Include="Content\Css\semantic.min.css" />
+    <Content Include="Content\Css\semantic.site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Css\Site.css" />
     <Content Include="fonts\icons.woff" />
     <Content Include="fonts\icons.ttf" />
     <Content Include="fonts\icons.svg" />
@@ -230,6 +222,7 @@
     <None Include="Project_Readme.html" />
     <Content Include="Views\Coupon\Delete.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">

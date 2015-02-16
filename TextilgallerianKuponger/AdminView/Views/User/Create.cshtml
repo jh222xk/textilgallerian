@@ -1,0 +1,60 @@
+﻿@model Domain.Entities.ProductCoupon
+
+@{
+    ViewBag.Title = "Create";
+}
+<h2>Create</h2>
+    <div class="row">
+    <div class="column">
+        <form class="ui form">
+            <div class="two fields">
+                <div class="field">
+                    <label>First Name</label>
+                    <input placeholder="First Name" type="text">
+                </div>
+                <div class="field">
+                    <label>Last Name</label>
+                    <input placeholder="Last Name" type="text">
+                </div>
+            </div>
+            <div class="field">
+                <label>Gender</label>
+                <div class="ui selection dropdown">
+                    <div class="default text">Select Gender</div>
+                    <i class="dropdown icon"></i>
+                    <input type="hidden" name="gender">
+                    <div class="menu">
+                        <div class="item" data-value="male">Male</div>
+                        <div class="item" data-value="female">Female</div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label>Username</label>
+                <input placeholder="Username" type="text">
+            </div>
+            <div class="field">
+                <label>Password</label>
+                <input type="password">
+            </div>
+            <div class="inline field">
+                <div class="ui checkbox">
+                    <input type="checkbox">
+                    <label>I agree to the Terms and Conditions</label>
+                </div>
+                </div>
+                <div class="ui submit button">Submit</div>
+            </form>
+        </div>
+    </div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    $(".item.create-user").addClass("active");
+</script>
