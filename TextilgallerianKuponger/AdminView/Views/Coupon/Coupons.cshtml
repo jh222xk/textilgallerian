@@ -1,51 +1,68 @@
-﻿@model List<Domain.Entities.Coupon>
+﻿@model AdminView.ViewModel.CouponViewModel
 @{
     ViewBag.Title = "Coupons";
 }
-
-<h2>Kuponger</h2>
-
-<div class="column centered row">
-
-    <div class="column two wide">Kampanjnamn</div>
-    <div class="column two wide">Kampanjkod</div>
-    <div class="column two wide ">Startdatum</div>
-    <div class="column two wide ">Slutdatum</div>
-    <div class="column four wide">Typ av kampanj</div>
-    <div class="column one wide">Skapad av</div>
-    <div class="column three wide">Val</div>
-
-</div>
-<script>
-    $(".item.coupons").addClass("active");
-</script>
-
-@foreach (var coupon in Model)
-{
-    <div class="column centered row">
-        <div class="column two wide">
-            @coupon.Code
+<div class="ui grid">
+    <div class="column eight wide">
+        <div class="ui message main">
+            <h1 class="ui header">Kuponger</h1>
+            <p>Översikt av existerande kuponger som finns i datorbasen. Önskar du lägga till fler rabattkoder? Klicka på den <strong>blå knappen</strong> nedan för att komma till "Skapa Rabatt".</p>
+            @Html.ActionLink("Skapa rabatt", "Create", "Coupon", new { @class = "ui blue button" })
         </div>
-        <div class="column two wide">
-            @coupon.Code
-        </div>
-        <div class="column two wide">
-            @coupon.Start.ToString("yyyy/MM/dd")
-        </div>
-        <div class="column two wide">
-            @coupon.End
-        </div>
-        <div class="column four wide">
-            @coupon.Type
-        </div>
-        <div class="column one wide">
-            Linus
-        </div>
-        <div class="column three wide">
-            @Html.ActionLink("Ta bort", "Delete")
-
-            @Html.ActionLink("Redigera", "Edit")
-        </div>
-
     </div>
-}
+
+    <div class="column sixteen blue row">
+        <div class="column two wide">Kampanjnamn</div>
+        <div class="column two wide">Kampanjkod</div>
+        <div class="column two wide ">Startdatum</div>
+        <div class="column two wide ">Slutdatum</div>
+        <div class="column four wide">Typ av kampanj</div>
+        <div class="column two wide">Skapad av</div>
+        <div class="column two wide">Val</div>
+    </div>
+
+    <script>
+        $(".item.coupons").addClass("active");
+    </script>
+
+    @foreach (var coupon in Model.FindCouponsByPage(Model.CurrentPage))
+    {
+        <div class="column sixteen row list_item">
+            <div class="column two wide">
+                @coupon.Code
+            </div>
+            <div class="column two wide">
+                @coupon.Code
+            </div>
+            <div class="column two wide">
+                @coupon.Start.ToString("yyyy/MM/dd")
+            </div>
+            <div class="column two wide">
+                @coupon.End
+            </div>
+            <div class="column four wide">
+                @Model.GetCouponName(coupon.Type)
+            </div>
+            <div class="column two wide">
+                Linus
+            </div>
+            <div class="column two wide">
+                @Html.ActionLink("Ta bort", "Delete")
+
+                @Html.ActionLink("Redigera", "Edit")
+            </div>
+        </div>
+    }
+
+    <!--Pagination-->
+    <div class="ui pagination menu">
+        <div class="ui pagination menu">
+            @for (int i = 0; i < Model.AmountOfPages(); i++)
+            {
+                var htmlClass = i == Model.CurrentPage ? new { @class = "active item" } : new { @class = "item" };
+
+                @Html.ActionLink((i + 1).ToString(), "Index", "Coupon", new { page = i }, htmlClass)
+            }
+        </div>
+    </div>
+</div>
