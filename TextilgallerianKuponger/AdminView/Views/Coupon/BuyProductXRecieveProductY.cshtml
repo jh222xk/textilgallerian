@@ -1,0 +1,19 @@
+﻿@model AdminView.ViewModel.CouponViewModel
+
+<div class="row">
+    <div class="column">
+        <form class="ui form" method="post">
+            @Html.AntiForgeryToken()
+            <div class="field">
+                <label>Kampanjnamn</label>
+                @Html.EditorFor(m => Model.BuyXProductsPayForYProducts.Name)
+            </div>
+            <div class="field">
+                <label>Kampanjkod</label>
+                @Html.EditorFor(m => Model.BuyXProductsPayForYProducts.Code)
+            </div>
+            @Html.EditorFor(m => Model.BuyXProductsPayForYProducts.Buy)
+            <input type="submit" name="name" class="ui button green" value="Spara rabatt" />
+        </form>
+    </div>
+</div>

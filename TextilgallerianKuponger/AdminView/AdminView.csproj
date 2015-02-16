@@ -217,6 +217,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Shared\Coupon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -224,6 +225,11 @@
     <Content Include="Views\Coupon\Delete.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\Coupon\BuyXProductsPayForYProducts.cshtml" />
+    <Content Include="Views\Coupon\BuyProductXRecieveProductY.cshtml" />
+    <Content Include="Views\Coupon\TotalSumAmountDiscount.cshtml" />
+    <Content Include="Views\Coupon\TotalSumPercentageDiscount.cshtml" />
+    <Content Include="Views\Coupon\SelectType.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">

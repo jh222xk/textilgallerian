@@ -1,28 +1,38 @@
-using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using Domain;
+using Domain.Entities;
+
 namespace AdminView.ViewModel
 {
     public class CouponViewModel
     {
-        public Dictionary<string, String> CouponTypes = new Dictionary<string, String>() 
+        public Dictionary<String, Types> CouponTypes = new Dictionary<String, Types>
         {
-            {  "Tag X betala för Y", typeof ( BuyXProductsPayForYProducts).Name },
-            {  "Köp X få Y gratis", typeof (BuyProductXRecieveProductY).Name },
-            {  "Köp för X:kr betala Y:kr", typeof ( TotalSumAmountDiscount).Name },
-            {  "Köp för X:kr få Y:% rabatt", typeof ( TotalSumPercentageDiscount).Name }
+            {  "Tag X betala för Y", Types.BuyProductXRecieveProductY },
+            {  "Köp X få Y gratis", Types.BuyXProductsPayForYProducts},
+            {  "Köp för X:kr betala Y:kr", Types.TotalSumAmountDiscount },
+            {  "Köp för X:kr få Y:% rabatt", Types.TotalSumPercentageDiscount }
         };
 
-
-        public BuyXProductsPayForYProducts BuyXPayForY { get; set; }
+        public BuyXProductsPayForYProducts BuyXProductsPayForYProducts { get; set; }
+        public BuyProductXRecieveProductY BuyProductXRecieveProductY { get; set; }
+        public TotalSumAmountDiscount TotalSumAmountDiscount { get; set; }
+        public TotalSumPercentageDiscount TotalSumPercentageDiscount { get; set; }
         public ProductCoupon ProductCoupon { get; set; }
-        public int ClickCount { get; set; }
         public Coupon Coupon { get; set; }
-        public IEnumerable<User> Users { get; set; }
-        public User User { get; set; }
 
+
+        public Types Type { get; set; }
+        public Boolean CanBeCombined { get; set; }
+
+
+        /// <summary>
+        /// TODO: Use dict above! Use strict types!
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public String  GetCouponName(string type)
         {
             switch (type)
@@ -47,9 +57,13 @@ namespace AdminView.ViewModel
 
         public IEnumerable<Coupon> Coupons { get; set; }
 
+        /// <summary>
+        /// TODO: Needs comments
+        /// </summary>
+        /// <returns></returns>
         public int AmountOfPages()
         {
-            double calculated = (Coupons.Count() / 10.0);
+            var calculated = (Coupons.Count() / 10.0);
 
             return (int)(Math.Ceiling(calculated));
         }

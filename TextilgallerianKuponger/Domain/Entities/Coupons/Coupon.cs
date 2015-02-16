@@ -19,14 +19,11 @@ namespace Domain.Entities
 
         public String Description { get; set; }
 
+        public abstract Types Type();
+
         /// <summary>
         /// When the coupon should start to be valid
         /// </summary>
-        public String Type
-        {
-            get { return GetType().Name; }
-        }
-
         public DateTime Start { get; set; }
 
         /// <summary>

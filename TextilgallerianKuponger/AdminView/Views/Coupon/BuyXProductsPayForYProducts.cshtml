@@ -1,0 +1,49 @@
+﻿@model Domain.Entities.BuyProductXRecieveProductY
+
+<h2>Skapa ny rabatt av typen: Köp x antal produkter, betala för y antal</h2>
+<div class="row">
+    <div class="column">
+        <form class="ui form" method="post">
+            @Html.AntiForgeryToken()
+            <div class="field">
+                <label>Kampanjnamn</label>
+                @Html.EditorFor(m => m.Name)
+            </div>
+            <div class="field">
+                <label>Kampanjkod</label>
+                @Html.EditorFor(m => m.Code)
+            </div>
+
+            <div class="field">
+                <label>Vilken produkt?</label>
+                @Html.EditorFor(m => m.FreeProduct)
+            </div>
+
+            <div class="field">
+                <label>Hur många gratisprodukter?</label>
+                @Html.EditorFor(m => m.Amount)
+            </div>
+
+            <div class="field">
+                <label>Beskrivning</label>
+                @Html.TextAreaFor(m => m.Description)
+            </div>
+
+            <div class="field">
+                <label>Startdatum:</label>
+                @Html.TextBoxFor(m => m.Start, new { type = "date", placeholder = "startdatum" })
+            </div>
+            <div class="field">
+                <label>Slutdatum:</label>
+                @Html.TextBoxFor(m => m.End, new { type = "date", placeholder = "slutdatum" })
+            </div>
+
+            <div class="field">
+                @Html.CheckBoxFor(m => m.CanBeCombined, "CanBeCombined")
+                @Html.Label("CanBeCombined", "Kampanjen kan kombineras med andra kampanjer.")
+            </div>
+
+            <input type="submit" class="ui button green" value="Spara rabatt"/>
+        </form>
+    </div>
+</div>
