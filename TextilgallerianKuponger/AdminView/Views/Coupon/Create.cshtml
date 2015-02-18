@@ -1,4 +1,5 @@
-﻿@model AdminView.ViewModel.CouponViewModel
+﻿@using AdminView.ViewModel
+@model CouponViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +12,7 @@
             @Html.AntiForgeryToken()
             <div class="field">
                 <label>Välj typ av kampanj</label>
-                @Html.DropDownListFor(m => m.Type, new SelectList(Model.CouponTypes, "Key", "Value"))
+                @Html.DropDownListFor(m => m.Type, new SelectList(CouponViewModel.CouponTypes, "Key", "Value"))
             </div>
             <div class="field">
                 <label>

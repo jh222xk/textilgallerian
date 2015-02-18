@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
 using Domain.Entities;
 using Domain.Repositories;
+using Domain.Tests.Helpers;
 
 namespace AdminView.Controllers
 {
@@ -23,20 +25,20 @@ namespace AdminView.Controllers
         // GET: Coupon
         public ActionResult Index(int page = 0)
         {
-            var cvm = new CouponViewModel
+            var model = new PagedCouponsViewModel
             {
-                Coupons = _couponRepository.FindCouponsByPage(page),
-                CurrentPage = page
+                Coupons = _couponRepository.FindCouponsByPage(page, 10),
+                CurrentPage = page,
+                TotalPages = (int) Math.Ceiling(_couponRepository.FindActiveCoupons().Count() / 10.0)
             };
 
-            // TestData for now
-            //var tempCoupons = Testdata.RandomCoupon();
+            //// TestData for now
+            //var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
 
-            //_couponRepository.Store(tempCoupons);
-
+            //tempCoupons.ForEach(_couponRepository.Store);
             //_couponRepository.SaveChanges();
 
-            return View("Coupons", cvm);
+            return View(model);
         }
 
         // GET: Coupon/Details/5

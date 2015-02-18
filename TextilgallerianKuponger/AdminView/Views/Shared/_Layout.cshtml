@@ -9,52 +9,52 @@
     <script src="https://code.jquery.com/jquery-2.1.3.js"></script>
 </head>
 <body>
-<div class="ui secondary pointing page grid menu">
+@if (Session["user"] != null)
+{
+    <nav class="ui blue inverted top menu">
+        <div class="column sixteen row">
+            @*<i class='tags icon'></i>*@ @Html.ActionLink("Rabatter", "Index", "Coupon", null, new { @class = "item coupons" })
 
-    @*<i class='tags icon'></i>*@ @Html.ActionLink("Rabatter", "Index", "Coupon", null, new {@class = "item coupons"})
+            @*<i class="tag icon"></i>*@ @Html.ActionLink("Skapa Rabatt", "SelectType", "Coupon", null, new { @class = "item create-coupon" })
 
-    @*<i class="tag icon"></i>*@ @Html.ActionLink("Skapa Rabatt", "SelectType", "Coupon", null, new {@class = "item create-coupon"})
+            @*<i class="user icon"></i> Users*@ @Html.ActionLink("Användare", "Users", "User", null, new { @class = "item users" })
 
-    @*<i class="user icon"></i> Users*@ @Html.ActionLink("Användare", "Users", "User", null, new {@class = "item users"})
-
-    @Html.ActionLink("Skapa Användare", "Create", "User", null, new {@class = "item create-user"})
+            @Html.ActionLink("Skapa Användare", "Create", "User", null, new { @class = "item create-user" })
 
 
-    <div class="right menu">
-        <div class="item">
-            <div class="ui icon input">
-                <input type="text" placeholder="Search...">
-                <i class="search link icon"></i>
+            <div class="right menu">
+                <div class="item">
+                    <div class="ui icon input">
+                        <input type="text" placeholder="Search...">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
+                <a class="ui item">
+                    @Html.ActionLink("Logga ut", "Logout", "Authorization", null, new { @class = "item users" })
+                </a>
             </div>
         </div>
-        <a class="ui item">
-            @if (Session["user"] == null)
-            {
-                @Html.ActionLink("Login", "Index", "Authorization", null, new {@class = "item users"})
-            }
-            else
-            {
-                @Html.ActionLink("Logout", "Logout", "Authorization", null, new {@class = "item users"})
-            }
-        </a>
+    </nav>
+    }
+
+
+<div class="ui stackable sixteen column grid">
+    <div class="sixteen wide column">
+        @Html.Partial("_FlashMessage")
+        @RenderBody()
     </div>
 </div>
 
-<div class="ui page grid">
-    @Html.Partial("_FlashMessage")
-    @RenderBody()
-</div>
+        @RenderSection("scripts", false)
 
-@RenderSection("scripts", false)
-
-<script>
-    $(".ui.secondary.pointing.page.grid.menu")
-        .on("click", ".item", function() {
-            $(this)
-                .addClass("active")
-                .siblings(".item")
-                .removeClass("active");
-        });
-</script>
+        <script>
+            $(".ui.secondary.pointing.page.grid.menu")
+                .on("click", ".item", function () {
+                    $(this)
+                        .addClass("active")
+                        .siblings(".item")
+                        .removeClass("active");
+                });
+        </script>
 </body>
 </html>
