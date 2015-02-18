@@ -19,16 +19,3 @@ body { background-color: #ffffff; }
     margin: auto;
     max-width: 1200px;
 }
-
-/*.table {
-    display: table;
-    width: 100%;
-}
-
-.table>li {
-    display: table-row;
-}
-
-.table>li>div {
-    display: table-cell;
-}*/

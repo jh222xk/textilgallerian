@@ -2,42 +2,30 @@
 @model CouponViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Skapa Rabatt";
 }
 
-<h2>Create</h2>
+<h2>Skapa Rabatt</h2>
 <div class="row">
     <div class="column">
         <form class="ui form" method="post">
             @Html.AntiForgeryToken()
             <div class="field">
-                <label>Välj typ av kampanj</label>
-                @Html.DropDownListFor(m => m.Type, new SelectList(CouponViewModel.CouponTypes, "Key", "Value"))
+                <label>
+                    Välj typ av kampanj
+                    @Html.DropDownListFor(m => m.Type, new SelectList(CouponViewModel.CouponTypes, "Key", "Value"), new {@class = "type"})
+                </label>
             </div>
             <div class="field">
                 <label>
                     Kampanjnamn
-                    @Html.EditorFor(m => m.Parameters["Name"])
+                    @Html.TextBoxFor(m => m.Parameters["Name"])
                 </label>
             </div>
             <div class="field">
                 <label>
                     Kampanjkod
-                    @Html.EditorFor(m => m.Parameters["Code"])
-                </label>
-            </div>
-
-            <div class="field">
-                <label>
-                    Vilken produkt?
-                    @Html.EditorFor(m => m.Parameters["FreeProduct"])
-                </label>
-            </div>
-
-            <div class="field">
-                <label>
-                    Hur många gratisprodukter?
-                    @Html.EditorFor(m => m.Parameters["Amount"])
+                    @Html.TextBoxFor(m => m.Parameters["Code"])
                 </label>
             </div>
 
@@ -51,75 +39,82 @@
             <div class="field">
                 <label>
                     Startdatum:
-                    @Html.TextBoxFor(m => m.Parameters["Start"], new {type = "date"})
+                    @Html.TextBoxFor(m => m.Parameters["Start"], new { type = "date" })
                 </label>
             </div>
             <div class="field">
                 <label>
                     Slutdatum:
-                    @Html.TextBoxFor(m => m.Parameters["End"], new {type = "date"})
+                    @Html.TextBoxFor(m => m.Parameters["End"], new { type = "date" })
                 </label>
             </div>
 
             <div class="field">
                 <label>
                     Hur många gånger får rabatten användas?
-                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new {type = "number", placeholder = "Hur många?"})
+                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new { type = "number", min = 0, placeholder = "Hur många?" })
                 </label>
             </div>
 
             <div class="field">
                 <label>
                     Varöfr?
-                    @Html.TextBoxFor(m => m.Parameters["CouponUseLimit"], new {type = "number", placeholder = "Hur många?"})
+                    @Html.TextBoxFor(m => m.Parameters["CouponUseLimit"], new { type = "number", min = 0, placeholder = "Hur många?" })
                 </label>
             </div>
 
-            <div class="field specific-field buy-product-x-receive-product-y buy-x-products-pay-for-y-products">
+            <div class="field specific-field BuyProductXReceiveProductY BuyXProductsPayForYProducts">
                 <label>
                     Buy?
-                    @Html.TextBoxFor(m => m.Parameters["Buy"], new {type = "number", placeholder = "Ange hur många produkter kund behöver köpa"})
+                    @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa" })
                 </label>
                 <div class="help">
                     T.ex. 3 i tag 3 betala för 2
                 </div>
             </div>
 
-            <div class="field specific-field total-sum-amount-discount buy-product-x-receive-product-y">
-                <label>
-                    Amount
-                    @Html.TextBoxFor(m => m.Parameters["Amount"], new {type = "number", placeholder = "Hur många?"})
-                </label>
-            </div>
-
-            <div class="field specific-field buy-x-products-pay-for-y-products">
+            <div class="field specific-field BuyXProductsPayForYProducts">
                 <label>
                     Betala för
-                    @Html.TextBoxFor(m => m.Parameters["PayFor"], new {type = "number", placeholder = "Ange hur många produkter kund behöver betala för"})
+                    @Html.TextBoxFor(m => m.Parameters["PayFor"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för" })
                 </label>
                 <div class="help">
                     T.ex. 2 i tag 3 betala för 2
                 </div>
             </div>
 
-            <div class="field specific-field total-sum-percentage-discount">
+            <div class="field specific-field TotalSumAmountDiscount BuyProductXReceiveProductY">
                 <label>
-                    Percentage
-                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new {type = "number", placeholder = "Hur många?"})
+                    Amount
+                    @Html.TextBoxFor(m => m.Parameters["Amount"], new { type = "number", min = 0, placeholder = "Hur många?" })
                 </label>
             </div>
 
             <div class="field">
                 <label>
+                    Vilken produkt?
+                    @Html.TextBoxFor(m => m.Parameters["FreeProduct"])
+                </label>
+            </div>
+
+            <div class="field specific-field TotalSumPercentageDiscount">
+                <label>
+                    Percentage
+                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, placeholder = "Hur många?" })
+                </label>
+            </div>
+
+            <div class="field specific-field BuyProductXReceiveProductY">
+                <label>
                     Kampanjen kan kombineras med andra kampanjer.
                     @Html.CheckBoxFor(m => m.CanBeCombined)
                 </label>
             </div>
-            <input type="submit" name="name" class="ui button green" value="Gå vidare"/>
+            <input type="submit" name="name" class="ui button green" value="Gå vidare" />
         </form>
     </div>
 </div>
 
-<script>
-    $(".item.create-coupon").addClass("active");
-</script>
+@section scripts {
+    @Scripts.Render("~/Scripts/CreateCoupon.js")
+}
