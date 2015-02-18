@@ -8,11 +8,13 @@ namespace AdminView
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-{version}.js"));
+                "~/Scripts/jquery-2.1.3.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/semantic").Include(
-                "~/Scripts/semantic.min.js",
-                "~/Scripts/semantic.site.js"));
+                "~/Scripts/semantic.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/CreateCoupon").Include(
+                "~/Scripts/CreateCoupon"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Css/semantic.min.css",
