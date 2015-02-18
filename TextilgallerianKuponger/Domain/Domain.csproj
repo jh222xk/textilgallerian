@@ -66,7 +66,6 @@
     <Compile Include="Repositories\CouponRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Services\CouponService.cs" />
-    <Compile Include="Types.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Coupons.cd" />

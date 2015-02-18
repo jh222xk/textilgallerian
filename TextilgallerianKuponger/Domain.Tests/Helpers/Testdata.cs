@@ -159,7 +159,8 @@ namespace Domain.Tests.Helpers
 
             coupon.Code = coupon.Code ?? Internet.UserName();
             coupon.CanBeCombined = canBeCombined ?? Random.Next(2) > 0;
-            coupon.CustomersValidFor = coupon.CustomersValidFor ?? (validForEveryone ? null : RandomAmount(() => RandomCustomer()));
+            coupon.CustomersValidFor = coupon.CustomersValidFor ??
+                                       (validForEveryone ? null : RandomAmount(() => RandomCustomer()));
             coupon.CustomersUsedBy = coupon.CustomersUsedBy ?? RandomAmount(() => RandomCustomer());
             coupon.Start = (coupon.Start > new DateTime())
                 ? coupon.Start
@@ -215,7 +216,7 @@ namespace Domain.Tests.Helpers
         }
 
         /// <summary>
-        /// Generates faked users with the same password and isactive to true
+        ///     Generates faked users with the same password and isactive to true
         /// </summary>
         /// <returns></returns>
         public static User RandomUser()

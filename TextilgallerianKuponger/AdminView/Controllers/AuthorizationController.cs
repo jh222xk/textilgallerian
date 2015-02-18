@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AdminView.ViewModel;
 using Domain.Entities;
 using Domain.Repositories;
@@ -16,7 +14,6 @@ namespace AdminView.Controllers
         {
             _userRepository = userRepository;
         }
-
 
         // GET: /
         public ActionResult Index()
@@ -61,10 +58,10 @@ namespace AdminView.Controllers
 
         // GET: /
         public ActionResult Logout()
-        {         
-                Session.Remove("user");
-                TempData["success"] = "Du har loggat ut";
-                return View("Index");         
+        {
+            Session.Remove("user");
+            TempData["success"] = "Du har loggat ut";
+            return View("Index");
         }
     }
 }

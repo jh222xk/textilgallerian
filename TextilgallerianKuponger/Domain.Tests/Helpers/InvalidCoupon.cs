@@ -8,11 +8,6 @@ namespace Domain.Tests.Helpers
     /// </summary>
     public class InvalidCoupon : Coupon
     {
-        public override Types Type()
-        {
-            return Types.TotalSumAmountDiscount;
-        }
-
         public override Boolean IsValidFor(Cart cart)
         {
             return false;

@@ -14,9 +14,9 @@ namespace Api.Tests.Controllers
     [TestClass]
     public class CartControllerTest
     {
-        private CouponRepository _couponRepository;
-        private CartController _cartController;
         private Cart _cart;
+        private CartController _cartController;
+        private CouponRepository _couponRepository;
 
         [TestInitialize]
         public void SetUp()
@@ -27,7 +27,7 @@ namespace Api.Tests.Controllers
                 Configuration =
                 {
                     RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true,
-                    RunInMemory = true,
+                    RunInMemory = true
                 },
                 Conventions =
                 {
@@ -122,7 +122,7 @@ namespace Api.Tests.Controllers
         [TestMethod]
         public void TestThatCouponsAreQueriedByCode()
         {
-            _cart = Testdata.RandomCart(providedCode: "XMAS15");
+            _cart = Testdata.RandomCart("XMAS15");
 
             var result = _cartController.Post(_cart).Discounts.ToList();
 
@@ -142,7 +142,7 @@ namespace Api.Tests.Controllers
             // NOTE: Count should be one becouse the other coupon is invalid
             result.Count.should_be(1);
             result[0].CustomersValidFor[0].Email.should_be("test@testmail.com");
-            
+
             _cart = Testdata.RandomCart(customerCheckingOut: new Customer
             {
                 Email = "wrongmail@testmail.com"
@@ -177,7 +177,7 @@ namespace Api.Tests.Controllers
         [TestMethod]
         public void TestThatTheSameCouponIsNotIncludedMultipleTimes()
         {
-            _cart = Testdata.RandomCart(providedCode: "Double", customerCheckingOut: new Customer
+            _cart = Testdata.RandomCart("Double", new Customer
             {
                 Email = "double@coupon.com",
                 SocialSecurityNumber = "2222"

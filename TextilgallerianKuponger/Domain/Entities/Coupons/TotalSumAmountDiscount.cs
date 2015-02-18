@@ -1,21 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
     /// <summary>
-    /// Class to give discount in kronor from total sum.
+    ///     Class to give discount in kronor from total sum.
     /// </summary>
     public class TotalSumAmountDiscount : Coupon
     {
-        public Decimal Amount { get; set; }
-
-        public override Types Type()
+        public TotalSumAmountDiscount(IReadOnlyDictionary<string, string> properties) : base(properties)
         {
-            return Types.TotalSumAmountDiscount;
+            Amount = Decimal.Parse(properties["Amount"]);
         }
 
+        public TotalSumAmountDiscount()
+        {
+        }
+
+        public Decimal Amount { get; set; }
+
         /// <summary>
-        /// Check if specified Cart is valid for this Coupon
+        ///     Check if specified Cart is valid for this Coupon
         /// </summary>
         public override Boolean IsValidFor(Cart cart)
         {

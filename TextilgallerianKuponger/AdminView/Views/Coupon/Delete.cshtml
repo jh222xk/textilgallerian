@@ -9,10 +9,10 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Coupon</h4>
-    <hr />
+<h4>Coupon</h4>
+<hr/>
 
-    <div class="ui page grid overview segment">
+<div class="ui page grid overview segment">
     <div class="twelve wide column">
         @using (Html.BeginForm())
         {
@@ -20,8 +20,8 @@
 
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="ui button red"/>
-                @Html.ActionLink("Back to List", "Index", null, new { @class = "ui button blue" })
+                @Html.ActionLink("Back to List", "Index", null, new {@class = "ui button blue"})
             </div>
         }
     </div>
-        </div>
+</div>

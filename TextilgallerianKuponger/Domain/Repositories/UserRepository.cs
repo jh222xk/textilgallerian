@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
 using Raven.Client;
-using System.Collections.Generic;
 
 namespace Domain.Repositories
 {

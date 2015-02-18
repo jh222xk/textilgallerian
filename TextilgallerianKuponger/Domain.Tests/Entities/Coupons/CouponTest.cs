@@ -222,7 +222,6 @@ namespace Domain.Tests.Entities
         {
             _coupon.CustomersUsedBy = new List<Customer>
             {
-                
                 new Customer
                 {
                     Email = "user@student.lnu.se",

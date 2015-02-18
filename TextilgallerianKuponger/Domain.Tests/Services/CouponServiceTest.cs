@@ -12,13 +12,13 @@ namespace Domain.Tests.Services
     [TestClass]
     public class CouponServiceTest
     {
+        private Cart _cart;
         private CouponService _couponService;
+        private Product _freeProduct;
+        private Customer _invalidCustomer;
+        private Product _invalidProduct;
         private RepositoryFactory _repositoryFactory;
         private Customer _validCustomer;
-        private Customer _invalidCustomer;
-        private Product _freeProduct;
-        private Product _invalidProduct;
-        private Cart _cart;
 
         /// <summary>
         ///     Setup our configuration and conventions for all of our tests
@@ -47,59 +47,59 @@ namespace Domain.Tests.Services
             repostitory.Store(Testdata.RandomCoupon(new ValidCoupon
             {
                 Code = "Valid Code"
-            }, canBeCombined: true));
+            }, true));
             repostitory.Store(Testdata.RandomCoupon(new ValidCoupon
             {
                 Code = "Valid Code with customer",
-                CustomersValidFor = new List<Customer> { _validCustomer }
-            }, canBeCombined: true));
+                CustomersValidFor = new List<Customer> {_validCustomer}
+            }, true));
             repostitory.Store(Testdata.RandomCoupon(new InvalidCoupon
             {
                 Code = "Valid Coupon"
-            }, canBeCombined: true));
+            }, true));
             repostitory.Store(Testdata.RandomCoupon(new InvalidCoupon
             {
-                CustomersValidFor = new List<Customer> { _validCustomer }
-            }, canBeCombined: true));
+                CustomersValidFor = new List<Customer> {_validCustomer}
+            }, true));
 
             repostitory.Store(Testdata.RandomCoupon(new BuyProductXRecieveProductY
             {
                 Code = "free product",
-                CustomersValidFor = new List<Customer> { _cart.Customer },
-                Products = new List<Product> { _cart.Rows.First().Product },
+                CustomersValidFor = new List<Customer> {_cart.Customer},
+                Products = new List<Product> {_cart.Rows.First().Product},
                 Buy = 1,
                 FreeProduct = _freeProduct,
                 Start = DateTime.Now,
                 UseLimit = 1000
-            }, canBeCombined: true));
+            }, true));
             repostitory.Store(Testdata.RandomCoupon(new BuyProductXRecieveProductY
             {
                 Code = "Free but uncombineable product",
-                CustomersValidFor = new List<Customer> { _cart.Customer },
-                Products = new List<Product> { _cart.Rows.First().Product },
+                CustomersValidFor = new List<Customer> {_cart.Customer},
+                Products = new List<Product> {_cart.Rows.First().Product},
                 Buy = 1,
                 FreeProduct = _invalidProduct,
                 Start = DateTime.Now,
                 UseLimit = 1000
-            }, canBeCombined: false));
+            }, false));
 
             repostitory.Store(Testdata.RandomCoupon(new TotalSumPercentageDiscount
             {
                 Code = "20%",
-                CustomersValidFor = new List<Customer> { _cart.Customer },
+                CustomersValidFor = new List<Customer> {_cart.Customer},
                 Percentage = 0.2m,
                 Start = DateTime.Now,
                 UseLimit = 1000
-            }, canBeCombined: true));
+            }, true));
             repostitory.Store(Testdata.RandomCoupon(new BuyXProductsPayForYProducts
             {
                 Code = "3 for 2",
-                Products = new List<Product> { _cart.Rows.First().Product },
+                Products = new List<Product> {_cart.Rows.First().Product},
                 Buy = 3,
                 PayFor = 2,
                 Start = DateTime.Now,
                 UseLimit = 1000
-            }, canBeCombined: false, validForEveryone: true));
+            }, false, true));
 
             repostitory.SaveChanges();
         }
@@ -155,7 +155,10 @@ namespace Domain.Tests.Services
         [TestMethod]
         public void TestThatItCanFindCouponsByCustomerSsn()
         {
-            var cart = Testdata.RandomCart(customerCheckingOut: Testdata.RandomCustomer(socialSecurityNumber: _validCustomer.SocialSecurityNumber));
+            var cart =
+                Testdata.RandomCart(
+                    customerCheckingOut:
+                        Testdata.RandomCustomer(socialSecurityNumber: _validCustomer.SocialSecurityNumber));
 
             var result = _couponService.FindBestCouponsForCart(cart).Discounts;
 
@@ -166,7 +169,10 @@ namespace Domain.Tests.Services
         [TestMethod]
         public void TestThatItCanNotFindCouponsByInvalidCustomerSsn()
         {
-            var cart = Testdata.RandomCart(customerCheckingOut: Testdata.RandomCustomer(socialSecurityNumber: _invalidCustomer.SocialSecurityNumber));
+            var cart =
+                Testdata.RandomCart(
+                    customerCheckingOut:
+                        Testdata.RandomCustomer(socialSecurityNumber: _invalidCustomer.SocialSecurityNumber));
 
             var result = _couponService.FindBestCouponsForCart(cart).Discounts;
 

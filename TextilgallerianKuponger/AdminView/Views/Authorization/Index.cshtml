@@ -12,15 +12,15 @@
 
 
         <div class="field">
-            @Html.LabelFor(m => m.Email, new { @class = "" })
+            @Html.LabelFor(m => m.Email, new {@class = ""})
             @Html.TextBoxFor(m => m.Email)
         </div>
 
         <div class="field">
-            @Html.LabelFor(m => m.Password, new { @class = "" })
-            @Html.PasswordFor(m => m.Password, new { required = "" })
+            @Html.LabelFor(m => m.Password, new {@class = ""})
+            @Html.PasswordFor(m => m.Password, new {required = ""})
         </div>
 
-        <input type="submit" class="ui button green" value="Logga in" />
+        <input type="submit" class="ui button green" value="Logga in"/>
     </form>
 </div>

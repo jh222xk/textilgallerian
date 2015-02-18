@@ -1,9 +1,12 @@
 ﻿using System.Net.Http.Headers;
 using System.Web.Http;
 
-namespace Api {
-    public static class WebApiConfig {
-        public static void Register(HttpConfiguration config) {
+namespace Api
+{
+    public static class WebApiConfig
+    {
+        public static void Register(HttpConfiguration config)
+        {
             // Web API configuration and services
 //            config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
 //            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -12,11 +15,8 @@ namespace Api {
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{id}", new {id = RouteParameter.Optional}
+                );
         }
     }
 }

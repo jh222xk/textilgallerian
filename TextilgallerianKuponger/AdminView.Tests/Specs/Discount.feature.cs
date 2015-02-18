@@ -9,261 +9,327 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
+
 #region Designer generated code
+
+using TechTalk.SpecFlow;
+
 #pragma warning disable
+
 namespace AdminView.Tests.Specs
 {
-    using TechTalk.SpecFlow;
-    
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute()]
     public partial class AddNewDiscountCouponFeature
     {
-        
         private static TechTalk.SpecFlow.ITestRunner testRunner;
-        
-#line 1 "Discount.feature"
-#line hidden
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Add new discount coupon", "  In order to add a new discount coupon\r\n  As an editor\r\n  I want to be able to a" +
-                    "dd a new discount coupon", ProgrammingLanguage.CSharp, new string[] {
-                        "ignore",
-                        "editor"});
+            var featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"),
+                "Add new discount coupon",
+                "  In order to add a new discount coupon\r\n  As an editor\r\n  I want to be able to a" +
+                "dd a new discount coupon", ProgrammingLanguage.CSharp, new string[]
+                {
+                    "ignore",
+                    "editor"
+                });
             testRunner.OnFeatureStart(featureInfo);
         }
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute()]
         public static void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute()]
         public virtual void TestInitialize()
         {
-            if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
-                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "Add new discount coupon")))
+            if (((TechTalk.SpecFlow.FeatureContext.Current != null)
+                 && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "Add new discount coupon")))
             {
-                AdminView.Tests.Specs.AddNewDiscountCouponFeature.FeatureSetup(null);
+                FeatureSetup(null);
             }
         }
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute()]
         public virtual void ScenarioTearDown()
         {
             testRunner.OnScenarioEnd();
         }
-        
+
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
         }
-        
+
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add new percentage discount")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add new discount coupon")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("editor")]
         public virtual void AddNewPercentageDiscount()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new percentage discount", ((string[])(null)));
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new percentage discount", ((string[]) (null)));
 #line 8
-this.ScenarioSetup(scenarioInfo);
+            this.ScenarioSetup(scenarioInfo);
 #line 9
-    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            testRunner.Given("I am on the add new discount page", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Given ");
 #line 10
-  testRunner.And("I have selected the \"percentage discount\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected the \"percentage discount\" in the discount type field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 11
-  testRunner.And("I have entered \"30\" in the percentage field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"30\" in the percentage field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 12
-  testRunner.And("I have selected \"User\" in the code type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"User\" in the code type field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 13
-  testRunner.And("I have entered \"jh222xk@student.lnu.se\" in the customer email field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"jh222xk@student.lnu.se\" in the customer email field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 14
-  testRunner.And("I have selected \"April 22, 2015\" in the Start Date field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"April 22, 2015\" in the Start Date field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 15
-  testRunner.And("I have selected \"April 30, 2015\" in the End Date field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"April 30, 2015\" in the End Date field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 16
-  testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 17
-     testRunner.When("I press \"Create\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.When("I press \"Create\"", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "When ");
 #line 18
-     testRunner.Then("the system should present success", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            testRunner.Then("the system should present success", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Then ");
 #line 19
-  testRunner.And("a discount of type \"percentage discount\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a discount of type \"percentage discount\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 20
-  testRunner.And("a \"percentage\" with value \"30\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"percentage\" with value \"30\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 21
-  testRunner.And("a \"start date\" with value April 22, 2015\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"start date\" with value April 22, 2015\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 22
-  testRunner.And("a \"end date\" with value April 30, 2015\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"end date\" with value April 30, 2015\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 23
-  testRunner.And("the discount should not be combinable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("the discount should not be combinable", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add new amount discount")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add new discount coupon")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("editor")]
         public virtual void AddNewAmountDiscount()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new amount discount", ((string[])(null)));
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new amount discount", ((string[]) (null)));
 #line 25
-this.ScenarioSetup(scenarioInfo);
+            this.ScenarioSetup(scenarioInfo);
 #line 26
- testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            testRunner.Given("I am on the add new discount page", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Given ");
 #line 27
-  testRunner.And("I have selected the \"amount discount\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected the \"amount discount\" in the discount type field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 28
-  testRunner.And("I have entered \"200\" in the amount field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"200\" in the amount field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 29
-  testRunner.And("I have selected \"User\" in the code type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"User\" in the code type field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 30
-  testRunner.And("I have entered \"jh222xk@student.lnu.se\" in the customer email field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"jh222xk@student.lnu.se\" in the customer email field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 31
-  testRunner.And("I have selected \"April 22, 2015\" in the Start Date field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"April 22, 2015\" in the Start Date field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 32
-  testRunner.And("I have selected \"April 30, 2015\" in the End Date field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"April 30, 2015\" in the End Date field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 33
-  testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 34
-     testRunner.When("I press \"Create\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.When("I press \"Create\"", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "When ");
 #line 35
-     testRunner.Then("the system should present success", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            testRunner.Then("the system should present success", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Then ");
 #line 36
-  testRunner.And("a discount of type \"amount discount\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a discount of type \"amount discount\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 37
-  testRunner.And("a \"amount\" with value \"200\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"amount\" with value \"200\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 38
-  testRunner.And("a \"start date\" with value April 22, 2015\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"start date\" with value April 22, 2015\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 39
-  testRunner.And("a \"end date\" with value April 30, 2015\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"end date\" with value April 30, 2015\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 40
-  testRunner.And("the discount should not be combinable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("the discount should not be combinable", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add new percentage discount on purchase over x kr")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute(
+            "Add new percentage discount on purchase over x kr")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add new discount coupon")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("editor")]
         public virtual void AddNewPercentageDiscountOnPurchaseOverXKr()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new percentage discount on purchase over x kr", ((string[])(null)));
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new percentage discount on purchase over x kr",
+                ((string[]) (null)));
 #line 42
-this.ScenarioSetup(scenarioInfo);
+            this.ScenarioSetup(scenarioInfo);
 #line 43
-    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            testRunner.Given("I am on the add new discount page", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Given ");
 #line 44
-  testRunner.And("I have selected the \"discount on purchase over x kr\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected the \"discount on purchase over x kr\" in the discount type field",
+                ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 45
-  testRunner.And("I have entered \"30\" in the percentage field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"30\" in the percentage field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 46
-  testRunner.And("I have entered \"1000\" in the \"minimal amount\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"1000\" in the \"minimal amount\" field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 47
-  testRunner.And("I have entered \"jh222xk@student.lnu.se\" in the customer email field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"jh222xk@student.lnu.se\" in the customer email field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 48
-  testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 49
-     testRunner.When("I press \"Create\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.When("I press \"Create\"", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "When ");
 #line 50
-     testRunner.Then("the system should present success", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            testRunner.Then("the system should present success", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Then ");
 #line 51
-  testRunner.And("a discount of type \"discount on purchase over x kr\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a discount of type \"discount on purchase over x kr\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 52
-  testRunner.And("a \"minimal amount\" with value \"1000\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"minimal amount\" with value \"1000\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 53
-  testRunner.And("the discount should not be combinable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("the discount should not be combinable", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add new take Y pay for X discount")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add new discount coupon")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("editor")]
         public virtual void AddNewTakeYPayForXDiscount()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new take Y pay for X discount", ((string[])(null)));
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new take Y pay for X discount",
+                ((string[]) (null)));
 #line 55
-this.ScenarioSetup(scenarioInfo);
+            this.ScenarioSetup(scenarioInfo);
 #line 56
-    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            testRunner.Given("I am on the add new discount page", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Given ");
 #line 57
-  testRunner.And("I have selected the \"take Y pay for X discount\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected the \"take Y pay for X discount\" in the discount type field",
+                ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 58
-  testRunner.And("I have entered 3 in the take field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered 3 in the take field", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "And ");
 #line 59
-  testRunner.And("I have entered 2 in the pay field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered 2 in the pay field", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "And ");
 #line 60
-  testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 61
-    testRunner.When("I press \"Create\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.When("I press \"Create\"", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "When ");
 #line 62
-    testRunner.Then("the system should present success", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            testRunner.Then("the system should present success", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Then ");
 #line 63
-  testRunner.And("a discount of type \"take Y pay for X\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a discount of type \"take Y pay for X\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 64
-  testRunner.And("a \"take\" with value \"3\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"take\" with value \"3\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 65
-  testRunner.And("a \"pay\" with value \"2\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"pay\" with value \"2\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 66
-  testRunner.And("the discount should not be combinable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("the discount should not be combinable", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
-        
+
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add new buy product X and recieve product Y discount")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute(
+            "Add new buy product X and recieve product Y discount")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Add new discount coupon")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("editor")]
         public virtual void AddNewBuyProductXAndRecieveProductYDiscount()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new buy product X and recieve product Y discount", ((string[])(null)));
+            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo(
+                "Add new buy product X and recieve product Y discount", ((string[]) (null)));
 #line 68
-this.ScenarioSetup(scenarioInfo);
+            this.ScenarioSetup(scenarioInfo);
 #line 69
- testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+            testRunner.Given("I am on the add new discount page", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Given ");
 #line 70
-  testRunner.And("I have selected the \"buy product X and recieve product Y\" in the discount type fi" +
-                    "eld", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected the \"buy product X and recieve product Y\" in the discount type fi" +
+                           "eld", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 71
-  testRunner.And("I have entered \"Blue carpet\" in the Buy Products field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"Blue carpet\" in the Buy Products field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 72
-  testRunner.And("I have entered \"Pink curtains\" in the Free Products field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have entered \"Pink curtains\" in the Free Products field", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 73
-  testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("I have selected \"can not be combined\" in the combinable checkbox", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 74
- testRunner.When("I press \"Create\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+            testRunner.When("I press \"Create\"", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "When ");
 #line 75
- testRunner.Then("the system should present success", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            testRunner.Then("the system should present success", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)),
+                "Then ");
 #line 76
-  testRunner.And("a discount of type \"buy product X recieve product Y\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a discount of type \"buy product X recieve product Y\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 77
-  testRunner.And("a \"buy product\" with value \"blue carpet\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"buy product\" with value \"blue carpet\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 78
-  testRunner.And("a \"free product\" with value \"pink curtains\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"free product\" with value \"pink curtains\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line 79
-  testRunner.And("a \"combinable\" with value \"can not be combined\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+            testRunner.And("a \"combinable\" with value \"can not be combined\" should exist", ((string) (null)),
+                ((TechTalk.SpecFlow.Table) (null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
     }
 }
+
 #pragma warning restore
+
 #endregion

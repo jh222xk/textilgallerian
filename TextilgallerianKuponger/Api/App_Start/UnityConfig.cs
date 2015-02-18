@@ -8,17 +8,22 @@ using Unity.WebApi;
 
 namespace Api
 {
-    public static class UnityConfig {
-        private static readonly IDocumentStore Store = new DocumentStore {
+    public static class UnityConfig
+    {
+        private static readonly IDocumentStore Store = new DocumentStore
+        {
             ConnectionStringName = "RavenDB",
-            Conventions = {
+            Conventions =
+            {
                 FindTypeTagName =
-                    type => typeof(Coupon).IsAssignableFrom(type) ? "coupons" : null
+                    type => typeof (Coupon).IsAssignableFrom(type) ? "coupons" : null
             }
         };
+
         private static UnityContainer _container;
 
-        public static void RegisterComponents() {
+        public static void RegisterComponents()
+        {
             _container = new UnityContainer();
 
             // Initialize the database store
@@ -40,7 +45,8 @@ namespace Api
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(_container);
         }
 
-        public static UnityContainer GetConfiguredContainer() {
+        public static UnityContainer GetConfiguredContainer()
+        {
             return _container;
         }
     }

@@ -6,10 +6,15 @@ using Raven.Client.Embedded;
 
 namespace Domain.Tests.Helpers
 {
-    class RepositoryFactory : IDisposable
+    internal class RepositoryFactory : IDisposable
     {
         private CouponRepository _repository;
         private IDocumentSession _session;
+
+        public void Dispose()
+        {
+            _session.Dispose();
+        }
 
         public CouponRepository Get()
         {
@@ -21,12 +26,12 @@ namespace Domain.Tests.Helpers
                     Configuration =
                     {
                         RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true,
-                        RunInMemory = true,
+                        RunInMemory = true
                     },
                     Conventions =
                     {
                         FindTypeTagName =
-                            type => typeof(Coupon).IsAssignableFrom(type) ? "coupons" : null
+                            type => typeof (Coupon).IsAssignableFrom(type) ? "coupons" : null
                     }
                 };
 
@@ -36,11 +41,6 @@ namespace Domain.Tests.Helpers
             }
 
             return _repository;
-        }
-
-        public void Dispose()
-        {
-            _session.Dispose();
         }
     }
 }
