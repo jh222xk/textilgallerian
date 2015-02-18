@@ -5,3 +5,30 @@ body { background-color: #ffffff; }
 .list_item:nth-child(odd) { background-color: #dedada; }
 
 .list_item { border: solid 1px #dedada; }
+
+.top.ui.menu {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+
+    border-radius: 0;
+    line-height: 50px;
+}
+
+.top.ui.menu>div, .ui.stackable.grid {
+    margin: auto;
+    max-width: 1200px;
+}
+
+/*.table {
+    display: table;
+    width: 100%;
+}
+
+.table>li {
+    display: table-row;
+}
+
+.table>li>div {
+    display: table-cell;
+}*/

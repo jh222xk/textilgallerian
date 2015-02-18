@@ -81,9 +81,9 @@ namespace Domain.Repositories
                         coupon.Products.Any(p => p.ProductId == product.ProductId));
         }
 
-        public IEnumerable<Coupon> FindCouponsByPage(int page)
+        public IEnumerable<Coupon> FindCouponsByPage(int page, int pageSize)
         {
-            return FindActiveCoupons().OrderBy(c => c.Start).Skip((page)*10).Take(10).ToList();
+            return FindActiveCoupons().OrderBy(c => c.Start).Reverse().Skip(page * pageSize).Take(pageSize).ToList();
         }
 
         /// <summary>
