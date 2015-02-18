@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Configuration;
+using AdminView.Tests.Steps;
 using NSpec;
 using OpenQA.Selenium;
-using OpenQA.Selenium.PhantomJS;
 using TechTalk.SpecFlow;
-using AdminView.Tests.Steps;
-
 
 namespace AdminView.Tests
 {
     [Binding]
-    class UserSteps : CommonSteps
+    internal class UserSteps : CommonSteps
     {
         [Given(@"I am on the User Page")]
         public void GivenIAmOnTheUserPage()
@@ -97,5 +94,3 @@ namespace AdminView.Tests
         }
     }
 }
-
-

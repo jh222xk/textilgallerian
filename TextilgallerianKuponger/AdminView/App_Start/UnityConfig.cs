@@ -13,9 +13,10 @@ namespace AdminView
             Conventions =
             {
                 FindTypeTagName =
-                    type => typeof(Coupon).IsAssignableFrom(type) ? "coupons" : null
+                    type => typeof (Coupon).IsAssignableFrom(type) ? "coupons" : null
             }
         };
+
         private static UnityContainer _container;
 
         public static void RegisterComponents()

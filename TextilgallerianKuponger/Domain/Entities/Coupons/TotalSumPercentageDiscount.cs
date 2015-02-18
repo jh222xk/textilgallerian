@@ -1,18 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
     /// <summary>
-    /// Class to give percentage discount from total sum.
+    ///     Class to give percentage discount from total sum.
     /// </summary>
     public class TotalSumPercentageDiscount : Coupon
     {
-        public Decimal Percentage { get; set; }
-
-        public override Types Type()
+        public TotalSumPercentageDiscount(IReadOnlyDictionary<string, string> properties) : base(properties)
         {
-            return Types.TotalSumPercentageDiscount;
+            Percentage = Decimal.Parse(properties["Percentage"]);
         }
+
+        public TotalSumPercentageDiscount()
+        {
+        }
+
+        public Decimal Percentage { get; set; }
 
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart
@@ -20,7 +25,7 @@ namespace Domain.Entities
         /// </summary>
         public override Decimal CalculateDiscount(Cart cart)
         {
-            return cart.TotalSum * Percentage;
+            return cart.TotalSum*Percentage;
         }
     }
 }

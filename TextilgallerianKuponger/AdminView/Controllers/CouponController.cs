@@ -1,19 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
-using Domain;
 using Domain.Entities;
 using Domain.Repositories;
 
 namespace AdminView.Controllers
 {
-   [LoggedIn]
+    [LoggedIn]
     public class CouponController : Controller
     {
-
         private readonly CouponRepository _couponRepository;
 
         public CouponController(CouponRepository couponRepository)
@@ -21,12 +20,14 @@ namespace AdminView.Controllers
             _couponRepository = couponRepository;
         }
 
-
         // GET: Coupon
         public ActionResult Index(int page = 0)
         {
-            CouponViewModel cvm = new CouponViewModel();
-            cvm.Coupons = _couponRepository.FindActiveCoupons().ToList();
+            var cvm = new CouponViewModel
+            {
+                Coupons = _couponRepository.FindCouponsByPage(page),
+                CurrentPage = page
+            };
 
             // TestData for now
             //var tempCoupons = Testdata.RandomCoupon();
@@ -34,10 +35,6 @@ namespace AdminView.Controllers
             //_couponRepository.Store(tempCoupons);
 
             //_couponRepository.SaveChanges();
-
-            cvm.CurrentPage = page;
-
-            cvm.Coupons = _couponRepository.FindActiveCoupons().ToList();
 
             return View("Coupons", cvm);
         }
@@ -48,69 +45,44 @@ namespace AdminView.Controllers
             return View();
         }
 
-        #region NEEDS_FIXES
-        // GET: Coupon/SelectType
-        public ActionResult SelectType()
-        {
-            var model = new CouponViewModel();
-            return View(model);
-        }
-
-        // POST: Coupon/SelectType
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SelectType(CouponViewModel model)
-        {
-            return RedirectToAction("Create", "Coupon", new { id = model.Type});
-        }
-
         // GET: Coupon/Create
-        public ActionResult Create(Types id)
+        public ActionResult Create()
         {
-            //var model = new CouponViewModel {Coupon = new BuyProductXRecieveProductY()};
-
-            return View(String.Format("{0}", id));
+            return View(new CouponViewModel());
         }
-
 
         // POST: Coupon/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BuyProductXRecieveProductY coupon)
+        public ActionResult Create(CouponViewModel model)
         {
+            var type = Assembly.GetAssembly(typeof (Coupon)).GetType(model.Type);
 
-
+            if (!ModelState.IsValid) return View();
             try
             {
-                if (ModelState.IsValid)
-                {
-                //    switch (model.Type)
-                //    {
-                //        case Types.BuyProductXRecieveProductY:
-                //            model.Coupon = new BuyProductXRecieveProductY();
-                //            break;
-                //        case Types.BuyXProductsPayForYProducts:
-                //            model.Coupon = new BuyXProductsPayForYProducts();
-                //            model.Coupon.Code = model.code
-                //            break;
-                //    }
+                // Magic super perfect code, do not touch!
+                var constructor = type.GetConstructor(new[] {typeof (IReadOnlyDictionary<String, String>)});
+                var coupon = constructor.Invoke(new object[] {model.Parameters}) as Coupon;
 
-
-                    //CouponViewModel.Coupon = coupon;
-                    coupon.IsActive = true;
-                    _couponRepository.Store(coupon);
-                    _couponRepository.SaveChanges();
-                    TempData["success"] = "Rabatt sparad!";
-                    return RedirectToAction("Index");
-                }
+                coupon.CanBeCombined = model.CanBeCombined;
+                coupon.IsActive = true;
+                _couponRepository.Store(coupon);
+                _couponRepository.SaveChanges();
+                TempData["success"] = "Rabatt sparad!";
+                return RedirectToAction("Index");
+            }
+            catch (NullReferenceException)
+            {
+                throw new ArgumentException("Invalid coupon type");
             }
             catch
             {
                 TempData["error"] = "Misslyckades att spara rabatten!";
             }
+
             return View();
         }
-        #endregion
 
         // GET: Coupon/Edit/5
         public ActionResult Edit(int id)
@@ -142,7 +114,6 @@ namespace AdminView.Controllers
             return View(coupon);
         }
 
-
         // POST: /Coupon/Delete/42
         /// <summary>
         ///     Not really removes the coupon
@@ -164,7 +135,7 @@ namespace AdminView.Controllers
             catch (DataException)
             {
                 TempData["error"] = "Misslyckades att ta bort rabatten!";
-                return RedirectToAction("Delete", new { id = code });
+                return RedirectToAction("Delete", new {id = code});
             }
 
             return RedirectToAction("Index");

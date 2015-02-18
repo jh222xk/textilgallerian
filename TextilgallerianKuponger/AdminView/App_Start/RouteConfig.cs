@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace AdminView
@@ -13,17 +9,13 @@ namespace AdminView
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-              name: "Default",
-              url: "{controller}/{action}/{id}",
-              defaults: new { controller = "Authorization", action = "Index", id = UrlParameter.Optional }
-            );
+            routes.MapRoute("Default", "{controller}/{action}/{id}",
+                new {controller = "Authorization", action = "Index", id = UrlParameter.Optional}
+                );
 
-            routes.MapRoute(
-            name: "Logout",
-            url: "{controller}/{action}/{id}",
-            defaults: new { controller = "Authorization", action = "Logout", id = UrlParameter.Optional }
-          );
+            routes.MapRoute("Logout", "{controller}/{action}/{id}",
+                new {controller = "Authorization", action = "Logout", id = UrlParameter.Optional}
+                );
         }
     }
 }

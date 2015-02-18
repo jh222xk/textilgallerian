@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Raven.Client.Linq;
 
@@ -9,15 +10,19 @@ namespace Domain.Entities
     /// </summary>
     public class BuyXProductsPayForYProducts : ProductCoupon
     {
+        public BuyXProductsPayForYProducts(IReadOnlyDictionary<string, string> properties) : base(properties)
+        {
+            PayFor = Decimal.Parse(properties["PayFor"]);
+        }
+
+        public BuyXProductsPayForYProducts()
+        {
+        }
+
         /// <summary>
         ///     How many free products
         /// </summary>
         public Decimal PayFor { get; set; }
-
-        public override Types Type()
-        {
-            return Types.BuyXProductsPayForYProducts;
-        }
 
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart

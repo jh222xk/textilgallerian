@@ -1,4 +1,4 @@
-@model AdminView.ViewModel.UserViewModel
+﻿@model AdminView.ViewModel.UserViewModel
 
 @{
     ViewBag.Title = "Users";
@@ -8,9 +8,11 @@
     <div class="column eight wide">
         <div class="ui message main">
             <h1 class="ui header">Användare</h1>
-            <p>Översikt av tillagda användare som finns i datorbasen. Önskar du lägga till fler användare? Klicka på den <strong>blå knappen</strong> nedan för att komma till "Skapa Användare".</p>
+            <p>
+                Översikt av tillagda användare som finns i datorbasen. Önskar du lägga till fler användare? Klicka på den <strong>blå knappen</strong> nedan för att komma till "Skapa Användare".
+            </p>
 
-            @Html.ActionLink("Skapa användare", "Create", "User", new { @class = "ui blue button" })
+            @Html.ActionLink("Skapa användare", "Create", "User", new {@class = "ui blue button"})
 
         </div>
     </div>
@@ -40,13 +42,12 @@
     <!--Pagination-->
     <div class="ui pagination menu">
         <div class="ui pagination menu">
-            @for (int i = 0; i < Model.AmountOfPages(); i++)
+            @for (var i = 0; i < Model.AmountOfPages(); i++)
             {
-                var htmlClass = i == Model.CurrentPage ? new { @class = "active item" } : new { @class = "item" };
-                @Html.ActionLink((i + 1).ToString(), "Users", "User", new { page = i }, htmlClass)
+                var htmlClass = i == Model.CurrentPage ? new {@class = "active item"} : new {@class = "item"};
+                @Html.ActionLink((i + 1).ToString(), "Users", "User", new {page = i}, htmlClass)
             }
         </div>
     </div>
 
 </div>
-

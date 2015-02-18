@@ -3,28 +3,19 @@
 namespace Domain.Entities
 {
     /// <summary>
-    /// 
     /// </summary>
     public class User
     {
-
         public String Email { get; set; }
-
         public Boolean IsActive { get; set; }
-
         private String PasswordHash { get; set; }
-
 
         /// <summary>
         ///     Hashes the password using the bcrypt algorithm
         /// </summary>
         public String Password
         {
-           
-            set
-            {
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword(value);
-            }
+            set { PasswordHash = BCrypt.Net.BCrypt.HashPassword(value); }
         }
 
         /// <summary>

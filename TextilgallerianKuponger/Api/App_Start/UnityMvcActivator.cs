@@ -3,9 +3,10 @@ using System.Web.Mvc;
 using Api.App_Start;
 using Microsoft.Practices.Unity.Mvc;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(UnityWebActivator), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
+[assembly: PreApplicationStartMethod(typeof (UnityWebActivator), "Start")]
+[assembly: ApplicationShutdownMethod(typeof (UnityWebActivator), "Shutdown")]
 
 namespace Api.App_Start
 {
@@ -13,7 +14,7 @@ namespace Api.App_Start
     public static class UnityWebActivator
     {
         /// <summary>Integrates Unity when the application starts.</summary>
-        public static void Start() 
+        public static void Start()
         {
             var container = UnityConfig.GetConfiguredContainer();
 
@@ -23,7 +24,7 @@ namespace Api.App_Start
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
             // Make sure PerRequestLifetimeManaged instaces are disposed on end 
-            DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof (UnityPerRequestHttpModule));
         }
 
         /// <summary>Disposes the Unity container when the application is shut down.</summary>

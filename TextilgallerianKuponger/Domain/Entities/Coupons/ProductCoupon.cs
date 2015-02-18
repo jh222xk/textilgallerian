@@ -10,6 +10,15 @@ namespace Domain.Entities
     /// </summary>
     public abstract class ProductCoupon : Coupon
     {
+        protected ProductCoupon(IReadOnlyDictionary<string, string> properties) : base(properties)
+        {
+            Buy = Decimal.Parse(properties["Buy"]);
+        }
+
+        public ProductCoupon()
+        {
+        }
+
         /// <summary>
         ///     Products valid for this discount
         /// </summary>

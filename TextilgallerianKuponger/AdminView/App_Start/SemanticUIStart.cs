@@ -1,9 +1,9 @@
-using System.Web;
 using System.Web.Optimization;
+using AdminView;
+using WebActivatorEx;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(
-      typeof(AdminView.SemanticUIStart), "PostStart")]
-
+[assembly: PostApplicationStartMethod(
+    typeof (SemanticUIStart), "PostStart")]
 
 namespace AdminView
 {
@@ -12,12 +12,12 @@ namespace AdminView
         public static void PostStart()
         {
             BundleTable.Bundles.Add(new ScriptBundle("~/bundles/semantic").
-			   Include("~/Scripts/semantic.js",
-			           "~/Scripts/semantic.site.js"));
-			   
+                Include("~/Scripts/semantic.js",
+                    "~/Scripts/semantic.site.js"));
+
             BundleTable.Bundles.Add(new StyleBundle("~/Content/semantic").
-			   Include("~/Content/semantic.css",
-			           "~/Content/semantic.site.css"));
+                Include("~/Content/semantic.css",
+                    "~/Content/semantic.site.css"));
         }
     }
 }

@@ -6,8 +6,10 @@
     <div class="column eight wide">
         <div class="ui message">
             <h1 class="ui header">Kuponger</h1>
-            <p>Översikt av existerande kuponger som finns i datorbasen. Önskar du lägga till fler rabattkoder? Klicka på den <strong>blå knappen</strong> nedan för att komma till "Skapa Rabatt".</p>
-            @Html.ActionLink("Skapa rabatt", "Create", "Coupon", new { @class = "ui blue button" })
+            <p>
+                Översikt av existerande kuponger som finns i datorbasen. Önskar du lägga till fler rabattkoder? Klicka på den <strong>blå knappen</strong> nedan för att komma till "Skapa Rabatt".
+            </p>
+            @Html.ActionLink("Skapa rabatt", "Create", "Coupon", new {@class = "ui blue button"})
         </div>
     </div>
 

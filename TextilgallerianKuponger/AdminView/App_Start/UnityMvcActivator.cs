@@ -5,9 +5,9 @@ using Microsoft.Practices.Unity.Mvc;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using WebActivatorEx;
 
-[assembly: PreApplicationStartMethod(typeof(UnityWebActivator), "Prestart")]
-[assembly: PostApplicationStartMethod(typeof(UnityWebActivator), "Start")]
-[assembly: ApplicationShutdownMethod(typeof(UnityWebActivator), "Shutdown")]
+[assembly: PreApplicationStartMethod(typeof (UnityWebActivator), "Prestart")]
+[assembly: PostApplicationStartMethod(typeof (UnityWebActivator), "Start")]
+[assembly: ApplicationShutdownMethod(typeof (UnityWebActivator), "Shutdown")]
 
 namespace AdminView
 {
@@ -18,11 +18,11 @@ namespace AdminView
         public static void Prestart()
         {
             // Make sure PerRequestLifetimeManaged instaces are disposed on end 
-            DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof (UnityPerRequestHttpModule));
         }
 
         /// <summary>Integrates Unity when the application starts.</summary>
-        public static void Start() 
+        public static void Start()
         {
             var container = UnityConfig.GetConfiguredContainer();
 

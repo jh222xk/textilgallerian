@@ -34,12 +34,12 @@ namespace Domain.Tests.Repositories
                         new Customer
                         {
                             Email = "email@example.com",
-                            SocialSecurityNumber = "831017-2732",
+                            SocialSecurityNumber = "831017-2732"
                         },
                         new Customer
                         {
                             Email = "some@email.com",
-                            SocialSecurityNumber = "900131-2371",
+                            SocialSecurityNumber = "900131-2371"
                         }
                     },
                     UseLimit = 1,
@@ -54,12 +54,12 @@ namespace Domain.Tests.Repositories
                     {
                         new Customer
                         {
-                            SocialSecurityNumber = "831017-2732",
+                            SocialSecurityNumber = "831017-2732"
                         },
                         new Customer
                         {
                             Email = "some@email.com",
-                            SocialSecurityNumber = "700131-2371",
+                            SocialSecurityNumber = "700131-2371"
                         }
                     },
                     UseLimit = 5
@@ -75,12 +75,12 @@ namespace Domain.Tests.Repositories
                         new Customer
                         {
                             Email = "other@email.com",
-                            SocialSecurityNumber = "831017-2732",
+                            SocialSecurityNumber = "831017-2732"
                         },
                         new Customer
                         {
-                            SocialSecurityNumber = "700131-2371",
-                        },
+                            SocialSecurityNumber = "700131-2371"
+                        }
                     }
                 });
 
@@ -130,7 +130,6 @@ namespace Domain.Tests.Repositories
             coupon.should_be_null();
         }
 
-
         /// <summary>
         ///     Test for getting coupons by a single email
         /// </summary>
@@ -145,7 +144,7 @@ namespace Domain.Tests.Repositories
             foreach (var coupon in coupons)
             {
                 coupon.CustomersValidFor.Any(customer => customer.Email == "some@email.com")
-                      .should_be_true();
+                    .should_be_true();
             }
 
             // Check the type of the objects
@@ -278,7 +277,7 @@ namespace Domain.Tests.Repositories
         {
             var coupon = new TotalSumAmountDiscount
             {
-                Code = "NewCode",
+                Code = "NewCode"
             };
 
             // Store and save coupon.

@@ -1,26 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
     /// <summary>
-    /// Discount: Customer gets product Y for free when buying product(s) X
+    ///     Discount: Customer gets product Y for free when buying product(s) X
     /// </summary>
     public class BuyProductXRecieveProductY : ProductCoupon
     {
+        public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties) : base(properties)
+        {
+            Amount = Decimal.Parse(properties["Amount"]);
+        }
+
+        public BuyProductXRecieveProductY()
+        {
+        }
+
         /// <summary>
-        /// A free product we can get
+        ///     A free product we can get
         /// </summary>
         public Product FreeProduct { get; set; }
 
         /// <summary>
-        /// How many free products
+        ///     How many free products
         /// </summary>
         public Decimal Amount { get; set; }
-
-        public override Types Type()
-        {
-            return Types.BuyProductXRecieveProductY;
-        }
 
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart

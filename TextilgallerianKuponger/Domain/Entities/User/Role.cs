@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-
     /// <summary>
     ///     Permissions for the user
     /// </summary>
-   public enum Permission {
+    public enum Permission
+    {
         // Coupon permissions
         CanChangeCoupons,
         CanAddCoupons,
@@ -27,7 +27,7 @@ namespace Domain.Entities
     /// <summary>
     ///     A given role for the user
     /// </summary>
-   public  class Role
+    public class Role
     {
         /// <summary>
         ///     List of users being in this perticular role

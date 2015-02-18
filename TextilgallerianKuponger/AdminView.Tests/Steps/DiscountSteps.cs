@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Configuration;
+using AdminView.Tests.Steps;
 using NSpec;
 using OpenQA.Selenium;
-using OpenQA.Selenium.PhantomJS;
 using TechTalk.SpecFlow;
-using AdminView.Tests.Steps;
 
 namespace AdminView.Tests
 {
