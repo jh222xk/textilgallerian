@@ -1,4 +1,4 @@
-﻿window.addEventListener('load', function() {
+﻿window.addEventListener('load', function () {
     var dropdown = document.querySelector('.type');
     var specificFields = document.querySelectorAll('.specific-field');
 
@@ -17,8 +17,6 @@
         Array.prototype.forEach.call(currentFields, function (field) {
             field.hidden = false;
         });
-
-        console.log(type);
     }
 
     dropdown.addEventListener('change', showCorrectFields);

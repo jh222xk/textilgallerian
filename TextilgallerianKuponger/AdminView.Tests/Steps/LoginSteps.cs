@@ -1,15 +1,18 @@
-﻿using OpenQA.Selenium;
+﻿using NSpec;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 
 namespace AdminView.Tests.Steps
 {
     [Binding]
-    public class LoginSteps : CommonSteps
+    public class Login : Base
     {
+        private readonly CommonSteps _common = new CommonSteps();
+
         [Then(@"I should be able to add a new discount")]
         public void ThenIShouldBeAbleToAddANewDiscount()
         {
-            ThenIWouldNeedToLogin();
+            _common.ThenIWouldNeedToLogin();
             Driver.FindElement(By.Name("code"));
             Driver.FindElement(By.Name("combinable"));
         }
@@ -17,25 +20,26 @@ namespace AdminView.Tests.Steps
         [Given(@"I am on the login page")]
         public void GivenIAmOnTheLoginPage()
         {
-            ScenarioContext.Current.Pending();
+            _common.WhenINavigateTo("/");
         }
 
         [Then(@"I should be logged in")]
         public void ThenIShouldBeLoggedIn()
         {
-            ScenarioContext.Current.Pending();
+            Driver.FindElement(By.LinkText("Logga ut"));
         }
 
         [Then(@"I shouldn't be logged in")]
         public void ThenIShouldntBeLoggedIn()
         {
-            ScenarioContext.Current.Pending();
+            expect<NoSuchElementException>(() =>
+                Driver.FindElement(By.LinkText("Logga ut")));
         }
 
         [Then(@"the system should present ""(.*)""")]
-        public void ThenTheSystemShouldPresent(string p0)
+        public void ThenTheSystemShouldPresent(string message)
         {
-            ScenarioContext.Current.Pending();
+            Driver.PageSource.should_contain(message);
         }
     }
 }

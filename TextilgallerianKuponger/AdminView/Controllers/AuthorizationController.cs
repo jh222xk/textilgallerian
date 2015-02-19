@@ -52,7 +52,7 @@ namespace AdminView.Controllers
                 return RedirectToAction("Index", "Coupon");
             }
 
-            TempData["error"] = "Fel användarnamn eller lösenord.";
+            TempData["error"] = "Felaktig epost och/eller lösenord.";
             return View();
         }
 
