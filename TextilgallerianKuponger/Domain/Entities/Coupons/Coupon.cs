@@ -17,7 +17,6 @@ namespace Domain.Entities
             Start = DateTime.Parse(properties["Start"]);
             End = DateTime.Parse(properties["End"]);
             UseLimit = int.Parse(properties["UseLimit"]);
-            CouponUseLimit = int.Parse(properties["CouponUseLimit"]);
         }
 
         public Coupon()
@@ -73,9 +72,9 @@ namespace Domain.Entities
         public int? UseLimit { get; set; }
 
         /// <summary>
-        ///     Proprty if use limits need to be set by codeusages
+        ///  Property to see what user that created the coupon
         /// </summary>
-        public int? CouponUseLimit { get; set; }
+        public String CreatedBy { get; set; }
 
         /// <summary>
         ///     Boolean deciding if the coupon can be combined
