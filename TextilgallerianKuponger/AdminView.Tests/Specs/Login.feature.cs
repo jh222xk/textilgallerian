@@ -9,138 +9,131 @@
 //      the code is regenerated.
 //  </auto-generated>
 // ------------------------------------------------------------------------------
-
 #region Designer generated code
-
-using TechTalk.SpecFlow;
-
 #pragma warning disable
-
 namespace AdminView.Tests.Specs
 {
+    using TechTalk.SpecFlow;
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    [Microsoft.VisualStudio.TestTools.UnitTesting.IgnoreAttribute()]
     public partial class LoginFeature
     {
+        
         private static TechTalk.SpecFlow.ITestRunner testRunner;
-
+        
+#line 1 "Login.feature"
+#line hidden
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            var featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Login",
-                "In order to login\r\nAs a currently logged out user\r\nI want to be logged in",
-                ProgrammingLanguage.CSharp, new string[]
-                {
-                    "ignore"
-                });
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Login", "In order to login\r\nAs a currently logged out user\r\nI want to be logged in", ProgrammingLanguage.CSharp, new string[] {
+                        "logout"});
             testRunner.OnFeatureStart(featureInfo);
         }
-
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassCleanupAttribute()]
         public static void FeatureTearDown()
         {
             testRunner.OnFeatureEnd();
             testRunner = null;
         }
-
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestInitializeAttribute()]
         public virtual void TestInitialize()
         {
-            if (((TechTalk.SpecFlow.FeatureContext.Current != null)
-                 && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "Login")))
+            if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
+                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "Login")))
             {
-                FeatureSetup(null);
+                AdminView.Tests.Specs.LoginFeature.FeatureSetup(null);
             }
         }
-
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCleanupAttribute()]
         public virtual void ScenarioTearDown()
         {
             testRunner.OnScenarioEnd();
         }
-
+        
         public virtual void ScenarioSetup(TechTalk.SpecFlow.ScenarioInfo scenarioInfo)
         {
             testRunner.OnScenarioStart(scenarioInfo);
         }
-
+        
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
         }
-
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Navigate to the page")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Login")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("logout")]
         public virtual void NavigateToThePage()
         {
-            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Navigate to the page", ((string[]) (null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Navigate to the page", ((string[])(null)));
 #line 7
-            this.ScenarioSetup(scenarioInfo);
+this.ScenarioSetup(scenarioInfo);
 #line 8
-            testRunner.When("I navigate to /", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "When ");
+ testRunner.When("I navigate to /", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
-            testRunner.Then("I would need to login", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "Then ");
+ testRunner.Then("I would need to login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
-
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log in")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Login")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("logout")]
         public virtual void LogIn()
         {
-            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in", ((string[]) (null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in", ((string[])(null)));
 #line 11
-            this.ScenarioSetup(scenarioInfo);
+this.ScenarioSetup(scenarioInfo);
 #line 12
-            testRunner.Given("I am on the login page", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "Given ");
+ testRunner.Given("I am on the login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 13
-            testRunner.When("I enter \"linus@textilgallerian.se\" in the \"Email\" field", ((string) (null)),
-                ((TechTalk.SpecFlow.Table) (null)), "When ");
+ testRunner.When("I enter \"admin@admin.com\" in the \"Email\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 14
-            testRunner.And("I enter \"password\" in the \"Password\" field", ((string) (null)),
-                ((TechTalk.SpecFlow.Table) (null)), "And ");
+  testRunner.And("I enter \"password\" in the \"Password\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
-            testRunner.And("I press \"Logga in\"", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "And ");
+  testRunner.And("I press \"Logga in\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
-            testRunner.Then("I should be logged in", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "Then ");
+ testRunner.Then("I should be logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
-
+        
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Log in with invalid credentials")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Login")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("logout")]
         public virtual void LogInWithInvalidCredentials()
         {
-            var scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in with invalid credentials", ((string[]) (null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Log in with invalid credentials", ((string[])(null)));
 #line 18
-            this.ScenarioSetup(scenarioInfo);
+this.ScenarioSetup(scenarioInfo);
 #line 19
-            testRunner.Given("I am on the login page", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "Given ");
+ testRunner.Given("I am on the login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 20
-            testRunner.When("I enter \"linus@textilgallerian.se\" in the \"Email\" field", ((string) (null)),
-                ((TechTalk.SpecFlow.Table) (null)), "When ");
+ testRunner.When("I enter \"linus@textilgallerian.se\" in the \"Email\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 21
-            testRunner.And("I enter \"invalid\" in the \"Password\" field", ((string) (null)),
-                ((TechTalk.SpecFlow.Table) (null)), "And ");
+  testRunner.And("I enter \"invalid\" in the \"Password\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 22
-            testRunner.And("I press \"Logga in\"", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "And ");
+  testRunner.And("I press \"Logga in\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
-            testRunner.Then("I shouldn\'t be logged in", ((string) (null)), ((TechTalk.SpecFlow.Table) (null)), "Then ");
+ testRunner.Then("I shouldn\'t be logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 24
-            testRunner.And("the system should present \"Felaktig epost och/eller lösenord\"", ((string) (null)),
-                ((TechTalk.SpecFlow.Table) (null)), "And ");
+  testRunner.And("the system should present \"Felaktig epost och/eller lösenord.\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
     }
 }
-
 #pragma warning restore
-
 #endregion

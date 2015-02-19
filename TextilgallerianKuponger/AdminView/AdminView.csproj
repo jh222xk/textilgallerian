@@ -180,6 +180,9 @@
     <Content Include="Content\Images\cat.png" />
     <Content Include="Content\Css\semantic.min.css" />
     <Content Include="Content\Css\semantic.site.css" />
+    <Content Include="Content\Css\themes\basic\assets\fonts\icons.svg" />
+    <Content Include="Content\Css\themes\default\assets\fonts\icons.svg" />
+    <Content Include="Content\Css\themes\default\assets\images\flags.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Css\Site.css" />
@@ -196,7 +199,6 @@
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Scripts\semantic.min.js" />
-    <Content Include="Scripts\semantic.site.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -213,7 +215,6 @@
     <Content Include="Views\Coupon\Create.cshtml" />
     <Content Include="Views\User\Users.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_numericInput.cshtml" />
     <Content Include="Views\Authorization\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +224,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Content\Css\themes\basic\assets\fonts\icons.eot" />
+    <Content Include="Content\Css\themes\basic\assets\fonts\icons.ttf" />
+    <Content Include="Content\Css\themes\basic\assets\fonts\icons.woff" />
+    <Content Include="Content\Css\themes\default\assets\fonts\icons.eot" />
+    <Content Include="Content\Css\themes\default\assets\fonts\icons.otf" />
+    <Content Include="Content\Css\themes\default\assets\fonts\icons.ttf" />
+    <Content Include="Content\Css\themes\default\assets\fonts\icons.woff" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Coupon\Delete.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
