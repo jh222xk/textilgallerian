@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -29,14 +29,14 @@ namespace AdminView.Controllers
             {
                 Coupons = _couponRepository.FindCouponsByPage(page, 10),
                 CurrentPage = page,
-                TotalPages = (int) Math.Ceiling(_couponRepository.FindActiveCoupons().Count() / 10.0)
+                TotalPages = (int)Math.Ceiling(_couponRepository.FindActiveCoupons().Count() / 10.0)
             };
 
             //// TestData for now
-//            var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
-//
-//            tempCoupons.ForEach(_couponRepository.Store);
-//            _couponRepository.SaveChanges();
+            //            var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
+            //
+            //            tempCoupons.ForEach(_couponRepository.Store);
+            //            _couponRepository.SaveChanges();
 
             return View(model);
         }
@@ -58,17 +58,17 @@ namespace AdminView.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(CouponViewModel model)
         {
-            var type = Assembly.GetAssembly(typeof (Coupon)).GetType(model.Type);
+            var type = Assembly.GetAssembly(typeof(Coupon)).GetType(model.Type);
 
             if (!ModelState.IsValid) return View();
             try
             {
                 // Magic super perfect code, do not touch!
-                var constructor = type.GetConstructor(new[] {typeof (IReadOnlyDictionary<String, String>)});
-                var coupon = constructor.Invoke(new object[] {model.Parameters}) as Coupon;
-                var user = (User)Session["user"];
-                coupon.CreatedBy = user.Email;
+                var constructor = type.GetConstructor(new[] { typeof(IReadOnlyDictionary<String, String>) });
+                var coupon = constructor.Invoke(new object[] { model.Parameters }) as Coupon;
+
                 coupon.CanBeCombined = model.CanBeCombined;
+                coupon.CustomersValidFor = model.Customers();
                 coupon.IsActive = true;
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
@@ -138,7 +138,7 @@ namespace AdminView.Controllers
             catch (DataException)
             {
                 TempData["error"] = "Misslyckades att ta bort rabatten!";
-                return RedirectToAction("Delete", new {id = code});
+                return RedirectToAction("Delete", new { id = code });
             }
 
             return RedirectToAction("Index");
