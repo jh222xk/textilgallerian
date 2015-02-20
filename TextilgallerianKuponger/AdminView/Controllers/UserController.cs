@@ -9,7 +9,7 @@ using Domain.Repositories;
 
 namespace AdminView.Controllers
 {
-    [LoggedIn]
+   // [LoggedIn]
     public class UserController : Controller
     {
         private readonly UserRepository _userRepository;
@@ -42,6 +42,10 @@ namespace AdminView.Controllers
 
         // GET: User/Create
         public ActionResult Create()
+        {
+            return View();
+        }
+        public ActionResult Role()
         {
             return View();
         }

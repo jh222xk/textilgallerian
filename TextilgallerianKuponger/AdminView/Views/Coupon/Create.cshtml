@@ -199,6 +199,22 @@
                     @Html.CheckBoxFor(m => m.CanBeCombined)
                 </label>
             </div>
+            <div class="field specific-field BuyProductXReceiveProductY">
+                <div class="field">
+                    <label>
+                        Kampanjen kan kombineras med andra kampanjer.
+                        @Html.CheckBoxFor(m => m.CanBeCombined)
+                    </label>
+                </div>
+                <input type="submit" name="name" class="ui button green" value="Gå vidare" />
+                <div class="item ui toggle checkbox" id="combining">
+                    <a class="ui toggle checkbox" id="combining">
+                        <input type="checkbox" name="public">
+                        <label>Går att kombineras</label>
+                    </a>
+                </div>
+            </div>
+
             <input type="submit" name="name" class="ui button green" value="Skapa rabatt"/>
         </form>
     </div>

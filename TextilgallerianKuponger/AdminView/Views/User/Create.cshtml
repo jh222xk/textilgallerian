@@ -10,16 +10,6 @@
         <form class="ui form" method="post">
             @Html.AntiForgeryToken()
 
-            @*<div class="two fields">
-                <div class="field">
-                    <label>Förnamn</label>
-                    <input placeholder="Linus" type="text">
-                </div>
-                <div class="field">
-                    <label>Efternamn</label>
-                    <input placeholder="Ivelid" type="text">
-                </div>
-            </div>*@
             <div class="field">
                 <label>Email</label>
                 @Html.EditorFor(m => Model.Email)

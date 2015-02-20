@@ -1,0 +1,72 @@
+﻿@model AdminView.ViewModel.UserViewModel
+
+@{
+    ViewBag.Title = "Role";
+}
+
+<h2>Role</h2>
+
+
+<form class="ui form" action="@Url.Action("Create", "Role")" method=" post">
+    @Html.AntiForgeryToken()
+
+    <div class="field">
+        <label>Name</label>
+        @Html.EditorFor(m => Model.Name)
+    </div>
+
+    <div class="twelve wide column">
+        <div class="ui two column center aligned stackable divided grid">
+            <div class="column">
+                <div class="ui icon header">
+                    <i class="sign in icon"></i>
+                    Rättigheter
+                </div>
+                <div class="ui fluid category ">
+
+                    <div class="result"></div>
+                    <div class="ui hidden divider"></div>
+                    <div class="field">
+                        <div class="ui divided list">
+
+                            @foreach (var item in AdminView.ViewModel.UserViewModel.Permissions)
+                            {
+                                <div class="item" id="@item.Key">
+                                    <button class="right floated compact ui button">Lägga till</button>
+                                    <i class="write icon"></i>
+                                    <div class="content">
+                                        <div class="header">@item.Value</div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="ui icon header">
+                    <i class="checkmark icon"></i>
+                    Valda Rättigheter
+                </div>
+                <div class="ui fluid category">
+                   
+                    <div class="results"></div>
+                </div>
+                <div class="ui hidden divider"></div>
+                <div class="field">
+                    <textarea rows="12" cols="20"></textarea>
+                </div>
+            </div>
+          
+
+        </div>
+    </div>
+
+
+
+
+    <input type="submit" class="ui teal button" value="Skapa Användaren" />
+</form>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
