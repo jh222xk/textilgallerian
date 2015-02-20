@@ -55,7 +55,6 @@
     <Compile Include="Entities\Coupons\Coupon.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Product.cs" />
-    <Compile Include="Entities\Coupons\ProductCoupon.cs" />
     <Compile Include="Entities\Regular.cs" />
     <Compile Include="Entities\Cart\Row.cs" />
     <Compile Include="Entities\Coupons\TotalSumPercentageDiscount.cs" />

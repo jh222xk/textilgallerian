@@ -8,7 +8,7 @@ namespace Domain.Entities
     /// <summary>
     ///     Discount: Customer only pays for Y Products when buying X products from Products-list
     /// </summary>
-    public class BuyXProductsPayForYProducts : ProductCoupon
+    public class BuyXProductsPayForYProducts : Coupon
     {
         public BuyXProductsPayForYProducts(IReadOnlyDictionary<string, string> properties) : base(properties)
         {
@@ -51,6 +51,21 @@ namespace Domain.Entities
             }
 
             return discount;
+        }
+
+        /// <summary>
+        /// Check all products in cart if they are valid for discount.
+        /// </summary>
+        /// <param name="cart"></param>
+        public override Boolean IsValidFor(Cart cart)
+        {
+            if (base.IsValidFor(cart) == false)
+            {
+                return false;
+            }
+
+            var products = cart.Rows.Select(row => row.Product).ToList();
+            return products.Exists(p => p.In(Products)) && cart.NumberOfProducts >= Buy;
         }
     }
 }

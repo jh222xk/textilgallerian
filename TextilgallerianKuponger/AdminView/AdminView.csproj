@@ -165,6 +165,7 @@
     <Compile Include="App_Start\SemanticUIStart.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
+    <Compile Include="Controllers\Helpers\CouponHelper.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="ExtensionMethods\TypeExtension.cs" />
     <Compile Include="Global.asax.cs">
