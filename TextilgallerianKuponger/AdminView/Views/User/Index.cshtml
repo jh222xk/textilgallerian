@@ -4,41 +4,43 @@
     ViewBag.Title = "Users";
 }
 
-<div class="ui grid ">
-    <div class="column eight wide">
-        <div class="ui message main">
-            <h1 class="ui header">Användare</h1>
-            <p>
-                Översikt av tillagda användare som finns i datorbasen. Önskar du lägga till fler användare? Klicka på den <strong>blå knappen</strong> nedan för att komma till "Skapa Användare".
-            </p>
 
-            @Html.ActionLink("Skapa användare", "Create", "User", new {@class = "ui blue button"})
+<table class="ui table">
+    <thead class="blue">
+        <tr>
+            <th>E-mail</th>
+            <th>Behörighet</th>
+            <th>Konto aktivt</th>
+            <th>Val</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.PagedObjects)
+        {
+            <tr>
+                <td>
+                    @user.Email
+                </td>
+                <td>
+                    Behörigheter från databasen skall finnas här!
+                </td>
+                <td>
+                    @if (user.IsActive)
+                    {
+                        <i class="icon green checkmark"></i>
+                    }
+                    else
+                    {
+                        <i class="icon red minus"></i>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Ta bort", "Delete")
+                    @Html.ActionLink("Redigera", "Edit")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-        </div>
-    </div>
-
-    <div class="column seven wide blue row">
-
-        <div class="column eight wide">E-mail</div>
-        <div class="column ">Behörighet</div>
-
-    </div>
-
-    <script>
-        $(".item.coupons").addClass("active");
-    </script>
-    @foreach (var user in Model.PagedObjects)
-    {
-        <div class="column row seven wide list_item">
-            <div class="column eight wide">
-                @user.Email
-            </div>
-            <div class="column seven wide">
-                @user.IsActive
-            </div>
-        </div>
-    }
-
-    @Html.Partial("_Pagination");
-
-</div>
+@Html.Partial("_Pagination", Model, new ViewDataDictionary { { "controller", "user" } })
