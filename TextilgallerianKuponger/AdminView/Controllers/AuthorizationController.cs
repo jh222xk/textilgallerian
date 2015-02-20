@@ -49,7 +49,7 @@ namespace AdminView.Controllers
             {
                 Session["user"] = user;
                 TempData["success"] = "Du har loggat in";
-                return RedirectToAction("Index", "Coupon");
+                return RedirectToAction("index", "coupon");
             }
 
             TempData["error"] = "Felaktig epost och/eller lösenord.";
@@ -61,7 +61,7 @@ namespace AdminView.Controllers
         {
             Session.Remove("user");
             TempData["success"] = "Du har loggat ut";
-            return View("Index");
+            return RedirectToAction("index");
         }
     }
 }

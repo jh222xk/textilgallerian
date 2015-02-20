@@ -111,7 +111,7 @@ namespace AdminView.Controllers
             {
                 // TODO: Add update logic here
 
-                return RedirectToAction("Index");
+                return RedirectToAction("index");
             }
             catch
             {
@@ -148,10 +148,10 @@ namespace AdminView.Controllers
             catch (DataException)
             {
                 TempData["error"] = "Misslyckades att ta bort rabatten!";
-                return RedirectToAction("Delete", new { id = code });
+                return RedirectToAction("delete", new { id = code });
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("index");
         }
 
         /// <summary>
