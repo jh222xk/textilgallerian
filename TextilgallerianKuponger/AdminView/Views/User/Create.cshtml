@@ -1,13 +1,13 @@
 ﻿@model AdminView.ViewModel.AuthorizationViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Skapa ny användare";
 }
-<h2>Create</h2>
 
+<h2 class="ui large header">Skapa ny användare</h2>
 <div class="row">
     <div class="column">
-        <form class="ui form" action="@Url.Action("Create", "User")" method=" post">
+        <form class="ui form" method="post">
             @Html.AntiForgeryToken()
 
             @*<div class="two fields">
@@ -29,19 +29,7 @@
                 @Html.PasswordFor(m => Model.Password)
             </div>
 
-            <input type="submit" class="ui teal button" value="Skapa Användaren"/>
+            <input type="submit" class="ui green button" value="Skapa användare"/>
         </form>
     </div>
 </div>
-
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-<script>
-    $(".item.create-user").addClass("active");
-</script>

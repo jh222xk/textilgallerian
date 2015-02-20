@@ -1,56 +1,54 @@
 ﻿@using AdminView.ExtensionMethods
-@using AdminView.ViewModel
-@model PagedViewModel<Domain.Entities.Coupon>
+@model AdminView.ViewModel.PagedViewModel<Domain.Entities.Coupon>
 
 @{
-    ViewBag.Title = "Coupons";
+    ViewBag.Title = "Rabatter";
 }
 
+<table class="ui table">
+    <thead class="blue">
+    <tr>
+        <th>Kampanjnamn</th>
+        <th>Kampanjkod</th>
+        <th>Startdatum</th>
+        <th>Slutdatum</th>
+        <th>Typ av kampanj</th>
+        <th>Skapad av</th>
+        <th>Val</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var coupon in Model.PagedObjects)
+    {
+        <tr>
+            <td>
+                @coupon.Name
+            </td>
+            <td>
+                @coupon.Code
+            </td>
+            <td>
+                @coupon.Start.ToString("yyyy-MM-dd")
+            </td>
+            <td>
+                @if (coupon.End.HasValue)
+                {
+                    @coupon.End.Value.ToString("yyyy-MM-dd")
+                }
+            </td>
+            <td>
+                @coupon.Type()
+            </td>
+            <td>
+                @coupon.CreatedBy
+            </td>
+            <td>
+                @Html.ActionLink("Ta bort", "Delete")
+                @Html.ActionLink("Redigera", "Edit")
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
 
-    <table class="ui table">
-        <thead class="blue">
-            <tr>
-                <th>Kampanjnamn</th>
-                <th>Kampanjkod</th>
-                <th>Startdatum</th>
-                <th>Slutdatum</th>
-                <th>Typ av kampanj</th>
-                <th>Skapad av</th>
-                <th>Val</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var coupon in Model.PagedObjects)
-            {
-                <tr>
-                    <td>
-                        @coupon.Name
-                    </td>
-                    <td>
-                        @coupon.Code
-                    </td>
-                    <td>
-                        @coupon.Start.ToString("yyyy-MM-dd")
-                    </td>
-                    <td>
-                        @if (coupon.End.HasValue)
-                        {
-                            @coupon.End.Value.ToString("yyyy-MM-dd")
-                        }
-                    </td>
-                    <td>
-                        @coupon.Type()
-                    </td>
-                    <td>
-                        @coupon.CreatedBy
-                    </td>
-                    <td>
-                        @Html.ActionLink("Ta bort", "Delete")
-                        @Html.ActionLink("Redigera", "Edit")
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-@Html.Partial("_Pagination", Model, new ViewDataDictionary { { "controller", "coupon" } })
+@Html.Partial("_Pagination", Model, new ViewDataDictionary {{"controller", "coupon"}})

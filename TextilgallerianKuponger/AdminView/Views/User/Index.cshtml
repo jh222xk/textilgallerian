@@ -1,46 +1,45 @@
 ﻿@model AdminView.ViewModel.PagedViewModel<Domain.Entities.User>
 
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Användare";
 }
-
 
 <table class="ui table">
     <thead class="blue">
-        <tr>
-            <th>E-mail</th>
-            <th>Behörighet</th>
-            <th>Konto aktivt</th>
-            <th>Val</th>
-        </tr>
+    <tr>
+        <th>E-mail</th>
+        <th>Behörighet</th>
+        <th>Konto aktivt</th>
+        <th>Val</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model.PagedObjects)
-        {
-            <tr>
-                <td>
-                    @user.Email
-                </td>
-                <td>
-                    Behörigheter från databasen skall finnas här!
-                </td>
-                <td>
-                    @if (user.IsActive)
-                    {
-                        <i class="icon green checkmark"></i>
-                    }
-                    else
-                    {
-                        <i class="icon red minus"></i>
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Ta bort", "Delete")
-                    @Html.ActionLink("Redigera", "Edit")
-                </td>
-            </tr>
-        }
+    @foreach (var user in Model.PagedObjects)
+    {
+        <tr>
+            <td>
+                @user.Email
+            </td>
+            <td>
+                Behörigheter från databasen skall finnas här!
+            </td>
+            <td>
+                @if (user.IsActive)
+                {
+                    <i class="icon green checkmark"></i>
+                }
+                else
+                {
+                    <i class="icon red minus"></i>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Ta bort", "Delete")
+                @Html.ActionLink("Redigera", "Edit")
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
 
-@Html.Partial("_Pagination", Model, new ViewDataDictionary { { "controller", "user" } })
+@Html.Partial("_Pagination", Model, new ViewDataDictionary {{"controller", "user"}})
