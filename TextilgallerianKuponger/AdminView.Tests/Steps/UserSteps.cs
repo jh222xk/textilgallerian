@@ -7,18 +7,21 @@ using TechTalk.SpecFlow;
 namespace AdminView.Tests
 {
     [Binding]
-    internal class UserSteps : CommonSteps
+    internal class UserSteps : Base
     {
+
+        private readonly CommonSteps _common = new CommonSteps();
+
         [Given(@"I am on the User Page")]
         public void GivenIAmOnTheUserPage()
         {
-            WhenINavigateTo("/User");
+            _common.WhenINavigateTo("/User");
         }
 
         [Given(@"And I have clicked Add new User")]
         public void GivenIHaveClickedAddNewUser()
         {
-            WhenIPress("Add new User");
+            _common.WhenIPress("Add new User");
         }
 
         [Then(@"a new User named ""(.*)"" should exist")]
@@ -35,12 +38,6 @@ namespace AdminView.Tests
 
         [Given(@"I am on the users page")]
         public void GivenIAmOnTheUsersPage()
-        {
-            ScenarioContext.Current.Pending();
-        }
-
-        [When(@"I have entered ""(.*)"" in the ""(.*)"" field")]
-        public void WhenIHaveEnteredInTheField(string p0, string p1)
         {
             ScenarioContext.Current.Pending();
         }
