@@ -19,19 +19,21 @@ namespace AdminView.Controllers
     {
         private readonly CouponRepository _couponRepository;
 
+        private const int PageSize = 15;
+
         public CouponController(CouponRepository couponRepository)
         {
             _couponRepository = couponRepository;
         }
 
         // GET: Coupon
-        public ActionResult Index(int page = 0)
+        public ActionResult Index(int page = 1)
         {
             var model = new PagedViewModel<Coupon>
             {
-                PagedObjects = _couponRepository.FindAllCoupons().Page(page, 10),
+                PagedObjects = _couponRepository.FindAllCoupons().Page(page - 1, PageSize),
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(_couponRepository.FindAllCoupons().Count() / 10.0)
+                TotalPages = (int)Math.Ceiling(_couponRepository.FindAllCoupons().Count() / (double) PageSize)
             };
 
             //// TestData for now

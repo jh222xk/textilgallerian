@@ -14,19 +14,21 @@ namespace AdminView.Controllers
     {
         private readonly UserRepository _userRepository;
 
+        private const int PageSize = 15;
+
         public UserController(UserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
         // GET: User
-        public ActionResult Index(int page = 0)
+        public ActionResult Index(int page = 1)
         {
             var model = new PagedViewModel<User>
             {
-                PagedObjects = _userRepository.FindAllUsers().Page(page, 10),
+                PagedObjects = _userRepository.FindAllUsers().Page(page - 1, PageSize),
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(_userRepository.FindAllUsers().Count() / 10.0)
+                TotalPages = (int)Math.Ceiling(_userRepository.FindAllUsers().Count() / (double) PageSize)
             };
 
             return View(model);
