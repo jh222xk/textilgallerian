@@ -30,6 +30,12 @@
             </div>
             <div class="field">
                 <label>
+                    Minsta köpsumma
+                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new { type = "number", min = 0, @Value = 0 })
+                </label>
+            </div>
+            <div class="field">
+                <label>
                     Kunder
                     @Html.TextAreaFor(m => m.CustomerString)
                 </label>

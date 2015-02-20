@@ -33,6 +33,7 @@ namespace Domain.Tests.Entities
                 UseLimit = 5,
                 Buy = 3,
                 PayFor = 2,
+                MinPurchase = 500,
                 Products = new List<Product>
                 {
                     _validProduct
@@ -231,6 +232,22 @@ namespace Domain.Tests.Entities
             };
 
             _coupon.UseLimit = 1;
+
+            _coupon.IsValidFor(_cart).should_be_false();
+        }
+
+        [TestMethod]
+        public void TestThatMinPurchaseMustBeExceeded()
+        {
+            _cart.Rows = new List<Row>
+            {
+                    new Row
+                    {
+                        ProductPrice = 100,
+                        Amount = 2,
+                        Product = _validProduct
+                    },
+            };
 
             _coupon.IsValidFor(_cart).should_be_false();
         }

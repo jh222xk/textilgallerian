@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices;
+using System.Linq;
 using AdminView.Tests.Steps;
 using NSpec;
 using OpenQA.Selenium;
-using OpenQA.Selenium.PhantomJS;
 using TechTalk.SpecFlow;
 
 namespace AdminView.Tests
@@ -35,37 +34,16 @@ namespace AdminView.Tests
         [Then(@"a discount of type ""(.*)"" should exist")]
         public void ThenADiscountOfTypeShouldExist(String type)
         {
-            Driver.FindElement(By.ClassName("Type")).Text.should_be(type);
+            Driver.FindElement(By.LinkText("Rabatter")).Click();
+            ItShouldHaveAOf("Typ av kampanj", type);
         }
 
-        [Then(@"a ""(.*)"" with value ""(.*)"" should exist")]
-        public void ThenAWithValueShouldExist(String name, String value)
+        [Then(@"it should have a ""(.*)"" of ""(.*)""")]
+        public void ItShouldHaveAOf(String key, String value)
         {
-            Driver.FindElement(By.ClassName(name)).Text.should_be(value);
-        }
-
-        [Given(@"I have entered ""(.*)"" in the amount field")]
-        public void GivenIHaveEnteredInTheAmountField(int p0)
-        {
-            ScenarioContext.Current.Pending();
-        }
-
-        [Given(@"I have entered (.*) in the take field")]
-        public void GivenIHaveEnteredInTheTakeField(int p0)
-        {
-            ScenarioContext.Current.Pending();
-        }
-
-        [Given(@"I have entered (.*) in the pay field")]
-        public void GivenIHaveEnteredInThePayField(int p0)
-        {
-            ScenarioContext.Current.Pending();
-        }
-
-        [Then(@"a ""(.*)"" with value April (.*), (.*)"" should exist")]
-        public void ThenAWithValueAprilShouldExist(string p0, int p1, int p2)
-        {
-            ScenarioContext.Current.Pending();
+            var index = Driver.FindElement(By.TagName("thead")).FindElements(By.TagName("th")).TakeWhile(el => el.Text != key).Count();
+            var element = Driver.FindElements(By.CssSelector("tbody > tr:first-child > td"))[index];
+            element.Text.should_be(value);
         }
 
         [Then(@"the discount should not be combinable")]
