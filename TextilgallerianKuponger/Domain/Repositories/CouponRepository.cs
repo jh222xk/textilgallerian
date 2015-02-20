@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
 using Raven.Client;
@@ -19,23 +18,14 @@ namespace Domain.Repositories
         }
 
         /// <summary>
-        ///     Get all the coupons from the database
-        ///     TODO: Needs a limit (paging).
+        ///     Finds all the coupons
         /// </summary>
+        /// <param name="onlyActive">Will grab only the active coupons</param>
         /// <returns></returns>
-        public IEnumerable<Coupon> FindAllCoupons()
+        public IQueryable<Coupon> FindAllCoupons(Boolean onlyActive = true)
         {
-            return _session.Query<Coupon>();
-        }
-
-        public IEnumerable<Coupon> FindActiveCoupons()
-        {
-            return _session.Query<Coupon>().Where(coupon => coupon.IsActive);
-        }
-
-        public IEnumerable<Coupon> FindNotActiveCoupons()
-        {
-            return _session.Query<Coupon>().Where(coupon => coupon.IsActive == false);
+            var coupons = _session.Query<Coupon>();
+            return onlyActive ? coupons.Where(coupon => coupon.IsActive) : coupons;
         }
 
         /// <summary>
@@ -79,11 +69,6 @@ namespace Domain.Repositories
                 .Where(
                     coupon =>
                         coupon.Products.Any(p => p.ProductId == product.ProductId));
-        }
-
-        public IEnumerable<Coupon> FindCouponsByPage(int page, int pageSize)
-        {
-            return FindActiveCoupons().OrderBy(c => c.Start).Reverse().Skip(page * pageSize).Take(pageSize).ToList();
         }
 
         /// <summary>

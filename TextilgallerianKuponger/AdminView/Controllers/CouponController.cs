@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using System.Web.Mvc;
+﻿using System.Text.RegularExpressions;
+﻿using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
 using Domain.Entities;
 using Domain.Repositories;
 using Domain.Tests.Helpers;
+using Domain.ExtensionMethods;
 
 namespace AdminView.Controllers
 {
@@ -25,11 +27,11 @@ namespace AdminView.Controllers
         // GET: Coupon
         public ActionResult Index(int page = 0)
         {
-            var model = new PagedCouponsViewModel
+            var model = new PagedViewModel<Coupon>
             {
-                Coupons = _couponRepository.FindCouponsByPage(page, 10),
+                PagedObjects = _couponRepository.FindAllCoupons().Page(page, 10),
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(_couponRepository.FindActiveCoupons().Count() / 10.0)
+                TotalPages = (int)Math.Ceiling(_couponRepository.FindAllCoupons().Count() / 10.0)
             };
 
             //// TestData for now
@@ -60,6 +62,10 @@ namespace AdminView.Controllers
         {
             var type = Assembly.GetAssembly(typeof(Coupon)).GetType(model.Type);
 
+            var lines = model.CustomerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            var customers = GetCustomers(lines);
+
             if (!ModelState.IsValid) return View();
             try
             {
@@ -68,7 +74,7 @@ namespace AdminView.Controllers
                 var coupon = constructor.Invoke(new object[] { model.Parameters }) as Coupon;
 
                 coupon.CanBeCombined = model.CanBeCombined;
-                coupon.CustomersValidFor = model.Customers();
+                coupon.CustomersValidFor = customers;
                 coupon.IsActive = true;
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
@@ -142,6 +148,41 @@ namespace AdminView.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lines"></param>
+        /// <returns></returns>
+        private static List<Customer> GetCustomers(string [] lines)
+        {
+            if (lines == null) throw new ArgumentNullException("lines");
+            var customers = new List<Customer>();
+
+            foreach (var line in lines)
+            {
+                var customer = new Customer { CouponUses = 0 };
+
+                var mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
+                var ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
+
+                // Match email
+                if (mailRegex.Match(line).Success)
+                {
+                    customer.Email = line;
+                    customers.Add(customer);
+                }
+
+                // Match social security number
+                else if (ssnRegex.Match(line).Success)
+                {
+                    customer.SocialSecurityNumber = line;
+                    customers.Add(customer);
+                }
+            }
+
+            return customers.Count > 0 ? customers : null;
         }
     }
 }

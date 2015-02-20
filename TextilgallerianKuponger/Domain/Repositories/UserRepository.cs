@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
 using Raven.Client;
@@ -24,9 +23,13 @@ namespace Domain.Repositories
                 .FirstOrDefault(user => user.Email == email);
         }
 
-        public IEnumerable<User> FindAllUsers()
+        /// <summary>
+        ///     Finds all the users
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<User> FindAllUsers()
         {
-            return _session.Query<User>().ToList();
+            return _session.Query<User>();
         }
 
         /// <summary>

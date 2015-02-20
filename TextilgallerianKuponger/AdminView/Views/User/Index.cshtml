@@ -1,4 +1,4 @@
-﻿@model AdminView.ViewModel.UserViewModel
+﻿@model AdminView.ViewModel.PagedViewModel<Domain.Entities.User>
 
 @{
     ViewBag.Title = "Users";
@@ -27,7 +27,7 @@
     <script>
         $(".item.coupons").addClass("active");
     </script>
-    @foreach (var user in Model.FindUsersByPage(Model.CurrentPage))
+    @foreach (var user in Model.PagedObjects)
     {
         <div class="column row seven wide list_item">
             <div class="column eight wide">
@@ -39,15 +39,6 @@
         </div>
     }
 
-    <!--Pagination-->
-    <div class="ui pagination menu">
-        <div class="ui pagination menu">
-            @for (var i = 0; i < Model.AmountOfPages(); i++)
-            {
-                var htmlClass = i == Model.CurrentPage ? new {@class = "active item"} : new {@class = "item"};
-                @Html.ActionLink((i + 1).ToString(), "Users", "User", new {page = i}, htmlClass)
-            }
-        </div>
-    </div>
+    @Html.Partial("_Pagination");
 
 </div>

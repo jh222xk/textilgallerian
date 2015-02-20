@@ -1,6 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
+using Domain.Entities;
+using Domain.ExtensionMethods;
 using Domain.Repositories;
 
 namespace AdminView.Controllers
@@ -16,15 +20,16 @@ namespace AdminView.Controllers
         }
 
         // GET: User
-        public ActionResult Users(int page = 0)
+        public ActionResult Index(int page = 0)
         {
-            var uvm = new UserViewModel();
+            var model = new PagedViewModel<User>
+            {
+                PagedObjects = _userRepository.FindAllUsers().Page(page, 10),
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(_userRepository.FindAllUsers().Count() / 10.0)
+            };
 
-            uvm.CurrentPage = page;
-
-            uvm.Users = _userRepository.FindAllUsers();
-
-            return View("Users", uvm);
+            return View(model);
         }
 
         // GET: User/Details/5
