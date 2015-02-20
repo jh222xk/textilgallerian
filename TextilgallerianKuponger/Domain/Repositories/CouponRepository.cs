@@ -63,9 +63,9 @@ namespace Domain.Repositories
         /// <summary>
         ///     Finds all coupons that is valid for the specified product
         /// </summary>
-        public IQueryable<ProductCoupon> FindByProduct(Product product)
+        public IQueryable<Coupon> FindByProduct(Product product)
         {
-            return _session.Query<ProductCoupon>()
+            return _session.Query<Coupon>()
                 .Where(
                     coupon =>
                         coupon.Products.Any(p => p.ProductId == product.ProductId));

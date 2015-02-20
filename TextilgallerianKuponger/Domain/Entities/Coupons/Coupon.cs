@@ -93,6 +93,16 @@ namespace Domain.Entities
         /// </summary>
         public bool IsActive { get; set; }
 
+        ///     Products valid for this discount
+        /// </summary>
+        public List<Product> Products { get; set; }
+
+        /// <summary>
+        ///     How many products customer need to buy
+        /// </summary>
+        public Decimal Buy { get; set; }
+
+
         /// <summary>
         ///     The minimum purchase sum required for the coupon to be valid
         /// </summary>

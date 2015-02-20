@@ -11,6 +11,7 @@ using Domain.Entities;
 using Domain.Repositories;
 using Domain.Tests.Helpers;
 using Domain.ExtensionMethods;
+using AdminView.Controllers.Helpers;
 
 namespace AdminView.Controllers
 {
@@ -18,12 +19,15 @@ namespace AdminView.Controllers
     public class CouponController : Controller
     {
         private readonly CouponRepository _couponRepository;
+        private CouponHelper _couponHelper;
 
         private const int PageSize = 15;
 
-        public CouponController(CouponRepository couponRepository)
+        public CouponController(CouponRepository couponRepository, CouponHelper couponHelper)
+
         {
             _couponRepository = couponRepository;
+            _couponHelper = couponHelper;
         }
 
         // GET: Coupon
@@ -64,9 +68,21 @@ namespace AdminView.Controllers
         {
             var type = Assembly.GetAssembly(typeof(Coupon)).GetType(model.Type);
 
-            var lines = model.CustomerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
-            var customers = GetCustomers(lines);
+            List<Customer> customers = null;
+            List<Product> products = null;
+            
+            if (model.CustomerString != null)
+            {
+                var customerLines = model.CustomerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                customers = _couponHelper.GetCustomers(customerLines);
+            }
+            
+            if(model.ProductsString != null)
+            {
+                var productLines =  model.ProductsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                products = _couponHelper.GetProducts(productLines);
+            }
+           
 
             if (!ModelState.IsValid) return View();
             try
@@ -78,6 +94,7 @@ namespace AdminView.Controllers
                 coupon.CreatedBy = user.Email;
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
+                coupon.Products = products;
                 coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
                 _couponRepository.Store(coupon);
@@ -152,41 +169,6 @@ namespace AdminView.Controllers
             }
 
             return RedirectToAction("index");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="lines"></param>
-        /// <returns></returns>
-        private static List<Customer> GetCustomers(string [] lines)
-        {
-            if (lines == null) throw new ArgumentNullException("lines");
-            var customers = new List<Customer>();
-
-            foreach (var line in lines)
-            {
-                var customer = new Customer { CouponUses = 0 };
-
-                var mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
-                var ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
-
-                // Match email
-                if (mailRegex.Match(line).Success)
-                {
-                    customer.Email = line;
-                    customers.Add(customer);
-                }
-
-                // Match social security number
-                else if (ssnRegex.Match(line).Success)
-                {
-                    customer.SocialSecurityNumber = line;
-                    customers.Add(customer);
-                }
-            }
-
-            return customers.Count > 0 ? customers : null;
         }
     }
 }

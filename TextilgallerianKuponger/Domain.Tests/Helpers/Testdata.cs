@@ -151,9 +151,9 @@ namespace Domain.Tests.Helpers
                         2);
             }
 
-            if (coupon is ProductCoupon)
+            if (coupon is Coupon)
             {
-                var c = coupon as ProductCoupon;
+                var c = coupon as Coupon;
                 c.Products = c.Products ?? RandomAmount(RandomProduct);
             }
 

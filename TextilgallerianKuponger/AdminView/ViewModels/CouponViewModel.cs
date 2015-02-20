@@ -10,7 +10,8 @@ namespace AdminView.ViewModel
         public static Dictionary<String, String> CouponTypes = TypeExtension.Types;
 
 
-
+        public List<Product> Products { get; set; }
+        public string ProductsString { get; set; }
         public List<Customer> Customers { get; set; }
         public string CustomerString { get; set; }
         public String Type { get; set; }

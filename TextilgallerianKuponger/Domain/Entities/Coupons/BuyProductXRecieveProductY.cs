@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using Raven.Client.Linq;
 namespace Domain.Entities
 {
     /// <summary>
     ///     Discount: Customer gets product Y for free when buying product(s) X
     /// </summary>
-    public class BuyProductXRecieveProductY : ProductCoupon
+    public class BuyProductXRecieveProductY : Coupon
     {
         public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties) : base(properties)
         {
@@ -40,6 +41,23 @@ namespace Domain.Entities
                 ProductPrice = 0
             });
             return 0; // This coupon gives a free product instead of a sum of money
+        }
+
+        /// <summary>
+
+        /// <summary>
+        /// Check all products in cart if they are valid for discount.
+        /// </summary>
+        /// <param name="cart"></param>
+        public override Boolean IsValidFor(Cart cart)
+        {
+            if (base.IsValidFor(cart) == false)
+            {
+                return false;
+            }
+
+            var products = cart.Rows.Select(row => row.Product).ToList();
+            return products.Exists(p => p.In(Products)) && cart.NumberOfProducts >= Buy;
         }
     }
 }

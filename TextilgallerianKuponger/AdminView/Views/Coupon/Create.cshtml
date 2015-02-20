@@ -65,8 +65,12 @@
                         </div>
                         <div class="ui hidden divider"></div>
                         <div class="field">
-                            <textarea id="users" name="users" rows="12" cols="18"></textarea>
+                            <label>
+                                Kunder
+                                @Html.TextAreaFor(m => m.CustomerString)
+                            </label>
                         </div>
+
                         <div class="ui primary button" id="readUsers">
                             Läs in..
                         </div>
@@ -90,7 +94,8 @@
                             <div class="result"></div>
                             <div class="ui hidden divider"></div>
                             <div class="field">
-                                <textarea rows="12" cols="20"></textarea>
+                                @Html.TextAreaFor(m => m.ProductsString)
+                                @*<textarea rows="12" cols="20"></textarea>*@
                             </div>
                         </div>
                     </div>
