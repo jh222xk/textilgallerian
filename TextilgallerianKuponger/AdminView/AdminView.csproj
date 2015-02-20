@@ -238,6 +238,7 @@
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
     <Content Include="Views\User\Role.cshtml" />
+    <Content Include="Views\User\SetStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">

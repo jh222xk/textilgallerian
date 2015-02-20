@@ -9,7 +9,7 @@ using Domain.Repositories;
 
 namespace AdminView.Controllers
 {
-   // [LoggedIn]
+   [LoggedIn]
     public class UserController : Controller
     {
         private readonly UserRepository _userRepository;
@@ -88,24 +88,30 @@ namespace AdminView.Controllers
             }
         }
 
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        // GET: User/SetStatus/5
+        public ActionResult SetStatus(string email)
         {
-            return View();
+            var user = _userRepository.FindByEmail(email);
+            return View(user);
         }
 
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // POST: User/SetStatus/5
+        [HttpPost, ActionName("SetStatus")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SetStatusConfirmed(string email)
         {
             try
             {
-                // TODO: Add delete logic here
+                var user = _userRepository.FindByEmail(email);
+                user.IsActive = !user.IsActive;
+                _userRepository.SaveChanges();
 
+                TempData["success"] = "Status ändrad.";
                 return RedirectToAction("index");
             }
             catch
             {
+                TempData["error"] = "Status ändringen misslyckades.";
                 return View();
             }
         }

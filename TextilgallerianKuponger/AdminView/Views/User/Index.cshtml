@@ -34,7 +34,7 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Ta bort", "Delete")
+                @Html.ActionLink(user.IsActive ?  "Inaktivera" : "Aktivera", "SetStatus", "User", new { user.Email },null)
                 @Html.ActionLink("Redigera", "Edit")
             </td>
         </tr>

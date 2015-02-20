@@ -15,7 +15,7 @@ using AdminView.Controllers.Helpers;
 
 namespace AdminView.Controllers
 {
-//[LoggedIn]
+    [LoggedIn]
     public class CouponController : Controller
     {
         private readonly CouponRepository _couponRepository;
@@ -41,10 +41,10 @@ namespace AdminView.Controllers
             };
 
             //// TestData for now
-            //            var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
-            //
-            //            tempCoupons.ForEach(_couponRepository.Store);
-            //            _couponRepository.SaveChanges();
+                        //var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
+            
+                        //tempCoupons.ForEach(_couponRepository.Store);
+                        //_couponRepository.SaveChanges();
 
             return View(model);
         }
