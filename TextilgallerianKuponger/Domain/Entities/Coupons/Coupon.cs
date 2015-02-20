@@ -17,6 +17,7 @@ namespace Domain.Entities
             Start = DateTime.Parse(properties["Start"]);
             End = DateTime.Parse(properties["End"]);
             UseLimit = int.Parse(properties["UseLimit"]);
+            MinPurchase = Decimal.Parse(properties["MinPurchase"]);
         }
 
         public Coupon()
@@ -50,6 +51,11 @@ namespace Domain.Entities
         ///     Optional, can last forever
         /// </summary>
         public DateTime? End { get; set; }
+
+        /// <summary>
+        ///     When the coupon where created
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
 
         /// <summary>
         ///     Which customers is this coupon valid for
@@ -88,6 +94,11 @@ namespace Domain.Entities
         public bool IsActive { get; set; }
 
         /// <summary>
+        ///     The minimum purchase sum required for the coupon to be valid
+        /// </summary>
+        public Decimal MinPurchase { get; set; }
+
+        /// <summary>
         ///     Check if specified Cart is valid for this Coupon
         /// </summary>
 
@@ -95,6 +106,11 @@ namespace Domain.Entities
         public virtual Boolean IsValidFor(Cart cart)
         {
             if (End.HasValue && End.Value < DateTime.Now)
+            {
+                return false;
+            }
+
+            if (MinPurchase > cart.TotalSum)
             {
                 return false;
             }

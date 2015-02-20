@@ -31,7 +31,7 @@ namespace AdminView.Controllers
         {
             var model = new PagedViewModel<Coupon>
             {
-                PagedObjects = _couponRepository.FindAllCoupons().Page(page - 1, PageSize),
+                PagedObjects = _couponRepository.FindAllCoupons().OrderBy(c => c.CreatedAt).Page(page, 10),
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling(_couponRepository.FindAllCoupons().Count() / (double) PageSize)
             };
@@ -79,6 +79,7 @@ namespace AdminView.Controllers
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
                 coupon.IsActive = true;
+                coupon.CreatedAt = DateTime.Now;
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
                 TempData["success"] = "Rabatt sparad!";

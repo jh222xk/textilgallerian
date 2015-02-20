@@ -14,7 +14,10 @@ namespace AdminView
                 "~/Scripts/semantic.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/CreateCoupon").Include(
-                "~/Scripts/CreateCoupon"));
+                "~/Scripts/CreateCoupon.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/FlashMessage").Include(
+                "~/Scripts/FlashMessage.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Css/semantic.min.css",

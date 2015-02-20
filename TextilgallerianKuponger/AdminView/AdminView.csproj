@@ -197,6 +197,7 @@
     <Content Include="fonts\basic.icons.svg" />
     <Content Include="fonts\basic.icons.eot" />
     <Content Include="Scripts\CreateCoupon.js" />
+    <Content Include="Scripts\FlashMessage.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Scripts\semantic.min.js" />

@@ -30,6 +30,12 @@
             </div>
             <div class="field">
                 <label>
+                    Minsta köpsumma
+                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new { type = "number", min = 0, @Value = 0 })
+                </label>
+            </div>
+            <div class="field">
+                <label>
                     Kunder
                     @Html.TextAreaFor(m => m.CustomerString)
                 </label>
@@ -207,5 +213,5 @@
 <script src="//code.jquery.com/jquery-2.1.3.js"></script>
 
 @section scripts {
-    @Scripts.Render("~/Scripts/CreateCoupon.js")
+    @Scripts.Render("~/Bundles/CreateCoupon")
 }
