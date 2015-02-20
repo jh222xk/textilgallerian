@@ -1,5 +1,4 @@
-﻿@using AdminView.ViewModel
-@model CouponViewModel
+﻿@model AdminView.ViewModel.CouponViewModel
 
 @{
     ViewBag.Title = "Skapa Rabatt";
@@ -10,10 +9,11 @@
     <div class="column">
         <form class="ui form" method="post">
             @Html.AntiForgeryToken()
+
             <div class="field">
                 <label>
                     Välj typ av kampanj
-                    @Html.DropDownListFor(m => m.Type, new SelectList(CouponViewModel.CouponTypes, "Key", "Value"), new {@class = "type"})
+                    @Html.DropDownListFor(m => m.Type, new SelectList(AdminView.ViewModel.CouponViewModel.CouponTypes, "Key", "Value"), new { @class = "type" })
                 </label>
             </div>
             <div class="field">
@@ -31,10 +31,20 @@
 
             <div class="field">
                 <label>
+                    Kunder
+                    @Html.TextAreaFor(m => m.CustomerString)
+                </label>
+            </div>
+
+
+            <div class="field">
+                <label>
                     Beskrivning
                     @Html.TextAreaFor(m => m.Parameters["Description"])
                 </label>
             </div>
+
+
 
             <div class="field">
                 <label>
@@ -97,13 +107,13 @@
                 </label>
             </div>
 
-            <div class="field">
+            <div class="field specific-field BuyProductXReceiveProductY">
                 <label>
                     Kampanjen kan kombineras med andra kampanjer.
                     @Html.CheckBoxFor(m => m.CanBeCombined)
                 </label>
             </div>
-            <input type="submit" name="name" class="ui button green" value="Skapa rabatt" />
+            <input type="submit" name="name" class="ui button green" value="Gå vidare" />
         </form>
     </div>
 </div>
