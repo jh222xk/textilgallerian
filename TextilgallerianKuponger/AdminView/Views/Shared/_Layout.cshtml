@@ -36,13 +36,13 @@
 
     <div class="ui stackable sixteen column grid">
         <div class="sixteen wide column">
-            @*<img src="http://www.textilgallerian.se/images/textil/textilgallerian-logotype-footer.png" />*@
             @Html.Partial("_FlashMessage")
             @RenderBody()
         </div>
     </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/semantic")
+    @Scripts.Render("~/bundles/FlashMessage")
     @RenderSection("scripts", false)
     <script>
         function userSearch() {

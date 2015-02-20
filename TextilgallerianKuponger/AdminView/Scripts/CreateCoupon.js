@@ -2,9 +2,6 @@
     var dropdown = document.querySelector('.type');
     var specificFields = document.querySelectorAll('.specific-field');
 
-
-
-
     function showCorrectFields() {
         var value = dropdown.options[dropdown.selectedIndex].value;
         var type = value.replace('Domain.Entities.', '');
@@ -25,11 +22,3 @@
     dropdown.addEventListener('change', showCorrectFields);
     showCorrectFields();
 });
-//skapar array för input
-
-
-
-
-    $('#combining')
-  .checkbox('is checked', console.log('true'));
-

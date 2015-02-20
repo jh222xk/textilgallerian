@@ -1,12 +1,12 @@
 ﻿﻿﻿@if (TempData["success"] != null)
 {
-<div class="ui positive message">
-    <i class="close icon"></i>
-    <div class="header">
-        Lyckat
+    <div class="ui positive message">
+        <i class="close icon"></i>
+        <div class="header">
+            Lyckat
+        </div>
+        <p>@TempData["success"]</p>
     </div>
-    <p>@TempData["success"]</p>
-</div>
 }
 @if (TempData["error"] != null)
 {
