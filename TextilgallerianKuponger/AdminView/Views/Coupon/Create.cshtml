@@ -28,7 +28,6 @@
                     @Html.TextBoxFor(m => m.Parameters["Code"])
                 </label>
             </div>
-
             <div class="field">
                 <label>
                     Kunder
@@ -43,80 +42,171 @@
                     @Html.TextAreaFor(m => m.Parameters["Description"])
                 </label>
             </div>
+            <div class="twelve wide column">
+                <div class="ui one column center aligned stackable divided grid">
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="users icon"></i>
+                            Kunder
+                        </div>
+
+                        <div class="ui fluid category search" id="user-search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" id="userinput" placeholder="Sök Kunder..">
+                                <i class="search icon" id="customer"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                        <div class="ui hidden divider"></div>
+                        <div class="field">
+                            <textarea id="users" name="users" rows="12" cols="18"></textarea>
+                        </div>
+                        <div class="ui primary button" id="readUsers">
+                            Läs in..
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="twelve wide column">
+                <div class="ui three column center aligned stackable divided grid">
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="tags icon"></i>
+                            Produkter
+                        </div>
+                        <div class="ui fluid category search">
+                            <div class="ui icon input">
+                                <input class="prompt positive" type="text" placeholder="Sök på produkter..">
+                                <i class="tags  icon"></i>
+                            </div>
+                            <div class="result"></div>
+                            <div class="ui hidden divider"></div>
+                            <div class="field">
+                                <textarea rows="12" cols="20"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="barcode icon"></i>
+                            Märken
+                        </div>
+                        <div class="ui fluid category search" id="user-search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" id="userinput" placeholder="Sök  Kategorier/Märken.">
+                                <i class="search icon" id="customer"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                        <div class="ui hidden divider"></div>
+                        <div class="field">
+                            <textarea rows="12" cols="20"></textarea>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="barcode icon"></i>
+                            Kategorier
+                        </div>
+                        <div class="ui fluid category search" id="user-search">
+                            <div class="ui icon input">
+                                <input class="prompt" type="text" id="userinput" placeholder="Sök  Kategorier/Märken.">
+                                <i class="search icon" id="customer"></i>
+                            </div>
+                            <div class="results"></div>
+                        </div>
+                        <div class="ui hidden divider"></div>
+                        <div class="field">
+                            <textarea rows="12" cols="20"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
 
 
 
             <div class="field">
                 <label>
                     Startdatum:
-                    @Html.TextBoxFor(m => m.Parameters["Start"], new { type = "date" })
+                    @Html.TextBoxFor(m => m.Parameters["Start"], new {type = "date"})
                 </label>
             </div>
             <div class="field">
                 <label>
                     Slutdatum:
-                    @Html.TextBoxFor(m => m.Parameters["End"], new { type = "date" })
+                    @Html.TextBoxFor(m => m.Parameters["End"], new {type = "date"})
                 </label>
             </div>
-
             <div class="field">
                 <label>
                     Hur många gånger får rabatten användas?
-                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new { type = "number", min = 0, placeholder = "Hur många?" })
+                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new {type = "number", min = 0, placeholder = "Hur många?"})
                 </label>
             </div>
-
             <div class="field specific-field BuyProductXReceiveProductY BuyXProductsPayForYProducts">
                 <label>
                     Buy?
-                    @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa" })
+                    @Html.TextBoxFor(m => m.Parameters["Buy"], new {type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa"})
                 </label>
                 <div class="help">
                     T.ex. 3 i tag 3 betala för 2
                 </div>
             </div>
-
             <div class="field specific-field BuyXProductsPayForYProducts">
                 <label>
                     Betala för
-                    @Html.TextBoxFor(m => m.Parameters["PayFor"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för" })
+                    @Html.TextBoxFor(m => m.Parameters["PayFor"], new {type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för"})
                 </label>
                 <div class="help">
                     T.ex. 2 i tag 3 betala för 2
                 </div>
             </div>
-
             <div class="field specific-field TotalSumAmountDiscount BuyProductXReceiveProductY">
                 <label>
                     Amount
-                    @Html.TextBoxFor(m => m.Parameters["Amount"], new { type = "number", min = 0, placeholder = "Hur många?" })
+                    @Html.TextBoxFor(m => m.Parameters["Amount"], new {type = "number", min = 0, placeholder = "Hur många?"})
                 </label>
             </div>
-
             <div class="field">
                 <label>
                     Vilken produkt?
                     @Html.TextBoxFor(m => m.Parameters["FreeProduct"])
                 </label>
             </div>
-
             <div class="field specific-field TotalSumPercentageDiscount">
                 <label>
                     Percentage
-                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, placeholder = "Hur många?" })
+                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new {type = "number", min = 0, placeholder = "Hur många?"})
                 </label>
             </div>
 
             <div class="field specific-field BuyProductXReceiveProductY">
+            <div class="field">
                 <label>
                     Kampanjen kan kombineras med andra kampanjer.
                     @Html.CheckBoxFor(m => m.CanBeCombined)
                 </label>
             </div>
             <input type="submit" name="name" class="ui button green" value="Gå vidare" />
+            <div class="item ui toggle checkbox" id="combining">
+                <a class="ui toggle checkbox" id="combining">
+                    <input type="checkbox" name="public">
+                    <label>Går att kombineras</label>
+                </a>
+            </div>
+            <input type="submit" name="name" class="ui button green" value="Skapa rabatt"/>
         </form>
     </div>
 </div>
+
+<script src="~/Content/Highlighter/jquery-ui.js"></script>
+<script src="~/Content/Highlighter/jquery.highlighttextarea.js"></script>
+<script src="//code.jquery.com/jquery-2.1.3.js"></script>
 
 @section scripts {
     @Scripts.Render("~/Scripts/CreateCoupon.js")
