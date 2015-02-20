@@ -66,7 +66,8 @@ namespace AdminView.Controllers
                 // Magic super perfect code, do not touch!
                 var constructor = type.GetConstructor(new[] { typeof(IReadOnlyDictionary<String, String>) });
                 var coupon = constructor.Invoke(new object[] { model.Parameters }) as Coupon;
-
+                var user = (User)Session["user"];
+                coupon.CreatedBy = user.Email;
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = model.Customers();
                 coupon.IsActive = true;
