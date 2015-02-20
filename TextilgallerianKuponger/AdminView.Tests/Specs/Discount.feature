@@ -7,9 +7,13 @@ Feature: Add new discount coupon
 Scenario: Add new percentage discount
     Given I am on the add new discount page
 		And I have selected the "TotalSumPercentageDiscount" in the discount type field
-		And I have entered "30" in the "Percentage" field
+		And I have entered "Holiday Season" in the "Name" field
+		And I have entered "XMAS15" in the "Code" field
+		And I have entered "Test coupon" in the "Description" field
 		And I have entered "2015-04-15" in the "Start" field
 		And I have entered "2015-04-30" in the "End" field
+		And I have entered "2" in the "UseLimit" field
+		And I have entered "30" in the "Percentage" field
 		And I have checked the coupon can be combined checkbox
      When I press "Skapa rabatt"
      Then the system should present "Rabatt sparad!"
