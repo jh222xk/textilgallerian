@@ -1,10 +1,11 @@
-﻿@model AdminView.ViewModel.CouponViewModel
+﻿@using AdminView.ViewModel
+@model CouponViewModel
 
 @{
-    ViewBag.Title = "Skapa Rabatt";
+    ViewBag.Title = "Skapa ny rabatt";
 }
 
-<h2>Skapa Rabatt</h2>
+<h2 class="ui large header">Skapa ny rabatt</h2>
 <div class="row">
     <div class="column">
         <form class="ui form" method="post">
@@ -13,7 +14,7 @@
             <div class="field">
                 <label>
                     Välj typ av kampanj
-                    @Html.DropDownListFor(m => m.Type, new SelectList(AdminView.ViewModel.CouponViewModel.CouponTypes, "Key", "Value"), new { @class = "type" })
+                    @Html.DropDownListFor(m => m.Type, new SelectList(CouponViewModel.CouponTypes, "Key", "Value"), new {@class = "type"})
                 </label>
             </div>
             <div class="field">
@@ -31,7 +32,7 @@
             <div class="field">
                 <label>
                     Minsta köpsumma
-                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new { type = "number", min = 0, @Value = 0 })
+                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new {type = "number", min = 0, @Value = 0})
                 </label>
             </div>
             <div class="field">
@@ -132,7 +133,6 @@
             </div>
 
 
-
             <div class="field">
                 <label>
                     Startdatum:
@@ -195,7 +195,7 @@
                         @Html.CheckBoxFor(m => m.CanBeCombined)
                     </label>
                 </div>
-                <input type="submit" name="name" class="ui button green" value="Gå vidare" />
+                <input type="submit" name="name" class="ui button green" value="Gå vidare"/>
                 <div class="item ui toggle checkbox" id="combining">
                     <a class="ui toggle checkbox" id="combining">
                         <input type="checkbox" name="public">
@@ -207,10 +207,6 @@
         </form>
     </div>
 </div>
-
-<script src="~/Content/Highlighter/jquery-ui.js"></script>
-<script src="~/Content/Highlighter/jquery.highlighttextarea.js"></script>
-<script src="//code.jquery.com/jquery-2.1.3.js"></script>
 
 @section scripts {
     @Scripts.Render("~/Bundles/CreateCoupon")
