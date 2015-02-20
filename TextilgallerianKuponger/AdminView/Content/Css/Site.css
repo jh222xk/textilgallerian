@@ -1,8 +1,8 @@
-body { background-color: #ffffff; }
+body { background-color: #ffffff; background-color: rgb(239,240,234);}
 
 .hidden { visibility: hidden; }
 
-.list_item:nth-child(odd) { background-color: #dedada; }
+.list_item:nth-child(odd) {  background-color:  rgb(56,56,56); }
 
 .list_item { border: solid 1px #dedada; }
 
@@ -18,4 +18,11 @@ body { background-color: #ffffff; }
 .top.ui.menu>div, .ui.stackable.grid {
     margin: auto;
     max-width: 1200px;
+}
+.ui.blue.inverted.top.menu{
+   background-color:  rgb(56,56,56);
+}
+.ui.small.image {
+width: 200px;
+font-size: .92857143rem;
 }
