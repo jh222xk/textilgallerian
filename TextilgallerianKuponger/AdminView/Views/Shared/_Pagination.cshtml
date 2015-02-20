@@ -1,0 +1,10 @@
+﻿<!--Pagination-->
+<div class="ui pagination menu">
+    <div class="ui pagination menu">
+        @for (var i = 0; i < Model.TotalPages; i++)
+        {
+            var htmlClass = i == Model.CurrentPage ? new { @class = "active item" } : new { @class = "item" };
+            @Html.ActionLink((i + 1).ToString(), "Users", "User", new { page = i }, htmlClass)
+        }
+    </div>
+</div>

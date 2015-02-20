@@ -1,5 +1,6 @@
 ﻿@using AdminView.ViewModel
-@model PagedCouponsViewModel
+@model PagedViewModel<Domain.Entities.Coupon>
+
 @{
     ViewBag.Title = "Coupons";
 }
@@ -18,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var coupon in Model.Coupons)
+            @foreach (var coupon in Model.PagedObjects)
             {
                 <tr>
                     <td>
