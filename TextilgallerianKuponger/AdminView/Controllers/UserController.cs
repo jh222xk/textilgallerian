@@ -52,12 +52,20 @@ namespace AdminView.Controllers
 
         // POST: User/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(AuthorizationViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                var user = new User
+                {
+                    Email = model.Email,
+                    IsActive = true,
+                    Password = model.Password
+                };
+                _userRepository.Store(user);
+                _userRepository.SaveChanges();
 
+                TempData["success"] = "Användare sparad!";
                 return RedirectToAction("index");
             }
             catch
@@ -78,9 +86,7 @@ namespace AdminView.Controllers
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("index");
+                return RedirectToAction("Index");
             }
             catch
             {
