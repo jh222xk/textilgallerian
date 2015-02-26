@@ -10,11 +10,25 @@ namespace Domain.Entities
     {
         public TotalSumPercentageDiscount(IReadOnlyDictionary<string, string> properties) : base(properties)
         {
-            Percentage = Decimal.Parse(properties["Percentage"]);
+            SetValues(properties);
         }
 
         public TotalSumPercentageDiscount()
         {
+        }
+
+        public override void SetValues(IReadOnlyDictionary<string, string> properties)
+        {
+            base.SetValues(properties);
+            Percentage = Decimal.Parse(properties["Percentage"]);
+        }
+
+        public override Dictionary<string, string> EditCoupon()
+        {
+            Dictionary<string, string> dictionary = base.EditCoupon();
+            dictionary.Add("Percentage", Percentage.ToString());
+
+            return dictionary;
         }
 
         public Decimal Percentage { get; set; }

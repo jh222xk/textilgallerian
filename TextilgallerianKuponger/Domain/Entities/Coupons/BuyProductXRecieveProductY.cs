@@ -11,11 +11,28 @@ namespace Domain.Entities
     {
         public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties) : base(properties)
         {
+            SetValues(properties);
+        }
+
+        public override void SetValues(IReadOnlyDictionary<string, string> properties)
+        {
+            base.SetValues(properties);
             Amount = Decimal.Parse(properties["Amount"]);
+            Buy = Decimal.Parse(properties["Buy"]);
         }
 
         public BuyProductXRecieveProductY()
         {
+        }
+
+        public override Dictionary<string, string> EditCoupon()
+        {
+            Dictionary<string, string> dictionary = base.EditCoupon();
+            dictionary.Add("Amount", Amount.ToString());
+            dictionary.Add("Buy", Buy.ToString());
+            dictionary.Add("FreeProduct", FreeProduct.ProductId.ToString());
+            dictionary.Add("ProductName", FreeProduct.Name.ToString());
+            return dictionary;
         }
 
         /// <summary>
@@ -27,6 +44,11 @@ namespace Domain.Entities
         ///     How many free products
         /// </summary>
         public Decimal Amount { get; set; }
+
+        ///// <summary>
+        /////     How many products customer need to buy
+        ///// </summary>
+        public Decimal Buy { get; set; }
 
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart

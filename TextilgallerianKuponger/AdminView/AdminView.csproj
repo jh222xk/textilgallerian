@@ -243,6 +243,7 @@
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\User\SetStatus.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Coupon\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">
