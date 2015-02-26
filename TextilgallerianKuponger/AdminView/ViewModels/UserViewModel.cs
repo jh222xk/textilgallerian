@@ -8,19 +8,34 @@ namespace AdminView.ViewModel
     {
         public IEnumerable<User> Users { get; set; }
 
-
         public static Dictionary<Permission, String> Permissions = new Dictionary<Permission, String>
         {
+            // Coupons
             {Permission.CanAddCoupons, "Kan skapa rabatter"},
-            {Permission.CanAddUsers, "Kan skapa användare"},
             {Permission.CanChangeCoupons, "Kan editera rabatter"},
-            {Permission.CanChangeRules, "Kan editera Regler"},
-            {Permission.CanChangeUsers, "Kan editera användare"},
             {Permission.CanDeleteCoupons, "Kan ta bort rabatter"},
+            {Permission.CanListCoupons, "Kan lista rabatter"},
+
+            // Users
+            {Permission.CanAddUsers, "Kan skapa användare"},
+            {Permission.CanChangeUsers, "Kan editera användare"},
             {Permission.CanDeleteUsers, "Kan ta bort användare"},
             {Permission.CanListUsers, "Kan lista användare"},
-            {Permission.CanOverrideRules, "Kan överse regler"}
+
+            // Roles
+            {Permission.CanAddRoles, "Kan skapa roller"},
+            {Permission.CanChangeRoles, "Kan editera roller"},
+            {Permission.CanDeleteRoles, "Kan ta bort roller"},
+            {Permission.CanListRoles, "Kan lista roller"},
         };
-        public List<Permission> ChosenPermissions = new List<Permission>();
+
+        public List<Permission> ChoosenPermissions { get; set; }
+
+        public PostedPermissions PostedPermissions { get; set; }
+    }
+
+    public class PostedPermissions
+    {
+        public string[] PermissionIDs { get; set; }
     }
 }

@@ -1,0 +1,37 @@
+﻿@using AdminView.ViewModel
+@model PagedViewModel<Domain.Entities.Role>
+
+@{
+    ViewBag.Title = "Roller";
+}
+
+<table class="ui table">
+    <thead class="blue">
+        <tr>
+            <th>Namn</th>
+            <th>Behörighet</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var role in Model.PagedObjects)
+        {
+            <tr>
+                <td>
+                    @role.Name
+                </td>
+                <td class="item">
+                    @foreach (var r in role.Permissions.Select(p => UserViewModel.Permissions[p]))
+                    {
+                        <div class="ui horizontal label">@r</div>
+                    }
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.Partial("_Pagination", Model, new ViewDataDictionary { { "controller", "role" } })

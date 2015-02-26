@@ -12,6 +12,7 @@ namespace Domain.Entities
         CanChangeCoupons,
         CanAddCoupons,
         CanDeleteCoupons,
+        CanListCoupons,
 
         // User permissions
         CanChangeUsers,
@@ -19,9 +20,11 @@ namespace Domain.Entities
         CanDeleteUsers,
         CanListUsers,
 
-        // Rules permissions
-        CanOverrideRules,
-        CanChangeRules
+        // Roles permissions
+        CanChangeRoles,
+        CanAddRoles,
+        CanDeleteRoles,
+        CanListRoles
     }
 
     /// <summary>

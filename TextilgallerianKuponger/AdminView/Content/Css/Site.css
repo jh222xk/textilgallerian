@@ -31,3 +31,7 @@ body { background-color: #ffffff;}
     flex-direction: column;
     align-items: center;
 }
+
+td.item {
+    line-height: 2;
+}
