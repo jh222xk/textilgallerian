@@ -11,6 +11,11 @@ namespace Domain.Entities
     {
         public Coupon(IReadOnlyDictionary<string, string> properties)
         {
+            
+        }
+
+        public virtual void SetValues(IReadOnlyDictionary<string, string> properties)
+        {
             Name = properties["Name"];
             Code = properties["Code"];
             Description = properties["Description"];
@@ -20,9 +25,26 @@ namespace Domain.Entities
             MinPurchase = Decimal.Parse(properties["MinPurchase"]);
         }
 
+        public virtual Dictionary<string, string> EditCoupon()
+        {
+            return new Dictionary<String, String>
+            {
+                {"Name", Name },
+                {"Code",  Code},
+                {"Description", Description},
+                {"Start", Start.ToString()},
+                {"End", End.ToString()},
+                {"UseLimit", UseLimit.ToString()},
+                {"MinPurchase", MinPurchase.ToString()}     
+            };
+        }
+
+
         public Coupon()
         {
         }
+
+        public string Id { get; set; }
 
         /// <summary>
         ///     The code for this coupon
@@ -97,10 +119,10 @@ namespace Domain.Entities
         /// </summary>
         public List<Product> Products { get; set; }
 
-        /// <summary>
-        ///     How many products customer need to buy
-        /// </summary>
-        public Decimal Buy { get; set; }
+        ///// <summary>
+        /////     How many products customer need to buy
+        ///// </summary>
+        //public Decimal Buy { get; set; }
 
 
         /// <summary>

@@ -120,26 +120,67 @@ namespace AdminView.Controllers
 
         // GET: Coupon/Edit/5
         [RequiredPermission(Permission.CanChangeCoupons)]
-        public ActionResult Edit(int id)
+
+        public ActionResult Edit(string code)
+
         {
-            return View();
+            var coupon = _couponRepository.FindByCode(code);
+            var dictionary = coupon.EditCoupon();
+            var cvm = new CouponViewModel();
+            cvm.Parameters = dictionary;
+
+            return View( cvm);
         }
 
         // POST: Coupon/Edit/5
         [HttpPost]
         [RequiredPermission(Permission.CanChangeCoupons)]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(CouponViewModel model)
         {
+            var coupon = _couponRepository.FindByCode(model.Parameters["Code"]);
+
+            List<Customer> customers = null;
+            List<Product> products = null;
+
+            if (model.CustomerString != null)
+            {
+                var customerLines = model.CustomerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                customers = _couponHelper.GetCustomers(customerLines);
+            }
+
+            if (model.ProductsString != null)
+            {
+                var productLines = model.ProductsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                products = _couponHelper.GetProducts(productLines);
+            }
+
+
+            if (!ModelState.IsValid) return View();
             try
             {
-                // TODO: Add update logic here
-
+                coupon.SetValues(model.Parameters);
+                var user = (User)Session["user"];
+                coupon.CreatedBy = user.Email;
+                coupon.CanBeCombined = model.CanBeCombined;
+                coupon.CustomersValidFor = customers;
+                coupon.Products = products;
+                coupon.IsActive = true;
+                coupon.CreatedAt = DateTime.Now;
+                _couponRepository.Store(coupon);
+                _couponRepository.SaveChanges();
+                TempData["success"] = "Rabatt sparad!";
                 return RedirectToAction("index");
+            }
+            catch (NullReferenceException)
+            {
+                throw new ArgumentException("Invalid coupon type");
             }
             catch
             {
-                return View();
+                TempData["error"] = "Misslyckades att spara rabatten!";
             }
+
+            return View();
         }
 
         // GET: /Coupon/Delete/:code

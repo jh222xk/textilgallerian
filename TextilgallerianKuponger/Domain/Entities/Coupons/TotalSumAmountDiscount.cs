@@ -10,11 +10,17 @@ namespace Domain.Entities
     {
         public TotalSumAmountDiscount(IReadOnlyDictionary<string, string> properties) : base(properties)
         {
-            Amount = Decimal.Parse(properties["Amount"]);
+            SetValues(properties);
         }
 
         public TotalSumAmountDiscount()
         {
+        }
+
+        public override void SetValues(IReadOnlyDictionary<string, string> properties)
+        {
+            base.SetValues(properties);
+            Amount = Decimal.Parse(properties["Amount"]);
         }
 
         public Decimal Amount { get; set; }
@@ -32,6 +38,13 @@ namespace Domain.Entities
             return cart.TotalSum >= Amount;
         }
 
+        public override Dictionary<string, string> EditCoupon()
+        {
+            Dictionary<string, string> dictionary = base.EditCoupon();
+            dictionary.Add("Amount", Amount.ToString());
+
+            return dictionary;
+        }
 
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart

@@ -37,6 +37,8 @@ namespace Domain.Repositories
                 .FirstOrDefault(coupon => coupon.Code == code);
         }
 
+      
+
         /// <summary>
         ///     Finds all coupons that is valid for a customer with the specified social security number
         /// </summary>

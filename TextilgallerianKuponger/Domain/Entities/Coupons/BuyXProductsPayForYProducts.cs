@@ -12,7 +12,23 @@ namespace Domain.Entities
     {
         public BuyXProductsPayForYProducts(IReadOnlyDictionary<string, string> properties) : base(properties)
         {
+            SetValues(properties);
+        }
+
+        public override void SetValues(IReadOnlyDictionary<string, string> properties)
+        {
+            base.SetValues(properties);
             PayFor = Decimal.Parse(properties["PayFor"]);
+            Buy = Decimal.Parse(properties["Buy"]);
+        }
+
+        public override Dictionary<string, string> EditCoupon() 
+        {
+            Dictionary<string,string> dictionary = base.EditCoupon();
+            dictionary.Add("PayFor", PayFor.ToString());
+            dictionary.Add("Buy", Buy.ToString());
+
+            return dictionary;
         }
 
         public BuyXProductsPayForYProducts()
@@ -24,6 +40,10 @@ namespace Domain.Entities
         /// </summary>
         public Decimal PayFor { get; set; }
 
+        ///// <summary>
+        /////     How many products customer need to buy
+        ///// </summary>
+        public Decimal Buy { get; set; }
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart
         ///     and shuld therfore only evere be called once per coupon if it's actually valid.
