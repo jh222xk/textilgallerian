@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AdminView.Annotations;
@@ -13,15 +14,18 @@ namespace AdminView.Controllers
     public class UserController : Controller
     {
         private readonly UserRepository _userRepository;
+        private readonly RoleRepository _roleRepository;
 
         private const int PageSize = 15;
 
-        public UserController(UserRepository userRepository)
+        public UserController(UserRepository userRepository, RoleRepository roleRepository)
         {
             _userRepository = userRepository;
+            _roleRepository = roleRepository;
         }
 
         // GET: User
+        [RequiredPermission(Permission.CanListUsers)]
         public ActionResult Index(int page = 1)
         {
             var model = new PagedViewModel<User>
@@ -35,38 +39,59 @@ namespace AdminView.Controllers
         }
 
         // GET: User/Details/5
+        [RequiredPermission(Permission.CanListUsers)]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: User/Create
+        [RequiredPermission(Permission.CanAddUsers)]
         public ActionResult Create()
         {
-            return View();
+
+            return View(new AuthorizationViewModel
+            {
+                Roles = _roleRepository.FindAllRoles()
+            });
         }
-        public ActionResult Role()
-        {
-            return View();
-        }
+
 
         // POST: User/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [RequiredPermission(Permission.CanAddUsers)]
+        public ActionResult Create(AuthorizationViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                var user = new User
+                {
+                    Email = model.Email,
+                    IsActive = true,
+                    Password = model.Password
+                };
+                var role = _roleRepository.FindByName(model.Role);
+                //_userRepository.Store(user);
+                //_userRepository.SaveChanges();
+                if (role.Users == null)
+                {
+                    role.Users = new List<User>();
+                }
+                role.Users.Add(user);
+                _roleRepository.Store(role);
+                _roleRepository.SaveChanges();
 
+                TempData["success"] = "Användare sparad!";
                 return RedirectToAction("index");
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
         // GET: User/Edit/5
+        [RequiredPermission(Permission.CanChangeUsers)]
         public ActionResult Edit(int id)
         {
             return View();
@@ -74,13 +99,12 @@ namespace AdminView.Controllers
 
         // POST: User/Edit/5
         [HttpPost]
+        [RequiredPermission(Permission.CanChangeUsers)]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("index");
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -89,6 +113,7 @@ namespace AdminView.Controllers
         }
 
         // GET: User/SetStatus/5
+       [RequiredPermission(Permission.CanDeleteUsers)]
         public ActionResult SetStatus(string email)
         {
             var user = _userRepository.FindByEmail(email);
@@ -98,6 +123,7 @@ namespace AdminView.Controllers
         // POST: User/SetStatus/5
         [HttpPost, ActionName("SetStatus")]
         [ValidateAntiForgeryToken]
+        [RequiredPermission(Permission.CanDeleteUsers)]
         public ActionResult SetStatusConfirmed(string email)
         {
             try

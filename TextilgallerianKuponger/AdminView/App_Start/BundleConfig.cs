@@ -11,13 +11,16 @@ namespace AdminView
                 "~/Scripts/jquery-2.1.3.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/semantic").Include(
-                "~/Scripts/semantic.min.js"));
+                "~/Scripts/semantic.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/CreateCoupon").Include(
                 "~/Scripts/CreateCoupon.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/FlashMessage").Include(
                 "~/Scripts/FlashMessage.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/CreateRole").Include(
+                "~/Scripts/CreateRole.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Css/semantic.min.css",

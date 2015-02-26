@@ -12,35 +12,31 @@
         <nav class="ui blue inverted top menu">
             <div class="column sixteen row">
                 <div class="item">
-                    <img class="ui small image" src="http://www.textilgallerian.se/images/textil/textilgallerian-logotype-footer.png" alt="Logotyp">
+                    <a href="">
+                        <img class="ui small image" src="http://www.textilgallerian.se/images/textil/textilgallerian-logotype-footer.png" alt="Logotyp">
+                    </a>
                 </div>
                 @Html.ActionLink("Rabatter", "index", "coupon", null, new {@class = "item"})
                 @Html.ActionLink("Skapa Rabatt", "create", "coupon", null, new {@class = "item"})
                 @Html.ActionLink("Användare", "index", "user", null, new {@class = "item"})
                 @Html.ActionLink("Skapa användare", "create", "user", null, new {@class = "item"})
-                @Html.ActionLink("Skapa Roller", "role", "user", null, new { @class = "item" })
+                @Html.ActionLink("Roller", "index", "role", null, new { @class = "item" })
+                @Html.ActionLink("Skapa Roller", "create", "role", null, new { @class = "item" })
 
                 <div class="right menu">
-
-                    <div class="item">
-
-                        <div class="ui icon input">
-                            <input type="text" placeholder="Sök...">
-                            <i class="search link icon"></i>
-                        </div>
-                    </div>
                     @Html.ActionLink("Logga ut", "logout", "authorization", null, new {@class = "item"})
                 </div>
             </div>
         </nav>
     }
 
-    <div class="ui stackable sixteen column grid">
-        <div class="sixteen wide column">
-            @Html.Partial("_FlashMessage")
-            @RenderBody()
-        </div>
+<div class="ui stackable sixteen column grid">
+    <div class="sixteen wide column">
+        @Html.Partial("_FlashMessage")
+        @RenderBody()
     </div>
+</div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/semantic")
     @Scripts.Render("~/bundles/FlashMessage")

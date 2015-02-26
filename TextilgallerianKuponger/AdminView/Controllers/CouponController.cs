@@ -31,6 +31,7 @@ namespace AdminView.Controllers
         }
 
         // GET: Coupon
+        [RequiredPermission(Permission.CanListCoupons)]
         public ActionResult Index(int page = 1)
         {
             var model = new PagedViewModel<Coupon>
@@ -50,12 +51,14 @@ namespace AdminView.Controllers
         }
 
         // GET: Coupon/Details/5
+        [RequiredPermission(Permission.CanListCoupons)]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Coupon/Create
+        [RequiredPermission(Permission.CanAddCoupons)]
         public ActionResult Create()
         {
             return View(new CouponViewModel());
@@ -64,6 +67,7 @@ namespace AdminView.Controllers
         // POST: Coupon/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RequiredPermission(Permission.CanAddCoupons)]
         public ActionResult Create(CouponViewModel model)
         {
             var type = Assembly.GetAssembly(typeof(Coupon)).GetType(model.Type);
@@ -115,6 +119,7 @@ namespace AdminView.Controllers
         }
 
         // GET: Coupon/Edit/5
+        [RequiredPermission(Permission.CanChangeCoupons)]
         public ActionResult Edit(int id)
         {
             return View();
@@ -122,6 +127,7 @@ namespace AdminView.Controllers
 
         // POST: Coupon/Edit/5
         [HttpPost]
+        [RequiredPermission(Permission.CanChangeCoupons)]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try
@@ -137,6 +143,7 @@ namespace AdminView.Controllers
         }
 
         // GET: /Coupon/Delete/:code
+       [RequiredPermission(Permission.CanDeleteCoupons)]
         public ActionResult Delete(string code)
         {
             var coupon = _couponRepository.FindByCode(code);
@@ -152,6 +159,7 @@ namespace AdminView.Controllers
         /// </summary>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [RequiredPermission(Permission.CanDeleteCoupons)]
         public ActionResult DeleteConfirmed(string code)
         {
             try

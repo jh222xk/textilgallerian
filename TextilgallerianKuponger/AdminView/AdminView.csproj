@@ -156,6 +156,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Annotations\RequiredPermission.cs" />
     <Compile Include="Annotations\LoggedIn.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\CouponController.cs" />
     <Compile Include="Controllers\Helpers\CouponHelper.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="ExtensionMethods\TypeExtension.cs" />
     <Compile Include="Global.asax.cs">
@@ -198,10 +200,11 @@
     <Content Include="fonts\basic.icons.svg" />
     <Content Include="fonts\basic.icons.eot" />
     <Content Include="Scripts\CreateCoupon.js" />
+    <Content Include="Scripts\CreateRole.js" />
     <Content Include="Scripts\FlashMessage.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
-    <Content Include="Scripts\semantic.min.js" />
+    <Content Include="Scripts\semantic.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -237,8 +240,9 @@
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
-    <Content Include="Views\User\Role.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\User\SetStatus.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">

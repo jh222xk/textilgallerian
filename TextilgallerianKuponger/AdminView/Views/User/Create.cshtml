@@ -1,4 +1,5 @@
-﻿@model AdminView.ViewModel.AuthorizationViewModel
+﻿@using AdminView.ViewModel
+@model AdminView.ViewModel.AuthorizationViewModel
 
 @{
     ViewBag.Title = "Skapa ny användare";
@@ -17,6 +18,10 @@
             <div class="field">
                 <label>Lösenord</label>
                 @Html.PasswordFor(m => Model.Password)
+            </div>
+            <div class="field">
+                <label>Roll</label>
+                @Html.DropDownListFor(m => m.Role, new SelectList(Model.Roles, "Name", "Name"), new { @class = "type" })
             </div>
 
             <input type="submit" class="ui green button" value="Skapa användare"/>
