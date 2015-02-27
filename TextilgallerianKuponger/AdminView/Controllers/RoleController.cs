@@ -53,8 +53,19 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanAddRoles)]
         public ActionResult Create(Role role)
         {
+            if (String.IsNullOrWhiteSpace(role.Name))
+            {
+                TempData["error"] = "Du måste ange ett namn";
+                return View(new Role());
+            }
+            if (role.Permissions == null || !role.Permissions.Any())
+            {
+                TempData["error"] = "Du måste ange minst en behörighet";
+                return View(new Role());
+            }
             try
             {
+                role.Users = new List<User>();
                 _roleRepository.Store(role);
                 _roleRepository.SaveChanges();
 
@@ -63,7 +74,7 @@ namespace AdminView.Controllers
             }
             catch
             {
-                return View();
+                return View(new Role());
             }
         }
     }
