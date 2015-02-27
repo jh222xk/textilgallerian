@@ -89,7 +89,7 @@ namespace AdminView.Controllers
             //Validates if code already exists 
             if (couponCode != null)
             {
-                TempData["error"] = "Finns redan ett rabattkod med det koden";
+                TempData["error"] = "Finns redan en rabattkod med den koden";
                 return View(model);
             }
             
