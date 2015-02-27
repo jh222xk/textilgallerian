@@ -36,16 +36,16 @@ namespace AdminView.Controllers
         {
             var model = new PagedViewModel<Coupon>
             {
-                PagedObjects = _couponRepository.FindAllCoupons().OrderBy(c => c.CreatedAt).Page(page, 10),
+                PagedObjects = _couponRepository.FindAllCoupons().OrderBy(c => c.CreatedAt).Page(page - 1, PageSize),
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling(_couponRepository.FindAllCoupons().Count() / (double) PageSize)
             };
 
-            //// TestData for now
-                        //var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
-            
-                        //tempCoupons.ForEach(_couponRepository.Store);
-                        //_couponRepository.SaveChanges();
+            // TestData for now
+            //var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
+
+            //tempCoupons.ForEach(_couponRepository.Store);
+            //_couponRepository.SaveChanges();
 
             return View(model);
         }
