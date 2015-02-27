@@ -9,6 +9,9 @@ namespace AdminView.Controllers.Helpers
 {
     public class CouponHelper
     {
+        private readonly Random _random = new Random();
+        private const string Chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
         /// <summary>
         /// 
         /// </summary>
@@ -61,6 +64,33 @@ namespace AdminView.Controllers.Helpers
                 }
             }
             return products.Count > 0 ? products : null;
+        }
+
+        public List<Customer> GenerateDispoableCodes(int amount)
+        {
+            var customers = new List<Customer>(amount);
+
+            for (var i = 0; i < amount; i++)
+            {
+                customers.Add(new Customer
+                {
+                    CouponCode = RandomString(8)
+                });
+            }
+
+            return customers;
+        }
+
+        private string RandomString(int size)
+        {
+            var buffer = new char[size];
+
+            for (var i = 0; i < size; i++)
+            {
+                buffer[i] = Chars[_random.Next(Chars.Length)];
+            }
+
+            return new string(buffer);
         }
     }
 }

@@ -17,5 +17,7 @@ namespace AdminView.ViewModel
         public String Type { get; set; }
         public Boolean CanBeCombined { get; set; }
         public Dictionary<String, String> Parameters { get; set; }
+        public Boolean DisposableCodes { get; set; }
+        public int NumberOfCodes { get; set; }
     }
 }
