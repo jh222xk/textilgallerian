@@ -8,6 +8,13 @@ namespace Domain.Entities
     /// </summary>
     public class BuyProductXRecieveProductY : Coupon
     {
+
+        public BuyProductXRecieveProductY()
+        {
+        }
+        
+
+        //public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties) : base(properties)
         public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties)
         {
             SetProperties(properties);
@@ -16,21 +23,21 @@ namespace Domain.Entities
         public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
             base.SetProperties(properties);
-            Amount = Decimal.Parse(properties["Amount"]);
-            Buy = Decimal.Parse(properties["Buy"]);
+            Amount = Decimal.Parse(properties["Amount"].Replace('.', ','));
+            Buy = Decimal.Parse(properties["Buy"].Replace('.', ','));
+            // Todo Add Freeproduct and productName ?
         }
 
-        public BuyProductXRecieveProductY()
-        {
-        }
+    
 
         public override Dictionary<string, string> GetProperties()
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("Amount", Amount.ToString());
-            dictionary.Add("Buy", Buy.ToString());
-            dictionary.Add("FreeProduct", FreeProduct.ProductId);
-            dictionary.Add("ProductName", FreeProduct.Name);
+            dictionary.Add("Amount", Amount.ToString().Replace(',', '.'));
+            dictionary.Add("Buy", Buy.ToString().Replace(',', '.'));
+            dictionary.Add("FreeProduct", FreeProduct.ProductId.ToString());
+            dictionary.Add("ProductName", FreeProduct.Name.ToString());
+
             return dictionary;
         }
 

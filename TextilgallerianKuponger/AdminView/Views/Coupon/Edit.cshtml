@@ -11,6 +11,16 @@
         <form class="ui form" method="post">
             @Html.AntiForgeryToken()
 
+            
+            <div class="field">
+                <label>
+                    Kupongtyp
+                </label>
+                @Model.Type
+            </div>
+            
+            
+
             <div class="field">
                 <label>
                     Kampanjnamn
@@ -26,7 +36,7 @@
             <div class="field">
                 <label>
                     Minsta köpsumma
-                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new { type = "number", min = 0, @Value = 0 })
+                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new { type = "number", min = 0, step = "0.1" })
                 </label>
             </div>
            
@@ -149,7 +159,7 @@
             <div class="field specific-field BuyProductXReceiveProductY BuyXProductsPayForYProducts">
                 <label>
                     Antal produkter kund behöver köpa
-                    @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa" })
+                    @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa", step = "0.1" })
                 </label>
             </div>
             }
@@ -158,7 +168,7 @@
                 <div class="field specific-field BuyXProductsPayForYProduct">
                     <label>
                         Antal produkter kund behöver betala för.              
-                            @Html.TextBoxFor(m => m.Parameters["PayFor"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för" })                 
+                            @Html.TextBoxFor(m => m.Parameters["PayFor"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för", step = "0.1" })                 
                     </label>
                 </div>
             }
@@ -167,7 +177,7 @@
                 <div class="field specific-field TotalSumAmountDiscount BuyProductXReceiveProduct">
                     <label>
                         Antal
-                        @Html.TextBoxFor(m => m.Parameters["Amount"], new { type = "number", min = 0, placeholder = "Hur många?" })
+                        @Html.TextBoxFor(m => m.Parameters["Amount"], new { type = "number", min = 0, placeholder = "Hur många?", step = "0.1" })
 
                     </label>
                 </div>
