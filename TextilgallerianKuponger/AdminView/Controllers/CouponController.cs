@@ -41,11 +41,11 @@ namespace AdminView.Controllers
                 TotalPages = (int)Math.Ceiling(_couponRepository.FindAllCoupons().Count() / (double) PageSize)
             };
 
-            //// TestData for now
-                        //var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
+            // TestData for now
+            //var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
             
-                        //tempCoupons.ForEach(_couponRepository.Store);
-                        //_couponRepository.SaveChanges();
+            //tempCoupons.ForEach(_couponRepository.Store);
+            //_couponRepository.SaveChanges();
 
             return View(model);
         }
@@ -125,7 +125,7 @@ namespace AdminView.Controllers
 
         {
             var coupon = _couponRepository.FindByCode(code);
-            var dictionary = coupon.EditCoupon();
+            var dictionary = coupon.GetProperties();
             var cvm = new CouponViewModel();
             cvm.Parameters = dictionary;
 
@@ -158,7 +158,7 @@ namespace AdminView.Controllers
             if (!ModelState.IsValid) return View();
             try
             {
-                coupon.SetValues(model.Parameters);
+                coupon.SetProperties(model.Parameters);
                 var user = (User)Session["user"];
                 coupon.CreatedBy = user.Email;
                 coupon.CanBeCombined = model.CanBeCombined;

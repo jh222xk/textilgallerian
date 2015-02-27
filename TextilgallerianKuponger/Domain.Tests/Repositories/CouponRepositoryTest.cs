@@ -79,7 +79,8 @@ namespace Domain.Tests.Repositories
                         },
                         new Customer
                         {
-                            SocialSecurityNumber = "700131-2371"
+                            SocialSecurityNumber = "700131-2371",
+                            CouponCode = "MyPersonalCode",
                         }
                     }
                 });
@@ -109,6 +110,30 @@ namespace Domain.Tests.Repositories
 
             // Check that our code is correct
             coupon.Code.should_be("XMAS15");
+
+            // Make sure that our customers are actual customers
+            foreach (var customer in coupon.CustomersValidFor)
+            {
+                customer.should_cast_to<Customer>();
+            }
+        }
+
+        /// <summary>
+        ///     Test expected to find 2 results.
+        /// </summary>
+        [TestMethod]
+        public void TestGettingACouponByCustomerCode()
+        {
+            var coupon = _couponRepository.FindByCustomerCode("MyPersonalCode");
+
+            // We got more than one coupon so check if it's count is equal to 2
+            coupon.CustomersValidFor.Count.should_be(2);
+
+            // Check the type of the object
+            coupon.should_cast_to<TotalSumAmountDiscount>();
+
+            // Check that our code is correct
+            coupon.Code.should_be("ihafi7Hsda");
 
             // Make sure that our customers are actual customers
             foreach (var customer in coupon.CustomersValidFor)

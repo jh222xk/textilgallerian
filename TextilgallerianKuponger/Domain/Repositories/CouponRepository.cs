@@ -37,7 +37,17 @@ namespace Domain.Repositories
                 .FirstOrDefault(coupon => coupon.Code == code);
         }
 
-      
+        /// <summary>
+        ///     Finds all coupons that is valid for a customer with the specified code
+        /// </summary>
+        public Coupon FindByCustomerCode(String code)
+        {
+            return _session.Query<Coupon>()
+                .FirstOrDefault(
+                    coupon =>
+                        coupon.CustomersValidFor.Any(
+                            customer => customer.CouponCode == code));
+        }
 
         /// <summary>
         ///     Finds all coupons that is valid for a customer with the specified social security number

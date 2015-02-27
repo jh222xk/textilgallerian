@@ -41,7 +41,7 @@ namespace Api.Tests.Controllers
 
             _couponRepository = new CouponRepository(session);
 
-            _cartController = new CartController(_couponRepository, new CouponService(_couponRepository));
+            _cartController = new CartController(new CouponService(_couponRepository));
 
             _couponRepository.Store(
                 Testdata.RandomCoupon(new ValidCoupon
