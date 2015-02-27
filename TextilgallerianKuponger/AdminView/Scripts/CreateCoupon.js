@@ -1,4 +1,5 @@
 ﻿window.addEventListener('load', function () {
+   
     var dropdown = document.querySelector('.type');
     var disposable = document.querySelector('.disposable');
     var specificFields = document.querySelectorAll('.specific-field');
@@ -14,6 +15,7 @@
                 field.hidden = true;
             }
         });
+    
 
         var currentFields = document.getElementsByClassName(type);
 
@@ -35,3 +37,8 @@
 
     showCorrectFields();
 });
+
+
+
+
+

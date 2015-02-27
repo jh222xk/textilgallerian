@@ -23,8 +23,8 @@ namespace AdminView
                 "~/Scripts/CreateRole.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/Css/semantic.min.css",
-                "~/Content/Css/site.css"));
+                 "~/Content/Css/site.css",
+               "~/Content/Css/semantic.min.css"));
         }
     }
 }
