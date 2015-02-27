@@ -8,24 +8,24 @@ namespace Domain.Entities
     /// </summary>
     public class TotalSumPercentageDiscount : Coupon
     {
-        public TotalSumPercentageDiscount(IReadOnlyDictionary<string, string> properties) : base(properties)
+        public TotalSumPercentageDiscount(IReadOnlyDictionary<string, string> properties)
         {
-            SetValues(properties);
+            SetProperties(properties);
         }
 
         public TotalSumPercentageDiscount()
         {
         }
 
-        public override void SetValues(IReadOnlyDictionary<string, string> properties)
+        public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
-            base.SetValues(properties);
+            base.SetProperties(properties);
             Percentage = Decimal.Parse(properties["Percentage"]);
         }
 
-        public override Dictionary<string, string> EditCoupon()
+        public override Dictionary<string, string> GetProperties()
         {
-            Dictionary<string, string> dictionary = base.EditCoupon();
+            var dictionary = base.GetProperties();
             dictionary.Add("Percentage", Percentage.ToString());
 
             return dictionary;

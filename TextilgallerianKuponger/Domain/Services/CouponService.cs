@@ -59,6 +59,11 @@ namespace Domain.Services
                 {
                     coupons.Add(coupon);
                 }
+                coupon = _couponRepository.FindByCustomerCode(cart.CouponCode);
+                if (coupon != null)
+                {
+                    coupons.Add(coupon);
+                }
             }
 
             if (cart.Customer != null)

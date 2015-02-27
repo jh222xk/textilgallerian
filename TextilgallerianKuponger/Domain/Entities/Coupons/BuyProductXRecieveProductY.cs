@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Raven.Client.Linq;
+
 namespace Domain.Entities
 {
     /// <summary>
@@ -9,14 +8,14 @@ namespace Domain.Entities
     /// </summary>
     public class BuyProductXRecieveProductY : Coupon
     {
-        public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties) : base(properties)
+        public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties)
         {
-            SetValues(properties);
+            SetProperties(properties);
         }
 
-        public override void SetValues(IReadOnlyDictionary<string, string> properties)
+        public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
-            base.SetValues(properties);
+            base.SetProperties(properties);
             Amount = Decimal.Parse(properties["Amount"]);
             Buy = Decimal.Parse(properties["Buy"]);
         }
@@ -25,13 +24,13 @@ namespace Domain.Entities
         {
         }
 
-        public override Dictionary<string, string> EditCoupon()
+        public override Dictionary<string, string> GetProperties()
         {
-            Dictionary<string, string> dictionary = base.EditCoupon();
+            var dictionary = base.GetProperties();
             dictionary.Add("Amount", Amount.ToString());
             dictionary.Add("Buy", Buy.ToString());
-            dictionary.Add("FreeProduct", FreeProduct.ProductId.ToString());
-            dictionary.Add("ProductName", FreeProduct.Name.ToString());
+            dictionary.Add("FreeProduct", FreeProduct.ProductId);
+            dictionary.Add("ProductName", FreeProduct.Name);
             return dictionary;
         }
 
@@ -66,20 +65,16 @@ namespace Domain.Entities
         }
 
         /// <summary>
-
-        /// <summary>
-        /// Check all products in cart if they are valid for discount.
+        ///     Check if specified Cart is valid for this Coupon
         /// </summary>
-        /// <param name="cart"></param>
-        public override Boolean IsValidFor(Cart cart)
+        public override bool IsValidFor(Cart cart)
         {
-            if (base.IsValidFor(cart) == false)
+            if (!base.IsValidFor(cart))
             {
                 return false;
             }
 
-            var products = cart.Rows.Select(row => row.Product).ToList();
-            return products.Exists(p => p.In(Products)) && cart.NumberOfProducts >= Buy;
+            return cart.NumberOfProducts >= Buy;
         }
     }
 }
