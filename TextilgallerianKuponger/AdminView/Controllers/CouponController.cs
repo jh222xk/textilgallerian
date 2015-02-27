@@ -81,6 +81,17 @@ namespace AdminView.Controllers
         public ActionResult Create(CouponViewModel model)
         {
             List<Customer> customers = null;
+
+            
+            // Search DB for coupon code 
+            var couponCode = _couponRepository.FindByCode(model.Parameters["Code"]);
+
+            //Validates if code already exists 
+            if (couponCode != null)
+            {
+                TempData["error"] = "Finns redan ett rabattkod med det koden";
+                return View(model);
+            }
             
             if (model.DisposableCodes)
             {
