@@ -81,7 +81,7 @@ namespace AdminView.Controllers
                 Session["user"] = user;
                 Session["role"] = role;
                 TempData["success"] = "Du har loggat in";
-                return RedirectToAction("index", "coupon");
+                return RedirectToAction("index");
             }
 
             TempData["error"] = "Felaktig epost och/eller lösenord.";

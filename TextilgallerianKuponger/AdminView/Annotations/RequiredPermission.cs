@@ -13,6 +13,12 @@ namespace AdminView.Annotations
             _permission = permission;
         }
 
+        protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
+        {
+            filterContext.Controller.TempData.Add("error", "Du har inte behörighet att visa sidan!");
+            filterContext.Result = new RedirectResult("~/");
+        }
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             if (httpContext.Session == null) return false;
