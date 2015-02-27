@@ -1,0 +1,12 @@
+﻿@model List<Domain.Entities.Customer>
+
+@{
+    ViewBag.Title = "Engångskoder - Skapa ny rabatt";
+}
+
+<h2>Genererade Engångskoder</h2>
+<ul>
+    @foreach (var customer in Model) {
+        <li>@customer.CouponCode</li>
+    }
+</ul>

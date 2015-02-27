@@ -25,24 +25,37 @@
             </div>
             <div class="field">
                 <label>
+                    Beskrivning
+                    @Html.TextAreaFor(m => m.Parameters["Description"])
+                </label>
+            </div>
+
+            <div class="field">
+                <label>
+                    Generera engångskoder
+                    @Html.CheckBoxFor(m => m.DisposableCodes, new { @class = "disposable" })
+                </label>
+            </div>
+            <div class="field campaign-code">
+                <label>
                     Kampanjkod
                     @Html.TextBoxFor(m => m.Parameters["Code"])
                 </label>
             </div>
+            <div class="field disposable-codes">
+                <label>
+                    Hur många engångskoder ska genereras?
+                    @Html.TextBoxFor(m => m.NumberOfCodes, new { type = "number", min = 0 })
+                </label>
+            </div>
+
             <div class="field">
                 <label>
                     Minsta köpsumma
                     @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new {type = "number", min = 0, @Value = 0})
                 </label>
             </div>
-
-            <div class="field">
-                <label>
-                    Beskrivning
-                    @Html.TextAreaFor(m => m.Parameters["Description"])
-                </label>
-            </div>
-            <div class="twelve wide column">
+            <div class="twelve wide column campaign-code">
                 <div class="ui one column center aligned stackable divided grid">
                     <div class="column">
                         <div class="ui icon header">
@@ -52,7 +65,7 @@
 
                         <div class="ui fluid category search" id="user-search">
                             <div class="ui icon input">
-                                <input class="prompt" type="text" id="userinput" placeholder="Sök Kunder..">
+                                <input class="prompt" type="text" id="userinput" placeholder="Sök i kundfält..">
                                 <i class="search icon" id="customer"></i>
                             </div>
                             <div class="results"></div>
@@ -61,12 +74,8 @@
                         <div class="field">
                             <label>
                                 Kunder
-                                @Html.TextAreaFor(m => m.CustomerString)
+                                @Html.TextAreaFor(m => m.CustomerString, new { @id = "users" })
                             </label>
-                        </div>
-
-                        <div class="ui primary button" id="readUsers">
-                            Läs in..
                         </div>
                     </div>
                 </div>
@@ -112,7 +121,7 @@
                     </div>
                     <div class="column">
                         <div class="ui icon header">
-                            <i class="barcode icon"></i>
+                            <i class="database icon"></i>
                             Kategorier
                         </div>
                         <div class="ui fluid category search" id="user-search">
@@ -147,8 +156,11 @@
             <div class="field">
                 <label>
                     Hur många gånger får rabatten användas?
-                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new {type = "number", min = 0, placeholder = "Hur många?"})
+                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new { type = "number", min = 0, placeholder = "Hur många?", @Value = 1 })
                 </label>
+                <div class="help">
+                    Hur många gånger rabatten  får användas av samma kund eller hur många gånger samma kod får användas
+                </div>
             </div>
             <div class="field specific-field BuyProductXReceiveProductY BuyXProductsPayForYProducts">
                 <label>
@@ -193,21 +205,6 @@
                     @Html.CheckBoxFor(m => m.CanBeCombined)
                 </label>
             </div>
-            <div class="field specific-field BuyProductXReceiveProductY">
-                <div class="field">
-                    <label>
-                        Kampanjen kan kombineras med andra kampanjer.
-                        @Html.CheckBoxFor(m => m.CanBeCombined)
-                    </label>
-                </div>
-                <input type="submit" name="name" class="ui button green" value="Gå vidare" />
-                <div class="item ui toggle checkbox" id="combining">
-                    <a class="ui toggle checkbox" id="combining">
-                        <input type="checkbox" name="public">
-                        <label>Går att kombineras</label>
-                    </a>
-                </div>
-            </div>
 
             <input type="submit" name="name" class="ui button green" value="Skapa rabatt"/>
         </form>
@@ -217,3 +214,41 @@
 @section scripts {
     @Scripts.Render("~/Bundles/CreateCoupon")
 }
+
+
+<script>
+
+    var usercontent = [];
+    function userSearch() {
+        $("#user-search").search({
+            source: usercontent,
+            searchFullText: false,
+            cache: false
+        });
+    }
+    $("#userinput").click(function () {
+        //nollställer array varje gång man laddar in nya
+        usercontent = [];
+        console.log("1");
+        //hämtar ut textarea elementet
+        var users = jQuery("textarea#users").val();
+        //splittar den på radbryt
+        users = users.split("\n");
+        usercontent = usercontent.concat(users);
+        //loopar igenom input och gör det till ett format som sökfunktionen kan läsa
+        for (var i = 0; i < usercontent.length; i++) {
+            usercontent[i] = { title: usercontent[i] };
+        }
+        //uppdaterar sökfuntionen
+        userSearch();
+    });
+    $("#customer").on("click", function (e) {
+        var value = $("#userinput").val();
+        value = value.toString();
+        $("textarea#users").highlightTextarea({
+            words: [value]
+        });
+        console.log(value);
+    });
+</script>
+

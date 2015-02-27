@@ -180,8 +180,6 @@
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\bg.jpg" />
-    <Content Include="Content\Images\cat.png" />
     <Content Include="Content\Css\semantic.min.css" />
     <Content Include="Content\Css\semantic.site.css" />
     <Content Include="Content\Css\themes\basic\assets\fonts\icons.svg" />
@@ -235,6 +233,7 @@
     <Content Include="Content\Css\themes\default\assets\fonts\icons.otf" />
     <Content Include="Content\Css\themes\default\assets\fonts\icons.ttf" />
     <Content Include="Content\Css\themes\default\assets\fonts\icons.woff" />
+    <Content Include="Content\categories.json" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Coupon\Delete.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />
@@ -244,6 +243,7 @@
     <Content Include="Views\User\SetStatus.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Coupon\Edit.cshtml" />
+    <Content Include="Views\Coupon\Codes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">

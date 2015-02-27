@@ -18,15 +18,15 @@ namespace Domain.Entities
         public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
             base.SetProperties(properties);
-            PayFor = Decimal.Parse(properties["PayFor"]);
-            Buy = Decimal.Parse(properties["Buy"]);
+            PayFor = Decimal.Parse(properties["PayFor"].Replace('.', ','));
+            Buy = Decimal.Parse(properties["Buy"].Replace('.', ','));
         }
 
         public override Dictionary<string, string> GetProperties() 
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("PayFor", PayFor.ToString());
-            dictionary.Add("Buy", Buy.ToString());
+            dictionary.Add("PayFor", PayFor.ToString().Replace(',', '.'));
+            dictionary.Add("Buy", Buy.ToString().Replace(',', '.'));
 
             return dictionary;
         }

@@ -20,13 +20,13 @@ namespace Domain.Entities
         public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
             base.SetProperties(properties);
-            Percentage = Decimal.Parse(properties["Percentage"]);
+            Percentage = Decimal.Parse(properties["Percentage"].Replace('.', ','));
         }
 
         public override Dictionary<string, string> GetProperties()
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("Percentage", Percentage.ToString());
+            dictionary.Add("Percentage", Percentage.ToString().Replace(',', '.'));
 
             return dictionary;
         }
