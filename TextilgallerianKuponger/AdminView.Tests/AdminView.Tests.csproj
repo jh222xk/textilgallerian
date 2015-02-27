@@ -151,6 +151,7 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>
     </None>
+    <None Include="Specs\Logout.feature" />
     <None Include="Specs\User.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>User.feature.cs</LastGenOutput>

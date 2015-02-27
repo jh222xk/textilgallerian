@@ -3,24 +3,28 @@
 @{
     ViewBag.Title = "Logga in";
 }
+@if (Session["user"] == null)
+{
+    <div class="four column">
 
-<div class="four column">
-    <form class="ui form" method="post">
-        @Html.AntiForgeryToken()
+        <form class="ui form" method="post">
+            @Html.AntiForgeryToken()
 
-        <h3>Logga in</h3>
+            <h2 class="ui large header">Logga in</h2>
 
 
-        <div class="field">
-            @Html.LabelFor(m => m.Email, new {@class = ""})
-            @Html.TextBoxFor(m => m.Email)
-        </div>
+            <div class="field">
+                @Html.LabelFor(m => m.Email, new {@class = ""})
+                @Html.TextBoxFor(m => m.Email)
+            </div>
 
-        <div class="field">
-            @Html.LabelFor(m => m.Password, new {@class = ""})
-            @Html.PasswordFor(m => m.Password, new {required = ""})
-        </div>
+            <div class="field">
+                @Html.LabelFor(m => m.Password, new {@class = ""})
+                @Html.PasswordFor(m => m.Password, new {required = ""})
+            </div>
 
-        <input type="submit" class="ui button green" value="Logga in"/>
-    </form>
-</div>
+            <input type="submit" class="ui button green" value="Logga in"/>
+        </form>
+
+    </div>
+}
