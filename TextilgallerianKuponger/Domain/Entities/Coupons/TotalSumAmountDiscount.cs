@@ -8,22 +8,30 @@ namespace Domain.Entities
     /// </summary>
     public class TotalSumAmountDiscount : Coupon
     {
-        public TotalSumAmountDiscount(IReadOnlyDictionary<string, string> properties) : base(properties)
+        public TotalSumAmountDiscount(IReadOnlyDictionary<string, string> properties)
         {
-            SetValues(properties);
+            SetProperties(properties);
         }
 
         public TotalSumAmountDiscount()
         {
         }
 
-        public override void SetValues(IReadOnlyDictionary<string, string> properties)
+        public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
-            base.SetValues(properties);
+            base.SetProperties(properties);
             Amount = Decimal.Parse(properties["Amount"]);
         }
 
         public Decimal Amount { get; set; }
+
+        public override Dictionary<string, string> GetProperties()
+        {
+            var dictionary = base.GetProperties();
+            dictionary.Add("Amount", Amount.ToString());
+
+            return dictionary;
+        }
 
         /// <summary>
         ///     Check if specified Cart is valid for this Coupon
@@ -36,14 +44,6 @@ namespace Domain.Entities
             }
 
             return cart.TotalSum >= Amount;
-        }
-
-        public override Dictionary<string, string> EditCoupon()
-        {
-            Dictionary<string, string> dictionary = base.EditCoupon();
-            dictionary.Add("Amount", Amount.ToString());
-
-            return dictionary;
         }
 
         /// <summary>

@@ -9,12 +9,7 @@ namespace Domain.Entities
     /// </summary>
     public abstract class Coupon
     {
-        public Coupon(IReadOnlyDictionary<string, string> properties)
-        {
-            
-        }
-
-        public virtual void SetValues(IReadOnlyDictionary<string, string> properties)
+        public virtual void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
             Name = properties["Name"];
             Code = properties["Code"];
@@ -25,7 +20,7 @@ namespace Domain.Entities
             MinPurchase = Decimal.Parse(properties["MinPurchase"]);
         }
 
-        public virtual Dictionary<string, string> EditCoupon()
+        public virtual Dictionary<string, string> GetProperties()
         {
             return new Dictionary<String, String>
             {
@@ -37,11 +32,6 @@ namespace Domain.Entities
                 {"UseLimit", UseLimit.ToString()},
                 {"MinPurchase", MinPurchase.ToString()}     
             };
-        }
-
-
-        public Coupon()
-        {
         }
 
         public string Id { get; set; }
@@ -147,20 +137,21 @@ namespace Domain.Entities
                 return false;
             }
 
-            // VERY MUCH NOT DRY
             if (CustomersValidFor != null)
             {
-                // Get customer by SSN
                 var customer =
-                    CustomersValidFor.Find(cust => cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber);
+                    CustomersValidFor.Find(cust => (cust.CouponCode == cart.CouponCode && cust.CouponCode != null) ||
+                                                   (cust.Email == cart.Customer.Email && cust.Email != null) ||
+                                                   (cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber && cust.SocialSecurityNumber != null));
                 return customer != null && customer.CouponUses < UseLimit;
             }
 
             if (CustomersUsedBy.Any())
             {
-                // Get customer by SSN
                 var customer =
-                    CustomersUsedBy.Find(cust => cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber);
+                    CustomersUsedBy.Find(cust => (cust.CouponCode == cart.CouponCode && cust.CouponCode != null) ||
+                                                 (cust.Email == cart.Customer.Email && cust.Email != null) ||
+                                                 (cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber && cust.SocialSecurityNumber != null));
                 return customer == null || customer.CouponUses < UseLimit;
             }
 

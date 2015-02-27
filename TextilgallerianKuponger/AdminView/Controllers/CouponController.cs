@@ -43,7 +43,6 @@ namespace AdminView.Controllers
 
             // TestData for now
             //var tempCoupons = Testdata.RandomAmount(() => Testdata.RandomCoupon());
-
             //tempCoupons.ForEach(_couponRepository.Store);
             //_couponRepository.SaveChanges();
 
@@ -125,7 +124,7 @@ namespace AdminView.Controllers
 
         {
             var coupon = _couponRepository.FindByCode(code);
-            var dictionary = coupon.EditCoupon();
+            var dictionary = coupon.GetProperties();
             var cvm = new CouponViewModel();
             cvm.Parameters = dictionary;
 
@@ -158,7 +157,7 @@ namespace AdminView.Controllers
             if (!ModelState.IsValid) return View();
             try
             {
-                coupon.SetValues(model.Parameters);
+                coupon.SetProperties(model.Parameters);
                 var user = (User)Session["user"];
                 coupon.CreatedBy = user.Email;
                 coupon.CanBeCombined = model.CanBeCombined;

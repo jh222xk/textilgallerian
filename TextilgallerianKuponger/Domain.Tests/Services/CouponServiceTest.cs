@@ -65,7 +65,11 @@ namespace Domain.Tests.Services
             repostitory.Store(Testdata.RandomCoupon(new BuyProductXRecieveProductY
             {
                 Code = "free product",
-                CustomersValidFor = new List<Customer> {_cart.Customer},
+                CustomersValidFor = new List<Customer>
+                {
+                    _cart.Customer,
+                    new Customer { CouponCode = "CustomerCode" }
+                },
                 Products = new List<Product> {_cart.Rows.First().Product},
                 Buy = 1,
                 FreeProduct = _freeProduct,
@@ -119,6 +123,17 @@ namespace Domain.Tests.Services
 
             result.Count.should_be(1);
             result[0].Code.should_be("Valid Code");
+        }
+
+        [TestMethod]
+        public void TestThatItCanFindCouponsByProvidedCodeOnCustomers()
+        {
+            var cart = Testdata.RandomCart("CustomerCode");
+
+            var result = _couponService.FindBestCouponsForCart(cart).Discounts;
+
+            result.Count.should_be(1);
+            result[0].Code.should_be("free product");
         }
 
         [TestMethod]
