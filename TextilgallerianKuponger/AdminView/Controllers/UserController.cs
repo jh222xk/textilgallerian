@@ -13,14 +13,12 @@ namespace AdminView.Controllers
    [LoggedIn]
     public class UserController : Controller
     {
-        private readonly UserRepository _userRepository;
         private readonly RoleRepository _roleRepository;
 
         private const int PageSize = 15;
 
-        public UserController(UserRepository userRepository, RoleRepository roleRepository)
+        public UserController(RoleRepository roleRepository)
         {
-            _userRepository = userRepository;
             _roleRepository = roleRepository;
         }
 
@@ -28,11 +26,12 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanListUsers)]
         public ActionResult Index(int page = 1)
         {
+            var users = _roleRepository.FindAllRoles().ToList().SelectMany(r => r.Users).ToList();
             var model = new PagedViewModel<User>
             {
-                PagedObjects = _userRepository.FindAllUsers().Page(page - 1, PageSize),
+                PagedObjects = users.Page(page - 1, PageSize),
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(_userRepository.FindAllUsers().Count() / (double) PageSize)
+                TotalPages = (int)Math.Ceiling(users.Count() / (double)PageSize)
             };
 
             return View(model);
@@ -116,7 +115,7 @@ namespace AdminView.Controllers
        [RequiredPermission(Permission.CanDeleteUsers)]
         public ActionResult SetStatus(string email)
         {
-            var user = _userRepository.FindByEmail(email);
+            var user = _roleRepository.FindByEmail(email).Users.FirstOrDefault(e => e.Email == email);
             return View(user);
         }
 
@@ -128,9 +127,9 @@ namespace AdminView.Controllers
         {
             try
             {
-                var user = _userRepository.FindByEmail(email);
+                var user = _roleRepository.FindByEmail(email).Users.FirstOrDefault(e => e.Email == email);
                 user.IsActive = !user.IsActive;
-                _userRepository.SaveChanges();
+                _roleRepository.SaveChanges();
 
                 TempData["success"] = "Status ändrad.";
                 return RedirectToAction("index");

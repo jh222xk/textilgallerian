@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.ExtensionMethods
 {
@@ -12,7 +14,7 @@ namespace Domain.ExtensionMethods
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public static IQueryable<T> Page<T>(this IQueryable<T> self, int page, int pageSize)
+        public static IEnumerable<T> Page<T>(this IEnumerable<T> self, int page, int pageSize)
         {
             return self.Skip(page*pageSize).Take(pageSize);
         }
