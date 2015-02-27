@@ -21,6 +21,7 @@ namespace AdminView
 
         public static void RegisterComponents()
         {
+            Store.Conventions.DefaultQueryingConsistency = ConsistencyOptions.AlwaysWaitForNonStaleResultsAsOfLastWrite;
             _container = new UnityContainer();
 
             // Initialize the database store
