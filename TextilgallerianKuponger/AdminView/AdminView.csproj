@@ -233,6 +233,7 @@
     <Content Include="Content\Css\themes\default\assets\fonts\icons.otf" />
     <Content Include="Content\Css\themes\default\assets\fonts\icons.ttf" />
     <Content Include="Content\Css\themes\default\assets\fonts\icons.woff" />
+    <Content Include="Content\categories.json" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Coupon\Delete.cshtml" />
     <Content Include="Views\Shared\_FlashMessage.cshtml" />

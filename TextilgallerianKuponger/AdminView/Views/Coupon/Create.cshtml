@@ -65,7 +65,7 @@
 
                         <div class="ui fluid category search" id="user-search">
                             <div class="ui icon input">
-                                <input class="prompt" type="text" id="userinput" placeholder="Sök Kunder..">
+                                <input class="prompt" type="text" id="userinput" placeholder="Sök i kundfält..">
                                 <i class="search icon" id="customer"></i>
                             </div>
                             <div class="results"></div>
@@ -212,10 +212,9 @@
 </div>
 
 @section scripts {
-    @Scripts.Render("~/Bundles/CreateCoupon")   
-   
-
+    @Scripts.Render("~/Bundles/CreateCoupon")
 }
+
 
 <script>
 
@@ -252,3 +251,4 @@
         console.log(value);
     });
 </script>
+
