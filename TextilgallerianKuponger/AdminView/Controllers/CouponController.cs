@@ -19,7 +19,7 @@ namespace AdminView.Controllers
     public class CouponController : Controller
     {
         private readonly CouponRepository _couponRepository;
-        private CouponHelper _couponHelper;
+        private readonly CouponHelper _couponHelper;
 
         private const int PageSize = 15;
 
