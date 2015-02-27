@@ -10,7 +10,7 @@ using Domain.Repositories;
 
 namespace AdminView.Controllers
 {
-    [LoggedIn]
+   // [LoggedIn]
     public class RoleController : Controller
     {
         private readonly RoleRepository _roleRepository;
