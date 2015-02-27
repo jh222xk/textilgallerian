@@ -31,6 +31,7 @@ namespace AdminView.Controllers
             {
                 var dataRole = new Role
                 {
+                    Name = "Seeded",
                     Permissions = new List<Permission>
                     {
                         Permission.CanAddCoupons,
