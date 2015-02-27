@@ -23,12 +23,6 @@ namespace AdminView.Tests.Steps
             _common.WhenINavigateTo("/");
         }
 
-        [Then(@"I should be logged in")]
-        public void ThenIShouldBeLoggedIn()
-        {
-            Driver.FindElement(By.LinkText("Logga ut"));
-        }
-
         [Then(@"I shouldn't be logged in")]
         public void ThenIShouldntBeLoggedIn()
         {

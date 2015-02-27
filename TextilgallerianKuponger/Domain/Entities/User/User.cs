@@ -8,7 +8,9 @@ namespace Domain.Entities
     {
         public String Email { get; set; }
         public Boolean IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
         private String PasswordHash { get; set; }
+
 
         /// <summary>
         ///     Hashes the password using the bcrypt algorithm

@@ -10,12 +10,11 @@ using Domain.Repositories;
 
 namespace AdminView.Controllers
 {
-   [LoggedIn]
+    [LoggedIn]
     public class UserController : Controller
     {
-        private readonly RoleRepository _roleRepository;
-
         private const int PageSize = 15;
+        private readonly RoleRepository _roleRepository;
 
         public UserController(RoleRepository roleRepository)
         {
@@ -26,12 +25,21 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanListUsers)]
         public ActionResult Index(int page = 1)
         {
-            var users = _roleRepository.FindAllRoles().ToList().SelectMany(r => r.Users).ToList();
-            var model = new PagedViewModel<User>
+            var users =
+                _roleRepository.FindAllRoles()
+                    .ToList()
+                    .SelectMany(r => r.Users.Select(u => new AuthorizationViewModel
+                    {
+                        User = u,
+                        Role = r.Name
+                    }))
+                    .OrderByDescending(u => u.User.CreatedAt)
+                    .ToList();
+            var model = new PagedViewModel<AuthorizationViewModel>
             {
                 PagedObjects = users.Page(page - 1, PageSize),
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(users.Count() / (double)PageSize)
+                TotalPages = (int) Math.Ceiling(users.Count()/(double) PageSize)
             };
 
             return View(model);
@@ -48,13 +56,11 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanAddUsers)]
         public ActionResult Create()
         {
-
             return View(new AuthorizationViewModel
             {
                 Roles = _roleRepository.FindAllRoles()
             });
         }
-
 
         // POST: User/Create
         [HttpPost]
@@ -63,30 +69,37 @@ namespace AdminView.Controllers
         {
             try
             {
-                var user = new User
+                if (ModelState.IsValid)
                 {
-                    Email = model.Email,
-                    IsActive = true,
-                    Password = model.Password
-                };
-                var role = _roleRepository.FindByName(model.Role);
-                //_userRepository.Store(user);
-                //_userRepository.SaveChanges();
-                if (role.Users == null)
-                {
-                    role.Users = new List<User>();
-                }
-                role.Users.Add(user);
-                _roleRepository.Store(role);
-                _roleRepository.SaveChanges();
+                    var user = new User
+                    {
+                        Email = model.Email,
+                        IsActive = true,
+                        CreatedAt = DateTime.Now,
+                        Password = model.Password
+                    };
+                    var role = _roleRepository.FindByName(model.Role);
+                    //_userRepository.Store(user);
+                    //_userRepository.SaveChanges();
+                    if (role.Users == null)
+                    {
+                        role.Users = new List<User>();
+                    }
+                    role.Users.Add(user);
+                    _roleRepository.Store(role);
+                    _roleRepository.SaveChanges();
 
-                TempData["success"] = "Användare sparad!";
-                return RedirectToAction("index");
+                    TempData["success"] = "Användare sparad!";
+                    return RedirectToAction("index");
+                }
             }
-            catch
+            catch (Exception e)
             {
-                return View(model);
+                TempData["error"] = e.Message;
             }
+
+            model.Roles = _roleRepository.FindAllRoles();
+            return View(model);
         }
 
         // GET: User/Edit/5
@@ -112,7 +125,7 @@ namespace AdminView.Controllers
         }
 
         // GET: User/SetStatus/5
-       [RequiredPermission(Permission.CanDeleteUsers)]
+        [RequiredPermission(Permission.CanDeleteUsers)]
         public ActionResult SetStatus(string email)
         {
             var user = _roleRepository.FindByEmail(email).Users.FirstOrDefault(e => e.Email == email);
