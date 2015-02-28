@@ -14,10 +14,12 @@
             <div class="field">
                 <label>Email</label>
                 @Html.EditorFor(m => Model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
             </div>
             <div class="field">
                 <label>Lösenord</label>
                 @Html.PasswordFor(m => Model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
             </div>
             <div class="field">
                 <label>Roll</label>
