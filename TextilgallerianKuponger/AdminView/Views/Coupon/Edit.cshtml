@@ -11,15 +11,15 @@
         <form class="ui form" method="post">
             @Html.AntiForgeryToken()
 
-            
+
             <div class="field">
                 <label>
                     Kupongtyp
                 </label>
                 @Model.Type
             </div>
-            
-            
+
+
 
             <div class="field">
                 <label>
@@ -39,7 +39,7 @@
                     @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new { type = "number", min = 0, step = "0.1" })
                 </label>
             </div>
-           
+
 
             <div class="field">
                 <label>
@@ -47,7 +47,8 @@
                     @Html.TextAreaFor(m => m.Parameters["Description"])
                 </label>
             </div>
-            <div class="twelve wide column">
+
+            <div class="twelve wide column campaign-code">
                 <div class="ui one column center aligned stackable divided grid">
                     <div class="column">
                         <div class="ui icon header">
@@ -57,27 +58,21 @@
 
                         <div class="ui fluid category search" id="user-search">
                             <div class="ui icon input">
-                                <input class="prompt" type="text" id="userinput" placeholder="Sök Kunder..">
+                                <input class="prompt" type="text" id="userinput" placeholder="Sök i kundfält..">
                                 <i class="search icon" id="customer"></i>
                             </div>
                             <div class="results"></div>
                         </div>
                         <div class="ui hidden divider"></div>
-
                         <div class="field">
                             <label>
                                 Kunder
-                                @Html.TextAreaFor(m => m.CustomerString)
+                                @Html.TextAreaFor(m => m.CustomerString, new { @id = "users" })
                             </label>
-                        </div>
-
-                        <div class="ui primary button" id="readUsers">
-                            Läs in..
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="twelve wide column">
                 <div class="ui three column center aligned stackable divided grid">
                     <div class="column">
@@ -94,6 +89,7 @@
                             <div class="ui hidden divider"></div>
                             <div class="field">
                                 @Html.TextAreaFor(m => m.ProductsString)
+                                @*<textarea rows="12" cols="20"></textarea>*@
                             </div>
                         </div>
                     </div>
@@ -116,24 +112,21 @@
                     </div>
                     <div class="column">
                         <div class="ui icon header">
-                            <i class="barcode icon"></i>
+                            <i class="database icon"></i>
                             Kategorier
                         </div>
-                        <div class="ui fluid category search" id="user-search">
-                            <div class="ui icon input">
-                                <input class="prompt" type="text" id="userinput" placeholder="Sök  Kategorier/Märken.">
-                                <i class="search icon" id="customer"></i>
-                            </div>
-                            <div class="results"></div>
-                        </div>
+                        <select class="ui fluid search dropdown" id="category-dropdown">
+                            <option value="">Kategorier</option>
+                        </select>
                         <div class="ui hidden divider"></div>
                         <div class="field">
-                            <textarea rows="12" cols="20"></textarea>
+                            <textarea rows="12" cols="20" id="sub-categories"></textarea>
                         </div>
                     </div>
 
                 </div>
             </div>
+
 
 
             <div class="field">
@@ -156,19 +149,19 @@
             </div>
             @if (Model.Parameters.ContainsKey("Buy"))
             {
-            <div class="field specific-field BuyProductXReceiveProductY BuyXProductsPayForYProducts">
-                <label>
-                    Antal produkter kund behöver köpa
-                    @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa", step = "0.1" })
-                </label>
-            </div>
+                <div class="field specific-field BuyProductXReceiveProductY BuyXProductsPayForYProducts">
+                    <label>
+                        Antal produkter kund behöver köpa
+                        @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa", step = "0.1" })
+                    </label>
+                </div>
             }
             @if (Model.Parameters.ContainsKey("PayFor"))
             {
                 <div class="field specific-field BuyXProductsPayForYProduct">
                     <label>
-                        Antal produkter kund behöver betala för.              
-                            @Html.TextBoxFor(m => m.Parameters["PayFor"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för", step = "0.1" })                 
+                        Antal produkter kund behöver betala för.
+                        @Html.TextBoxFor(m => m.Parameters["PayFor"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för", step = "0.1" })
                     </label>
                 </div>
             }
@@ -183,22 +176,22 @@
                 </div>
             }
             @if (Model.Parameters.ContainsKey("FreeProduct"))
-            {    
-            <div class="field">
-                <label>
-                    @Model.Parameters["ProductName"]           
+            {
+                <div class="field">
+                    <label>
+                        @Model.Parameters["ProductName"]
                         @Html.TextBoxFor(m => m.Parameters["FreeProduct"])
-                </label>
-            </div>
+                    </label>
+                </div>
             }
             @if (Model.Parameters.ContainsKey("Percentage"))
             {
-            <div class="field specific-field TotalSumPercentageDiscoun">
-                <label>
-                    Procent                  
-                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, placeholder = "Hur många?" })              
-                </label>
-            </div>
+                <div class="field specific-field TotalSumPercentageDiscoun">
+                    <label>
+                        Procent
+                        @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, placeholder = "Hur många?" })
+                    </label>
+                </div>
             }
             <div class="field">
                 <label>
@@ -212,5 +205,6 @@
 </div>
 
 @section scripts {
+    @Scripts.Render("~/Bundles/JSON")
     @Scripts.Render("~/Bundles/CreateCoupon")
 }
