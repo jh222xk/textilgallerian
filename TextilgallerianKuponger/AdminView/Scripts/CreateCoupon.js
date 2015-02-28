@@ -48,28 +48,14 @@ function userSearch() {
     });
 }
 $("#userinput").click(function () {
-    //nollställer array varje gång man laddar in nya
     usercontent = [];
-    console.log("1");
-    //hämtar ut textarea elementet
     var users = jQuery("textarea#users").val();
-    //splittar den på radbryt
     users = users.split("\n");
     usercontent = usercontent.concat(users);
-    //loopar igenom input och gör det till ett format som sökfunktionen kan läsa
     for (var i = 0; i < usercontent.length; i++) {
         usercontent[i] = { title: usercontent[i] };
     }
-    //uppdaterar sökfuntionen
     userSearch();
-});
-$("#customer").on("click", function (e) {
-    var value = $("#userinput").val();
-    value = value.toString();
-    $("textarea#users").highlightTextarea({
-        words: [value]
-    });
-    console.log(value);
 });
 
 
