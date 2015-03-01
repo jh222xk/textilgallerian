@@ -1,7 +1,9 @@
-﻿using Domain.Entities;
+﻿using AdminView.ViewModel;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -13,17 +15,21 @@ namespace AdminView.Controllers.Helpers
         private const string Chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
         /// <summary>
-        /// 
+        /// Creates a list of customers from textarea input.
         /// </summary>
-        /// <param name="lines"></param>
-        /// <returns></returns>
-        public List<Customer> GetCustomers(string[] lines)
+        /// <param name="customerString">A string from a textarea, where each row is a new customer</param>
+        /// <returns>The list of customers</returns>
+        public List<Customer> GetCustomers(string customerString)
         {
+            //return null if no input
+            if (customerString == null) { return null; }
             
+            //split at newline and create array.
+            string[] lines = customerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var customers = new List<Customer>();
            
-            var mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
-            var ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
+            Regex mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
+            Regex ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
 
             foreach (var line in lines)
             {
@@ -44,19 +50,33 @@ namespace AdminView.Controllers.Helpers
                 }
             }
 
+            //null if no customers.
             return customers.Count > 0 ? customers : null;
         }
 
-        public List<Product> GetProducts(string[] lines)
-        {
-            var products = new List<Product>();
 
-            var productId = new Regex(@"^\d{8}$");
+        /// <summary>
+        /// Creates a list of products from textarea input.
+        /// </summary>
+        /// <param name="productsString">A string from a textarea, where each row is a new product</param>
+        /// <returns>The list of products</returns>
+        public List<Product> GetProducts(string productsString)
+        {
+            //return null if no input
+            if (productsString == null) { return null; }
+
+            //split at newline and create array.
+            string[] lines = productsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var products = new List<Product>();
+            
+            //TODO: Create real productId regex
+            Regex productId = new Regex(@"^\d{8}$");
 
             foreach (var line in lines)
             {
                 var product = new Product();
 
+                //if line is valid productId
                 if (productId.Match(line).Success)
                 {
                     product.ProductId = line;
@@ -66,7 +86,12 @@ namespace AdminView.Controllers.Helpers
             return products.Count > 0 ? products : null;
         }
 
-        public List<Customer> GenerateDispoableCodes(int amount)
+        /// <summary>
+        /// Creates disposable coupons for many customers at once. 
+        /// </summary>
+        /// <param name="amount">Number of customers.</param>
+        /// <returns></returns>
+        public List<Customer> GenerateDisposableCodes(int amount)
         {
             var customers = new List<Customer>(amount);
 
@@ -81,6 +106,11 @@ namespace AdminView.Controllers.Helpers
             return customers;
         }
 
+        /// <summary>
+        /// Creates a random string that can be used as a coupon code
+        /// </summary>
+        /// <param name="size">string length</param>
+        /// <returns></returns>
         private string RandomString(int size)
         {
             var buffer = new char[size];
@@ -93,15 +123,44 @@ namespace AdminView.Controllers.Helpers
             return new string(buffer);
         }
 
+        /// <summary>
+        /// Creates a string for a textarea from a list of customers
+        /// </summary>
+        /// <param name="customers">List of customers</param>
+        /// <returns></returns>
         public string CreateCustomerString(List<Customer> customers)
         {
+            //Uses email if available. If not, social security number.
             return string.Join(Environment.NewLine, customers.Select(c => c.Email != null ? c.Email : c.SocialSecurityNumber));
         }
 
+        /// <summary>
+        /// Creates a string for a textarea from a list of products
+        /// </summary>
+        /// <param name="products">list of products</param>
+        /// <returns></returns>
         public string CreateProductsString(List<Product> products)
         {
             return string.Join(Environment.NewLine, products.Select(p => p.ProductId));
         }
 
+        /// <summary>
+        /// Creates a coupon from a type and a list of strings describing the properties and their values.
+        /// </summary>
+        /// <param name="typeName">A string with the name of the coupon type.</param>
+        /// <param name="parameters">A dictionary for the coupon's properties and their values</param>
+        /// <returns></returns>
+        public Coupon CreateCoupon(string typeName, Dictionary<string, string> parameters)
+        {
+            //gets type of Coupon
+            var type = Assembly.GetAssembly(typeof(Coupon)).GetType(typeName);
+
+            // Magic super perfect code, do not touch!
+            //Gets the constructor for this type and runs it to create coupon.
+            var constructor = type.GetConstructor(new[] { typeof(IReadOnlyDictionary<String, String>) });
+            var coupon = constructor.Invoke(new object[] { parameters }) as Coupon;
+
+            return coupon;
+        }
     }
 }
