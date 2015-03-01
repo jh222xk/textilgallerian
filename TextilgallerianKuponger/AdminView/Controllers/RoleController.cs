@@ -13,9 +13,8 @@ namespace AdminView.Controllers
     [LoggedIn]
     public class RoleController : Controller
     {
-        private readonly RoleRepository _roleRepository;
-
         private const int PageSize = 15;
+        private readonly RoleRepository _roleRepository;
 
         public RoleController(RoleRepository roleRepository)
         {
@@ -30,7 +29,8 @@ namespace AdminView.Controllers
             {
                 PagedObjects = _roleRepository.FindAllRoles().Page(page - 1, PageSize),
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(_roleRepository.FindAllRoles().Count() / (double) PageSize)
+                TotalPages =
+                    (int) Math.Ceiling(_roleRepository.FindAllRoles().Count()/(double) PageSize)
             };
 
             return View(model);
@@ -56,12 +56,12 @@ namespace AdminView.Controllers
             if (String.IsNullOrWhiteSpace(role.Name))
             {
                 TempData["error"] = "Du måste ange ett namn";
-                return View(new Role());
+                return View(role);
             }
             if (role.Permissions == null || !role.Permissions.Any())
             {
                 TempData["error"] = "Du måste ange minst en behörighet";
-                return View(new Role());
+                return View(role);
             }
             try
             {
@@ -74,7 +74,46 @@ namespace AdminView.Controllers
             }
             catch
             {
-                return View(new Role());
+                return View(role);
+            }
+        }
+
+        [RequiredPermission(Permission.CanChangeRoles)]
+        public ActionResult Edit(String name)
+        {
+            var role = _roleRepository.FindByName(name);
+            return View(role);
+        }
+
+        [HttpPost]
+        [RequiredPermission(Permission.CanChangeRoles)]
+        public ActionResult Edit(Role model)
+        {
+            if (model.Permissions == null || !model.Permissions.Any())
+            {
+                TempData["error"] = "Du måste ange minst en behörighet";
+                return View(model);
+            }
+            if (((Role) Session["role"]).Name == model.Name &&
+                !model.Permissions.Contains(Permission.CanChangeRoles))
+            {
+                TempData["error"] = "Du kan inte ta bort dina egna rättigheter att ändra roller";
+                return View(model);
+            }
+            try
+            {
+                var role = _roleRepository.FindByName(model.Name);
+                role.Permissions = model.Permissions;
+
+                _roleRepository.Store(role);
+                _roleRepository.SaveChanges();
+
+                TempData["success"] = "Roll sparad!";
+                return RedirectToAction("index");
+            }
+            catch
+            {
+                return View(model);
             }
         }
     }

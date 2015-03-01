@@ -34,8 +34,19 @@
                 }
             </td>
             <td>
-                @Html.ActionLink(vm.User.IsActive ? "Inaktivera" : "Aktivera", "SetStatus", "User", new { vm.User.Email }, null)
-                @Html.ActionLink("Redigera", "Edit")
+                @using (Html.BeginForm("SetStatus", "User", new { vm.User.Email }))
+                {
+                    @Html.AntiForgeryToken()
+                    if (vm.User.IsActive)
+                    {
+                        <input type="submit" value="Inaktivera" class="link" />
+                    }
+                    else
+                    {
+                        <input type="submit" value="Aktivera" class="link" />
+                    }
+                    @Html.ActionLink("Redigera", "Edit", new { vm.User.Email })
+                }
             </td>
         </tr>
     }

@@ -104,7 +104,7 @@ namespace AdminView.Controllers
 
         // GET: User/Edit/5
         [RequiredPermission(Permission.CanChangeUsers)]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(String email)
         {
             return View();
         }
@@ -112,7 +112,7 @@ namespace AdminView.Controllers
         // POST: User/Edit/5
         [HttpPost]
         [RequiredPermission(Permission.CanChangeUsers)]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(User model)
         {
             try
             {
@@ -124,20 +124,16 @@ namespace AdminView.Controllers
             }
         }
 
-        // GET: User/SetStatus/5
-        [RequiredPermission(Permission.CanDeleteUsers)]
-        public ActionResult SetStatus(string email)
-        {
-            var user = _roleRepository.FindByEmail(email).Users.FirstOrDefault(e => e.Email == email);
-            return View(user);
-        }
-
         // POST: User/SetStatus/5
-        [HttpPost, ActionName("SetStatus")]
         [ValidateAntiForgeryToken]
         [RequiredPermission(Permission.CanDeleteUsers)]
-        public ActionResult SetStatusConfirmed(string email)
+        public ActionResult SetStatus(String email)
         {
+            if (email == ((User) Session["user"]).Email)
+            {
+                TempData["error"] = "Du kan inte inaktivera dig själv.";
+                return RedirectToAction("index");
+            }
             try
             {
                 var user = _roleRepository.FindByEmail(email).Users.FirstOrDefault(e => e.Email == email);
@@ -145,13 +141,12 @@ namespace AdminView.Controllers
                 _roleRepository.SaveChanges();
 
                 TempData["success"] = "Status ändrad.";
-                return RedirectToAction("index");
             }
             catch
             {
                 TempData["error"] = "Status ändringen misslyckades.";
-                return View();
             }
+            return RedirectToAction("index");
         }
     }
 }

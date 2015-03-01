@@ -42,3 +42,14 @@ td.item {
     flex-direction: column;
     flex-wrap: wrap;
 }
+
+input.link {
+    display: inline;
+    padding: 0;
+    
+    color: #009fda;
+    background: none;
+    border: none;
+    
+    cursor: pointer;
+}
