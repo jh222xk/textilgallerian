@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Reflection;
-﻿using System.Text.RegularExpressions;
 ﻿using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
 using Domain.Entities;
 using Domain.Repositories;
-using Domain.Tests.Helpers;
 using Domain.ExtensionMethods;
 using AdminView.Controllers.Helpers;
 
 namespace AdminView.Controllers
 {
- //   [LoggedIn]
+   [LoggedIn]
     public class CouponController : Controller
     {
         private readonly CouponRepository _couponRepository;
@@ -69,41 +66,32 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanAddCoupons)]
         public ActionResult Create(CouponViewModel model)
         {
-            var type = Assembly.GetAssembly(typeof(Coupon)).GetType(model.Type);
-
             List<Customer> customers = null;
-            List<Product> products = null;
             
             if (model.DisposableCodes)
             {
                 // There can't be both a campaign and disposable codes
                 model.Parameters["Code"] = null;
 
-                customers = _couponHelper.GenerateDispoableCodes(model.NumberOfCodes);
+                customers = _couponHelper.GenerateDisposableCodes(model.NumberOfCodes);
             }
-            else if (model.CustomerString != null)
+            else
             {
-                var customerLines = model.CustomerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                customers = _couponHelper.GetCustomers(customerLines);
+                customers = _couponHelper.GetCustomers(model.CustomerString);
             }
-            
-            if(model.ProductsString != null)
-            {
-                var productLines =  model.ProductsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                products = _couponHelper.GetProducts(productLines);
-            }
-           
 
-            if (!ModelState.IsValid) return View();
+            List<Product> products = _couponHelper.GetProducts(model.ProductsString);
+
+            if (!ModelState.IsValid) return View(model);
             try
             {
-                // Magic super perfect code, do not touch!
-                var constructor = type.GetConstructor(new[] { typeof(IReadOnlyDictionary<String, String>) });
-                var coupon = constructor.Invoke(new object[] { model.Parameters }) as Coupon;
+                var coupon = _couponHelper.CreateCoupon(model.Type, model.Parameters);
 
-                var user = (User) Session["user"];
+                //user that created the coupon.
+                var user = (User) Session["user"];   
+
+                //Common fields for coupons
                 coupon.CreatedBy = user.Email;
-
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
                 coupon.Products = products;
@@ -122,7 +110,7 @@ namespace AdminView.Controllers
             }
             catch (NullReferenceException)
             {
-                throw new ArgumentException("Invalid coupon type");
+                throw new ArgumentException("Ogiltig kupongtyp");
             }
             catch
             {
@@ -134,19 +122,21 @@ namespace AdminView.Controllers
 
         // GET: Coupon/Edit/5
         [RequiredPermission(Permission.CanChangeCoupons)]
-
         public ActionResult Edit(string code)
         {
             var coupon = _couponRepository.FindByCode(code);
             var dictionary = coupon.GetProperties();
             var cvm = new CouponViewModel();
             cvm.Parameters = dictionary;
+            
+            //input for textareas.
             cvm.CustomerString = coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "";
             cvm.ProductsString = coupon.Products != null ? _couponHelper.CreateProductsString(coupon.Products) : "";
-            cvm.Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName];
-
             
-            return View( cvm);
+            //gets the type of the coupon.
+            cvm.Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName];
+            
+            return View(cvm);
         }
 
         // POST: Coupon/Edit/5
@@ -154,43 +144,37 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanChangeCoupons)]
         public ActionResult Edit(CouponViewModel model)
         {
-            var coupon = _couponRepository.FindByCode(model.Parameters["Code"]);
-
-            List<Customer> customers = null;
-            List<Product> products = null;
-
-            if (model.CustomerString != null)
-            {
-                var customerLines = model.CustomerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                customers = _couponHelper.GetCustomers(customerLines);
-            }
-
-            if (model.ProductsString != null)
-            {
-                var productLines = model.ProductsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-                products = _couponHelper.GetProducts(productLines);
-            }
-
+            List<Customer> customers = _couponHelper.GetCustomers(model.CustomerString);
+            List<Product> products = _couponHelper.GetProducts(model.ProductsString);
 
             if (!ModelState.IsValid) return View();
             try
             {
+                var coupon = _couponRepository.FindByCode(model.Parameters["Code"]);
+
+                //fields specific for this type of coupon
                 coupon.SetProperties(model.Parameters);
+                
                 var user = (User)Session["user"];
+
+                //common fields for all coupons.
                 coupon.CreatedBy = user.Email;
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
                 coupon.Products = products;
                 coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
+
+
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
+
                 TempData["success"] = "Rabatt sparad!";
                 return RedirectToAction("index");
             }
             catch (NullReferenceException)
             {
-                throw new ArgumentException("Invalid coupon type");
+                throw new ArgumentException("Ogiltig kupongtyp");
             }
             catch
             {

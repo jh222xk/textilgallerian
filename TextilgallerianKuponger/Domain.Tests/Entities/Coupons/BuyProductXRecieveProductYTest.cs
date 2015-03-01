@@ -36,7 +36,7 @@ namespace Domain.Tests.Entities.Coupons
                 UseLimit = 5,
                 Buy = 3,
                 FreeProduct = _freeProduct,
-                Amount = 2,
+                AmountOfProducts = 2,
                 Products = new List<Product>
                 {
                     _validProduct

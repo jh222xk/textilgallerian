@@ -167,11 +167,20 @@
             }
             @if (Model.Parameters.ContainsKey("Amount"))
             {
-                <div class="field specific-field TotalSumAmountDiscount BuyProductXReceiveProduct">
+                <div class="field specific-field TotalSumAmountDiscount ">
                     <label>
-                        Antal
-                        @Html.TextBoxFor(m => m.Parameters["Amount"], new { type = "number", min = 0, placeholder = "Hur många?", step = "0.1" })
+                        Rabatt i kr
+                        @Html.TextBoxFor(m => m.Parameters["Amount"], new { type = "number", min = 0, placeholder = "Rabatt i kr", step = "0.1" })
 
+                    </label>
+                </div>
+            }
+            @if (Model.Parameters.ContainsKey("AmountOfProducts"))
+            {
+                <div class="field specific-field BuyProductXRecieveProductY ">
+                    <label>
+                        Antal gratis produkter
+                        @Html.TextBoxFor(m => m.Parameters["AmountOfProducts"], new { type = "number", min = 0, placeholder = "Hur många?", step = "0.1" })
                     </label>
                 </div>
             }

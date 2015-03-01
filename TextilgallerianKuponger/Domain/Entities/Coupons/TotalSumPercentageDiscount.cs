@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Domain.Entities
 {
@@ -20,13 +21,13 @@ namespace Domain.Entities
         public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
             base.SetProperties(properties);
-            Percentage = Decimal.Parse(properties["Percentage"].Replace('.', ','));
+            Percentage = Decimal.Parse(properties["Percentage"], CultureInfo.InvariantCulture);
         }
 
         public override Dictionary<string, string> GetProperties()
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("Percentage", Percentage.ToString().Replace(',', '.'));
+            dictionary.Add("Percentage", Percentage.ToString(CultureInfo.InvariantCulture));
 
             return dictionary;
         }
