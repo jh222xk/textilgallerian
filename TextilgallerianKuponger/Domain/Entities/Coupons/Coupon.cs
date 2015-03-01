@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Domain.Entities
@@ -17,7 +18,7 @@ namespace Domain.Entities
             Start = DateTime.Parse(properties["Start"]);
             End = properties["End"] == "" ? new DateTime?() : DateTime.Parse(properties["End"]);
             UseLimit = int.Parse(properties["UseLimit"]);
-            MinPurchase = Decimal.Parse(properties["MinPurchase"].Replace('.', ','));
+            MinPurchase = Decimal.Parse(properties["MinPurchase"], CultureInfo.InvariantCulture);
         }
 
         public virtual Dictionary<string, string> GetProperties()
@@ -30,7 +31,7 @@ namespace Domain.Entities
                 {"Start", Start.ToString("yyyy-MM-dd")},
                 {"End", End.HasValue ? End.Value.ToString("yyyy-MM-dd") : null},
                 {"UseLimit", UseLimit.ToString()},
-                {"MinPurchase", MinPurchase.ToString().Replace(',', '.')}     
+                {"MinPurchase", MinPurchase.ToString(CultureInfo.InvariantCulture)}     
             };
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Domain.Entities
 {
@@ -20,7 +21,7 @@ namespace Domain.Entities
         public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
             base.SetProperties(properties);
-            Amount = Decimal.Parse(properties["Amount"].Replace('.',','));
+            Amount = Decimal.Parse(properties["Amount"], CultureInfo.InvariantCulture);
         }
 
         public Decimal Amount { get; set; }
@@ -28,7 +29,7 @@ namespace Domain.Entities
         public override Dictionary<string, string> GetProperties()
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("Amount", Amount.ToString().Replace(',', '.'));
+            dictionary.Add("Amount", Amount.ToString(CultureInfo.InvariantCulture));
 
             return dictionary;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Domain.Entities
 {
@@ -23,9 +24,11 @@ namespace Domain.Entities
         public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
             base.SetProperties(properties);
-            Amount = Decimal.Parse(properties["Amount"].Replace('.', ','));
-            Buy = Decimal.Parse(properties["Buy"].Replace('.', ','));
-            // Todo Add Freeproduct and productName ?
+            AmountOfProducts = Decimal.Parse(properties["AmountOfProducts"], CultureInfo.InvariantCulture);
+            Buy = Decimal.Parse(properties["Buy"], CultureInfo.InvariantCulture);
+            //TODO: Check if "FreeProduct" is valid!!
+            FreeProduct = new Product { ProductId = properties["FreeProduct"]};
+
         }
 
     
@@ -33,10 +36,10 @@ namespace Domain.Entities
         public override Dictionary<string, string> GetProperties()
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("Amount", Amount.ToString().Replace(',', '.'));
-            dictionary.Add("Buy", Buy.ToString().Replace(',', '.'));
-            dictionary.Add("FreeProduct", FreeProduct.ProductId.ToString());
-            dictionary.Add("ProductName", FreeProduct.Name.ToString());
+            dictionary.Add("AmountOfProducts", AmountOfProducts.ToString(CultureInfo.InvariantCulture));
+            dictionary.Add("Buy", Buy.ToString(CultureInfo.InvariantCulture));
+            dictionary.Add("FreeProduct", FreeProduct.ProductId);
+            dictionary.Add("ProductName", FreeProduct.Name);
 
             return dictionary;
         }
@@ -49,7 +52,7 @@ namespace Domain.Entities
         /// <summary>
         ///     How many free products
         /// </summary>
-        public Decimal Amount { get; set; }
+        public Decimal AmountOfProducts { get; set; }
 
         ///// <summary>
         /////     How many products customer need to buy
@@ -64,7 +67,7 @@ namespace Domain.Entities
         {
             cart.Rows.Add(new Row
             {
-                Amount = Amount,
+                Amount = AmountOfProducts,
                 Product = FreeProduct,
                 ProductPrice = 0
             });
