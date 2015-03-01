@@ -37,10 +37,7 @@
           onChange: function (value, text) {
               content = $('textarea#sub-categories').val();
               $.each(categories["KATEGORIER"][text], function (i, l) {
-                  if ($('textarea#sub-categories:contains('+l+')').length > 0) {
-                      alert('1');
-                      return;
-                  }
+
                   var item = l+"\n";
                   content = content + item;
              
