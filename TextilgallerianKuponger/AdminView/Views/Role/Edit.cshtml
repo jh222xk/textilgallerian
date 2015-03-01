@@ -1,0 +1,35 @@
+﻿@using AdminView.ViewModel
+@model Domain.Entities.Role
+
+@{
+    ViewBag.Title = "Role";
+}
+
+<h2>Ändra rollen @Model.Name</h2>
+
+
+<form class="ui form" method="post">
+    @Html.AntiForgeryToken()
+
+    @foreach (var item in UserViewModel.Permissions)
+    {
+        <div class="inline field">
+            <div class="ui checkbox">
+                @if (Model.Permissions.Contains(item.Key))
+                {
+                    <input type="checkbox" name="Permissions" value="@item.Key" checked />
+                }
+                else
+                {
+                    <input type="checkbox" name="Permissions" value="@item.Key" />
+                }
+                <label>@item.Value</label>
+            </div>
+        </div>
+    }
+
+    <input type="submit" class="ui green button" value="Ändra roll" />
+</form>
+@section scripts {
+    @Scripts.Render("~/Bundles/CreateRole")
+}
