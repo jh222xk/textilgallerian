@@ -1,4 +1,4 @@
-﻿@model AdminView.ViewModel.PagedViewModel<Domain.Entities.User>
+﻿@model AdminView.ViewModel.PagedViewModel<AdminView.ViewModel.AuthorizationViewModel>
 
 @{
     ViewBag.Title = "Användare";
@@ -14,17 +14,17 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var user in Model.PagedObjects)
+    @foreach (var vm in Model.PagedObjects)
     {
         <tr>
             <td>
-                @user.Email
+                @vm.User.Email
             </td>
             <td>
-                Behörigheter från databasen skall finnas här!
+                @vm.Role
             </td>
             <td>
-                @if (user.IsActive)
+                @if (vm.User.IsActive)
                 {
                     <i class="icon green checkmark"></i>
                 }
@@ -34,7 +34,7 @@
                 }
             </td>
             <td>
-                @Html.ActionLink(user.IsActive ?  "Inaktivera" : "Aktivera", "SetStatus", "User", new { user.Email },null)
+                @Html.ActionLink(vm.User.IsActive ? "Inaktivera" : "Aktivera", "SetStatus", "User", new { vm.User.Email }, null)
                 @Html.ActionLink("Redigera", "Edit")
             </td>
         </tr>

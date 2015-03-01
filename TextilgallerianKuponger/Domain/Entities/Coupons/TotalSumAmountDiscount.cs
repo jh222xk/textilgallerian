@@ -20,7 +20,7 @@ namespace Domain.Entities
         public override void SetProperties(IReadOnlyDictionary<string, string> properties)
         {
             base.SetProperties(properties);
-            Amount = Decimal.Parse(properties["Amount"]);
+            Amount = Decimal.Parse(properties["Amount"].Replace('.',','));
         }
 
         public Decimal Amount { get; set; }
@@ -28,7 +28,7 @@ namespace Domain.Entities
         public override Dictionary<string, string> GetProperties()
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("Amount", Amount.ToString());
+            dictionary.Add("Amount", Amount.ToString().Replace(',', '.'));
 
             return dictionary;
         }

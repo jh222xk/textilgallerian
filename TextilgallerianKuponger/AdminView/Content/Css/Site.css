@@ -1,4 +1,4 @@
-body { background-color: #ffffff;}
+body { background-color: #eff0ea;}
 
 .hidden { visibility: hidden; }
 
@@ -34,4 +34,11 @@ body { background-color: #ffffff;}
 
 td.item {
     line-height: 2;
+}
+.ui.segment {
+    max-height: 200px;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
 }

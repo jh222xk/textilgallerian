@@ -5,9 +5,7 @@
     ViewBag.Title = "Role";
 }
 
-<h2>Skapa ny roll</h2>
-
-
+<h2 class="ui large header">Skapa ny roll</h2>
 <form class="ui form" method="post">
     @Html.AntiForgeryToken()
 
@@ -15,17 +13,18 @@
         <label>Namn</label>
         @Html.TextBoxFor(m => m.Name, new {placeholder="T.ex. Administratör"})
     </div>
-
-    @foreach (var item in UserViewModel.Permissions)
-    {
-        <div class="inline field">
-            <div class="ui checkbox">
-                <input type="checkbox" name="Permissions" value="@item.Key" />
-                <label>@item.Value</label>
+    <div class="ui segment">
+        @foreach (var item in UserViewModel.Permissions)
+        {
+            <div class="inline field">
+                <div class="ui checkbox">
+                    <input type="checkbox" name="Permissions" value="@item.Key" />
+                    <label>@item.Value</label>
+                </div>
             </div>
-        </div>
-    }
-
+            
+        }
+    </div>
     <input type="submit" class="ui green button" value="Skapa roll" />
 </form>
 @section scripts {

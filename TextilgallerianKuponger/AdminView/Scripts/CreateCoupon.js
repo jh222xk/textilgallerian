@@ -1,4 +1,5 @@
 ﻿window.addEventListener('load', function () {
+   
     var dropdown = document.querySelector('.type');
     var disposable = document.querySelector('.disposable');
     var specificFields = document.querySelectorAll('.specific-field');
@@ -14,6 +15,7 @@
                 field.hidden = true;
             }
         });
+    
 
         var currentFields = document.getElementsByClassName(type);
 
@@ -35,3 +37,28 @@
 
     showCorrectFields();
 });
+
+
+var usercontent = [];
+function userSearch() {
+    $("#user-search").search({
+        source: usercontent,
+        searchFullText: false,
+        cache: false
+    });
+}
+$("#userinput").click(function () {
+    usercontent = [];
+    var users = jQuery("textarea#users").val();
+    users = users.split("\n");
+    usercontent = usercontent.concat(users);
+    for (var i = 0; i < usercontent.length; i++) {
+        usercontent[i] = { title: usercontent[i] };
+    }
+    userSearch();
+});
+
+
+
+
+

@@ -15,6 +15,13 @@ namespace AdminView.Tests.Steps
         public void BeforeEditingScenario()
         {
             Driver = new PhantomJSDriver();
+            Login("editor@admin.com", "password");
+        }
+
+        [BeforeScenario("admin")]
+        public void BeforeAdminScenario()
+        {
+            Driver = new PhantomJSDriver();
             Login("admin@admin.com", "password");
         }
 
@@ -68,7 +75,7 @@ namespace AdminView.Tests.Steps
         [When(@"I navigate to (.*)")]
         public void WhenINavigateTo(String path)
         {
-            var rootUrl = new Uri("http://localhost:1235");
+            var rootUrl = new Uri("http://localhost:8000");
             var absoluteUrl = new Uri(rootUrl, path);
             Driver.Navigate().GoToUrl(absoluteUrl);
         }
@@ -92,13 +99,13 @@ namespace AdminView.Tests.Steps
         {
             try
             {
-                Driver.FindElement(By.LinkText(button)).Click();
+                Driver.FindElement(
+                By.CssSelector(String.Format("input[type='submit'][value='{0}']", button)))
+                .Click();
             }
             catch (NoSuchElementException)
             {
-                Driver.FindElement(
-                    By.CssSelector(String.Format("input[type='submit'][value='{0}']", button)))
-                    .Click();
+                Driver.FindElement(By.LinkText(button)).Click();
             }
         }
 

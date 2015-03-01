@@ -12,16 +12,16 @@ namespace AdminView.Tests
 
         private readonly CommonSteps _common = new CommonSteps();
 
-        [Given(@"I am on the User Page")]
+        [Given(@"I am on the add new user page")]
         public void GivenIAmOnTheUserPage()
         {
-            _common.WhenINavigateTo("/User");
+            _common.WhenINavigateTo("/user/create");
         }
 
         [Given(@"And I have clicked Add new User")]
         public void GivenIHaveClickedAddNewUser()
         {
-            _common.WhenIPress("Add new User");
+            _common.WhenIPress("Skapa användare");
         }
 
         [Then(@"a new User named ""(.*)"" should exist")]
@@ -39,49 +39,47 @@ namespace AdminView.Tests
         [Given(@"I am on the users page")]
         public void GivenIAmOnTheUsersPage()
         {
-            ScenarioContext.Current.Pending();
+            _common.WhenINavigateTo("/user/");
         }
 
-        [When(@"I have selected ""(.*)"" in the ""(.*)"" dropdown")]
-        public void WhenIHaveSelectedInTheDropdown(string p0, string p1)
+        [When(@"I visit the the user creation page")]
+        public void WhenIVisitTheTheUserCreationPage()
         {
-            ScenarioContext.Current.Pending();
+            _common.WhenINavigateTo("/user/create/");
         }
 
-        [Then(@"a user with email ""(.*)"" and password ""(.*)"" should exist")]
-        public void ThenAUserWithEmailAndPasswordShouldExist(string p0, string p1)
+
+        [Then(@"I should be redirected to the user page")]
+        public void ThenIShouldBeRedirectedToTheUserPage()
         {
-            ScenarioContext.Current.Pending();
+            _common.WhenINavigateTo("/user/");
+        }
+
+
+        [Given(@"I have selected ""(.*)"" in the ""(.*)"" dropdown")]
+        public void WhenIHaveSelectedInTheDropdown(String name, String value)
+        {
+            Driver.FindElement(By.XPath("//option[@value = '" + name + "']")).Click();
+        }
+
+        [Then(@"a user with email ""(.*)"" should exist")]
+        public void ThenAUserWithEmailShouldExist(String value)
+        {
+            Driver.PageSource.should_contain(value);
         }
 
         [Then(@"the user ""(.*)"" should have the role ""(.*)""")]
-        public void ThenTheUserShouldHaveTheRole(string p0, string p1)
+        public void ThenTheUserShouldHaveTheRole(String user, String role)
         {
-            ScenarioContext.Current.Pending();
-        }
-
-        [Then(@"no user with email ""(.*)"" should exist")]
-        public void ThenNoUserWithEmailShouldExist(string p0)
-        {
-            ScenarioContext.Current.Pending();
+            Driver.PageSource.should_contain(role);
         }
 
         [Given(@"I am signed in as an user with role ""(.*)""")]
-        public void GivenIAmSignedInAsAnUserWithRole(string p0)
+        public void GivenIAmSignedInAsAnUserWithRole(String role)
         {
-            ScenarioContext.Current.Pending();
+            _common.WhenINavigateTo("/user/create");
+            Driver.PageSource.should_contain(role);
         }
 
-        [When(@"I am on the users page")]
-        public void WhenIAmOnTheUsersPage()
-        {
-            ScenarioContext.Current.Pending();
-        }
-
-        [Then(@"the link ""(.*)"" should be missing")]
-        public void ThenTheLinkShouldBeMissing(string p0)
-        {
-            ScenarioContext.Current.Pending();
-        }
     }
 }

@@ -10,7 +10,7 @@
         <tr>
             <th>Namn</th>
             <th>Behörighet</th>
-            <th></th>
+            <th>Val</th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +27,8 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Ändra", "edit", "role", new { role.Name }, null)
+                    @Html.ActionLink("Ta bort", "delete", "role", new { role.Name }, null)
+                    @Html.ActionLink("Redigera", "edit", "role", new { role.Name }, null)
                 </td>
             </tr>
         }

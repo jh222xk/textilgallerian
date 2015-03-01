@@ -15,7 +15,7 @@ using AdminView.Controllers.Helpers;
 
 namespace AdminView.Controllers
 {
-    [LoggedIn]
+ //   [LoggedIn]
     public class CouponController : Controller
     {
         private readonly CouponRepository _couponRepository;
@@ -136,13 +136,16 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanChangeCoupons)]
 
         public ActionResult Edit(string code)
-
         {
             var coupon = _couponRepository.FindByCode(code);
             var dictionary = coupon.GetProperties();
             var cvm = new CouponViewModel();
             cvm.Parameters = dictionary;
+            cvm.CustomerString = coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "";
+            cvm.ProductsString = coupon.Products != null ? _couponHelper.CreateProductsString(coupon.Products) : "";
+            cvm.Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName];
 
+            
             return View( cvm);
         }
 
@@ -194,7 +197,7 @@ namespace AdminView.Controllers
                 TempData["error"] = "Misslyckades att spara rabatten!";
             }
 
-            return View();
+            return View(model);
         }
 
         // GET: /Coupon/Delete/:code

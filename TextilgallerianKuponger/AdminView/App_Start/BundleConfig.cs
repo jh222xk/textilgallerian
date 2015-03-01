@@ -21,10 +21,12 @@ namespace AdminView
 
             bundles.Add(new ScriptBundle("~/bundles/CreateRole").Include(
                 "~/Scripts/CreateRole.js"));
+            bundles.Add(new ScriptBundle("~/bundles/JSON").Include(
+             "~/Scripts/JSON.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/Css/semantic.min.css",
-                "~/Content/Css/site.css"));
+                 "~/Content/Css/site.css",
+               "~/Content/Css/semantic.min.css"));
         }
     }
 }

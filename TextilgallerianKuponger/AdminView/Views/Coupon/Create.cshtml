@@ -4,8 +4,6 @@
 @{
     ViewBag.Title = "Skapa ny rabatt";
 }
-
-<h2 class="ui large header">Skapa ny rabatt</h2>
 <div class="row">
     <div class="column">
         <form class="ui form" method="post">
@@ -65,7 +63,7 @@
 
                         <div class="ui fluid category search" id="user-search">
                             <div class="ui icon input">
-                                <input class="prompt" type="text" id="userinput" placeholder="Sök Kunder..">
+                                <input class="prompt" type="text" id="userinput" placeholder="Sök i kundfält..">
                                 <i class="search icon" id="customer"></i>
                             </div>
                             <div class="results"></div>
@@ -74,12 +72,8 @@
                         <div class="field">
                             <label>
                                 Kunder
-                                @Html.TextAreaFor(m => m.CustomerString)
+                                @Html.TextAreaFor(m => m.CustomerString, new { @id = "users" })
                             </label>
-                        </div>
-
-                        <div class="ui primary button" id="readUsers">
-                            Läs in..
                         </div>
                     </div>
                 </div>
@@ -125,19 +119,15 @@
                     </div>
                     <div class="column">
                         <div class="ui icon header">
-                            <i class="barcode icon"></i>
+                            <i class="database icon"></i>
                             Kategorier
                         </div>
-                        <div class="ui fluid category search" id="user-search">
-                            <div class="ui icon input">
-                                <input class="prompt" type="text" id="userinput" placeholder="Sök  Kategorier/Märken.">
-                                <i class="search icon" id="customer"></i>
-                            </div>
-                            <div class="results"></div>
-                        </div>
+                        <select class="ui fluid search dropdown" id="category-dropdown">
+                            <option value="">Kategorier</option>
+                        </select>
                         <div class="ui hidden divider"></div>
                         <div class="field">
-                            <textarea rows="12" cols="20"></textarea>
+                            <textarea rows="12" cols="20" id="sub"></textarea>
                         </div>
                     </div>
 
@@ -216,5 +206,6 @@
 </div>
 
 @section scripts {
+    @Scripts.Render("~/Bundles/JSON")
     @Scripts.Render("~/Bundles/CreateCoupon")
 }
