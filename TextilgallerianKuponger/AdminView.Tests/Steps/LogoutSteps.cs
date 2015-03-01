@@ -14,10 +14,10 @@ namespace AdminView.Tests.Steps
             _common.WhenINavigateTo("/");
         }
 
-        [Then(@"I should be logged in")]
-        public void ThenIShouldBeLoggedIn()
+        [Given(@"I am logged in")]
+        public void GivenIAmLoggedIn()
         {
-            Driver.FindElement(By.LinkText("Logga ut"));
+            _common.BeforeEditingScenario();
         }
 
         [Then(@"I should be logged out")]

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AdminView.Tests.Steps;
 using NSpec;
 using OpenQA.Selenium;
@@ -71,7 +72,9 @@ namespace AdminView.Tests
         [Then(@"the user ""(.*)"" should have the role ""(.*)""")]
         public void ThenTheUserShouldHaveTheRole(String user, String role)
         {
-            Driver.PageSource.should_contain(role);
+            var element =
+                Driver.FindElements(By.TagName("td")).SkipWhile(e => !e.Text.Contains(user)).Skip(1).First();
+            element.Text.should_contain(role);
         }
 
         [Given(@"I am signed in as an user with role ""(.*)""")]

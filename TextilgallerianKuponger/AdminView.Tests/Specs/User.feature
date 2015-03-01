@@ -8,23 +8,22 @@ Scenario: Add a new user with read permission
 	Given I am on the add new user page 
 		And I have entered "linus@textilgallerian.se" in the "Email" field
 		And I have entered "password" in the "Password" field
-		And I have selected "Read" in the "Role" dropdown
+		And I have selected "Reader" in the "Role" dropdown
 	When I press "Skapa användare"
 	Then the system should present "Användare sparad!"
 		And a user with email "linus@textilgallerian.se" should exist
-		And the user "linus@textilgallerian.se" should have the role "Read"
+		And the user "linus@textilgallerian.se" should have the role "Reader"
 
-@admin	
+@admin
 Scenario: Add a new user with update permission
-	Given I am on the users page 
-	When I press "Lägg till ny användare"
-		And I enter "Per@Textilgallerian.se" in the "Email" field
+	Given I am on the add new user page
+		And I have entered "Per@Textilgallerian.se" in the "Email" field
 		And I have entered "secure" in the "Password" field
-		And I have entered "secure" in the "PasswordConfirmation" field
-		And I have selected "redigera" in the "Role" dropdown
-	Then the system should present "Användaren har skapats"
-		And a user with email "Per@Textilgallerian.se" and password "secure" should exist
-		And the user "per@textilgallerian.se" should have the role "redigera"
+		And I have selected "Editor" in the "Role" dropdown
+	When I press "Skapa användare"
+	Then the system should present "Användare sparad!"
+		And a user with email "Per@Textilgallerian.se" should exist
+		And the user "Per@Textilgallerian.se" should have the role "Editor"
 
 @editor	
 Scenario: Add a new user when not beeing admin

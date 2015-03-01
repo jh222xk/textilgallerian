@@ -33,7 +33,7 @@ namespace AdminView.Controllers
         {
             var model = new PagedViewModel<Coupon>
             {
-                PagedObjects = _couponRepository.FindAllCoupons().OrderBy(c => c.CreatedAt).Page(page - 1, PageSize),
+                PagedObjects = _couponRepository.FindAllCoupons().OrderByDescending(c => c.CreatedAt).Page(page - 1, PageSize),
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling(_couponRepository.FindAllCoupons().Count() / (double) PageSize)
             };
