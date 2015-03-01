@@ -15,7 +15,7 @@ using AdminView.Controllers.Helpers;
 
 namespace AdminView.Controllers
 {
- //   [LoggedIn]
+   [LoggedIn]
     public class CouponController : Controller
     {
         private readonly CouponRepository _couponRepository;
