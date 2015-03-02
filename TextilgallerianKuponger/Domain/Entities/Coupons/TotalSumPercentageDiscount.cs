@@ -40,7 +40,23 @@ namespace Domain.Entities
         /// </summary>
         public override Decimal CalculateDiscount(Cart cart)
         {
-            return cart.TotalSum*Percentage;
+            Decimal discount = 0;
+
+            if(Products == null)
+            {
+                return cart.TotalSum * Percentage;
+            }
+            else
+            {
+                foreach (Row row in cart.Rows)
+                {
+                    if(Products.Exists(p => p.ProductId == row.Product.ProductId))
+                    {
+                        discount = row.ProductPrice * Percentage;
+                    }
+                }
+            }
+            return discount;
         }
     }
 }

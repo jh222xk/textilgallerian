@@ -10,7 +10,8 @@ namespace Domain.Tests.Entities
     public class TotalSumPercentageDiscountTest
     {
         private Cart _cart;
-        private TotalSumPercentageDiscount _coupon;
+        private TotalSumPercentageDiscount _couponWithoutProducts;
+        private TotalSumPercentageDiscount _couponWithProducts;
         private Product _validProduct;
 
         /// <summary>
@@ -21,10 +22,20 @@ namespace Domain.Tests.Entities
         {
             _validProduct = Testdata.RandomProduct();
 
-            _coupon = Testdata.RandomCoupon(new TotalSumPercentageDiscount
+            _couponWithoutProducts = Testdata.RandomCoupon(new TotalSumPercentageDiscount
             {
                 Percentage = 0.3m
             });
+            _couponWithoutProducts.Products = null;
+
+            _couponWithProducts = new TotalSumPercentageDiscount()
+            {
+                Percentage = 0.1m,
+                Products = new List<Product>
+                {
+                    _validProduct
+                }
+            };
 
             _cart = new Cart
             {
@@ -48,12 +59,39 @@ namespace Domain.Tests.Entities
         }
 
         /// <summary>
-        ///     The sum of the discount is in percantage of the whole cart value
+        ///     The sum of the discount is in percantage of the whole cart value. The coupon has no specified products.
         /// </summary>
         [TestMethod]
-        public void TestThatTheCorrectDiscountIsCalculated()
+        public void TestThatTheCorrectDiscountIsCalculatedIfNoProductsSpecified()
         {
-            _coupon.CalculateDiscount(_cart).should_be(210);
+            _couponWithoutProducts.CalculateDiscount(_cart).should_be(210);
         }
+
+        /// <summary>
+        /// Check that discount is correct if not all products are valid for the discount
+        /// </summary>
+        [TestMethod]
+        public void TestThatDiscountIsCorrectIfProductsAreSpecifiedAndValid()
+        {
+            _couponWithProducts.CalculateDiscount(_cart).should_be(10);
+        }
+
+        /// <summary>
+        /// Check so discount is 0 if the products specified in the coupon is not in the provided cart.
+        /// </summary>
+        [TestMethod]
+        public void TestThatDiscountIsZeroIfProductsAreSpecifiedButNotInCart()
+        {
+            _couponWithProducts.Products = new List<Product>
+            {
+                new Product()
+                {
+                    ProductId = "notTheOneInCart"
+                }
+            };
+            _couponWithProducts.CalculateDiscount(_cart).should_be(0);
+        }
+
+
     }
 }
