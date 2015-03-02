@@ -69,7 +69,13 @@ namespace AdminView.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                //Email has to be unique
+                if(_roleRepository.FindByEmail(model.Email) != null)
+                {
+                    TempData["Error"] = "Det finns redan en användare med denna E-mailadress.";
+                }
+
+                else if (ModelState.IsValid)
                 {
                     var user = new User
                     {
