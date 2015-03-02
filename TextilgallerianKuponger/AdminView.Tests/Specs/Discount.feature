@@ -84,6 +84,7 @@ Scenario: Add new take Y pay for X discount
 		And it should have a "Startdatum" of "2015-06-01"
 		And it should have a "Slutdatum" of "2015-08-30"
 
+@ignore
 Scenario: Add new buy product X and recieve product Y discount
     Given I am on the add new discount page
 		And I have selected the "BuyProductXRecieveProductY" in the discount type field

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Configuration;
 using NSpec;
 using OpenQA.Selenium;
-using OpenQA.Selenium.PhantomJS;
 using TechTalk.SpecFlow;
 
 namespace AdminView.Tests.Steps
@@ -14,21 +12,19 @@ namespace AdminView.Tests.Steps
         [BeforeScenario("editor")]
         public void BeforeEditingScenario()
         {
-            Driver = new PhantomJSDriver();
             Login("editor@admin.com", "password");
         }
 
         [BeforeScenario("admin")]
         public void BeforeAdminScenario()
         {
-            Driver = new PhantomJSDriver();
             Login("admin@admin.com", "password");
         }
 
         [AfterScenario]
         public void TearDown()
         {
-            Driver.Quit();
+            Dispose();
         }
 
         public void Login(String email, String password)
@@ -47,7 +43,6 @@ namespace AdminView.Tests.Steps
         [BeforeScenario("logout")]
         public void BeforeAuthenticationScenario()
         {
-            Driver = new PhantomJSDriver();
             try
             {
                 WhenIPress("Logga ut");
@@ -55,15 +50,6 @@ namespace AdminView.Tests.Steps
             catch
             { }
         }
-
-//        [Then(@"I would need to login")]
-//        public void ThenIWouldNeedToLogin()
-//        {
-//            WhenINavigateTo("/");
-//            Driver.FindElement(By.Name("username")).SendKeys("admin@admin.com");
-//            Driver.FindElement(By.Name("password")).SendKeys("password");
-//            WhenIPress("Login");
-//        }
 
         [Then(@"I would need to login")]
         public void ThenIWouldNeedToLogin()
@@ -119,21 +105,10 @@ namespace AdminView.Tests.Steps
             }
             catch (NoSuchElementException)
             {
-                Driver.FindElement(By.Name(String.Format("Parameters[{0}]", field))).SendKeys(value);
+                field = String.Format("Parameters[{0}]", field);
+                Driver.PageSource.should_contain(field);
+                Driver.FindElement(By.Name(field)).SendKeys(value);
             }
         }
-
-//        [Given(@"I have entered ""(.*)"" in the ""(.*)"" field")]
-//        public void GivenIHaveEnteredInTheField(string value, string field)
-//        {
-//            try
-//            {
-//                Driver.FindElement(By.Name(field)).GetAttribute("value").should_be_same(value);
-//            }
-//            catch (NoSuchElementException)
-//            {
-//                Driver.FindElement(By.Name(String.Format("Parameters[{0}]", field))).GetAttribute("value").should_be_same(value);
-//            }
-//        }
     }
 }

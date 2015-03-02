@@ -21,6 +21,7 @@ namespace AdminView.Tests
         [Given(@"I have selected the ""(.*)"" in the discount type field")]
         public void GivenIHaveSelectedTheInTheDiscountTypeField(String type)
         {
+            Driver.PageSource.should_contain("Välj typ av kampanj");
             Driver.FindElement(By.Name("Type")).Click();
             Driver.FindElement(By.CssSelector(String.Format("option[value='Domain.Entities.{0}']", type))).Click();
         }
