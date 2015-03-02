@@ -60,7 +60,6 @@
                             <i class="users icon"></i>
                             Kunder
                         </div>
-
                         <div class="ui fluid category search" id="user-search">
                             <div class="ui icon input">
                                 <input class="prompt" type="text" id="userinput" placeholder="Sök i kundfält..">
@@ -78,8 +77,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="twelve wide column">
                 <div class="ui three column center aligned stackable divided grid">
                     <div class="column">
@@ -87,16 +84,16 @@
                             <i class="tags icon"></i>
                             Produkter
                         </div>
-                        <div class="ui fluid category search">
+                        <div class="ui fluid category search" id="product-search">
                             <div class="ui icon input">
-                                <input class="prompt positive" type="text" placeholder="Sök på produkter..">
-                                <i class="tags  icon"></i>
+                                <input class="prompt" type="text" id="userinput" placeholder="Sök produkter..">
+                                <i class="search icon" id="product"></i>
                             </div>
-                            <div class="result"></div>
-                            <div class="ui hidden divider"></div>
-                            <div class="field">
-                                @Html.TextAreaFor(m => m.ProductsString)
-                            </div>
+                            <div class="results"></div>
+                        </div>
+                        <div class="ui hidden divider"></div>
+                        <div class="field">
+                            @Html.TextAreaFor(m => m.ProductsString, new { id = "products" })
                         </div>
                     </div>
                     <div class="column">
@@ -104,16 +101,12 @@
                             <i class="barcode icon"></i>
                             Märken
                         </div>
-                        <div class="ui fluid category search" id="user-search">
-                            <div class="ui icon input">
-                                <input class="prompt" type="text" id="userinput" placeholder="Sök  Kategorier/Märken.">
-                                <i class="search icon" id="customer"></i>
-                            </div>
-                            <div class="results"></div>
-                        </div>
+                        <select class="ui fluid search dropdown" id="brand-dropdown">
+                            <option value="">Märken</option>
+                        </select>
                         <div class="ui hidden divider"></div>
                         <div class="field">
-                            <textarea rows="12" cols="20"></textarea>
+                            <textarea rows="12" cols="20" id="brands"></textarea>
                         </div>
                     </div>
                     <div class="column">
@@ -132,8 +125,6 @@
 
                 </div>
             </div>
-
-
             <div class="field">
                 <label>
                     Startdatum:
@@ -185,7 +176,6 @@
                     @Html.TextBoxFor(m => m.Parameters["AmountOfProducts"], new { type = "number", min = 0, placeholder = "Antal gratis produkter", required = "required " })
                 </label>
             </div>
-
             <div class="field">
                 <label>
                     Vilken produkt?
@@ -205,7 +195,6 @@
                     @Html.CheckBoxFor(m => m.CanBeCombined)
                 </label>
             </div>
-
             <input type="submit" name="name" class="ui button green" value="Skapa rabatt"/>
         </form>
     </div>
@@ -215,3 +204,12 @@
     @Scripts.Render("~/Bundles/JSON")
     @Scripts.Render("~/Bundles/CreateCoupon")
 }
+<script type="text/javascript">
+        //Stop Form Submission of Enter Key Press
+        function stopRKey(evt) {
+            var evt = (evt) ? evt : ((event) ? event : null);
+            var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+            if ((evt.keyCode == 13) && (node.type == "text")) { return false; }
+        }
+        document.onkeypress = stopRKey;
+</script>
