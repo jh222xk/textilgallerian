@@ -18,7 +18,7 @@
             <div class="field">
                 <label>
                     Kampanjnamn
-                    @Html.TextBoxFor(m => m.Parameters["Name"])
+                    @Html.TextBoxFor(m => m.Parameters["Name"], new { required = "required " })
                 </label>
             </div>
             <div class="field">
@@ -37,7 +37,7 @@
             <div class="field campaign-code">
                 <label>
                     Kampanjkod
-                    @Html.TextBoxFor(m => m.Parameters["Code"])
+                    @Html.TextBoxFor(m => m.Parameters["Code"], new { required = "required " })
                 </label>
             </div>
             <div class="field disposable-codes">
@@ -50,7 +50,7 @@
             <div class="field">
                 <label>
                     Minsta köpsumma
-                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new {type = "number", min = 0, @Value = 0})
+                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new {type = "number", min = 0, @Value = 0, required = "required " })
                 </label>
             </div>
             <div class="twelve wide column campaign-code">
@@ -137,7 +137,7 @@
             <div class="field">
                 <label>
                     Startdatum:
-                    @Html.TextBoxFor(m => m.Parameters["Start"], new {type = "date"})
+                    @Html.TextBoxFor(m => m.Parameters["Start"], new {type = "date" , required = "required "})
                 </label>
             </div>
             <div class="field">
@@ -149,7 +149,7 @@
             <div class="field">
                 <label>
                     Hur många gånger får rabatten användas?
-                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new { type = "number", min = 0, placeholder = "Hur många?", @Value = 1 })
+                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new { type = "number", min = 0, placeholder = "Hur många?",  required = "required " })
                 </label>
                 <div class="help">
                     Hur många gånger rabatten  får användas av samma kund eller hur många gånger samma kod får användas
@@ -158,7 +158,7 @@
             <div class="field specific-field BuyProductXRecieveProductY BuyXProductsPayForYProducts">
                 <label>
                     Antal produkter som krävs
-                    @Html.TextBoxFor(m => m.Parameters["Buy"], new {type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa"})
+                    @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa", required = "required " })
                 </label>
                 <div class="help">
                     T.ex. 3 i tag 3 betala för 2
@@ -167,7 +167,7 @@
             <div class="field specific-field BuyXProductsPayForYProducts">
                 <label>
                     Betala för
-                    @Html.TextBoxFor(m => m.Parameters["PayFor"], new {type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för"})
+                    @Html.TextBoxFor(m => m.Parameters["PayFor"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver betala för", required = "required " })
                 </label>
                 <div class="help">
                     T.ex. 2 i tag 3 betala för 2
@@ -176,13 +176,13 @@
             <div class="field specific-field TotalSumAmountDiscount">
                 <label>
                     Rabatt i kr
-                    @Html.TextBoxFor(m => m.Parameters["Amount"], new { type = "number", min = 0, placeholder = "Rabatt" })
+                    @Html.TextBoxFor(m => m.Parameters["Amount"], new { type = "number", min = 0, placeholder = "Rabatt", required = "required " })
                 </label>
             </div>
             <div class="field specific-field BuyProductXRecieveProductY">
                 <label>
                     Antal gratis produkter
-                    @Html.TextBoxFor(m => m.Parameters["AmountOfProducts"], new { type = "number", min = 0, placeholder = "Antal gratis produkter" })
+                    @Html.TextBoxFor(m => m.Parameters["AmountOfProducts"], new { type = "number", min = 0, placeholder = "Antal gratis produkter", required = "required " })
                 </label>
             </div>
 
@@ -195,7 +195,7 @@
             <div class="field specific-field TotalSumPercentageDiscount">
                 <label>
                     Percentage
-                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new {type = "number", min = 0, placeholder = "Hur många?"})
+                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, placeholder = "Hur många procent?", required = "required " })
                 </label>
             </div>
 
