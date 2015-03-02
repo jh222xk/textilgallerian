@@ -6,6 +6,7 @@ namespace Domain.Entities
     /// </summary>
     public class User
     {
+        public String Id { get; set; }
         public String Email { get; set; }
         public Boolean IsActive { get; set; }
         public DateTime CreatedAt { get; set; }

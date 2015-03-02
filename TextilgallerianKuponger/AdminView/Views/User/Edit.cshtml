@@ -1,0 +1,28 @@
+﻿@model AdminView.ViewModel.AuthorizationViewModel
+
+@{
+    ViewBag.Title = "Redigera användare";
+}
+
+<h2 class="ui large header">Ändra användaren: @Model.Email</h2>
+<div class="row">
+    <div class="column">
+        <form class="ui form" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="field">
+                <label>Lösenord</label>
+                @Html.PasswordFor(m => Model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            @Html.HiddenFor(m => Model.Id)
+            @Html.HiddenFor(m => Model.CurrentRole.Name)
+            <div class="field">
+                <label>Roll</label>
+                @Html.DropDownListFor(m => m.Role, new SelectList(Model.Roles, "Name", "Name", Model.CurrentRole), new { @class = "type" })
+            </div>
+
+            <input type="submit" class="ui green button" value="Skapa användare" />
+        </form>
+    </div>
+</div>
