@@ -12,6 +12,11 @@
 
         Array.prototype.forEach.call(specificFields, function (field) {
             if (!field.classList.contains(type)) {
+                var input = field.querySelector('input');
+                if (input.getAttribute('required')) {
+                    input.setAttribute('should-be-required', 'required');
+                    input.removeAttribute('required');
+                }
                 field.hidden = true;
             }
         });
@@ -21,6 +26,11 @@
 
         Array.prototype.forEach.call(currentFields, function (field) {
             field.hidden = false;
+            var input = field.querySelector('input');
+            if (input.getAttribute('should-be-required')) {
+                input.setAttribute('required', 'required');
+                input.removeAttribute('should-be-required');
+            }
         });
 
         Array.prototype.forEach.call(campaignFields, function (field) {

@@ -7,6 +7,7 @@ using AdminView.ViewModel;
 using Domain.Entities;
 using Domain.ExtensionMethods;
 using Domain.Repositories;
+using AdminView.Controllers.Helpers;
 
 namespace AdminView.Controllers
 {
@@ -15,10 +16,12 @@ namespace AdminView.Controllers
     {
         private const int PageSize = 15;
         private readonly RoleRepository _roleRepository;
+        private readonly CouponHelper _couponHelper;
 
-        public UserController(RoleRepository roleRepository)
+        public UserController(RoleRepository roleRepository, CouponHelper couponHelper)
         {
             _roleRepository = roleRepository;
+            _couponHelper = couponHelper;
         }
 
         // GET: User
@@ -79,6 +82,7 @@ namespace AdminView.Controllers
                 {
                     var user = new User
                     {
+                        Id = _couponHelper.RandomString(20),
                         Email = model.Email,
                         IsActive = true,
                         CreatedAt = DateTime.Now,
@@ -112,22 +116,63 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanChangeUsers)]
         public ActionResult Edit(String email)
         {
-            return View();
+            var role = _roleRepository.FindByEmail(email);
+
+            var user = role.Users.FirstOrDefault(u => u.Email == email);
+            
+            return View(new AuthorizationViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                CurrentRole = role,
+                Roles = _roleRepository.FindAllRoles()
+            });
         }
 
         // POST: User/Edit/5
         [HttpPost]
         [RequiredPermission(Permission.CanChangeUsers)]
-        public ActionResult Edit(User model)
+        public ActionResult Edit(AuthorizationViewModel model)
         {
             try
             {
+                var currentRole = _roleRepository.FindByName(model.CurrentRole.Name);
+                var user = currentRole.Users.FirstOrDefault(u => u.Id == model.Id);
+
+                if (user == null)
+                {
+                    TempData["error"] = "Användaren finns ej.";
+                    return RedirectToAction("Index");
+                }
+
+                if (user.Id != ((User) Session["user"]).Id)
+                {
+                    var role = _roleRepository.FindByName(model.Role);
+                    currentRole.Users.Remove(user);
+                    role.Users.Add(user);
+                    _roleRepository.Store(role);
+                    TempData["success"] = "Användare sparad.";
+                }
+                else
+                {
+                    TempData["success"] = "Användare sparad men roll kvarstår eftersom att du inte kan ändra din egen roll.";
+                }
+
+                if (!String.IsNullOrWhiteSpace(model.Password))
+                {
+                    user.Password = model.Password;
+                }
+
+                _roleRepository.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["error"] = e.Message;
             }
+
+            model.Roles = _roleRepository.FindAllRoles();
+            return View(model);
         }
 
         // POST: User/SetStatus/5
