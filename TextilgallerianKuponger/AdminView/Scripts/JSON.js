@@ -49,12 +49,12 @@
     };
     function productSearch() {
         jQuery.each(json["BRANDS"], function (brandkey, brandvalue) {
+            console.log(brandkey);
             jQuery.each(brandvalue["PRODUCTS"], function (productKey, productValue) {
-                
                 content.push({
                     title: productKey,
                     description: productValue,
-                    price: json[brandvalue]
+                    price: brandkey
                 });
             }); searchUpdate();
         }); 
@@ -63,15 +63,15 @@
         $('.ui.search')
          .search({
              onSelect: function (result, response) {
-                 console.log(result["title"]);
+               
                  content = $('textarea#products').val();
-                 var item = result["description"] + "\n";
-                 content = content + result["description"];
-                 $('textarea#products').val(content + "\n")
+                 var item = result["title"] + " : " +result["description"] + "\n";
+                 content = content + item;
+                 $('textarea#products').val(content)
              },
              source: content,
              searchFields: [
-               'title', 'description'
+               'title', 'description', 'price'
              ],
              searchFullText: false
          });
@@ -85,9 +85,7 @@
                  
                   var item = l+"\n";
                   content = content + item;
-             
               });
-             
               $('textarea#sub-categories').val(content + "\n")
           }
       })
