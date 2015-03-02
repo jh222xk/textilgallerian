@@ -139,12 +139,16 @@ namespace AdminView.Controllers
                     return RedirectToAction("Index");
                 }
 
-                if (user.Id != ((User)Session["user"]).Id)
+                if (user.Id != ((User) Session["user"]).Id)
                 {
                     var role = _roleRepository.FindByName(model.Role);
                     currentRole.Users.Remove(user);
                     role.Users.Add(user);
                     _roleRepository.Store(role);
+                    TempData["success"] = "Användare sparad.";
+                }
+                else
+                {
                     TempData["success"] = "Användare sparad men roll kvarstår.";
                 }
 

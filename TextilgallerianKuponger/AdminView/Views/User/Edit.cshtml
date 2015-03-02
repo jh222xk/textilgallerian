@@ -19,7 +19,7 @@
             @Html.HiddenFor(m => Model.CurrentRole.Name)
             <div class="field">
                 <label>Roll</label>
-                @Html.DropDownListFor(m => m.Role, new SelectList(Model.Roles, "Name", "Name", Model.CurrentRole), new { @class = "type" })
+                @Html.DropDownListFor(m => m.Role, new SelectList(Model.Roles, "Name", "Name", Model.CurrentRole.Name), new { @class = "type" })
             </div>
 
             <input type="submit" class="ui green button" value="Skapa användare" />
