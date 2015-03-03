@@ -207,6 +207,7 @@
                     @Html.CheckBoxFor(m => m.CanBeCombined)
                 </label>
             </div>
+            @Html.HiddenFor(m => m.Parameters["UniqueKey"])
             <input type="submit" name="name" class="ui button green" value="Ändra rabatt" />
         </form>
     </div>

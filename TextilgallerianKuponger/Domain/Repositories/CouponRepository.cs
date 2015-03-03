@@ -36,6 +36,15 @@ namespace Domain.Repositories
             return _session.Query<Coupon>()
                 .FirstOrDefault(coupon => coupon.Code == code);
         }
+        /// <summary>
+        ///  Find a coupon by unique key on eatch coupon
+        /// </summary>
+        /// <param name="uniqueKey"></param>
+        public Coupon FindByUniqueKey(String uniqueKey)
+        {
+            return _session.Query<Coupon>()
+                .FirstOrDefault(coupon => coupon.UniqueKey == uniqueKey);
+        }
 
         /// <summary>
         ///     Finds all coupons that is valid for a customer with the specified code
