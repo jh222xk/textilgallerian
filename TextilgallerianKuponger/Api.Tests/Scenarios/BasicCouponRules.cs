@@ -82,6 +82,22 @@ namespace Api.Tests.E2E
         }
 
         [TestMethod]
+        public void TestThatAnActiveCouponValidOneTimeUsedTwoTimesIsNotReturnd()
+        {
+            var cart = new Cart
+            {
+                CouponCode = "UseLimit",
+                Rows = new List<Row>(),
+            };
+            var response1 = Check(cart);
+            Purched(response1);
+            var response2 = Check(cart);
+
+            response1.Discounts.Count.should_be(1);
+            response2.Discounts.Count.should_be(0);
+        }
+
+        [TestMethod]
         public void TestThatAnOutdatedCouponIsNotReturned()
         {
             AssertCoupon("Outdated");
@@ -165,6 +181,7 @@ namespace Api.Tests.E2E
                 Rows = new List<Row>(),
             };
             var response1 = Check(cart);
+            Purched(response1);
             var response2 = Check(cart);
 
             response1.Discounts.Count.should_be(1);
@@ -223,6 +240,7 @@ namespace Api.Tests.E2E
                 Rows = new List<Row>(),
             };
             var response1 = Check(cart);
+            Purched(response1);
             var response2 = Check(cart);
 
             response1.Discounts.Count.should_be(1);
@@ -265,6 +283,7 @@ namespace Api.Tests.E2E
                 Rows = new List<Row>(),
             };
             var response1 = Check(cart);
+            Purched(response1);
             var response2 = Check(cart);
 
             response1.Discounts.Count.should_be(1);
@@ -375,6 +394,7 @@ namespace Api.Tests.E2E
                 Rows = new List<Row>(),
             };
             var response1 = Check(cart);
+            Purched(response1);
             var response2 = Check(cart);
 
             response1.Discounts.Count.should_be(1);
@@ -394,6 +414,7 @@ namespace Api.Tests.E2E
                 Rows = new List<Row>(),
             };
             var response1 = Check(cart);
+            Purched(response1);
             var response2 = Check(cart);
 
             response1.Discounts.Count.should_be(1);
@@ -409,6 +430,7 @@ namespace Api.Tests.E2E
                 Rows = new List<Row>(),
             };
             var response1 = Check(cart);
+            Purched(response1);
             var response2 = Check(cart);
 
             response1.Discounts.Count.should_be(1);

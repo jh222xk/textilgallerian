@@ -21,8 +21,8 @@ namespace Api.Tests.E2E
 
         public static CartController CartController { get; private set; }
 
-        [AssemblyInitialize]
-        public static void SetupDatabase(TestContext context)
+        [TestInitialize]
+        public void SetupDatabase()
         {
             _documentStore = new EmbeddableDocumentStore
             {
@@ -44,25 +44,21 @@ namespace Api.Tests.E2E
                 SeedDatabase(session);
                 session.SaveChanges();
             }
+
+            SetupController();
         }
 
-        [TestInitialize]
         public void SetupController()
         {
             _session = _documentStore.OpenSession();
             _repository = new CouponRepository(_session);
-            CartController = new CartController(new CouponService(_repository));
+            CartController = new CartController(new CouponService(_repository), _repository);
         }
 
         [TestCleanup]
-        public void TeardownController()
+        public void TeardownDatabase()
         {
             _session.Dispose();
-        }
-
-        [AssemblyCleanup]
-        public static void TeardownDatabase()
-        {
             _documentStore.Dispose();
         }
 
@@ -71,6 +67,7 @@ namespace Api.Tests.E2E
         {
             session.Store(new TotalSumPercentageDiscount
             {
+                UniqueKey = "1",
                 Code = "Inactive",
                 Start = DateTime.Now,
                 CreatedAt = DateTime.Now,
@@ -78,6 +75,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "2",
                 Name = "TestCoupon",
                 Description = "Active but empty coupon",
                 Code = "Active",
@@ -89,6 +87,20 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "2",
+                Name = "TestCoupon",
+                Description = "Active coupon with use limit",
+                Code = "UseLimit",
+                Start = DateTime.Now,
+                CreatedAt = DateTime.Now,
+                CustomersUsedBy = new List<Customer>(),
+                CreatedBy = "some@test.com",
+                IsActive = true,
+                UseLimit = 1
+            });
+            session.Store(new TotalSumAmountDiscount
+            {
+                UniqueKey = "3",
                 Name = "TestCoupon",
                 Description = "Active but empty coupon that requires a MinPurchase of 1",
                 Code = "MinPurchase",
@@ -101,6 +113,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "4",
                 Name = "TestCoupon",
                 Description = "Active but outdated coupon",
                 Code = "Outdated",
@@ -113,6 +126,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "5",
                 Name = "TestCoupon",
                 Description = "Active coupon valid for an email",
                 Code = "CustomerEmail",
@@ -132,6 +146,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "6",
                 Name = "TestCoupon",
                 Description = "Active coupon valid for an ssn",
                 Code = "CustomerSSN",
@@ -151,6 +166,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "7",
                 Name = "TestCoupon",
                 Description = "Active coupon valid for an disposable code",
                 Start = DateTime.Now,
@@ -169,6 +185,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "8",
                 Name = "TestCoupon",
                 Description = "Used coupon valid for an email",
                 Code = "UsedCustomerEmail",
@@ -188,6 +205,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "9",
                 Name = "TestCoupon",
                 Description = "Used coupon valid for an ssn",
                 Code = "UsedCustomerSSN",
@@ -207,6 +225,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "10",
                 Name = "TestCoupon",
                 Description = "Used coupon valid for an disposable code",
                 Start = DateTime.Now,
@@ -225,6 +244,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "11",
                 Name = "TestCoupon",
                 Description = "Used coupon valid for an email two times",
                 Code = "UsedCustomerEmail2",
@@ -244,6 +264,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "12",
                 Name = "TestCoupon",
                 Description = "Used coupon valid for an ssn two times",
                 Code = "UsedCustomerSSN2",
@@ -263,6 +284,7 @@ namespace Api.Tests.E2E
             });
             session.Store(new TotalSumAmountDiscount
             {
+                UniqueKey = "13",
                 Name = "TestCoupon",
                 Description = "Used coupon valid for an disposable code two times",
                 Start = DateTime.Now,
@@ -284,6 +306,11 @@ namespace Api.Tests.E2E
         protected Cart Check(Cart cart)
         {
             return CartController.Post(cart);
+        }
+
+        protected Boolean Purched(Cart cart)
+        {
+            return CartController.Purcashed(cart);
         }
 
         /// <summary>
