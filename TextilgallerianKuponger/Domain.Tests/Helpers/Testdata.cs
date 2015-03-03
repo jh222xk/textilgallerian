@@ -222,6 +222,7 @@ namespace Domain.Tests.Helpers
         {
             return new User
             {
+                Id = new Random().Next(0, 500).ToString(),
                 Email = Internet.Email(),
                 IsActive = true,
                 Password = "password"
