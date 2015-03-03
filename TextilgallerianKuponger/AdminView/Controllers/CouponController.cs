@@ -48,17 +48,19 @@ namespace AdminView.Controllers
 
         // GET: Coupon/Details/5
         [RequiredPermission(Permission.CanListCoupons)]
-        public ActionResult Details(String code)
+        public ActionResult Details(string uniqueKey)
         {
-            var coupon = _couponRepository.FindByCode(code);
-            var dictionary = coupon.GetProperties();
+            var coupon = _couponRepository.FindByUniqueKey(uniqueKey);
+            
             var cvm = new CouponViewModel
             {
-                Parameters = dictionary,
+                Parameters = coupon.GetProperties(),
                 CustomerString =
                     coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "",
                 ProductsString = coupon.Products != null ? _couponHelper.CreateProductsString(coupon.Products) : "",
-                Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName]
+                Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName],
+                DisposableCodes = string.IsNullOrEmpty(coupon.Code),
+                Customers = coupon.CustomersValidFor
             };
 
             return View(cvm);
