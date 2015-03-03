@@ -11,9 +11,14 @@
             @Html.AntiForgeryToken()
 
             <div class="field">
+                <label>Användarnamn</label>
+                @Html.TextBoxFor(m => Model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+
+            <div class="field">
                 <label>Lösenord</label>
                 @Html.PasswordFor(m => Model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
                 <div class="help">Lämna tomt för att ha kvar samma lösenord.</div>
             </div>
             @Html.HiddenFor(m => Model.Id)

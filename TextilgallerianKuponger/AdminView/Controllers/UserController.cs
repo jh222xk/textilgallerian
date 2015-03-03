@@ -72,10 +72,10 @@ namespace AdminView.Controllers
         {
             try
             {
-                //Email has to be unique
+                // Email has to be unique
                 if(_roleRepository.FindByEmail(model.Email) != null)
                 {
-                    TempData["Error"] = "Det finns redan en användare med denna E-mailadress.";
+                    TempData["error"] = "Det finns redan en användare med detta användarnamn";
                 }
 
                 else if (ModelState.IsValid)
@@ -145,6 +145,18 @@ namespace AdminView.Controllers
                     return RedirectToAction("Index");
                 }
 
+                if (user.Email != model.Email)
+                {
+                    if (_roleRepository.FindByEmail(model.Email) != null)
+                    {
+                        TempData["error"] = "Det finns redan en användare med detta användarnamn";
+                        model.Email = user.Email;
+                        model.Roles = _roleRepository.FindAllRoles();
+                        return View(model);
+                    }
+                    user.Email = model.Email;
+                }
+
                 if (user.Id != ((User) Session["user"]).Id)
                 {
                     var role = _roleRepository.FindByName(model.Role);
@@ -172,6 +184,7 @@ namespace AdminView.Controllers
             }
 
             model.Roles = _roleRepository.FindAllRoles();
+            model.Email = "ASD";
             return View(model);
         }
 
