@@ -248,6 +248,7 @@
     <Content Include="Views\Role\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\em222iv.pubxml" />
     <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\Coupon\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">

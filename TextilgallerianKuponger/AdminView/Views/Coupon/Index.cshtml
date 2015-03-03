@@ -22,7 +22,7 @@
     {
         <tr>
             <td>
-                @coupon.Name
+                @Html.ActionLink(coupon.Name, "details", String.IsNullOrEmpty(coupon.Code) ? "codes" : "coupon", new { coupon.Code }, null)
             </td>
             <td>
                 @coupon.Code
