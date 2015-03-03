@@ -184,7 +184,6 @@ namespace AdminView.Controllers
             }
 
             model.Roles = _roleRepository.FindAllRoles();
-            model.Email = "ASD";
             return View(model);
         }
 
