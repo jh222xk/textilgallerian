@@ -54,6 +54,7 @@ namespace AdminView.Controllers
             
             var cvm = new CouponViewModel
             {
+                CanBeCombined = coupon.CanBeCombined,
                 Parameters = coupon.GetProperties(),
                 CustomerString =
                     coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "",

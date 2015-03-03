@@ -1,55 +1,121 @@
 ﻿@using AdminView.ViewModel
-@using Raven.Database.Linq.PrivateExtensions
+
 @model CouponViewModel
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = @Model.Parameters["Name"];
 }
 
 <h2 class="ui large header">Visar rabatt: @Model.Parameters["Name"]</h2>
 
-    <p>
+<div class="ui list">
+    <div class="item">
+        <div class="header">Rabattkod:</div>
         @Model.Parameters["Code"]
-
-    </p>
-    <p>
+    </div>
+    <div class="item">
+        <div class="header">Rabattyp:</div>
         @Model.Type
-    </p>
-
-    <p>
+    </div>
+    <div class="item">
+        <div class="header">Minsta tillåtna köpsumma:</div>
         @Model.Parameters["MinPurchase"]
-    </p>
-
-    <p>
+    </div>
+    <div class="item">
+        <div class="header">Beskrivning:</div>
         @Model.Parameters["Description"]
-    </p>
-
-    <p>
+    </div>
+    <div class="item">
+        <div class="header">Startdatum:</div>
         @Model.Parameters["Start"]
-    </p>
-
-    <p>
-        @if (String.IsNullOrWhiteSpace(Model.Parameters["End"]))
-        {
-            @Model.Parameters["End"]
-            ;
-        }
-        Inget slutdatum!
-    </p>
-
-    <p>
+    </div>
+    <div class="item">
+        <div class="header">Slutdatum:</div>
+        @Model.Parameters["End"]
+    </div>
+    <div class="item">
+        <div class="header">Användningsgräns:</div>
         @Model.Parameters["UseLimit"]
-    </p>
-    <p>
-        @if (Model.Parameters.ContainsKey("Percentage"))
-        {
-            @Model.Parameters["Percentage"]
-        }
-    </p>
+    </div>
 
-    @if (Model.Parameters["Code"] == null)
+
+    @if (Model.Parameters.ContainsKey("Percentage"))
     {
-        foreach (var customer in Model.Customers)
-        {
-            <li>@customer.CouponCode</li>
-        }
+        <div class="item">
+            <div class="header">Rabatt i procent:</div>
+            @Model.Parameters["Percentage"]
+        </div>
     }
+
+    @if (Model.Parameters.ContainsKey("Amount"))
+    {
+        <div class="item">
+            <div class="header">Rabatt i kronor:</div>
+            @Model.Parameters["Amount"]
+        </div>
+    }
+
+    @if (Model.Parameters.ContainsKey("AmountOfProducts"))
+    {
+        <div class="item">
+            <div class="header">Antal gratis produkter:</div>
+            @Model.Parameters["AmountOfProducts"]
+        </div>
+    }
+
+    @if (Model.Parameters.ContainsKey("AmountOfProducts"))
+    {
+        <div class="item">
+            <div class="header">Antal gratis produkter:</div>
+            @Model.Parameters["AmountOfProducts"]
+        </div>
+    }
+
+    @if (Model.Parameters.ContainsKey("Buy"))
+    {
+        <div class="item">
+            <div class="header">Antal produkter man måste köpa:</div>
+            @Model.Parameters["Buy"]
+        </div>
+    }
+
+    @if (Model.Parameters.ContainsKey("PayFor"))
+    {
+        <div class="item">
+            <div class="header">Antal produkter man måste betala för:</div>
+            @Model.Parameters["PayFor"]
+        </div>
+    }
+
+    @if (Model.Parameters.ContainsKey("FreeProduct"))
+    {
+        <div class="item">
+            <div class="header">Gratis produkt:</div>
+            @Model.Parameters["FreeProduct"]
+        </div>
+    }
+
+    @if (Model.Parameters.ContainsKey("AmountOfProducts"))
+    {
+        <div class="item">
+            <div class="header">Antal gratis produkter:</div>
+            @Model.Parameters["AmountOfProducts"]
+        </div>
+    }
+</div>
+
+<h2 class="ui large header">Engångskoder</h2>
+
+@if (Model.Parameters["Code"] == null)
+{
+    <div class="ui list">
+        @foreach (var customer in Model.Customers)
+        {
+            <div class="item">
+                @customer.CouponCode
+            </div>
+        }
+    </div>
+}
+
+
+
