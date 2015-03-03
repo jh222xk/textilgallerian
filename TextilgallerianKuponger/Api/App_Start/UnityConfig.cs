@@ -16,7 +16,8 @@ namespace Api
             Conventions =
             {
                 FindTypeTagName =
-                    type => typeof (Coupon).IsAssignableFrom(type) ? "coupons" : null
+                    type => typeof (Coupon).IsAssignableFrom(type) ? "coupons" : null,
+                DefaultQueryingConsistency = ConsistencyOptions.AlwaysWaitForNonStaleResultsAsOfLastWrite
             }
         };
 

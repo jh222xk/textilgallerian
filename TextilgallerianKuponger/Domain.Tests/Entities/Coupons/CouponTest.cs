@@ -24,10 +24,7 @@ namespace Domain.Tests.Entities
 
             _coupon = new BuyXProductsPayForYProducts
             {
-                CanBeCombined = false,
-                Code = "XMAS15",
                 CustomersUsedBy = new List<Customer>(),
-                CustomersValidFor = null,
                 Start = DateTime.Now,
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
@@ -37,7 +34,8 @@ namespace Domain.Tests.Entities
                 Products = new List<Product>
                 {
                     _validProduct
-                }
+                },
+                IsActive = true
             };
 
             _cart = new Cart

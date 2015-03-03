@@ -116,6 +116,8 @@
   <ItemGroup>
     <Compile Include="Controllers\CartControllerTest.cs" />
     <Compile Include="DebuggerShim.cs" />
+    <Compile Include="Scenarios\ApiTest.cs" />
+    <Compile Include="Scenarios\BasicCouponRules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

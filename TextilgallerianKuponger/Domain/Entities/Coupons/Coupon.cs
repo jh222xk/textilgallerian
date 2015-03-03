@@ -25,7 +25,7 @@ namespace Domain.Entities
         {
             return new Dictionary<String, String>
             {
-                {"Name", Name },
+                {"Name", Name},
                 {"Code",  Code},
                 {"Description", Description},
                 {"Start", Start.ToString("yyyy-MM-dd")},
@@ -106,6 +106,7 @@ namespace Domain.Entities
         /// </summary>
         public bool IsActive { get; set; }
 
+        /// <summary>
         ///     Products valid for this discount
         /// </summary>
         public List<Product> Products { get; set; }
@@ -128,6 +129,16 @@ namespace Domain.Entities
         // TODO: Needs refactoring and tests
         public virtual Boolean IsValidFor(Cart cart)
         {
+            if (!IsActive)
+            {
+                return false;
+            }
+
+            if (Code != null && Code != cart.CouponCode)
+            {
+                return false;
+            }
+
             if (End.HasValue && End.Value < DateTime.Now)
             {
                 return false;

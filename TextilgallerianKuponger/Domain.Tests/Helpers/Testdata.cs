@@ -157,7 +157,6 @@ namespace Domain.Tests.Helpers
                 c.Products = c.Products ?? RandomAmount(RandomProduct);
             }
 
-            coupon.Code = coupon.Code ?? Internet.UserName();
             coupon.CanBeCombined = canBeCombined ?? Random.Next(2) > 0;
             coupon.CustomersValidFor = coupon.CustomersValidFor ??
                                        (validForEveryone ? null : RandomAmount(() => RandomCustomer()));
