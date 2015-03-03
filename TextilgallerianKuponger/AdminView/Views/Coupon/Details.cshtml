@@ -1,4 +1,5 @@
 ﻿@using AdminView.ViewModel
+@using Raven.Database.Linq.PrivateExtensions
 @model CouponViewModel
 @{
     ViewBag.Title = "Detail";
@@ -6,36 +7,49 @@
 
 <h2 class="ui large header">Visar rabatt: @Model.Parameters["Name"]</h2>
 
-<p>
-    @Model.Parameters["Code"]
-</p>
+    <p>
+        @Model.Parameters["Code"]
 
-<p>
-    @Model.Type
-</p>
+    </p>
+    <p>
+        @Model.Type
+    </p>
 
-<p>
-    @Model.Parameters["MinPurchase"]
-</p>
+    <p>
+        @Model.Parameters["MinPurchase"]
+    </p>
 
-<p>
-    @Model.Parameters["Description"]
-</p>
+    <p>
+        @Model.Parameters["Description"]
+    </p>
 
-<p>
-    @Model.Parameters["Start"]
-</p>
+    <p>
+        @Model.Parameters["Start"]
+    </p>
 
-<p>
-    @if (String.IsNullOrWhiteSpace(Model.Parameters["End"]))
+    <p>
+        @if (String.IsNullOrWhiteSpace(Model.Parameters["End"]))
+        {
+            @Model.Parameters["End"]
+            ;
+        }
+        Inget slutdatum!
+    </p>
+
+    <p>
+        @Model.Parameters["UseLimit"]
+    </p>
+    <p>
+        @if (Model.Parameters.ContainsKey("Percentage"))
+        {
+            @Model.Parameters["Percentage"]
+        }
+    </p>
+
+    @if (Model.Parameters["Code"] == null)
     {
-        @Model.Parameters["End"]
-        ;
+        foreach (var customer in Model.Customers)
+        {
+            <li>@customer.CouponCode</li>
+        }
     }
-
-    Inget slutdatum!
-</p>
-
-<p>
-    @Model.Parameters["UseLimit"]
-</p>
