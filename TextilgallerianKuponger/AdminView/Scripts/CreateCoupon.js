@@ -35,9 +35,19 @@
 
         Array.prototype.forEach.call(campaignFields, function (field) {
             field.hidden = disposable.checked;
+            var input = field.querySelector('input');
+            if (input.getAttribute('required')) {
+                input.setAttribute('should-be-required', 'required');
+                input.removeAttribute('required');
+            }
         });
         Array.prototype.forEach.call(disposableFields, function (field) {
             field.hidden = !disposable.checked;
+            var input = field.querySelector('input');
+            if (input.getAttribute('should-be-required')) {
+                input.setAttribute('required', 'required');
+                input.removeAttribute('should-be-required');
+            }
         });
     }
 

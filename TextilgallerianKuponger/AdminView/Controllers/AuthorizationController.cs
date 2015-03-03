@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AdminView.ViewModel;
@@ -57,6 +58,7 @@ namespace AdminView.Controllers
 
                 dataRole.Users.Add(new User
                 {
+                    Id = new Random().Next(0, 500).ToString(),
                     Email = "admin@admin.com",
                     Password = "password",
                     IsActive = true

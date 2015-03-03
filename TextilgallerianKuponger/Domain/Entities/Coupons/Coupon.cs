@@ -17,7 +17,10 @@ namespace Domain.Entities
             Description = properties["Description"];
             Start = DateTime.Parse(properties["Start"]);
             End = properties["End"] == "" ? new DateTime?() : DateTime.Parse(properties["End"]);
-            UseLimit = int.Parse(properties["UseLimit"]);
+            if (!String.IsNullOrWhiteSpace(properties["UseLimit"]))
+            {
+                UseLimit = int.Parse(properties["UseLimit"]);
+            }
             MinPurchase = Decimal.Parse(properties["MinPurchase"], CultureInfo.InvariantCulture);
         }
 
