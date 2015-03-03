@@ -73,7 +73,7 @@ namespace Domain.Tests.Entities
         [TestMethod]
         public void TestThatDiscountIsCorrectIfProductsAreSpecifiedAndValid()
         {
-            _couponWithProducts.CalculateDiscount(_cart).should_be(10);
+            _couponWithProducts.CalculateDiscount(_cart).should_be(20);
         }
 
         /// <summary>

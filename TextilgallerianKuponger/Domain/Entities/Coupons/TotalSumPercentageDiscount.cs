@@ -46,14 +46,13 @@ namespace Domain.Entities
             {
                 return cart.TotalSum * Percentage;
             }
-            else
+
+            foreach (var row in cart.Rows)
             {
-                foreach (Row row in cart.Rows)
+                // A single ROW
+                if (Products.Exists(p => p.ProductId == row.Product.ProductId))
                 {
-                    if(Products.Exists(p => p.ProductId == row.Product.ProductId))
-                    {
-                        discount = row.ProductPrice * Percentage;
-                    }
+                    discount = row.TotalPrice*Percentage;
                 }
             }
             return discount;
