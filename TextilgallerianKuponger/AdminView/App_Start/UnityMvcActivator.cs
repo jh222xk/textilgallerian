@@ -42,7 +42,10 @@ namespace AdminView
         public static void Shutdown()
         {
             var container = UnityConfig.GetConfiguredContainer();
-            container.Dispose();
+            if (container != null)
+            {
+                container.Dispose();
+            }
         }
     }
 }

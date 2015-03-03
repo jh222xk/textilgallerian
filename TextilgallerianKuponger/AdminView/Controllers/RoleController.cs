@@ -63,6 +63,12 @@ namespace AdminView.Controllers
                 TempData["error"] = "Du måste ange minst en behörighet";
                 return View(role);
             }
+            if(_roleRepository.FindByName(role.Name) != null)
+            {
+                TempData["error"] = "En roll med detta namn finns redan";
+                return View(role);
+            }
+
             try
             {
                 role.Users = new List<User>();
@@ -100,6 +106,7 @@ namespace AdminView.Controllers
                 TempData["error"] = "Du kan inte ta bort dina egna rättigheter att ändra roller";
                 return View(model);
             }
+
             try
             {
                 var role = _roleRepository.FindByName(model.Name);

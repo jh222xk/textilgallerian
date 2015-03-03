@@ -76,7 +76,7 @@ namespace AdminView.Controllers
 
             var user = role.Users.FirstOrDefault(u => u.Email == model.Email);
 
-            if (user != null && user.ValidatePassword(model.Password))
+            if (user != null && user.ValidatePassword(model.Password) && user.IsActive)
             {
                 Session["user"] = user;
                 Session["role"] = role;

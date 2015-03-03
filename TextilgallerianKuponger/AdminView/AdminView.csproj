@@ -204,6 +204,7 @@
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Scripts\JSON.js" />
+    <Content Include="Scripts\preventEnterPost.js" />
     <Content Include="Scripts\semantic.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
@@ -246,6 +247,7 @@
     <Content Include="Views\Coupon\Codes.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
     <None Include="Properties\PublishProfiles\em222iv.pubxml" />
+    <Content Include="Views\User\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api\Api.csproj">

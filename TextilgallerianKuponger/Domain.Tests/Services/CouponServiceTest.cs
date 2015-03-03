@@ -19,6 +19,7 @@ namespace Domain.Tests.Services
         private Product _invalidProduct;
         private RepositoryFactory _repositoryFactory;
         private Customer _validCustomer;
+        private TotalSumPercentageDiscount _percentageCoupon;
 
         /// <summary>
         ///     Setup our configuration and conventions for all of our tests
@@ -28,6 +29,7 @@ namespace Domain.Tests.Services
         {
             _repositoryFactory = new RepositoryFactory();
             var repostitory = _repositoryFactory.Get();
+            var percentageCoupon = new TotalSumPercentageDiscount();
 
             _couponService = new CouponService(repostitory);
 
@@ -87,7 +89,7 @@ namespace Domain.Tests.Services
                 UseLimit = 1000
             }, false));
 
-            repostitory.Store(Testdata.RandomCoupon(new TotalSumPercentageDiscount
+            repostitory.Store(Testdata.RandomCoupon(_percentageCoupon = new TotalSumPercentageDiscount
             {
                 Name = "20%",
                 CustomersValidFor = new List<Customer> {_cart.Customer},
@@ -215,8 +217,10 @@ namespace Domain.Tests.Services
         }
 
         [TestMethod]
-        public void TestThatTheBestOfferIsPicked()
+        public void TestThatTheBestOfferIsPickedIfProductsIsNull()
         {
+            _percentageCoupon.Products = null;
+
             var result = _couponService.FindBestCouponsForCart(_cart);
 
             // We only want 2 discounts and 2 rows as the other "free product" coupon isn't combinable
@@ -225,6 +229,19 @@ namespace Domain.Tests.Services
             result.Discounts[1].Name.should_be("20%");
             result.Rows.Count.should_be(2);
             result.Rows[1].Product.should_be(_freeProduct);
+        }
+
+
+        [TestMethod]
+        public void TestThatTheBestOfferIsPickedIfProductsIsPresent()
+        {
+            var result = _couponService.FindBestCouponsForCart(_cart);
+
+            // We only want 2 discounts and 2 rows as the other "free product" coupon isn't combinable
+            result.Discounts.Count.should_be(1);
+            result.Discounts[0].Code.should_be("Free but uncombineable product");
+            result.Rows.Count.should_be(2);
+            result.Rows[1].Product.should_be(_invalidProduct);
         }
 
         [TestMethod]

@@ -9,6 +9,8 @@ namespace AdminView.ViewModel
     {
         public User User { get; set; }
 
+        public String Id { get; set; }
+
         [Required(ErrorMessage = "E-post måste anges.")]
         public String Email { get; set; }
 
@@ -18,5 +20,7 @@ namespace AdminView.ViewModel
         public IEnumerable<Role> Roles { get; set; }
 
         public String Role { get; set; }
+
+        public Role CurrentRole { get; set; }
     }
 }
