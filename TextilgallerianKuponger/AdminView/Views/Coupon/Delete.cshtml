@@ -21,7 +21,7 @@
             <div class="form-actions no-color">
 
                 <input type="submit" value="Delete" class="ui button red"/>
-                @Html.HiddenFor(m => m.Code)
+                @Html.HiddenFor(m => m.UniqueKey)
                 @Html.ActionLink("Back to List", "Index", null, new {@class = "ui button blue"})
             </div>
         }

@@ -97,6 +97,7 @@ namespace AdminView.Controllers
                 coupon.Products = products;
                 coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
+                coupon.UniqueKey = _couponHelper.RandomString(20);
 
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
@@ -122,9 +123,9 @@ namespace AdminView.Controllers
 
         // GET: Coupon/Edit/5
         [RequiredPermission(Permission.CanChangeCoupons)]
-        public ActionResult Edit(string code)
+        public ActionResult Edit(string uniqueKey)
         {
-            var coupon = _couponRepository.FindByCode(code);
+            var coupon = _couponRepository.FindByUniqueKey(uniqueKey);
             var dictionary = coupon.GetProperties();
             var cvm = new CouponViewModel();
             cvm.Parameters = dictionary;
@@ -150,7 +151,7 @@ namespace AdminView.Controllers
             if (!ModelState.IsValid) return View();
             try
             {
-                var coupon = _couponRepository.FindByCode(model.Parameters["Code"]);
+                var coupon = _couponRepository.FindByUniqueKey(model.Parameters["UniqueKey"]);
 
                 //fields specific for this type of coupon
                 coupon.SetProperties(model.Parameters);
@@ -186,9 +187,9 @@ namespace AdminView.Controllers
 
         // GET: /Coupon/Delete/:code
        [RequiredPermission(Permission.CanDeleteCoupons)]
-        public ActionResult Delete(string code)
+        public ActionResult Delete(string uniqueKey)
         {
-            var coupon = _couponRepository.FindByCode(code);
+            var coupon = _couponRepository.FindByUniqueKey(uniqueKey);
 
             return View(coupon);
         }
@@ -202,11 +203,11 @@ namespace AdminView.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [RequiredPermission(Permission.CanDeleteCoupons)]
-        public ActionResult DeleteConfirmed(string code)
+        public ActionResult DeleteConfirmed(string uniqueKey)
         {
             try
             {
-                var coupon = _couponRepository.FindByCode(code);
+                var coupon = _couponRepository.FindByUniqueKey(uniqueKey);
                 // Sets the given coupon to unactive
                 coupon.IsActive = false;
                 _couponRepository.SaveChanges();
@@ -215,7 +216,7 @@ namespace AdminView.Controllers
             catch (DataException)
             {
                 TempData["error"] = "Misslyckades att ta bort rabatten!";
-                return RedirectToAction("delete", new { id = code });
+                return RedirectToAction("delete", new { id = uniqueKey });
             }
 
             return RedirectToAction("index");

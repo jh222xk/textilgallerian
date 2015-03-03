@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
 using Raven.Client;
 using Raven.Client.Embedded;
+using Raven.Database.Server;
 
 namespace AdminView.Tests.Steps
 {
@@ -20,6 +21,7 @@ namespace AdminView.Tests.Steps
             {
                 if (_driver == null)
                 {
+                    NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8000);
                     _documentStore = new EmbeddableDocumentStore
                     {
                         RunInMemory = true,
