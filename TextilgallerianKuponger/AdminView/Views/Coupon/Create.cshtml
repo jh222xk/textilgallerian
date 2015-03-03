@@ -125,18 +125,21 @@
 
                 </div>
             </div>
-            <div class="field">
-                <label>
-                    Startdatum:
-                    @Html.TextBoxFor(m => m.Parameters["Start"], new {type = "date" , required = "required "})
-                </label>
-            </div>
-            <div class="field">
+            <div class="ui two column grid">
+                <div class="column">
+                    <label>
+                        Startdatum:
+                        @Html.TextBoxFor(m => m.Parameters["Start"], new { type = "date", required = "required " })
+                    </label>
+                </div>
+            <div class="column">
                 <label>
                     Slutdatum:
-                    @Html.TextBoxFor(m => m.Parameters["End"], new {type = "date"})
+                    @Html.TextBoxFor(m => m.Parameters["End"], new { type = "date" })
                 </label>
             </div>
+            </div>
+            <div class="ui hidden divider"></div>
             <div class="field">
                 <label>
                     Hur många gånger får rabatten användas?
