@@ -111,7 +111,7 @@ namespace AdminView.Controllers.Helpers
         /// </summary>
         /// <param name="size">string length</param>
         /// <returns></returns>
-        private string RandomString(int size)
+        public string RandomString(int size)
         {
             var buffer = new char[size];
 
