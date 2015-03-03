@@ -37,6 +37,18 @@
         @Model.Parameters["UseLimit"]
     </div>
 
+    <div class="item">
+        <div class="header">Kan kombineras:</div>
+        @if (Model.CanBeCombined)
+        {
+            <i class="icon green checkmark"></i>
+        }
+        else
+        {
+            <i class="icon red minus"></i>
+        }
+    </div>
+
 
     @if (Model.Parameters.ContainsKey("Percentage"))
     {
