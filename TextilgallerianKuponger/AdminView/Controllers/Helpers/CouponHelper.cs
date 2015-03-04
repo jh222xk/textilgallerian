@@ -23,11 +23,11 @@ namespace AdminView.Controllers.Helpers
         {
             //return null if no input
             if (customerString == null) { return null; }
-            
+
             //split at newline and create array.
             string[] lines = customerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var customers = new List<Customer>();
-           
+
             Regex mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
             Regex ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
 
@@ -56,6 +56,57 @@ namespace AdminView.Controllers.Helpers
 
 
         /// <summary>
+        /// Creates a list of brands from textarea input.
+        /// </summary>
+        /// <param name="brandInput">A string from a textarea, where each row is a new brand</param>
+        /// <returns>The list of brands</returns>
+        public List<Brand> GetBrands(string brandInput)
+        {
+            //return null if no input
+            if (brandInput == null) { return null; }
+
+            //split at newline and create array.
+            string[] lines = brandInput.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var brands = new List<Brand>();
+
+            foreach(var line in lines)
+            {
+                var brand = new Brand{BrandName = line};
+
+                brands.Add(brand);
+            }
+
+            //null if no customers.
+            return brands.Count > 0 ? brands : null;
+        }
+
+
+        /// <summary>
+        /// Creates a list of categories from textarea input.
+        /// </summary>
+        /// <param name="categoryInput">A string from a textarea, where each row is a new category</param>
+        /// <returns>The list of cateogires</returns>
+        public List<Category> GetCategories(string categoryInput)
+        {
+            //return null if no input
+            if (categoryInput == null) { return null; }
+
+            //split at newline and create array.
+            string[] lines = categoryInput.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var categories = new List<Category>();
+
+            foreach (var line in lines)
+            {
+                var category = new Category { CategoryName = line };
+
+                categories.Add(category);
+            }
+
+            //null if no customers.
+            return categories.Count > 0 ? categories : null;
+        }
+
+        /// <summary>
         /// Creates a list of products from textarea input.
         /// </summary>
         /// <param name="productsString">A string from a textarea, where each row is a new product</param>
@@ -68,20 +119,20 @@ namespace AdminView.Controllers.Helpers
             //split at newline and create array.
             string[] lines = productsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var products = new List<Product>();
-            
+
             //TODO: Create real productId regex
-            Regex productId = new Regex(@"^\d{8}$");
+            //Regex productId = new Regex(@"^\d{8}$");
 
             foreach (var line in lines)
             {
                 var product = new Product();
 
                 //if line is valid productId
-                if (productId.Match(line).Success)
-                {
+                //if (productId.Match(line).Success)
+                //{
                     product.ProductId = line;
                     products.Add(product);
-                }
+                //}
             }
             return products.Count > 0 ? products : null;
         }
@@ -142,6 +193,26 @@ namespace AdminView.Controllers.Helpers
         public string CreateProductsString(List<Product> products)
         {
             return string.Join(Environment.NewLine, products.Select(p => p.ProductId));
+        }
+
+        /// <summary>
+        /// Creates a string for a textarea from a list of brands
+        /// </summary>
+        /// <param name="brands">List of brands</param>
+        /// <returns></returns>
+        public string CreateBrandString(List<Brand> brands)
+        {
+            return string.Join(Environment.NewLine, brands.Select(b => b.BrandName));
+        }
+
+        /// <summary>
+        /// Creates a string for a textarea from a list of categories
+        /// </summary>
+        /// <param name="categories">list of categories</param>
+        /// <returns></returns>
+        public string CreateCategoryString(List<Category> categories)
+        {
+            return string.Join(Environment.NewLine, categories.Select(c => c.CategoryName));
         }
 
         /// <summary>
