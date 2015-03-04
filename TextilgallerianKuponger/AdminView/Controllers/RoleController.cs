@@ -23,6 +23,7 @@ namespace AdminView.Controllers
 
         // GET: Role
         [RequiredPermission(Permission.CanListRoles)]
+        [ValidateInput(false)]
         public ActionResult Index(int page = 1)
         {
             var model = new PagedViewModel<Role>
@@ -50,6 +51,7 @@ namespace AdminView.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         [RequiredPermission(Permission.CanAddRoles)]
         public ActionResult Create(Role role)
         {
