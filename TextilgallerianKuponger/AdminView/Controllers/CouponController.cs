@@ -109,6 +109,8 @@ namespace AdminView.Controllers
             }
 
             List<Product> products = _couponHelper.GetProducts(model.ProductsString);
+            List<Brand> brands = _couponHelper.GetBrands(model.BrandsString);
+            List<Category> categories = _couponHelper.GetCategories(model.CategoriesString);
 
             if (!ModelState.IsValid) return View(model);
             try
@@ -123,6 +125,8 @@ namespace AdminView.Controllers
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
                 coupon.Products = products;
+                coupon.Brands = brands;
+                coupon.Categories = categories;
                 coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
                 coupon.UniqueKey = _couponHelper.RandomString(20);
@@ -161,6 +165,8 @@ namespace AdminView.Controllers
             //input for textareas.
             cvm.CustomerString = coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "";
             cvm.ProductsString = coupon.Products != null ? _couponHelper.CreateProductsString(coupon.Products) : "";
+            cvm.BrandsString = coupon.Brands != null ? _couponHelper.CreateBrandString(coupon.Brands) : "";
+            cvm.CategoriesString = coupon.Categories != null ? _couponHelper.CreateCategoryString(coupon.Categories) : "";
             
             //gets the type of the coupon.
             cvm.Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName];
@@ -175,6 +181,9 @@ namespace AdminView.Controllers
         {
             List<Customer> customers = _couponHelper.GetCustomers(model.CustomerString);
             List<Product> products = _couponHelper.GetProducts(model.ProductsString);
+            List<Brand> brands = _couponHelper.GetBrands(model.BrandsString);
+            List<Category> categories = _couponHelper.GetCategories(model.CategoriesString);
+
 
             if (!ModelState.IsValid) return View();
             try
@@ -191,6 +200,8 @@ namespace AdminView.Controllers
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
                 coupon.Products = products;
+                coupon.Brands = brands;
+                coupon.Categories = categories;
                 coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
 

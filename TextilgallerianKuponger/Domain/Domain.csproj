@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Brand.cs" />
+    <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Coupons\BuyProductXRecieveProductY.cs" />
     <Compile Include="Entities\Coupons\BuyXProductsPayForYProducts.cs" />
     <Compile Include="Entities\Cart\Cart.cs" />
