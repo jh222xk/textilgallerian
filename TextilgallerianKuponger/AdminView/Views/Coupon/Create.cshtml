@@ -181,7 +181,7 @@
             <div class="field specific-field BuyProductXRecieveProductY">
                 <label>
                     Vilken produkt?
-                    @Html.TextBoxFor(m => m.Parameters["FreeProduct"])
+                    @Html.TextBoxFor(m => m.Parameters["FreeProduct"], new { required = "required " })
                 </label>
             </div>
             <div class="field specific-field TotalSumPercentageDiscount">
