@@ -125,12 +125,12 @@ namespace Domain.Tests.Helpers
             else if (coupon is BuyXProductsPayForYProducts)
             {
                 var c = coupon as BuyXProductsPayForYProducts;
-                c.Buy = (c.Buy > 0) ? c.Buy : Random.Next(10);
+                c.NumberOfProductsToBuy = (c.NumberOfProductsToBuy > 0) ? c.NumberOfProductsToBuy : Random.Next(10);
                 c.PayFor = (c.PayFor > 0)
                     ? c.PayFor
                     : Decimal.Round(
                         Decimal.Parse(
-                            (Random.NextDouble()*Double.Parse(c.Buy.ToString())).ToString()));
+                            (Random.NextDouble() * Double.Parse(c.NumberOfProductsToBuy.ToString())).ToString()));
             }
             else if (coupon is TotalSumAmountDiscount)
             {
@@ -197,6 +197,29 @@ namespace Domain.Tests.Helpers
                 ProductId = Phone.Number()
             };
         }
+
+        /// <summary>
+        ///     Generates brand filled with random data
+        /// </summary>
+        public static Brand RandomBrand()
+        {
+            return new Brand
+            {
+                BrandName = Company.Name()
+            };
+        }
+
+        /// <summary>
+        ///     Generates brand filled with random data
+        /// </summary>
+        public static Category RandomCategory()
+        {
+            return new Category
+            {
+                CategoryName = Company.Name()
+            };
+        }
+
 
         /// <summary>
         ///     Calls factory a random number of times, stores the rsult in a list and returns it

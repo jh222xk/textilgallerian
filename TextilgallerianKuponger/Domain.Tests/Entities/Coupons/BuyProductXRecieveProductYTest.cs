@@ -34,7 +34,7 @@ namespace Domain.Tests.Entities.Coupons
                 Start = DateTime.Now,
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
-                Buy = 3,
+                NumberOfProductsToBuy = 3,
                 FreeProduct = _freeProduct,
                 AmountOfProducts = 2,
                 Products = new List<Product>
@@ -75,7 +75,7 @@ namespace Domain.Tests.Entities.Coupons
         public void TestCustomerHasNotEnoughProductsForDiscount()
         {
             // ReSharper disable once PossibleNullReferenceException
-            (_coupon as BuyProductXRecieveProductY).Buy = 10;
+            (_coupon as BuyProductXRecieveProductY).NumberOfProductsToBuy = 10;
 
             _coupon.IsValidFor(_cart).should_be_false();
         }

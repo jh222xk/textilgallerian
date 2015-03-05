@@ -13,6 +13,7 @@ Scenario: Add new percentage discount
 		And I have entered "Test coupon" in the "Description" field
 		And I have entered "2015-04-15" in the "Start" field
 		And I have entered "2015-04-30" in the "End" field
+		And I have entered "0" in the "NumberOfProductsToBuy" field
 		And I have entered "2" in the "UseLimit" field
 		And I have entered "30" in the "Percentage" field
 		And I have checked the coupon can be combined checkbox
@@ -34,6 +35,7 @@ Scenario: Add new amount discount
 		And I have entered "900105-3001" in the "CustomerString" field
 		And I have entered "2015-04-01" in the "Start" field
 		And I have entered "2015-04-30" in the "End" field
+		And I have entered "0" in the "NumberOfProductsToBuy" field
 		And I have entered "2" in the "UseLimit" field
 		And I have entered "100" in the "Amount" field
      When I press "Skapa rabatt"
@@ -53,6 +55,7 @@ Scenario: Add new percentage discount on purchase over x kr
 		And I have entered "Test coupon" in the "Description" field
 		And I have entered "2015-04-15" in the "Start" field
 		And I have entered "2015-04-30" in the "End" field
+		And I have entered "0" in the "NumberOfProductsToBuy" field
 		And I have entered "2" in the "UseLimit" field
 		And I have entered "30" in the "Percentage" field
 		And I have entered "500" in the "MinPurchase" field
@@ -75,7 +78,7 @@ Scenario: Add new take Y pay for X discount
 		And I have entered "2015-06-01" in the "Start" field
 		And I have entered "2015-08-30" in the "End" field
 		And I have entered "2" in the "UseLimit" field
-		And I have entered "3" in the "Buy" field
+		And I have entered "3" in the "NumberOfProductsToBuy" field
 		And I have entered "2" in the "PayFor" field
      When I press "Skapa rabatt"
      Then the system should present "Rabatt sparad!"
@@ -97,7 +100,7 @@ Scenario: Add new buy product X and recieve product Y discount
 		And I have entered "2015-09-01" in the "Start" field
 		And I have entered "2015-10-30" in the "End" field
 		And I have entered "2" in the "UseLimit" field
-		And I have entered "3" in the "Buy" field
+		And I have entered "3" in the "NumberOfProductsToBuy" field
 		And I have entered "3" in the "Amount" field
 		And I have entered "Pink Curtain" in the "FreeProduct" field
      When I press "Skapa rabatt"

@@ -29,7 +29,6 @@ namespace Domain.Tests.Services
         {
             _repositoryFactory = new RepositoryFactory();
             var repostitory = _repositoryFactory.Get();
-            var percentageCoupon = new TotalSumPercentageDiscount();
 
             _couponService = new CouponService(repostitory);
 
@@ -73,7 +72,7 @@ namespace Domain.Tests.Services
                     new Customer { CouponCode = "CustomerCode" }
                 },
                 Products = new List<Product> {_cart.Rows.First().Product},
-                Buy = 1,
+                NumberOfProductsToBuy = 1,
                 FreeProduct = _freeProduct,
                 Start = DateTime.Now,
                 UseLimit = 1000
@@ -83,7 +82,7 @@ namespace Domain.Tests.Services
                 Code = "Free but uncombineable product",
                 CustomersValidFor = new List<Customer> {_cart.Customer},
                 Products = new List<Product> {_cart.Rows.First().Product},
-                Buy = 1,
+                NumberOfProductsToBuy = 1,
                 FreeProduct = _invalidProduct,
                 Start = DateTime.Now,
                 UseLimit = 1000
@@ -101,7 +100,7 @@ namespace Domain.Tests.Services
             {
                 Code = "3 for 2",
                 Products = new List<Product> {_cart.Rows.First().Product},
-                Buy = 3,
+                NumberOfProductsToBuy = 3,
                 PayFor = 2,
                 Start = DateTime.Now,
                 UseLimit = 1000
@@ -131,6 +130,8 @@ namespace Domain.Tests.Services
         public void TestThatItCanFindCouponsByProvidedCodeOnCustomers()
         {
             var cart = Testdata.RandomCart("CustomerCode");
+
+            cart.Rows.Add(_cart.Rows.First());
 
             var result = _couponService.FindBestCouponsForCart(cart).Discounts;
 

@@ -146,12 +146,12 @@
                     @Html.TextBoxFor(m => m.Parameters["UseLimit"], new { type = "number", min = 0, placeholder = "Hur många?",  required = "required " })
                 </label>
             </div>
-            @if (Model.Parameters.ContainsKey("Buy"))
+            @if (Model.Parameters.ContainsKey("NumberOfProductsToBuy"))
             {
-                <div class="field specific-field BuyProductXReceiveProductY BuyXProductsPayForYProducts">
+                <div class="field">
                     <label>
                         Antal produkter kund behöver köpa
-                        @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa", step = "0.1", required = "required " })
+                        @Html.TextBoxFor(m => m.Parameters["NumberOfProductsToBuy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa", step = "0.1", required = "required " })
                     </label>
                 </div>
             }
