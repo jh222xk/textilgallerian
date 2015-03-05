@@ -11,18 +11,18 @@ namespace Domain.Entities
     /// </summary>
     public class BuyXProductsPayForYProducts : Coupon
     {
-        public BuyXProductsPayForYProducts(IReadOnlyDictionary<string, string> properties)
+        public BuyXProductsPayForYProducts(IReadOnlyDictionary<String, String> properties)
         {
             SetProperties(properties);
         }
 
-        public override void SetProperties(IReadOnlyDictionary<string, string> properties)
+        public override void SetProperties(IReadOnlyDictionary<String, String> properties)
         {
             base.SetProperties(properties);
             PayFor = Decimal.Parse(properties["PayFor"], CultureInfo.InvariantCulture);
         }
 
-        public override Dictionary<string, string> GetProperties() 
+        public override Dictionary<String, String> GetProperties() 
         {
             var dictionary = base.GetProperties();
             dictionary.Add("PayFor", PayFor.ToString(CultureInfo.InvariantCulture));

@@ -28,7 +28,6 @@ namespace Domain.Tests.Entities.Coupons
             _coupon = new BuyProductXRecieveProductY
             {
                 CanBeCombined = false,
-                Code = "XMAS15",
                 CustomersUsedBy = new List<Customer>(),
                 CustomersValidFor = null,
                 Start = DateTime.Now,
@@ -40,7 +39,8 @@ namespace Domain.Tests.Entities.Coupons
                 Products = new List<Product>
                 {
                     _validProduct
-                }
+                },
+                IsActive = true
             };
 
             _cart = new Cart
