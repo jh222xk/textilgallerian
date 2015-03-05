@@ -27,7 +27,7 @@ namespace Domain.Repositories
         public IQueryable<Coupon> FindAllCoupons(Boolean onlyActive = true)
         {
             var coupons = _session.Query<Coupon>();
-            return onlyActive ? Queryable.Where(coupons, coupon => coupon.IsActive) : coupons;
+            return onlyActive ? coupons.Where(coupon => coupon.IsActive) : coupons;
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<Coupon> FindBySocialSecurityNumber(String ssn)
         {
-            return Queryable.Where(_session.Query<Coupon>(), coupon =>
+            return _session.Query<Coupon>().Where(coupon =>
                         coupon.CustomersValidFor.Any(
                             customer => customer.SocialSecurityNumber == ssn));
         }
@@ -86,7 +86,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<Coupon> FindByEmail(String email)
         {
-            return Queryable.Where(_session.Query<Coupon>(), coupon =>
+            return _session.Query<Coupon>().Where(coupon =>
                         coupon.CustomersValidFor.Any(customer => customer.Email == email));
         }
 
@@ -95,7 +95,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<Coupon> FindByProduct(Product product)
         {
-            return Queryable.Where(_session.Query<Coupon>(), coupon =>
+            return _session.Query<Coupon>().Where(coupon =>
                         coupon.Products.Any(p => p.ProductId == product.ProductId));
         }
 
