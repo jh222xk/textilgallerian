@@ -151,12 +151,6 @@ namespace Domain.Tests.Helpers
                         2);
             }
 
-            if (coupon is Coupon)
-            {
-                var c = coupon as Coupon;
-                c.Products = c.Products ?? RandomAmount(RandomProduct);
-            }
-
             coupon.CanBeCombined = canBeCombined ?? Random.Next(2) > 0;
             coupon.CustomersValidFor = coupon.CustomersValidFor ??
                                        (validForEveryone ? null : RandomAmount(() => RandomCustomer()));
@@ -168,6 +162,7 @@ namespace Domain.Tests.Helpers
                 ? coupon.Start.AddDays(Random.Next(1, 20))
                 : (DateTime?) null);
             coupon.IsActive = true;
+            coupon.Products = coupon.Products ?? RandomAmount(RandomProduct);
 
             return coupon;
         }

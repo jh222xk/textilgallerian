@@ -86,7 +86,8 @@ namespace Domain.Tests.Services
                 Buy = 1,
                 FreeProduct = _invalidProduct,
                 Start = DateTime.Now,
-                UseLimit = 1000
+                UseLimit = 1000,
+                IsActive = true
             }, false));
 
             repostitory.Store(Testdata.RandomCoupon(_percentageCoupon = new TotalSumPercentageDiscount
@@ -239,7 +240,7 @@ namespace Domain.Tests.Services
 
             // We only want 2 discounts and 2 rows as the other "free product" coupon isn't combinable
             result.Discounts.Count.should_be(1);
-            result.Discounts[0].Code.should_be("Free but uncombineable product");
+            result.Discounts[0].Name.should_be("Free but uncombineable product");
             result.Rows.Count.should_be(2);
             result.Rows[1].Product.should_be(_invalidProduct);
         }

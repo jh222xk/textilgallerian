@@ -1,11 +1,9 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-﻿using System.ComponentModel.DataAnnotations;
 ﻿using System.Data;
 using System.Linq;
-﻿using System.Reflection;
 ﻿using System.Web.Mvc;
-using AdminView.Annotations;
+﻿using AdminView.Annotations;
 using AdminView.ViewModel;
 using Domain.Entities;
 using Domain.Repositories;
@@ -108,9 +106,9 @@ namespace AdminView.Controllers
                 customers = _couponHelper.GetCustomers(model.CustomerString);
             }
 
-            List<Product> products = _couponHelper.GetProducts(model.ProductsString);
-            List<Brand> brands = _couponHelper.GetBrands(model.BrandsString);
-            List<Category> categories = _couponHelper.GetCategories(model.CategoriesString);
+            var products = _couponHelper.GetProducts(model.ProductsString);
+            var brands = _couponHelper.GetBrands(model.BrandsString);
+            var categories = _couponHelper.GetCategories(model.CategoriesString);
 
             if (!ModelState.IsValid) return View(model);
             try
@@ -175,14 +173,14 @@ namespace AdminView.Controllers
         }
 
         // POST: Coupon/Edit/5
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         [RequiredPermission(Permission.CanChangeCoupons)]
         public ActionResult Edit(CouponViewModel model)
         {
-            List<Customer> customers = _couponHelper.GetCustomers(model.CustomerString);
-            List<Product> products = _couponHelper.GetProducts(model.ProductsString);
-            List<Brand> brands = _couponHelper.GetBrands(model.BrandsString);
-            List<Category> categories = _couponHelper.GetCategories(model.CategoriesString);
+            var customers = _couponHelper.GetCustomers(model.CustomerString);
+            var products = _couponHelper.GetProducts(model.ProductsString);
+            var brands = _couponHelper.GetBrands(model.BrandsString);
+            var categories = _couponHelper.GetCategories(model.CategoriesString);
 
 
             if (!ModelState.IsValid) return View();
@@ -239,7 +237,7 @@ namespace AdminView.Controllers
         ///     (because of statitics) https://github.com/Textilgallerian/textilgallerian/issues/53
         ///     We only set it to unactive
         /// </summary>
-        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [RequiredPermission(Permission.CanDeleteCoupons)]
         public ActionResult DeleteConfirmed(string uniqueKey)

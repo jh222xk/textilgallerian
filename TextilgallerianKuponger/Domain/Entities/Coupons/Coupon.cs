@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using Microsoft.Build.Framework.XamlTypes;
 
 namespace Domain.Entities
 {
@@ -82,15 +81,11 @@ namespace Domain.Entities
         ///     Which customers is this coupon valid for
         ///     If coupon is for all customers it should be set to null
         /// </summary>
-
-        // TODO: Q: Should this list be emptied?!
         public List<Customer> CustomersValidFor { get; set; }
 
         /// <summary>
         ///     Which users have used this coupon
         /// </summary>
-
-        // TODO: Q: Should CustomersValidFor be inserted here when used?!
         public List<Customer> CustomersUsedBy { get; set; }
 
         /// <summary>
