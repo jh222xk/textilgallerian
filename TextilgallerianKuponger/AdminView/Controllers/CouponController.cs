@@ -75,7 +75,7 @@ namespace AdminView.Controllers
         }
 
         // POST: Coupon/Create
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [RequiredPermission(Permission.CanAddCoupons)]
@@ -129,6 +129,13 @@ namespace AdminView.Controllers
                 coupon.CreatedAt = DateTime.Now;
                 coupon.UniqueKey = _couponHelper.RandomString(20);
 
+                if (coupon is TotalSumPercentageDiscount)
+                {
+                    var c = coupon as TotalSumPercentageDiscount;
+                    c.DiscountOnlyOnSpecifiedProducts =
+                        model.PercentageDiscountOnlyOnSpecifiedProducts;
+                }
+
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
 
@@ -153,12 +160,13 @@ namespace AdminView.Controllers
 
         // GET: Coupon/Edit/5
         [RequiredPermission(Permission.CanChangeCoupons)]
-        public ActionResult Edit(string uniqueKey)
+        public ActionResult Edit(String uniqueKey)
         {
             var coupon = _couponRepository.FindByUniqueKey(uniqueKey);
-            var dictionary = coupon.GetProperties();
-            var cvm = new CouponViewModel();
-            cvm.Parameters = dictionary;
+            var cvm = new CouponViewModel
+            {
+                Parameters = coupon.GetProperties()
+            };
             
             //input for textareas.
             cvm.CustomerString = coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "";
@@ -168,6 +176,13 @@ namespace AdminView.Controllers
             
             //gets the type of the coupon.
             cvm.Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName];
+
+            if (coupon is TotalSumPercentageDiscount)
+            {
+                var c = coupon as TotalSumPercentageDiscount;
+                cvm.PercentageDiscountOnlyOnSpecifiedProducts =
+                    c.DiscountOnlyOnSpecifiedProducts;
+            }
             
             return View(cvm);
         }
@@ -200,9 +215,14 @@ namespace AdminView.Controllers
                 coupon.Products = products;
                 coupon.Brands = brands;
                 coupon.Categories = categories;
-                coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
 
+                if (coupon is TotalSumPercentageDiscount)
+                {
+                    var c = coupon as TotalSumPercentageDiscount;
+                    c.DiscountOnlyOnSpecifiedProducts =
+                        model.PercentageDiscountOnlyOnSpecifiedProducts;
+                }
 
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
@@ -224,7 +244,7 @@ namespace AdminView.Controllers
 
         // GET: /Coupon/Delete/:code
        [RequiredPermission(Permission.CanDeleteCoupons)]
-        public ActionResult Delete(string uniqueKey)
+        public ActionResult Delete(String uniqueKey)
         {
             var coupon = _couponRepository.FindByUniqueKey(uniqueKey);
 

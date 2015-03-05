@@ -10,7 +10,7 @@ namespace Domain.Entities
     /// </summary>
     public abstract class Coupon
     {
-        public virtual void SetProperties(IReadOnlyDictionary<string, string> properties)
+        public virtual void SetProperties(IReadOnlyDictionary<String, String> properties)
         {
             Name = properties["Name"];
             Code = properties["Code"];
@@ -24,7 +24,7 @@ namespace Domain.Entities
             MinPurchase = Decimal.Parse(properties["MinPurchase"], CultureInfo.InvariantCulture);
         }
 
-        public virtual Dictionary<string, string> GetProperties()
+        public virtual Dictionary<String, String> GetProperties()
         {
             return new Dictionary<String, String>
             {
@@ -102,12 +102,12 @@ namespace Domain.Entities
         ///     Boolean deciding if the coupon can be combined
         ///     with other coupons
         /// </summary>
-        public bool CanBeCombined { get; set; }
+        public Boolean CanBeCombined { get; set; }
 
         /// <summary>
         ///     Determaines if the coupon is active
         /// </summary>
-        public bool IsActive { get; set; }
+        public Boolean IsActive { get; set; }
 
         /// <summary>
         ///     Products valid for this discount
