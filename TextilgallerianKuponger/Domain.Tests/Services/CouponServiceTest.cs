@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
+using Domain.Repositories;
 using Domain.Services;
 using Domain.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +20,7 @@ namespace Domain.Tests.Services
         private Product _invalidProduct;
         private RepositoryFactory _repositoryFactory;
         private Customer _validCustomer;
-        private TotalSumPercentageDiscount _percentageCoupon;
+        private CouponRepository _couponRepository;
 
         /// <summary>
         ///     Setup our configuration and conventions for all of our tests
@@ -28,10 +29,9 @@ namespace Domain.Tests.Services
         public void SetUp()
         {
             _repositoryFactory = new RepositoryFactory();
-            var repostitory = _repositoryFactory.Get();
-            var percentageCoupon = new TotalSumPercentageDiscount();
+            _couponRepository = _repositoryFactory.Get();
 
-            _couponService = new CouponService(repostitory);
+            _couponService = new CouponService(_couponRepository);
 
             _freeProduct = Testdata.RandomProduct();
             _invalidProduct = Testdata.RandomProduct();
@@ -46,27 +46,27 @@ namespace Domain.Tests.Services
                 ProductPrice = 50
             });
 
-            repostitory.Store(Testdata.RandomCoupon(new ValidCoupon
+            _couponRepository.Store(Testdata.RandomCoupon(new ValidCoupon
             {
                 Code = "Valid Code"
             }, true));
-            repostitory.Store(Testdata.RandomCoupon(new ValidCoupon
+            _couponRepository.Store(Testdata.RandomCoupon(new ValidCoupon
             {
-                Code = "Valid Code with customer",
+                Name = "Valid Code with customer",
                 CustomersValidFor = new List<Customer> {_validCustomer}
             }, true));
-            repostitory.Store(Testdata.RandomCoupon(new InvalidCoupon
+            _couponRepository.Store(Testdata.RandomCoupon(new InvalidCoupon
             {
-                Code = "Valid Coupon"
+                Name = "Valid Coupon"
             }, true));
-            repostitory.Store(Testdata.RandomCoupon(new InvalidCoupon
+            _couponRepository.Store(Testdata.RandomCoupon(new InvalidCoupon
             {
                 CustomersValidFor = new List<Customer> {_validCustomer}
             }, true));
 
-            repostitory.Store(Testdata.RandomCoupon(new BuyProductXRecieveProductY
+            _couponRepository.Store(Testdata.RandomCoupon(new BuyProductXRecieveProductY
             {
-                Code = "free product",
+                Name = "free product",
                 CustomersValidFor = new List<Customer>
                 {
                     _cart.Customer,
@@ -78,36 +78,48 @@ namespace Domain.Tests.Services
                 Start = DateTime.Now,
                 UseLimit = 1000
             }, true));
-            repostitory.Store(Testdata.RandomCoupon(new BuyProductXRecieveProductY
+            _couponRepository.Store(Testdata.RandomCoupon(new BuyProductXRecieveProductY
             {
-                Code = "Free but uncombineable product",
+                Name = "Free but uncombineable product",
                 CustomersValidFor = new List<Customer> {_cart.Customer},
                 Products = new List<Product> {_cart.Rows.First().Product},
                 Buy = 1,
                 FreeProduct = _invalidProduct,
                 Start = DateTime.Now,
-                UseLimit = 1000
+                UseLimit = 1000,
+                IsActive = true
             }, false));
-
-            repostitory.Store(Testdata.RandomCoupon(_percentageCoupon = new TotalSumPercentageDiscount
+            _couponRepository.Store(Testdata.RandomCoupon(new TotalSumPercentageDiscount
             {
-                Code = "20%",
+                UniqueKey = "percentage",
+                Name = "20%",
                 CustomersValidFor = new List<Customer> {_cart.Customer},
                 Percentage = 0.2m,
                 Start = DateTime.Now,
-                UseLimit = 1000
-            }, true));
-            repostitory.Store(Testdata.RandomCoupon(new BuyXProductsPayForYProducts
+                UseLimit = 1000,
+                DiscountOnlyOnSpecifiedProducts = true,
+            },
+            true));
+            _couponRepository.Store(Testdata.RandomCoupon(new BuyXProductsPayForYProducts
             {
-                Code = "3 for 2",
+                Name = "3 for 2",
                 Products = new List<Product> {_cart.Rows.First().Product},
                 Buy = 3,
                 PayFor = 2,
                 Start = DateTime.Now,
                 UseLimit = 1000
             }, false, true));
+            _couponRepository.Store(Testdata.RandomCoupon(new BuyXProductsPayForYProducts
+            {
+                Code = "3 for 2",
+                Products = new List<Product> { _cart.Rows.First().Product },
+                Buy = 3,
+                PayFor = 2,
+                Start = DateTime.Now,
+                UseLimit = 1000
+            }, false, true));
 
-            repostitory.SaveChanges();
+            _couponRepository.SaveChanges();
         }
 
         [TestCleanup]
@@ -135,7 +147,7 @@ namespace Domain.Tests.Services
             var result = _couponService.FindBestCouponsForCart(cart).Discounts;
 
             result.Count.should_be(1);
-            result[0].Code.should_be("free product");
+            result[0].Name.should_be("free product");
         }
 
         [TestMethod]
@@ -210,14 +222,17 @@ namespace Domain.Tests.Services
         [TestMethod]
         public void TestThatTheBestOfferIsPickedIfProductsIsNull()
         {
-            _percentageCoupon.Products = null;
+            var coupon = _couponRepository.FindByUniqueKey("percentage");
+            coupon.Products = null;
+            _couponRepository.Store(coupon);
+            _couponRepository.SaveChanges();
 
             var result = _couponService.FindBestCouponsForCart(_cart);
 
             // We only want 2 discounts and 2 rows as the other "free product" coupon isn't combinable
             result.Discounts.Count.should_be(2);
-            result.Discounts[0].Code.should_be("free product");
-            result.Discounts[1].Code.should_be("20%");
+            result.Discounts[0].Name.should_be("free product");
+            result.Discounts[1].Name.should_be("20%");
             result.Rows.Count.should_be(2);
             result.Rows[1].Product.should_be(_freeProduct);
         }
@@ -230,9 +245,27 @@ namespace Domain.Tests.Services
 
             // We only want 2 discounts and 2 rows as the other "free product" coupon isn't combinable
             result.Discounts.Count.should_be(1);
-            result.Discounts[0].Code.should_be("Free but uncombineable product");
+            result.Discounts[0].Name.should_be("Free but uncombineable product");
             result.Rows.Count.should_be(2);
             result.Rows[1].Product.should_be(_invalidProduct);
+        }
+
+        [TestMethod]
+        public void TestThatTheBestOfferIsPickedIfProductsIsPresentButCouponCalculatesOnAll()
+        {
+            var coupon = _couponRepository.FindByUniqueKey("percentage") as TotalSumPercentageDiscount;
+            coupon.DiscountOnlyOnSpecifiedProducts = false;
+            _couponRepository.Store(coupon);
+            _couponRepository.SaveChanges();
+
+            var result = _couponService.FindBestCouponsForCart(_cart);
+
+            // We only want 2 discounts and 2 rows as the other "free product" coupon isn't combinable
+            result.Discounts.Count.should_be(2);
+            result.Discounts[0].Name.should_be("free product");
+            result.Discounts[1].Name.should_be("20%");
+            result.Rows.Count.should_be(2);
+            result.Rows[1].Product.should_be(_freeProduct);
         }
 
         [TestMethod]

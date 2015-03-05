@@ -9,7 +9,7 @@ namespace Domain.Entities
     /// </summary>
     public class TotalSumAmountDiscount : Coupon
     {
-        public TotalSumAmountDiscount(IReadOnlyDictionary<string, string> properties)
+        public TotalSumAmountDiscount(IReadOnlyDictionary<String, String> properties)
         {
             SetProperties(properties);
         }
@@ -18,7 +18,7 @@ namespace Domain.Entities
         {
         }
 
-        public override void SetProperties(IReadOnlyDictionary<string, string> properties)
+        public override void SetProperties(IReadOnlyDictionary<String, String> properties)
         {
             base.SetProperties(properties);
             Amount = Decimal.Parse(properties["Amount"], CultureInfo.InvariantCulture);
@@ -26,7 +26,7 @@ namespace Domain.Entities
 
         public Decimal Amount { get; set; }
 
-        public override Dictionary<string, string> GetProperties()
+        public override Dictionary<String, String> GetProperties()
         {
             var dictionary = base.GetProperties();
             dictionary.Add("Amount", Amount.ToString(CultureInfo.InvariantCulture));

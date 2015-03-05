@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Domain.Entities
 {
@@ -9,7 +10,7 @@ namespace Domain.Entities
     /// </summary>
     public class TotalSumPercentageDiscount : Coupon
     {
-        public TotalSumPercentageDiscount(IReadOnlyDictionary<string, string> properties)
+        public TotalSumPercentageDiscount(IReadOnlyDictionary<String, String> properties)
         {
             SetProperties(properties);
         }
@@ -18,21 +19,35 @@ namespace Domain.Entities
         {
         }
 
-        public override void SetProperties(IReadOnlyDictionary<string, string> properties)
+        /// <summary>
+        ///     If set to true the percentage will only be calculated on Products that is valid
+        ///     for this Coupon, if set to false the percentage will be calculated on all products
+        ///     in the cart if any of the vaild products is present.
+        /// </summary>
+        public Boolean DiscountOnlyOnSpecifiedProducts { get; set; }
+
+        /// <summary>
+        ///     A Percentage between 0 and 1
+        /// </summary>
+        public Decimal Percentage { get; set; }
+
+        public override void SetProperties(IReadOnlyDictionary<String, String> properties)
         {
             base.SetProperties(properties);
-            Percentage = Decimal.Parse(properties["Percentage"], CultureInfo.InvariantCulture);
+            Percentage = Decimal.Parse(properties["Percentage"], CultureInfo.InvariantCulture) / 100;
+            if (Percentage < 0 || Percentage > 1)
+            {
+                throw new ArgumentException("Percentage must be between 0 and 100");
+            }
         }
 
-        public override Dictionary<string, string> GetProperties()
+        public override Dictionary<String, String> GetProperties()
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("Percentage", Percentage.ToString(CultureInfo.InvariantCulture));
+            dictionary.Add("Percentage", (Percentage * 100).ToString(CultureInfo.InvariantCulture));
 
             return dictionary;
         }
-
-        public Decimal Percentage { get; set; }
 
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart
@@ -40,22 +55,15 @@ namespace Domain.Entities
         /// </summary>
         public override Decimal CalculateDiscount(Cart cart)
         {
-            Decimal discount = 0;
-
-            if(Products == null)
+            if (!DiscountOnlyOnSpecifiedProducts || Products == null)
             {
                 return cart.TotalSum * Percentage;
             }
 
-            foreach (var row in cart.Rows)
-            {
-                // A single ROW
-                if (Products.Exists(p => p.ProductId == row.Product.ProductId))
-                {
-                    discount = row.TotalPrice*Percentage;
-                }
-            }
-            return discount;
+            // Only calulate the discount on products that are valid for this cupon
+            return cart.Rows
+                .Where(row => Products.Exists(p => p.ProductId == row.Product.ProductId))
+                .Sum(row => row.TotalPrice * Percentage);
         }
     }
 }

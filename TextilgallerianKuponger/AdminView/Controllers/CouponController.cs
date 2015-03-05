@@ -1,11 +1,9 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-﻿using System.ComponentModel.DataAnnotations;
 ﻿using System.Data;
 using System.Linq;
-﻿using System.Reflection;
 ﻿using System.Web.Mvc;
-using AdminView.Annotations;
+﻿using AdminView.Annotations;
 using AdminView.ViewModel;
 using Domain.Entities;
 using Domain.Repositories;
@@ -77,7 +75,7 @@ namespace AdminView.Controllers
         }
 
         // POST: Coupon/Create
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
         [RequiredPermission(Permission.CanAddCoupons)]
@@ -108,9 +106,9 @@ namespace AdminView.Controllers
                 customers = _couponHelper.GetCustomers(model.CustomerString);
             }
 
-            List<Product> products = _couponHelper.GetProducts(model.ProductsString);
-            List<Brand> brands = _couponHelper.GetBrands(model.BrandsString);
-            List<Category> categories = _couponHelper.GetCategories(model.CategoriesString);
+            var products = _couponHelper.GetProducts(model.ProductsString);
+            var brands = _couponHelper.GetBrands(model.BrandsString);
+            var categories = _couponHelper.GetCategories(model.CategoriesString);
 
             if (!ModelState.IsValid) return View(model);
             try
@@ -130,6 +128,13 @@ namespace AdminView.Controllers
                 coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
                 coupon.UniqueKey = _couponHelper.RandomString(20);
+
+                if (coupon is TotalSumPercentageDiscount)
+                {
+                    var c = coupon as TotalSumPercentageDiscount;
+                    c.DiscountOnlyOnSpecifiedProducts =
+                        model.PercentageDiscountOnlyOnSpecifiedProducts;
+                }
 
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
@@ -155,12 +160,13 @@ namespace AdminView.Controllers
 
         // GET: Coupon/Edit/5
         [RequiredPermission(Permission.CanChangeCoupons)]
-        public ActionResult Edit(string uniqueKey)
+        public ActionResult Edit(String uniqueKey)
         {
             var coupon = _couponRepository.FindByUniqueKey(uniqueKey);
-            var dictionary = coupon.GetProperties();
-            var cvm = new CouponViewModel();
-            cvm.Parameters = dictionary;
+            var cvm = new CouponViewModel
+            {
+                Parameters = coupon.GetProperties()
+            };
             
             //input for textareas.
             cvm.CustomerString = coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "";
@@ -170,19 +176,26 @@ namespace AdminView.Controllers
             
             //gets the type of the coupon.
             cvm.Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName];
+
+            if (coupon is TotalSumPercentageDiscount)
+            {
+                var c = coupon as TotalSumPercentageDiscount;
+                cvm.PercentageDiscountOnlyOnSpecifiedProducts =
+                    c.DiscountOnlyOnSpecifiedProducts;
+            }
             
             return View(cvm);
         }
 
         // POST: Coupon/Edit/5
-        [System.Web.Mvc.HttpPost]
+        [HttpPost]
         [RequiredPermission(Permission.CanChangeCoupons)]
         public ActionResult Edit(CouponViewModel model)
         {
-            List<Customer> customers = _couponHelper.GetCustomers(model.CustomerString);
-            List<Product> products = _couponHelper.GetProducts(model.ProductsString);
-            List<Brand> brands = _couponHelper.GetBrands(model.BrandsString);
-            List<Category> categories = _couponHelper.GetCategories(model.CategoriesString);
+            var customers = _couponHelper.GetCustomers(model.CustomerString);
+            var products = _couponHelper.GetProducts(model.ProductsString);
+            var brands = _couponHelper.GetBrands(model.BrandsString);
+            var categories = _couponHelper.GetCategories(model.CategoriesString);
 
 
             if (!ModelState.IsValid) return View();
@@ -202,9 +215,14 @@ namespace AdminView.Controllers
                 coupon.Products = products;
                 coupon.Brands = brands;
                 coupon.Categories = categories;
-                coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
 
+                if (coupon is TotalSumPercentageDiscount)
+                {
+                    var c = coupon as TotalSumPercentageDiscount;
+                    c.DiscountOnlyOnSpecifiedProducts =
+                        model.PercentageDiscountOnlyOnSpecifiedProducts;
+                }
 
                 _couponRepository.Store(coupon);
                 _couponRepository.SaveChanges();
@@ -226,7 +244,7 @@ namespace AdminView.Controllers
 
         // GET: /Coupon/Delete/:code
        [RequiredPermission(Permission.CanDeleteCoupons)]
-        public ActionResult Delete(string uniqueKey)
+        public ActionResult Delete(String uniqueKey)
         {
             var coupon = _couponRepository.FindByUniqueKey(uniqueKey);
 
@@ -239,7 +257,7 @@ namespace AdminView.Controllers
         ///     (because of statitics) https://github.com/Textilgallerian/textilgallerian/issues/53
         ///     We only set it to unactive
         /// </summary>
-        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [RequiredPermission(Permission.CanDeleteCoupons)]
         public ActionResult DeleteConfirmed(string uniqueKey)

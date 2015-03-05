@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.Entities;
 using Raven.Client;
+using Raven.Client.Linq;
 
 namespace Domain.Repositories
 {
@@ -36,14 +38,23 @@ namespace Domain.Repositories
             return _session.Query<Coupon>()
                 .FirstOrDefault(coupon => coupon.Code == code);
         }
+
         /// <summary>
-        ///  Find a coupon by unique key on eatch coupon
+        ///  Find a coupon by unique key
         /// </summary>
-        /// <param name="uniqueKey"></param>
         public Coupon FindByUniqueKey(String uniqueKey)
         {
             return _session.Query<Coupon>()
                 .FirstOrDefault(coupon => coupon.UniqueKey == uniqueKey);
+        }
+
+        /// <summary>
+        ///  Find coupons by unique keys
+        /// </summary>
+        public IQueryable<Coupon> FindByUniqueKeys(IEnumerable<string> uniqueKeys)
+        {
+            return _session.Query<Coupon>()
+                .Where(coupon => coupon.UniqueKey.In(uniqueKeys));
         }
 
         /// <summary>
@@ -55,6 +66,8 @@ namespace Domain.Repositories
                 .FirstOrDefault(
                     coupon =>
                         coupon.CustomersValidFor.Any(
+                            customer => customer.CouponCode == code) ||
+                        coupon.CustomersUsedBy.Any(
                             customer => customer.CouponCode == code));
         }
 
@@ -63,9 +76,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<Coupon> FindBySocialSecurityNumber(String ssn)
         {
-            return _session.Query<Coupon>()
-                .Where(
-                    coupon =>
+            return _session.Query<Coupon>().Where(coupon =>
                         coupon.CustomersValidFor.Any(
                             customer => customer.SocialSecurityNumber == ssn));
         }
@@ -75,9 +86,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<Coupon> FindByEmail(String email)
         {
-            return _session.Query<Coupon>()
-                .Where(
-                    coupon =>
+            return _session.Query<Coupon>().Where(coupon =>
                         coupon.CustomersValidFor.Any(customer => customer.Email == email));
         }
 
@@ -86,9 +95,7 @@ namespace Domain.Repositories
         /// </summary>
         public IQueryable<Coupon> FindByProduct(Product product)
         {
-            return _session.Query<Coupon>()
-                .Where(
-                    coupon =>
+            return _session.Query<Coupon>().Where(coupon =>
                         coupon.Products.Any(p => p.ProductId == product.ProductId));
         }
 

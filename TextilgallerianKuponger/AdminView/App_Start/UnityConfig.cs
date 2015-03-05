@@ -13,7 +13,8 @@ namespace AdminView
             Conventions =
             {
                 FindTypeTagName =
-                    type => typeof (Coupon).IsAssignableFrom(type) ? "coupons" : null
+                    type => typeof (Coupon).IsAssignableFrom(type) ? "coupons" : null,
+                DefaultQueryingConsistency = ConsistencyOptions.AlwaysWaitForNonStaleResultsAsOfLastWrite,
             }
         };
 
@@ -21,7 +22,6 @@ namespace AdminView
 
         public static void RegisterComponents()
         {
-            Store.Conventions.DefaultQueryingConsistency = ConsistencyOptions.AlwaysWaitForNonStaleResultsAsOfLastWrite;
             _container = new UnityContainer();
 
             // Initialize the database store
