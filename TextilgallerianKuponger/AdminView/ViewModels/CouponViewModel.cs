@@ -12,6 +12,13 @@ namespace AdminView.ViewModel
 
         public List<Product> Products { get; set; }
         public string ProductsString { get; set; }
+
+        public List<Brand> Brands { get; set; }
+        public string BrandsString { get; set; }
+
+        public List<Category> Categories { get; set; }
+        public string CategoriesString { get; set; }
+
         public List<Customer> Customers { get; set; }
         public string CustomerString { get; set; }
         public String Type { get; set; }

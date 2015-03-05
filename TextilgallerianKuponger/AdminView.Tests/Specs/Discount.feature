@@ -29,8 +29,9 @@ Scenario: Add new amount discount
 		And I have selected the "TotalSumAmountDiscount" in the discount type field
 		And I have entered "Easter Season" in the "Name" field
 		And I have entered "Chicken" in the "Code" field
-		And I have entered "900105-3001" in the "CustomerString" field
+		And I have entered "500" in the "MinPurchase" field
 		And I have entered "Test coupon" in the "Description" field
+		And I have entered "900105-3001" in the "CustomerString" field
 		And I have entered "2015-04-01" in the "Start" field
 		And I have entered "2015-04-30" in the "End" field
 		And I have entered "2" in the "UseLimit" field
@@ -90,12 +91,15 @@ Scenario: Add new buy product X and recieve product Y discount
 		And I have selected the "BuyProductXRecieveProductY" in the discount type field
 		And I have entered "Halloween" in the "Name" field
 		And I have entered "pumpkin" in the "Code" field
-		And I have entered "900105-3001" in the "CustomerString" field
+		And I have entered "100" in the "MinPurchase" field
 		And I have entered "Test coupon" in the "Description" field
+		And I have entered "900105-3001" in the "CustomerString" field
 		And I have entered "2015-09-01" in the "Start" field
 		And I have entered "2015-10-30" in the "End" field
-		And I have entered "Pink Curtain" in the "FreeProduct" field
 		And I have entered "2" in the "UseLimit" field
+		And I have entered "3" in the "Buy" field
+		And I have entered "3" in the "Amount" field
+		And I have entered "Pink Curtain" in the "FreeProduct" field
      When I press "Skapa rabatt"
      Then the system should present "Rabatt sparad!"
 		And a discount of type "Köp X få Y gratis" should exist

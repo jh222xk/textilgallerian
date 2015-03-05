@@ -67,6 +67,7 @@ namespace AdminView.Controllers
 
         // POST: User/Create
         [HttpPost]
+        [ValidateInput(false)]
         [RequiredPermission(Permission.CanAddUsers)]
         public ActionResult Create(AuthorizationViewModel model)
         {

@@ -1,7 +1,9 @@
 ﻿﻿using System;
 using System.Collections.Generic;
-using System.Data;
+﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Data;
 using System.Linq;
+﻿using System.Reflection;
 ﻿using System.Web.Mvc;
 using AdminView.Annotations;
 using AdminView.ViewModel;
@@ -54,6 +56,7 @@ namespace AdminView.Controllers
             
             var cvm = new CouponViewModel
             {
+                CanBeCombined = coupon.CanBeCombined,
                 Parameters = coupon.GetProperties(),
                 CustomerString =
                     coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "",
@@ -74,12 +77,24 @@ namespace AdminView.Controllers
         }
 
         // POST: Coupon/Create
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         [RequiredPermission(Permission.CanAddCoupons)]
         public ActionResult Create(CouponViewModel model)
         {
             List<Customer> customers = null;
+
+            
+            // Search DB for coupon code 
+            var couponCode = _couponRepository.FindByCode(model.Parameters["Code"]);
+
+            //Validates if code already exists 
+            if (couponCode != null)
+            {
+                TempData["error"] = "Finns redan en rabattkod med den koden";
+                return View(model);
+            }
             
             if (model.DisposableCodes)
             {
@@ -94,6 +109,8 @@ namespace AdminView.Controllers
             }
 
             List<Product> products = _couponHelper.GetProducts(model.ProductsString);
+            List<Brand> brands = _couponHelper.GetBrands(model.BrandsString);
+            List<Category> categories = _couponHelper.GetCategories(model.CategoriesString);
 
             if (!ModelState.IsValid) return View(model);
             try
@@ -108,6 +125,8 @@ namespace AdminView.Controllers
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
                 coupon.Products = products;
+                coupon.Brands = brands;
+                coupon.Categories = categories;
                 coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
                 coupon.UniqueKey = _couponHelper.RandomString(20);
@@ -146,6 +165,8 @@ namespace AdminView.Controllers
             //input for textareas.
             cvm.CustomerString = coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "";
             cvm.ProductsString = coupon.Products != null ? _couponHelper.CreateProductsString(coupon.Products) : "";
+            cvm.BrandsString = coupon.Brands != null ? _couponHelper.CreateBrandString(coupon.Brands) : "";
+            cvm.CategoriesString = coupon.Categories != null ? _couponHelper.CreateCategoryString(coupon.Categories) : "";
             
             //gets the type of the coupon.
             cvm.Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName];
@@ -154,12 +175,15 @@ namespace AdminView.Controllers
         }
 
         // POST: Coupon/Edit/5
-        [HttpPost]
+        [System.Web.Mvc.HttpPost]
         [RequiredPermission(Permission.CanChangeCoupons)]
         public ActionResult Edit(CouponViewModel model)
         {
             List<Customer> customers = _couponHelper.GetCustomers(model.CustomerString);
             List<Product> products = _couponHelper.GetProducts(model.ProductsString);
+            List<Brand> brands = _couponHelper.GetBrands(model.BrandsString);
+            List<Category> categories = _couponHelper.GetCategories(model.CategoriesString);
+
 
             if (!ModelState.IsValid) return View();
             try
@@ -176,6 +200,8 @@ namespace AdminView.Controllers
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
                 coupon.Products = products;
+                coupon.Brands = brands;
+                coupon.Categories = categories;
                 coupon.IsActive = true;
                 coupon.CreatedAt = DateTime.Now;
 
@@ -213,7 +239,7 @@ namespace AdminView.Controllers
         ///     (because of statitics) https://github.com/Textilgallerian/textilgallerian/issues/53
         ///     We only set it to unactive
         /// </summary>
-        [HttpPost, ActionName("Delete")]
+        [System.Web.Mvc.HttpPost, System.Web.Mvc.ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [RequiredPermission(Permission.CanDeleteCoupons)]
         public ActionResult DeleteConfirmed(string uniqueKey)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Microsoft.Build.Framework.XamlTypes;
 
 namespace Domain.Entities
 {
@@ -118,11 +119,9 @@ namespace Domain.Entities
         /// </summary>
         public List<Product> Products { get; set; }
 
-        ///// <summary>
-        /////     How many products customer need to buy
-        ///// </summary>
-        //public Decimal Buy { get; set; }
-
+        public List<Brand> Brands { get; set; }
+        public List<Category> Categories { get; set; }
+        
 
         /// <summary>
         ///     The minimum purchase sum required for the coupon to be valid
