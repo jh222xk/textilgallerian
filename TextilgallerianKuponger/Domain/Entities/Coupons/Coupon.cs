@@ -146,6 +146,11 @@ namespace Domain.Entities
                 return false;
             }
 
+            if (UseLimit.HasValue && UseLimit.Value <= 0)
+            {
+                return false;
+            }
+
             // not valid if the minimum purchase limit has not been reached
             if (MinPurchase > cart.TotalSum)
             {
@@ -158,12 +163,16 @@ namespace Domain.Entities
                     CustomersValidFor.Find(cust => (cust.CouponCode == cart.CouponCode && cust.CouponCode != null) ||
                                                    (cust.Email == cart.Customer.Email && cust.Email != null) ||
                                                    (cust.SocialSecurityNumber == cart.Customer.SocialSecurityNumber && cust.SocialSecurityNumber != null));
-                return customer != null && customer.CouponUses < UseLimit;
-            }
-            
-            if (UseLimit.HasValue && UseLimit.Value <= 0)
-            {
-                return false;
+
+                if (customer == null)
+                {
+                    return false;
+                }
+
+                if (UseLimit.HasValue && customer.CouponUses > UseLimit)
+                {
+                    return false;
+                }
             }
 
             if (CustomersUsedBy.Any())

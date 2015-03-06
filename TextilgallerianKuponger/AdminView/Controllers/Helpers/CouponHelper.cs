@@ -25,11 +25,11 @@ namespace AdminView.Controllers.Helpers
             if (customerString == null) { return null; }
 
             //split at newline and create array.
-            string[] lines = customerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var lines = customerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var customers = new List<Customer>();
 
-            Regex mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
-            Regex ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
+            var mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
+            var ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
 
             foreach (var line in lines)
             {
@@ -117,7 +117,7 @@ namespace AdminView.Controllers.Helpers
             if (productsString == null) { return null; }
 
             //split at newline and create array.
-            string[] lines = productsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var lines = productsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var products = new List<Product>();
 
             //TODO: Create real productId regex

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using AdminView.Tests.Helpers;
 using AdminView.Tests.Steps;
+using Domain.Entities;
 using NSpec;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
@@ -52,5 +55,142 @@ namespace AdminView.Tests
         {
             ScenarioContext.Current.Pending();
         }
+
+        [Then(@"the Holiday Season API test should pass")]
+        public void ThenTheHolidaySeasonAPITestShouldPass()
+        {
+            CallApi(new Cart
+            {
+                CouponCode = "XMAS15",
+                Customer = new Customer
+                {
+                    SocialSecurityNumber = "900105-3001"
+                },
+            }).should_be_json_for(new Cart
+            {
+                CouponCode = "XMAS15",
+                Customer = new Customer
+                {
+                    SocialSecurityNumber = "900105-3001"
+                },
+                Rows = new List<Row>(),
+                Discounts = new List<Coupon>
+                {
+                    new TotalSumPercentageDiscount
+                    {
+                        Name = "Holiday Season",
+                        Code = "XMAS15",
+                        Description = "Test coupon",
+                        CreatedBy = "editor@admin.com",
+                        CustomersUsedBy = new List<Customer>(),
+                        CustomersValidFor = new List<Customer>
+                        {
+                            new Customer
+                            {
+                                SocialSecurityNumber = "900105-3001"
+                            }
+                        },
+                        DiscountOnlyOnSpecifiedProducts = false,
+                        Start = new DateTime(2015, 01, 15),
+                        End = new DateTime(2016, 04, 30),
+                        Percentage = 0.3m,
+                        Brands = null,
+                        CanBeCombined = true,
+                        Categories = null,
+                        UseLimit = 2,
+                        IsActive = true,
+                    }
+                },
+            });
+        }
+
+        [Then(@"the Easter Season API test should pass")]
+        public void ThenTheEasterSeasonAPITestShouldPass()
+        {
+            CallApi(new Cart
+            {
+                CouponCode = "Chicken",
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        Amount = 10,
+                        Product = new Product
+                        {
+                            Name = "Egg",
+                            ProductId = "Egg",
+                        },
+                        ProductPrice = 50m,
+                    }
+                },
+            }).should_be_json_for(new Cart
+            {
+                CouponCode = "Chicken",
+                Customer = new Customer(),
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        Amount = 10,
+                        Product = new Product
+                        {
+                            Name = "Egg",
+                            ProductId = "Egg",
+                        },
+                        ProductPrice = 50m,
+                    }
+                },
+                Discounts = new List<Coupon>
+                {
+                    new TotalSumAmountDiscount
+                    {
+                        Name = "Easter Season",
+                        Code = "Chicken",
+                        Description = "TotalSumAmountDiscount",
+                        CreatedBy = "editor@admin.com",
+                        CustomersUsedBy = new List<Customer>(),
+                        Start = new DateTime(2015, 01, 15),
+                        End = new DateTime(2016, 04, 30),
+                        Amount = 100m,
+                        Brands = null,
+                        CanBeCombined = true,
+                        Categories = null,
+                        IsActive = true,
+                        MinPurchase = 500m,
+                    }
+                },
+            });
+        }
+
+        [Then(@"the Summer API test should pass")]
+        public void ThenTheSummerAPITestShouldPass()
+        {
+            CallApi(new Cart
+            {
+                CouponCode = "Summer",
+            }).should_be_json_for(new Cart
+            {
+                CouponCode = "Summer",
+                Customer = new Customer(),
+                Rows = new List<Row>(),
+                Discounts = new List<Coupon>(),
+            });
+        }
+
+        [Then(@"the Halloween API test should pass")]
+        public void ThenTheHalloweenAPITestShouldPass()
+        {
+            CallApi(new Cart
+            {
+                CouponCode = "pumpkin",
+            }).should_be_json_for(new Cart
+            {
+                CouponCode = "pumpkin",
+                Customer = new Customer(),
+                Rows = new List<Row>(),
+                Discounts = new List<Coupon>(),
+            });
+        }
+
     }
 }

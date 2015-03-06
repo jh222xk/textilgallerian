@@ -151,7 +151,7 @@ namespace AdminView.Controllers
             {
                 throw new ArgumentException("Ogiltig kupongtyp");
             }
-            catch
+            catch (Exception e)
             {
                 TempData["error"] = "Misslyckades att spara rabatten!";
             }

@@ -21,6 +21,10 @@ namespace Api.Controllers
 
         public Cart Post([FromBody] Cart cart)
         {
+            if (cart.Customer == null)
+            {
+                cart.Customer = new Customer();
+            }
             return _couponService.FindBestCouponsForCart(cart);
         }
 

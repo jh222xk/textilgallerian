@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using Domain.Entities;
+using Newtonsoft.Json;
 using NSpec;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
 using Raven.Client;
 using Raven.Client.Embedded;
-using Raven.Database.Server;
+using Raven.Database.Config;
 
 namespace AdminView.Tests.Steps
 {
@@ -25,8 +30,20 @@ namespace AdminView.Tests.Steps
                     {
                         RunInMemory = true,
                         UseEmbeddedHttpServer = true,
+                        Configuration = new RavenConfiguration
+                        {
+                            HostName = "localhost",
+                            Port = 8080,
+                            RunInMemory = true,
+                            RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true,
+                        },
                     };
                     _documentStore.Initialize();
+                    try
+                    {
+                        _documentStore.DatabaseCommands.GlobalAdmin.DeleteDatabase("Coupons");
+                    }
+                    catch { }
                     _documentStore.DatabaseCommands.GlobalAdmin.EnsureDatabaseExists("Coupons");
                     using (var session = _documentStore.OpenSession("Coupons"))
                     {
@@ -109,6 +126,29 @@ namespace AdminView.Tests.Steps
                     Permission.CanListUsers
                 },
             });
+        }
+
+        protected async Task<String> CallApiAsync(Cart cart)
+        {
+            using (var client = new HttpClient())
+            {
+                var json = JsonConvert.SerializeObject(cart);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync("http://localhost:1250/api/cart", content);
+                var responseString = await response.Content.ReadAsStringAsync();
+                return responseString;
+            }
+        }
+
+        protected String CallApi(Cart cart)
+        {
+            if (cart.Rows == null)
+            {
+                cart.Rows = new List<Row>();
+            }
+            var task = Task.Run(async () => await CallApiAsync(cart));
+            task.Wait();
+            return task.Result;
         }
     }
 }
