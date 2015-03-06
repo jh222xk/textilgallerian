@@ -79,6 +79,12 @@ namespace AdminView.Controllers
                     TempData["error"] = "Det finns redan en användare med detta användarnamn";
                 }
 
+                //must choose a role.
+                else if(model.Role == null)
+                {
+                    TempData["error"] = "Du måste välja en roll.";
+                }
+
                 else if (ModelState.IsValid)
                 {
                     var user = new User
@@ -90,8 +96,7 @@ namespace AdminView.Controllers
                         Password = model.Password
                     };
                     var role = _roleRepository.FindByName(model.Role);
-                    //_userRepository.Store(user);
-                    //_userRepository.SaveChanges();
+
                     if (role.Users == null)
                     {
                         role.Users = new List<User>();
@@ -106,7 +111,7 @@ namespace AdminView.Controllers
             }
             catch (Exception e)
             {
-                TempData["error"] = e.Message;
+                TempData["error"] = "Det gick inte att skapa användaren";
             }
 
             model.Roles = _roleRepository.FindAllRoles();
