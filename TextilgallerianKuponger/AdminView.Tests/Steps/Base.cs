@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using NSpec;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
+using Raven.Abstractions.Extensions;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Database.Config;
@@ -65,6 +66,7 @@ namespace AdminView.Tests.Steps
 
         private static void SeedDatabase(IDocumentSession session)
         {
+            session.Query<Coupon>().ForEach(session.Delete);
             session.Store(new Role
             {
                 Name = "Admin",

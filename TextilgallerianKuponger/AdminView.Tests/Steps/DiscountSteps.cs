@@ -94,11 +94,81 @@ namespace AdminView.Tests
                         Start = new DateTime(2015, 01, 15),
                         End = new DateTime(2016, 04, 30),
                         Percentage = 0.3m,
-                        Brands = null,
                         CanBeCombined = true,
-                        Categories = null,
                         UseLimit = 2,
                         IsActive = true,
+                    }
+                },
+            });
+        }
+
+        [Then(@"the Holiday Season 16 API test should pass")]
+        public void ThenTheHolidaySeason16APITestShouldPass()
+        {
+            CallApi(new Cart
+            {
+                CouponCode = "XMAS16",
+                Customer = new Customer
+                {
+                    Email = "customer@email.com"
+                },
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        Amount = 10,
+                        Product = new Product
+                        {
+                            Name = "Egg",
+                            ProductId = "Egg",
+                        },
+                        ProductPrice = 50,
+                    }
+                },
+            }).should_be_json_for(new Cart
+            {
+                CouponCode = "XMAS16",
+                Customer = new Customer
+                {
+                    Email = "customer@email.com"
+                },
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        Amount = 10,
+                        Product = new Product
+                        {
+                            Name = "Egg",
+                            ProductId = "Egg",
+                        },
+                        ProductPrice = 50,
+                    }
+                },
+                Discounts = new List<Coupon>
+                {
+                    new TotalSumPercentageDiscount
+                    {
+                        Name = "Holiday Season 16",
+                        Code = "XMAS16",
+                        Description = "Test coupon",
+                        CreatedBy = "editor@admin.com",
+                        CustomersUsedBy = new List<Customer>(),
+                        CustomersValidFor = new List<Customer>
+                        {
+                            new Customer
+                            {
+                                Email = "customer@email.com"
+                            }
+                        },
+                        DiscountOnlyOnSpecifiedProducts = false,
+                        Start = new DateTime(2014, 04, 15),
+                        End = new DateTime(2016, 04, 30),
+                        Percentage = 0.3m,
+                        CanBeCombined = true,
+                        UseLimit = 2,
+                        IsActive = true,
+                        MinPurchase = 500,
                     }
                 },
             });
@@ -120,7 +190,7 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
-                        ProductPrice = 50m,
+                        ProductPrice = 50,
                     }
                 },
             }).should_be_json_for(new Cart
@@ -137,7 +207,7 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
-                        ProductPrice = 50m,
+                        ProductPrice = 50,
                     }
                 },
                 Discounts = new List<Coupon>
@@ -150,11 +220,7 @@ namespace AdminView.Tests
                         CreatedBy = "editor@admin.com",
                         CustomersUsedBy = new List<Customer>(),
                         Start = new DateTime(2015, 01, 15),
-                        End = new DateTime(2016, 04, 30),
                         Amount = 100m,
-                        Brands = null,
-                        CanBeCombined = true,
-                        Categories = null,
                         IsActive = true,
                         MinPurchase = 500m,
                     }
@@ -167,29 +233,115 @@ namespace AdminView.Tests
         {
             CallApi(new Cart
             {
-                CouponCode = "Summer",
+                CouponCode = "Beach",
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        Amount = 3,
+                        Product = new Product
+                        {
+                            Name = "Egg",
+                            ProductId = "Egg",
+                        },
+                        ProductPrice = 50,
+                    }
+                },
             }).should_be_json_for(new Cart
             {
-                CouponCode = "Summer",
+                CouponCode = "Beach",
                 Customer = new Customer(),
-                Rows = new List<Row>(),
-                Discounts = new List<Coupon>(),
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        Amount = 3,
+                        Product = new Product
+                        {
+                            Name = "Egg",
+                            ProductId = "Egg",
+                        },
+                        ProductPrice = 50,
+                    }
+                },
+                Discounts = new List<Coupon>
+                {
+                    new BuyXProductsPayForYProducts
+                    {
+                        Name = "Summer",
+                        Code = "Beach",
+                        Description = "",
+                        CreatedBy = "editor@admin.com",
+                        CustomersUsedBy = new List<Customer>(),
+                        Start = new DateTime(2014, 06, 01),
+                        Buy = 3,
+                        PayFor = 2,
+                        IsActive = true,
+                    }
+                },
             });
         }
 
         [Then(@"the Halloween API test should pass")]
         public void ThenTheHalloweenAPITestShouldPass()
         {
-            CallApi(new Cart
-            {
-                CouponCode = "pumpkin",
-            }).should_be_json_for(new Cart
+            var cart = new Cart
             {
                 CouponCode = "pumpkin",
                 Customer = new Customer(),
-                Rows = new List<Row>(),
-                Discounts = new List<Coupon>(),
-            });
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        Amount = 3,
+                        Product = new Product
+                        {
+                            Name = "Egg",
+                            ProductId = "Egg",
+                        },
+                        ProductPrice = 50,
+                    }
+                },
+                Discounts = new List<Coupon>
+                {
+                    new BuyProductXRecieveProductY
+                    {
+                        Name = "Halloween",
+                        Code = "pumpkin",
+                        Description = "",
+                        CreatedBy = "editor@admin.com",
+                        CustomersUsedBy = new List<Customer>(),
+                        Start = new DateTime(2014, 09, 01),
+                        Buy = 3,
+                        IsActive = true,
+                        FreeProduct = new Product
+                        {
+                            ProductId = "Pink Curtain",
+                        },
+                        AmountOfProducts = 3,
+                        MinPurchase = 100
+                    }
+                },
+            };
+            cart.CalculateDiscount();
+
+            CallApi(new Cart
+            {
+                CouponCode = "pumpkin",
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        Amount = 3,
+                        Product = new Product
+                        {
+                            Name = "Egg",
+                            ProductId = "Egg",
+                        },
+                        ProductPrice = 50,
+                    }
+                },
+            }).should_be_json_for(cart);
         }
 
     }
