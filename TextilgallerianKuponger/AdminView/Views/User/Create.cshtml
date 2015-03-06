@@ -18,7 +18,7 @@
             </div>
             <div class="field">
                 <label>Lösenord</label>
-                @Html.PasswordFor(m => Model.Password)
+                @Html.PasswordFor(m => Model.Password, new {required = "required" })
                 @Html.ValidationMessageFor(model => model.Password)
             </div>
             <div class="field">
