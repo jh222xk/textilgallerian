@@ -70,6 +70,7 @@ namespace Domain.Entities
 
         /// <summary>
         ///     Creates a new object that is a copy of the current instance.
+        ///     Used to check which coupon gives the highest discount
         /// </summary>
         public object Clone()
         {

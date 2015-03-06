@@ -28,6 +28,7 @@ namespace Api.Controllers
             return _couponService.FindBestCouponsForCart(cart);
         }
 
+
         [Route("purchased")]
         public Boolean Purchased([FromBody] Cart cart)
         {
