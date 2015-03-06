@@ -21,7 +21,6 @@ namespace AdminView.Tests.Steps
             {
                 if (_driver == null)
                 {
-                    NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8000);
                     _documentStore = new EmbeddableDocumentStore
                     {
                         RunInMemory = true,
