@@ -10,9 +10,6 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #region Designer generated code
-
-using Domain.Entities;
-
 #pragma warning disable
 namespace AdminView.Tests.Specs
 {
@@ -99,24 +96,26 @@ this.ScenarioSetup(scenarioInfo);
 #line 15
   testRunner.And("I have entered \"2015-04-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
-  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"0\" in the \"NumberOfProductsToBuy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
-  testRunner.And("I have entered \"30\" in the \"Percentage\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 18
-  testRunner.And("I have checked the coupon can be combined checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"30\" in the \"Percentage\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19
-     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("I have checked the coupon can be combined checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 20
-     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 21
-  testRunner.And("a discount of type \"Köp för X:kr få Y:% rabatt\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 22
-  testRunner.And("it should have a \"Kampanjnamn\" of \"Holiday Season\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("a discount of type \"Köp för X:kr få Y:% rabatt\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
-  testRunner.And("it should have a \"Kampanjkod\" of \"XMAS15\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("it should have a \"Kampanjnamn\" of \"Holiday Season\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
-  testRunner.And("it should have a \"Startdatum\" of \"2015-04-15\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("it should have a \"Kampanjkod\" of \"XMAS15\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 25
+  testRunner.And("it should have a \"Startdatum\" of \"2015-04-15\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 26
   testRunner.And("it should have a \"Slutdatum\" of \"2015-04-30\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -129,41 +128,45 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AddNewAmountDiscount()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new amount discount", ((string[])(null)));
-#line 27
-this.ScenarioSetup(scenarioInfo);
 #line 28
-    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 29
-  testRunner.And("I have selected the \"TotalSumAmountDiscount\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 30
-  testRunner.And("I have entered \"Easter Season\" in the \"Name\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have selected the \"TotalSumAmountDiscount\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 31
-  testRunner.And("I have entered \"Chicken\" in the \"Code\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Easter Season\" in the \"Name\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 32
-  testRunner.And("I have entered \"900105-3001\" in the \"CustomerString\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Chicken\" in the \"Code\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 33
-  testRunner.And("I have entered \"Test coupon\" in the \"Description\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"500\" in the \"MinPurchase\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 34
-  testRunner.And("I have entered \"2015-04-01\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Test coupon\" in the \"Description\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 35
-  testRunner.And("I have entered \"2015-04-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"900105-3001\" in the \"CustomerString\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 36
-  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2015-04-01\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 37
-  testRunner.And("I have entered \"100\" in the \"Amount\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2015-04-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 38
-     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("I have entered \"0\" in the \"NumberOfProductsToBuy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 39
-     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 40
-  testRunner.And("a discount of type \"Köp för X:kr få Y:kr rabatt\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"100\" in the \"Amount\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 41
-  testRunner.And("it should have a \"Kampanjnamn\" of \"Easter Season\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 42
-  testRunner.And("it should have a \"Kampanjkod\" of \"Chicken\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 43
-  testRunner.And("it should have a \"Startdatum\" of \"2015-04-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("a discount of type \"Köp för X:kr få Y:kr rabatt\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 44
+  testRunner.And("it should have a \"Kampanjnamn\" of \"Easter Season\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 45
+  testRunner.And("it should have a \"Kampanjkod\" of \"Chicken\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 46
+  testRunner.And("it should have a \"Startdatum\" of \"2015-04-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
   testRunner.And("it should have a \"Slutdatum\" of \"2015-04-30\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -176,45 +179,47 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AddNewPercentageDiscountOnPurchaseOverXKr()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new percentage discount on purchase over x kr", ((string[])(null)));
-#line 46
-this.ScenarioSetup(scenarioInfo);
-#line 47
-    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 48
-  testRunner.And("I have selected the \"TotalSumPercentageDiscount\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 49
-  testRunner.And("I have entered \"Holiday Season\" in the \"Name\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 50
-  testRunner.And("I have entered \"XMAS15\" in the \"Code\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 51
-  testRunner.And("I have entered \"900105-3001\" in the \"CustomerString\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have selected the \"TotalSumPercentageDiscount\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 52
-  testRunner.And("I have entered \"Test coupon\" in the \"Description\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Holiday Season\" in the \"Name\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 53
-  testRunner.And("I have entered \"2015-04-15\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"XMAS15\" in the \"Code\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 54
-  testRunner.And("I have entered \"2015-04-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"900105-3001\" in the \"CustomerString\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 55
-  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Test coupon\" in the \"Description\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 56
-  testRunner.And("I have entered \"30\" in the \"Percentage\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2015-04-15\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 57
-  testRunner.And("I have entered \"500\" in the \"MinPurchase\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2015-04-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 58
-  testRunner.And("I have checked the coupon can be combined checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"0\" in the \"NumberOfProductsToBuy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 59
-     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 60
-     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I have entered \"30\" in the \"Percentage\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 61
-  testRunner.And("a discount of type \"Köp för X:kr få Y:% rabatt\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"500\" in the \"MinPurchase\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 62
-  testRunner.And("it should have a \"Kampanjnamn\" of \"Holiday Season\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have checked the coupon can be combined checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 63
-  testRunner.And("it should have a \"Kampanjkod\" of \"XMAS15\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 64
-  testRunner.And("it should have a \"Startdatum\" of \"2015-04-15\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 65
+  testRunner.And("a discount of type \"Köp för X:kr få Y:% rabatt\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 66
+  testRunner.And("it should have a \"Kampanjnamn\" of \"Holiday Season\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 67
+  testRunner.And("it should have a \"Kampanjkod\" of \"XMAS15\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 68
+  testRunner.And("it should have a \"Startdatum\" of \"2015-04-15\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 69
   testRunner.And("it should have a \"Slutdatum\" of \"2015-04-30\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -227,43 +232,43 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void AddNewTakeYPayForXDiscount()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new take Y pay for X discount", ((string[])(null)));
-#line 67
-this.ScenarioSetup(scenarioInfo);
-#line 68
-    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 69
-  testRunner.And("I have selected the \"BuyXProductsPayForYProducts\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 70
-  testRunner.And("I have entered \"Summer\" in the \"Name\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 71
-  testRunner.And("I have entered \"Beach\" in the \"Code\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 72
-  testRunner.And("I have entered \"900105-3001\" in the \"CustomerString\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 73
-  testRunner.And("I have entered \"Test coupon\" in the \"Description\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have selected the \"BuyXProductsPayForYProducts\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 74
-  testRunner.And("I have entered \"2015-06-01\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Summer\" in the \"Name\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 75
-  testRunner.And("I have entered \"2015-08-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Beach\" in the \"Code\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 76
-  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"900105-3001\" in the \"CustomerString\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 77
-  testRunner.And("I have entered \"3\" in the \"Buy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Test coupon\" in the \"Description\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 78
-  testRunner.And("I have entered \"2\" in the \"PayFor\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2015-06-01\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 79
-     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("I have entered \"2015-08-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 80
-     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 81
-  testRunner.And("a discount of type \"Tag X betala för Y\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"3\" in the \"NumberOfProductsToBuy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 82
-  testRunner.And("it should have a \"Kampanjnamn\" of \"Summer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2\" in the \"PayFor\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 83
-  testRunner.And("it should have a \"Kampanjkod\" of \"Beach\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 84
-  testRunner.And("it should have a \"Startdatum\" of \"2015-06-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 85
+  testRunner.And("a discount of type \"Tag X betala för Y\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 86
+  testRunner.And("it should have a \"Kampanjnamn\" of \"Summer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 87
+  testRunner.And("it should have a \"Kampanjkod\" of \"Beach\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 88
+  testRunner.And("it should have a \"Startdatum\" of \"2015-06-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 89
   testRunner.And("it should have a \"Slutdatum\" of \"2015-08-30\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -278,41 +283,47 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new buy product X and recieve product Y discount", new string[] {
                         "ignore"});
-#line 88
-this.ScenarioSetup(scenarioInfo);
-#line 89
-    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 90
-  testRunner.And("I have selected the \"BuyProductXRecieveProductY\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 91
-  testRunner.And("I have entered \"Halloween\" in the \"Name\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 92
-  testRunner.And("I have entered \"pumpkin\" in the \"Code\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 93
-  testRunner.And("I have entered \"900105-3001\" in the \"CustomerString\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+    testRunner.Given("I am on the add new discount page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 94
-  testRunner.And("I have entered \"Test coupon\" in the \"Description\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have selected the \"BuyProductXRecieveProductY\" in the discount type field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 95
-  testRunner.And("I have entered \"2015-09-01\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Halloween\" in the \"Name\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 96
-  testRunner.And("I have entered \"2015-10-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"pumpkin\" in the \"Code\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 97
-  testRunner.And("I have entered \"Pink Curtain\" in the \"FreeProduct\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"100\" in the \"MinPurchase\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 98
-  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"Test coupon\" in the \"Description\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 99
-     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("I have entered \"900105-3001\" in the \"CustomerString\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 100
-     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I have entered \"2015-09-01\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 101
-  testRunner.And("a discount of type \"Köp X få Y gratis\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2015-10-30\" in the \"End\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 102
-  testRunner.And("it should have a \"Kampanjnamn\" of \"Halloween\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"2\" in the \"UseLimit\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 103
-  testRunner.And("it should have a \"Kampanjkod\" of \"pumpkin\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"3\" in the \"NumberOfProductsToBuy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 104
-  testRunner.And("it should have a \"Startdatum\" of \"2015-09-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"3\" in the \"Amount\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 105
+  testRunner.And("I have entered \"Pink Curtain\" in the \"FreeProduct\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 106
+     testRunner.When("I press \"Skapa rabatt\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 107
+     testRunner.Then("the system should present \"Rabatt sparad!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 108
+  testRunner.And("a discount of type \"Köp X få Y gratis\" should exist", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 109
+  testRunner.And("it should have a \"Kampanjnamn\" of \"Halloween\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 110
+  testRunner.And("it should have a \"Kampanjkod\" of \"pumpkin\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 111
+  testRunner.And("it should have a \"Startdatum\" of \"2015-09-01\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 112
   testRunner.And("it should have a \"Slutdatum\" of \"2015-10-30\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
