@@ -29,15 +29,10 @@ namespace AdminView.Tests.Steps
 
         public void Login(String email, String password)
         {
-//            try
-//            {
-                WhenINavigateTo("/");
-                Driver.FindElement(By.Name("Email")).SendKeys(email);
-                Driver.FindElement(By.Name("Password")).SendKeys(password);
-                WhenIPress("Logga in");
-//            }
-//            catch
-//            { }
+            WhenINavigateTo("/");
+            Driver.FindElement(By.Name("Email")).SendKeys(email);
+            Driver.FindElement(By.Name("Password")).SendKeys(password);
+            WhenIPress("Logga in");
         }
 
         [BeforeScenario("logout")]

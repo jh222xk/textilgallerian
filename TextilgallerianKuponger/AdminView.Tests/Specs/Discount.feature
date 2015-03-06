@@ -88,7 +88,6 @@ Scenario: Add new take Y pay for X discount
 		And it should have a "Startdatum" of "2015-06-01"
 		And it should have a "Slutdatum" of "2015-08-30"
 
-@ignore
 Scenario: Add new buy product X and recieve product Y discount
     Given I am on the add new discount page
 		And I have selected the "BuyProductXRecieveProductY" in the discount type field
@@ -101,7 +100,7 @@ Scenario: Add new buy product X and recieve product Y discount
 		And I have entered "2015-10-30" in the "End" field
 		And I have entered "2" in the "UseLimit" field
 		And I have entered "3" in the "NumberOfProductsToBuy" field
-		And I have entered "3" in the "Amount" field
+		And I have entered "3" in the "AmountOfProducts" field
 		And I have entered "Pink Curtain" in the "FreeProduct" field
      When I press "Skapa rabatt"
      Then the system should present "Rabatt sparad!"
