@@ -310,7 +310,7 @@ namespace Api.Tests.E2E
 
         protected Boolean Purched(Cart cart)
         {
-            return CartController.Purcashed(cart);
+            return CartController.Purchased(cart);
         }
 
         /// <summary>
