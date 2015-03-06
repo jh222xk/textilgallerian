@@ -19,13 +19,13 @@ namespace Api.Controllers
             _couponRepository = couponRepository;
         }
 
-        // POST api/cart
         public Cart Post([FromBody] Cart cart)
         {
             return _couponService.FindBestCouponsForCart(cart);
         }
 
-        public Boolean Purcashed([FromBody] Cart cart)
+        [Route("purchased")]
+        public Boolean Purchased([FromBody] Cart cart)
         {
             var coupons = _couponRepository.FindByUniqueKeys(cart.Discounts.Select(c => c.UniqueKey));
 

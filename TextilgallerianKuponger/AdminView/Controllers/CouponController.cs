@@ -122,6 +122,7 @@ namespace AdminView.Controllers
                 coupon.CreatedBy = user.Email;
                 coupon.CanBeCombined = model.CanBeCombined;
                 coupon.CustomersValidFor = customers;
+                coupon.CustomersUsedBy = new List<Customer>();
                 coupon.Products = products;
                 coupon.Brands = brands;
                 coupon.Categories = categories;
