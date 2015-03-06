@@ -24,14 +24,12 @@ namespace Domain.Tests.Entities
 
             _coupon = new TotalSumAmountDiscount
             {
-                CanBeCombined = false,
-                Code = "XMAS15",
                 CustomersUsedBy = new List<Customer>(),
-                CustomersValidFor = null,
                 Start = DateTime.Now,
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
-                Amount = 10000
+                Amount = 10000,
+                IsActive = true,
             };
 
             _cart = new Cart

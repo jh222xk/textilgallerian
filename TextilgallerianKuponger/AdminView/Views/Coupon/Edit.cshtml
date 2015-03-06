@@ -194,11 +194,20 @@
             }
             @if (Model.Parameters.ContainsKey("Percentage"))
             {
-                <div class="field specific-field TotalSumPercentageDiscoun">
+                <div class="field">
                     <label>
-                        Procent
-                        @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, placeholder = "Hur många procent?", required = "required " })
+                        Procentuell rabatt
+                        @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, max = 100, required = "required " })
                     </label>
+                </div>
+                <div class="field">
+                    <label>
+                        Procenten gäller endast för specificerade produkter, märken och/eller kategorier.
+                        @Html.CheckBoxFor(m => m.PercentageDiscountOnlyOnSpecifiedProducts)
+                    </label>
+                    <div class="help">
+                        Om rutan är tom kommer procenten att beräknas på hela varukorgen.
+                    </div>
                 </div>
             }
             <div class="field">

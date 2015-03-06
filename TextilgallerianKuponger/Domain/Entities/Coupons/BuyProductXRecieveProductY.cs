@@ -16,12 +16,12 @@ namespace Domain.Entities
         
 
         //public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties) : base(properties)
-        public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties)
+        public BuyProductXRecieveProductY(IReadOnlyDictionary<String, String> properties)
         {
             SetProperties(properties);
         }
 
-        public override void SetProperties(IReadOnlyDictionary<string, string> properties)
+        public override void SetProperties(IReadOnlyDictionary<String, String> properties)
         {
             base.SetProperties(properties);
             AmountOfProducts = Decimal.Parse(properties["AmountOfProducts"], CultureInfo.InvariantCulture);
@@ -31,9 +31,9 @@ namespace Domain.Entities
 
         }
 
-    
 
-        public override Dictionary<string, string> GetProperties()
+
+        public override Dictionary<String, String> GetProperties()
         {
             var dictionary = base.GetProperties();
             dictionary.Add("AmountOfProducts", AmountOfProducts.ToString(CultureInfo.InvariantCulture));
@@ -77,7 +77,7 @@ namespace Domain.Entities
         /// <summary>
         ///     Check if specified Cart is valid for this Coupon
         /// </summary>
-        public override bool IsValidFor(Cart cart)
+        public override Boolean IsValidFor(Cart cart)
         {
             if (!base.IsValidFor(cart))
             {

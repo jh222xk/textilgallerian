@@ -34,7 +34,8 @@ namespace Domain.Tests.Entities
                 Products = new List<Product>
                 {
                     _validProduct
-                }
+                },
+                DiscountOnlyOnSpecifiedProducts = true,
             };
 
             _cart = new Cart
@@ -74,6 +75,16 @@ namespace Domain.Tests.Entities
         public void TestThatDiscountIsCorrectIfProductsAreSpecifiedAndValid()
         {
             _couponWithProducts.CalculateDiscount(_cart).should_be(20);
+        }
+
+        /// <summary>
+        /// Check that discount is correct if not all products are valid for the discount
+        /// </summary>
+        [TestMethod]
+        public void TestThatDiscountIsCorrectIfAllProductsShouldBeDiscounted()
+        {
+            _couponWithProducts.DiscountOnlyOnSpecifiedProducts = false;
+            _couponWithProducts.CalculateDiscount(_cart).should_be(70);
         }
 
         /// <summary>

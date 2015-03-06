@@ -13,7 +13,7 @@
             <div class="field">
                 <label>
                     Välj typ av kampanj
-                    @Html.DropDownListFor(m => m.Type, new SelectList(CouponViewModel.CouponTypes, "Key", "Value"), new {@class = "type"})
+                    @Html.DropDownListFor(m => m.Type, new SelectList(CouponViewModel.CouponTypes, "Key", "Value"), new { @class = "type" })
                 </label>
             </div>
             <div class="field">
@@ -51,7 +51,7 @@
             <div class="field">
                 <label>
                     Minsta köpsumma
-                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new {type = "number", min = 0, @Value = 0, required = "required " })
+                    @Html.TextBoxFor(m => m.Parameters["MinPurchase"], new { type = "number", min = 0, @Value = 0, required = "required " })
                 </label>
             </div>
             <div class="twelve wide column campaign-code">
@@ -203,9 +203,18 @@
             </div>
             <div class="field specific-field TotalSumPercentageDiscount">
                 <label>
-                    Percentage
-                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, placeholder = "Hur många procent?", required = "required " })
+                    Procentuell rabatt
+                    @Html.TextBoxFor(m => m.Parameters["Percentage"], new { type = "number", min = 0, max = 100, required = "required " })
                 </label>
+            </div>
+            <div class="field specific-field TotalSumPercentageDiscount">
+                <label>
+                    Procenten gäller endast för specificerade produkter, märken och/eller kategorier.
+                    @Html.CheckBoxFor(m => m.PercentageDiscountOnlyOnSpecifiedProducts)
+                </label>
+                <div class="help">
+                    Om rutan lämnas tom kommer procenten att beräknas på hela varukorgen.
+                </div>
             </div>
 
             <div class="field">
@@ -214,8 +223,8 @@
                     @Html.CheckBoxFor(m => m.CanBeCombined)
                 </label>
             </div>
-      
-            <input type="submit" name="name" class="ui button green" value="Skapa rabatt"/>
+     
+            <input type="submit" name="name" class="ui button green" value="Skapa rabatt" />
         </form>
     </div>
 </div>
