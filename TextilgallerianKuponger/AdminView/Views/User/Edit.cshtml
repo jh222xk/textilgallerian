@@ -12,7 +12,7 @@
 
             <div class="field">
                 <label>Användarnamn</label>
-                @Html.TextBoxFor(m => Model.Email)
+                @Html.TextBoxFor(m => Model.Email, new { required = "required" })
                 @Html.ValidationMessageFor(model => model.Email)
             </div>
 

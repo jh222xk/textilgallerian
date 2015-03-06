@@ -151,6 +151,9 @@ namespace AdminView.Controllers
                     return RedirectToAction("Index");
                 }
 
+
+
+
                 if (user.Email != model.Email)
                 {
                     if (_roleRepository.FindByEmail(model.Email) != null)
@@ -161,6 +164,15 @@ namespace AdminView.Controllers
                         return View(model);
                     }
                     user.Email = model.Email;
+                }
+
+                //must choose a role.
+                if (model.Role == null)
+                {
+                    TempData["error"] = "Du måste välja en roll.";
+                    model.Email = user.Email;
+                    model.Roles = _roleRepository.FindAllRoles();
+                    return View(model);
                 }
 
                 if (user.Id != ((User) Session["user"]).Id)
