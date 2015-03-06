@@ -27,7 +27,7 @@
  
             var obj = json["KATEGORIER"];
             for (var prop in obj) {
-                var div = document.getElementById("category-dropdown")
+                var div = document.getElementById("category-dropdown");
                 var opt = document.createElement('option');
                 opt.value = prop;
                 opt.innerHTML = prop;
@@ -39,7 +39,7 @@
  
             var obj = json["BRANDS"];
             for (var prop in obj) {
-                var div = document.getElementById("brand-dropdown")
+                var div = document.getElementById("brand-dropdown");
                 var opt = document.createElement('option');
                 opt.value = prop;
                 opt.innerHTML = prop;
@@ -49,7 +49,6 @@
     };
     function productSearch() {
         jQuery.each(json["BRANDS"], function (brandkey, brandvalue) {
-            console.log(brandkey);
             jQuery.each(brandvalue["PRODUCTS"], function (productKey, productValue) {
                 content.push({
                     title: productKey,
@@ -60,14 +59,13 @@
         }); 
     };
     function searchUpdate() {
-        $('.ui.search')
+        $('#product-search')
          .search({
              onSelect: function (result, response) {
-               
                  content = $('textarea#products').val();
                  var item = result["title"] + " : " +result["description"] + "\n";
                  content = content + item;
-                 $('textarea#products').val(content)
+                 $('textarea#products').val(content);
              },
              source: content,
              searchFields: [
@@ -75,6 +73,20 @@
              ],
              searchFullText: false
          });
+        $('#free-product-search')
+       .search({
+           onSelect: function (result, response) {
+               content = $('#free-product').val();
+               var item = result["title"] + " : " + result["description"] + "\n";
+               content = content + item;
+               $('#free-product').val(content+", ");
+           },
+           source: content,
+           searchFields: [
+             'title', 'description', 'price'
+           ],
+           searchFullText: false
+       });
     };
 
     $('#category-dropdown')
@@ -86,7 +98,7 @@
                   var item = l+"\n";
                   content = content + item;
               });
-              $('textarea#sub-categories').val(content + "\n")
+              $('textarea#sub-categories').val(content + "\n");
           }
       })
     ;
@@ -97,7 +109,7 @@
 
                  var item = value + "\n";
                  content = content + value;
-             $('textarea#brands').val(content + "\n")
+             $('textarea#brands').val(content + "\n");
              console.log($('textarea#brands').val());
          }
      });
