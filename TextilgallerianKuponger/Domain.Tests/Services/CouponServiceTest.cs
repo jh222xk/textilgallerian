@@ -252,14 +252,22 @@ namespace Domain.Tests.Services
             _couponRepository.Store(coupon);
             _couponRepository.SaveChanges();
 
+            _cart.Rows.Add(
+                new Row
+                {
+                    Product = coupon.Products.Last()
+                }
+                
+            );
+
             var result = _couponService.FindBestCouponsForCart(_cart);
 
             // We only want 2 discounts and 2 rows as the other "free product" coupon isn't combinable
             result.Discounts.Count.should_be(2);
             result.Discounts[0].Name.should_be("free product");
             result.Discounts[1].Name.should_be("20%");
-            result.Rows.Count.should_be(2);
-            result.Rows[1].Product.should_be(_freeProduct);
+            result.Rows.Count.should_be(3);
+            result.Rows[2].Product.should_be(_freeProduct);
         }
 
         [TestMethod]
