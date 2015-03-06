@@ -143,16 +143,16 @@
             <div class="field">
                 <label>
                     Hur många gånger får rabatten användas?
-                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new { type = "number", min = 0, placeholder = "Hur många?" })
+                    @Html.TextBoxFor(m => m.Parameters["UseLimit"], new { type = "number", min = 0 })
                 </label>
                 <div class="help">
                     Hur många gånger rabatten  får användas av samma kund eller hur många gånger samma kod får användas
                 </div>
             </div>
-            <div class="field specific-field BuyProductXRecieveProductY BuyXProductsPayForYProducts">
+            <div class="field">
                 <label>
-                    Antal produkter som krävs
-                    @Html.TextBoxFor(m => m.Parameters["Buy"], new { type = "number", min = 0, placeholder = "Ange hur många produkter kund behöver köpa", required = "required " })
+                    Ange hur många produkter kund behöver köpa
+                    @Html.TextBoxFor(m => m.Parameters["NumberOfProductsToBuy"], new { type = "number", min = 0, @Value = 0, required = "required " })
                 </label>
                 <div class="help">
                     T.ex. 3 i tag 3 betala för 2
