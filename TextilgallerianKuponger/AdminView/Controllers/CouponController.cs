@@ -60,8 +60,10 @@ namespace AdminView.Controllers
                     coupon.CustomersValidFor != null ? _couponHelper.CreateCustomerString(coupon.CustomersValidFor) : "",
                 ProductsString = coupon.Products != null ? _couponHelper.CreateProductsString(coupon.Products) : "",
                 Type = ExtensionMethods.TypeExtension.Types[coupon.GetType().FullName],
-                DisposableCodes = string.IsNullOrEmpty(coupon.Code),
-                Customers = coupon.CustomersValidFor
+                Customers = coupon.CustomersValidFor,
+                Products = coupon.Products,
+                Brands = coupon.Brands,
+                Categories = coupon.Categories
             };
 
             return View(cvm);

@@ -10,7 +10,14 @@
 <div class="ui list">
     <div class="item">
         <div class="header">Rabattkod:</div>
-        @Model.Parameters["Code"]
+        @if (String.IsNullOrEmpty(Model.Parameters["Code"])) 
+        {
+            <p>-</p>
+        }
+        else
+        {
+            @Model.Parameters["Code"]
+        }
     </div>
     <div class="item">
         <div class="header">Rabattyp:</div>
@@ -18,11 +25,18 @@
     </div>
     <div class="item">
         <div class="header">Minsta tillåtna köpsumma:</div>
-        @Model.Parameters["MinPurchase"]
+        @Model.Parameters["MinPurchase"] kr
     </div>
     <div class="item">
         <div class="header">Beskrivning:</div>
-        @Model.Parameters["Description"]
+        @if (String.IsNullOrEmpty(Model.Parameters["Description"]))
+        {
+            <p>-</p>
+        }
+        else
+        {
+            @Model.Parameters["Description"]
+        }
     </div>
     <div class="item">
         <div class="header">Startdatum:</div>
@@ -30,7 +44,15 @@
     </div>
     <div class="item">
         <div class="header">Slutdatum:</div>
-        @Model.Parameters["End"]
+        @if(String.IsNullOrEmpty(Model.Parameters["End"]))
+        {
+            <p>Finns inget slutdatum</p>
+        }
+        else
+        {
+            @Model.Parameters["End"]
+        }
+        
     </div>
     <div class="item">
         <div class="header">Användningsgräns:</div>
@@ -54,23 +76,28 @@
     {
         <div class="item">
             <div class="header">Rabatt i procent:</div>
-            @Model.Parameters["Percentage"]
+            @Model.Parameters["Percentage"] %
         </div>
+        
+        <div class="item">
+            <div class="header">Procentrabatten gäller bara på specificerade produkter:</div>
+            @if (Model.PercentageDiscountOnlyOnSpecifiedProducts)
+            {
+                <i class="icon green checkmark"></i>
+            }
+            else
+            {
+                <i class="icon red minus"></i>
+            }
+        </div>
+        
     }
 
     @if (Model.Parameters.ContainsKey("Amount"))
     {
         <div class="item">
             <div class="header">Rabatt i kronor:</div>
-            @Model.Parameters["Amount"]
-        </div>
-    }
-
-    @if (Model.Parameters.ContainsKey("AmountOfProducts"))
-    {
-        <div class="item">
-            <div class="header">Antal gratis produkter:</div>
-            @Model.Parameters["AmountOfProducts"]
+            @Model.Parameters["Amount"] kr
         </div>
     }
 
@@ -113,12 +140,74 @@
             @Model.Parameters["AmountOfProducts"]
         </div>
     }
+
 </div>
 
-<h2 class="ui large header">Engångskoder</h2>
 
-@if (Model.Parameters["Code"] == null)
+@if (Model.Parameters["Code"] != null && Model.Customers != null)
 {
+    <h2 class="ui large header">Kunder som rabatten gäller för:</h2>
+    <div class="ui list">
+        @foreach (var customer in Model.Customers)
+        {
+            <div class="item">
+                @if (customer.Email != null)
+                {
+                    @customer.Email
+                }
+                else
+                {
+                    @customer.SocialSecurityNumber
+                }
+                
+            </div>
+        }
+    </div>
+}
+
+@if (Model.Products != null)
+{
+    <h2 class="ui large header">Produkter som rabatten gäller för:</h2>
+    <div class="ui list">
+        @foreach (var product in Model.Products)
+        {
+            <div class="item">
+                @product.ProductId
+            </div>
+        }
+    </div>
+}
+
+@if (Model.Brands != null)
+{
+    <h2 class="ui large header">Märken som rabatten gäller för:</h2>
+    <div class="ui list">
+        @foreach (var brand in Model.Brands)
+        {
+            <div class="item">
+                @brand.BrandName
+            </div>
+        }
+    </div>
+}
+
+@if (Model.Categories != null)
+{
+    <h2 class="ui large header">Kategorier som rabatten gäller för:</h2>
+    <div class="ui list">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="item">
+                @category.CategoryName
+            </div>
+        }
+    </div>
+}
+
+
+@if(Model.Parameters["Code"] == null)
+{
+    <h2 class="ui large header">Engångskoder</h2>
     <div class="ui list">
         @foreach (var customer in Model.Customers)
         {
