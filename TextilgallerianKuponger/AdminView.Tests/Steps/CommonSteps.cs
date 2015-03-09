@@ -56,7 +56,7 @@ namespace AdminView.Tests.Steps
         [When(@"I navigate to (.*)")]
         public void WhenINavigateTo(String path)
         {
-            var rootUrl = new Uri("http://localhost:1235");
+            var rootUrl = new Uri("http://localhost:8000");
             var absoluteUrl = new Uri(rootUrl, path);
             Driver.Navigate().GoToUrl(absoluteUrl);
         }
