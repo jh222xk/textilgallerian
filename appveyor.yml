@@ -1,6 +1,6 @@
 version: 1.0.{build}
 os: Windows Server 2012 R2
-configuration: Debug
+configuration: Release
 
 before_build:
 - cd TextilgallerianKuponger
@@ -12,4 +12,5 @@ build:
 
 before_test:
 - ps: Start-Job { C:\"Program Files (x86)"\"IIS Express"\iisexpress.exe /path:"C:\projects\textilgallerian\TextilgallerianKuponger\AdminView" /port:1235 }
+- ps: Start-Job { C:\"Program Files (x86)"\"IIS Express"\iisexpress.exe /path:"C:\projects\textilgallerian\TextilgallerianKuponger\AdminView" /port:8000 }
 - ps: Start-Job { C:\"Program Files (x86)"\"IIS Express"\iisexpress.exe /path:"C:\projects\textilgallerian\TextilgallerianKuponger\Api" /port:1230 }
