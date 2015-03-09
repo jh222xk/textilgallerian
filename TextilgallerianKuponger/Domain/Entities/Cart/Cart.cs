@@ -89,10 +89,6 @@ namespace Domain.Entities
         {
             if (!_discount.HasValue)
             {
-                if (Discounts == null)
-                {
-                    Discounts = new List<Coupon>();
-                }
                 _discount = Discounts.Sum(d => d.CalculateDiscount(this));
             }
             return _discount.Value;

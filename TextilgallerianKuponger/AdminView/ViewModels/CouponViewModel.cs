@@ -26,6 +26,6 @@ namespace AdminView.ViewModel
         public Dictionary<String, String> Parameters { get; set; }
         public Boolean DisposableCodes { get; set; }
         public int NumberOfCodes { get; set; }
-        public Boolean PercentageDiscountOnlyOnSpecifiedProducts { get; set; }
+        public Boolean PercentageDiscountOnWholeCart { get; set; }
     }
 }

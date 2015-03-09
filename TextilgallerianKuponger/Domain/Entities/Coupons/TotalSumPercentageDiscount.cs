@@ -24,7 +24,7 @@ namespace Domain.Entities
         ///     for this Coupon, if set to false the percentage will be calculated on all products
         ///     in the cart if any of the vaild products is present.
         /// </summary>
-        public Boolean DiscountOnlyOnSpecifiedProducts { get; set; }
+        public Boolean DiscountOnWholeCart { get; set; }
 
         /// <summary>
         ///     A Percentage between 0 and 1
@@ -34,7 +34,7 @@ namespace Domain.Entities
         public override void SetProperties(IReadOnlyDictionary<String, String> properties)
         {
             base.SetProperties(properties);
-            Percentage = Decimal.Parse(properties["Percentage"], CultureInfo.InvariantCulture) / 100;
+            Percentage = Decimal.Parse(properties["Percentage"], CultureInfo.InvariantCulture)/100;
             if (Percentage < 0 || Percentage > 1)
             {
                 throw new ArgumentException("Percentage must be between 0 and 100");
@@ -44,7 +44,7 @@ namespace Domain.Entities
         public override Dictionary<String, String> GetProperties()
         {
             var dictionary = base.GetProperties();
-            dictionary.Add("Percentage", (Percentage * 100).ToString(CultureInfo.InvariantCulture));
+            dictionary.Add("Percentage", (Percentage*100).ToString(CultureInfo.InvariantCulture));
 
             return dictionary;
         }
@@ -55,15 +55,37 @@ namespace Domain.Entities
         /// </summary>
         public override Decimal CalculateDiscount(Cart cart)
         {
-            if (!DiscountOnlyOnSpecifiedProducts || Products == null)
+            var rows = cart.Rows;
+
+            // Just return right away if the percentage discount is
+            // on the whole cart.
+            if (DiscountOnWholeCart)
             {
-                return cart.TotalSum * Percentage;
+                return cart.TotalSum*Percentage;
             }
 
-            // Only calulate the discount on products that are valid for this cupon
-            return cart.Rows
-                .Where(row => Products.Exists(p => p.ProductId == row.Product.ProductId))
-                .Sum(row => row.TotalPrice * Percentage);
+            if (Products != null)
+            {
+                rows = rows.Where(row => Products.Exists(p => p.ProductId == row.Product.ProductId)).ToList();
+            }
+
+            if (Brands != null)
+            {
+                rows = rows.Where(row => Brands.Exists(b => b.BrandName == row.Brand.BrandName)).ToList();
+            }
+
+            if (Categories != null)
+            {
+                rows =
+                    rows.Where(
+                        row => Categories.Exists(c => row.Categories.Select(e => e.CategoryName).Contains(c.CategoryName)))
+                        .ToList();
+            }
+
+            // Calculate discount on our valid rows.
+            var discount = rows.Sum(row => row.TotalPrice*Percentage);
+
+            return discount;
         }
     }
 }

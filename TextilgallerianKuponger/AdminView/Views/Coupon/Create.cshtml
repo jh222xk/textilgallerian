@@ -209,12 +209,9 @@
             </div>
             <div class="field specific-field TotalSumPercentageDiscount">
                 <label>
-                    Procenten gäller endast för specificerade produkter, märken och/eller kategorier.
-                    @Html.CheckBoxFor(m => m.PercentageDiscountOnlyOnSpecifiedProducts)
+                    Procenten gäller för hela kundvagnen.
+                    @Html.CheckBoxFor(m => m.PercentageDiscountOnWholeCart)
                 </label>
-                <div class="help">
-                    Om rutan lämnas tom kommer procenten att beräknas på hela varukorgen.
-                </div>
             </div>
 
             <div class="field">
