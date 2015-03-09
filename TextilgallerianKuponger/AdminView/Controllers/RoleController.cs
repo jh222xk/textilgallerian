@@ -86,6 +86,33 @@ namespace AdminView.Controllers
             }
         }
 
+        // Removes role if no users are using the current role
+        [RequiredPermission(Permission.CanDeleteRoles)]
+        public ActionResult Delete(string name)
+        {
+            Role role = _roleRepository.FindByName(name);
+            var user = role.Users.Count();
+
+            if(user > 0)
+            {
+                TempData["error"] = "Rollen innehåller användare. Byt roll på användarna innan du tar bort rollen.";
+                return RedirectToAction("index");
+            }
+
+            try
+            {
+                _roleRepository.deleteRole(role);
+                _roleRepository.SaveChanges();
+
+                TempData["success"] = "Rollen togs bort!";
+                return RedirectToAction("index");
+            }
+            catch
+            {
+                return View(role);
+            }
+        }
+
         [RequiredPermission(Permission.CanChangeRoles)]
         public ActionResult Edit(String name)
         {

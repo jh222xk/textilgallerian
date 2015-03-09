@@ -109,7 +109,7 @@ namespace AdminView.Controllers
                     return RedirectToAction("index");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData["error"] = "Det gick inte att skapa användaren";
             }

@@ -23,6 +23,11 @@ namespace Domain.Repositories
             return _session.Query<Role>();
         }
 
+        public void deleteRole(Role role)
+        {
+            _session.Delete(role);
+        }
+
         /// <summary>
         ///     Finds a user by the email
         /// </summary>
