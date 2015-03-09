@@ -13,4 +13,4 @@ build:
 before_test:
 - ps: Start-Job { C:\"Program Files (x86)"\"IIS Express"\iisexpress.exe /path:"C:\projects\textilgallerian\TextilgallerianKuponger\AdminView" /port:1235 }
 - ps: Start-Job { C:\"Program Files (x86)"\"IIS Express"\iisexpress.exe /path:"C:\projects\textilgallerian\TextilgallerianKuponger\AdminView" /port:8000 }
-- ps: Start-Job { C:\"Program Files (x86)"\"IIS Express"\iisexpress.exe /path:"C:\projects\textilgallerian\TextilgallerianKuponger\Api" /port:1230 }
+- ps: Start-Job { C:\"Program Files (x86)"\"IIS Express"\iisexpress.exe /path:"C:\projects\textilgallerian\TextilgallerianKuponger\Api" /port:1250 }
