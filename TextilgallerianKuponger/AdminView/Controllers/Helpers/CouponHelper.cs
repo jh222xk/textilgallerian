@@ -118,21 +118,23 @@ namespace AdminView.Controllers.Helpers
 
             //split at newline and create array.
             string[] lines = productsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            var products = new List<Product>();
+            var products = new List<Product>();        
 
-            //TODO: Create real productId regex
-            //Regex productId = new Regex(@"^\d{8}$");
-
+            //Loop through all lines, and split on : if it exist, add the value to right of it, if no : just add line to productID.
             foreach (var line in lines)
             {
                 var product = new Product();
+                var splitLine = line.Split(':');
 
-                //if line is valid productId
-                //if (productId.Match(line).Success)
-                //{
-                    product.ProductId = line;
-                    products.Add(product);
-                //}
+                if(splitLine.Length == 2)
+                {
+                    product.ProductId = splitLine[1];
+                }
+                else if(splitLine.Length == 1)
+                {
+                    product.ProductId = splitLine[0];
+                }   
+               
             }
             return products.Count > 0 ? products : null;
         }
