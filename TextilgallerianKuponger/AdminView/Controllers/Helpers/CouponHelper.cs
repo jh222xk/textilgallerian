@@ -1,11 +1,9 @@
-﻿using AdminView.ViewModel;
-using Domain.Entities;
+﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace AdminView.Controllers.Helpers
 {
@@ -120,19 +118,23 @@ namespace AdminView.Controllers.Helpers
             var lines = productsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var products = new List<Product>();
 
-            //TODO: Create real productId regex
-            //Regex productId = new Regex(@"^\d{8}$");
-
+            //Loop through all lines, and split on : if it exist, add the value to right of it, if no : just add line to productID.
             foreach (var line in lines)
             {
                 var product = new Product();
+                var splitLine = line.Split(':');
 
-                //if line is valid productId
-                //if (productId.Match(line).Success)
-                //{
-                    product.ProductId = line;
-                    products.Add(product);
-                //}
+                switch (splitLine.Length)
+                {
+                    case 2:
+                        product.Name = splitLine[0];
+                        product.ProductId = splitLine[1];
+                        break;
+                    case 1:
+                        product.ProductId = splitLine[0];
+                        break;
+                }   
+               
             }
             return products.Count > 0 ? products : null;
         }
