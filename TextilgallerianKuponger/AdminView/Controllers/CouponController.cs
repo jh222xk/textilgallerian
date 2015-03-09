@@ -135,7 +135,7 @@ namespace AdminView.Controllers
                 if (coupon is TotalSumPercentageDiscount)
                 {
                     var c = coupon as TotalSumPercentageDiscount;
-                    c.DiscountOnlyOnSpecifiedProducts =
+                    c.DiscountOnWholeCart =
                         model.PercentageDiscountOnlyOnSpecifiedProducts;
                 }
 
@@ -184,7 +184,7 @@ namespace AdminView.Controllers
             {
                 var c = coupon as TotalSumPercentageDiscount;
                 cvm.PercentageDiscountOnlyOnSpecifiedProducts =
-                    c.DiscountOnlyOnSpecifiedProducts;
+                    c.DiscountOnWholeCart;
             }
             
             return View(cvm);
@@ -223,7 +223,7 @@ namespace AdminView.Controllers
                 if (coupon is TotalSumPercentageDiscount)
                 {
                     var c = coupon as TotalSumPercentageDiscount;
-                    c.DiscountOnlyOnSpecifiedProducts =
+                    c.DiscountOnWholeCart =
                         model.PercentageDiscountOnlyOnSpecifiedProducts;
                 }
 
