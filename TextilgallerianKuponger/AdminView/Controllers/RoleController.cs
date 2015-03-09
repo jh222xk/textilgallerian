@@ -97,10 +97,12 @@ namespace AdminView.Controllers
         [RequiredPermission(Permission.CanChangeRoles)]
         public ActionResult Edit(Role model)
         {
+           
             if (model.Permissions == null || !model.Permissions.Any())
             {
+                var oldModel = _roleRepository.FindByName(model.Name);
                 TempData["error"] = "Du måste ange minst en behörighet";
-                return View(model);
+                return View(oldModel);
             }
             if (((Role) Session["role"]).Name == model.Name &&
                 !model.Permissions.Contains(Permission.CanChangeRoles))
