@@ -98,7 +98,7 @@ namespace Domain.Tests.Services
                 Percentage = 0.2m,
                 Start = DateTime.Now,
                 UseLimit = 1000,
-                DiscountOnlyOnSpecifiedProducts = true,
+                DiscountOnWholeCart = false,
             },
             true));
             _couponRepository.Store(Testdata.RandomCoupon(new BuyXProductsPayForYProducts
@@ -248,7 +248,7 @@ namespace Domain.Tests.Services
         public void TestThatTheBestOfferIsPickedIfProductsIsPresentButCouponCalculatesOnAll()
         {
             var coupon = _couponRepository.FindByUniqueKey("percentage") as TotalSumPercentageDiscount;
-            coupon.DiscountOnlyOnSpecifiedProducts = false;
+            coupon.DiscountOnWholeCart = true;
             _couponRepository.Store(coupon);
             _couponRepository.SaveChanges();
 
