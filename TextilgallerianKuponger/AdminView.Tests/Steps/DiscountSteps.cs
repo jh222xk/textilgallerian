@@ -97,7 +97,7 @@ namespace AdminView.Tests
                                 SocialSecurityNumber = "900105-3001"
                             }
                         },
-                        DiscountOnlyOnSpecifiedProducts = false,
+                        DiscountOnWholeCart = false,
                         Start = new DateTime(2015, 01, 15),
                         End = new DateTime(2016, 04, 30),
                         Percentage = 0.3m,
@@ -168,7 +168,7 @@ namespace AdminView.Tests
                                 Email = "customer@email.com"
                             }
                         },
-                        DiscountOnlyOnSpecifiedProducts = false,
+                        DiscountOnWholeCart = false,
                         Start = new DateTime(2014, 04, 15),
                         End = new DateTime(2016, 04, 30),
                         Percentage = 0.3m,
