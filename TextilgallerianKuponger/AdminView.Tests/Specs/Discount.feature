@@ -70,7 +70,7 @@ Scenario: Add new take Y pay for X discount
 		And I have entered "Summer" in the "Name" field
 		And I have entered "Beach" in the "Code" field
 		And I have entered "2014-06-01" in the "Start" field
-		And I have entered "3" in the "Buy" field
+		And I have entered "3" in the "NumberOfProductsToBuy" field
 		And I have entered "2" in the "PayFor" field
      When I press "Skapa rabatt"
      Then the system should present "Rabatt sparad!"
@@ -87,7 +87,7 @@ Scenario: Add new buy product X and recieve product Y discount
 		And I have entered "pumpkin" in the "Code" field
 		And I have entered "100" in the "MinPurchase" field
 		And I have entered "2014-09-01" in the "Start" field
-		And I have entered "3" in the "Buy" field
+		And I have entered "3" in the "NumberOfProductsToBuy" field
 		And I have entered "3" in the "AmountOfProducts" field
 		And I have entered "Pink Curtain" in the "FreeProduct" field
      When I press "Skapa rabatt"

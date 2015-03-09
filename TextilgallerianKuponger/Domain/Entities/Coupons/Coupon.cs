@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Raven.Client.Linq;
 
 namespace Domain.Entities
 {
@@ -21,6 +22,7 @@ namespace Domain.Entities
             {
                 UseLimit = int.Parse(properties["UseLimit"]);
             }
+            NumberOfProductsToBuy = Decimal.Parse(properties["NumberOfProductsToBuy"], CultureInfo.InvariantCulture);
             MinPurchase = Decimal.Parse(properties["MinPurchase"], CultureInfo.InvariantCulture);
         }
 
@@ -35,7 +37,8 @@ namespace Domain.Entities
                 {"End", End.HasValue ? End.Value.ToString("yyyy-MM-dd") : null},
                 {"UseLimit", UseLimit.ToString()},
                 {"MinPurchase", MinPurchase.ToString(CultureInfo.InvariantCulture)},
-                {"UniqueKey", UniqueKey}
+                {"UniqueKey", UniqueKey},
+                {"NumberOfProductsToBuy", NumberOfProductsToBuy.ToString(CultureInfo.InvariantCulture)}
             };
         }
 
@@ -94,6 +97,11 @@ namespace Domain.Entities
         public int? UseLimit { get; set; }
 
         /// <summary>
+        ///     How many products customer need to buy
+        /// </summary>
+        public Decimal NumberOfProductsToBuy { get; set; }
+
+        /// <summary>
         ///  Property to see what user that created the coupon
         /// </summary>
         public String CreatedBy { get; set; }
@@ -116,7 +124,6 @@ namespace Domain.Entities
 
         public List<Brand> Brands { get; set; }
         public List<Category> Categories { get; set; }
-        
 
         /// <summary>
         ///     The minimum purchase sum required for the coupon to be valid
@@ -157,6 +164,45 @@ namespace Domain.Entities
                 return false;
             }
 
+            // Carry on if brands is not in the coupon.
+            if (Brands != null)
+            {
+                var brand = cart.Rows.Select(row => row.Brand).ToList();
+
+                if (!brand.Exists(b => b.In(Brands)))
+                {
+                    return false;
+                }
+            }
+
+            // Carry on if categories is not in the coupon.
+            if (Categories != null)
+            {
+                var categories = cart.Rows.SelectMany(row => row.Categories).ToList();
+
+                if (!categories.Exists(c => c.In(Categories)))
+                {
+                    return false;
+                }
+            }
+
+            // Simply return it right away if condition is not met.
+            if (cart.NumberOfProducts < NumberOfProductsToBuy)
+            {
+                return false;
+            }
+
+            // Carry on if products is not in the coupon.
+            if (Products != null)
+            {
+                var products = cart.Rows.Select(row => row.Product).ToList();
+
+                if (!products.Exists(p => p.In(Products)))
+                {
+                    return false;
+                }
+            }
+
             if (CustomersValidFor != null)
             {
                 var customer =
@@ -169,7 +215,7 @@ namespace Domain.Entities
                     return false;
                 }
 
-                if (UseLimit.HasValue && customer.CouponUses > UseLimit)
+                if (UseLimit.HasValue && customer.CouponUses >= UseLimit)
                 {
                     return false;
                 }

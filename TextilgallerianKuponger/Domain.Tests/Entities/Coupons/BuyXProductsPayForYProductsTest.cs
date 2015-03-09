@@ -33,7 +33,7 @@ namespace Domain.Tests.Entities
                 Start = DateTime.Now,
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
-                Buy = 3,
+                NumberOfProductsToBuy = 3,
                 PayFor = 2,
                 Products = new List<Product>
                 {
@@ -100,7 +100,7 @@ namespace Domain.Tests.Entities
         public void TestThatTheDiscountOnlyIsCalculatedOnValidProducts()
         {
             // ReSharper disable once PossibleNullReferenceException
-            (_coupon as BuyXProductsPayForYProducts).Buy = 10;
+            (_coupon as BuyXProductsPayForYProducts).NumberOfProductsToBuy = 10;
             _coupon.CalculateDiscount(_cart).should_be(225);
         }
     }

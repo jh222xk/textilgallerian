@@ -4,6 +4,7 @@ using System.Linq;
 using AdminView.Tests.Helpers;
 using AdminView.Tests.Steps;
 using Domain.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSpec;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
@@ -14,6 +15,12 @@ namespace AdminView.Tests
     public class DiscountSteps : Base
     {
         private readonly CommonSteps _common = new CommonSteps();
+
+        [TestInitialize]
+        public override void CleanupCoupons()
+        {
+            base.CleanupCoupons();
+        }
 
         [Given(@"I am on the add new discount page")]
         public void GivenIAmOnTheAddNewDiscountPage()
@@ -274,7 +281,7 @@ namespace AdminView.Tests
                         CreatedBy = "editor@admin.com",
                         CustomersUsedBy = new List<Customer>(),
                         Start = new DateTime(2014, 06, 01),
-                        Buy = 3,
+                        NumberOfProductsToBuy = 3,
                         PayFor = 2,
                         IsActive = true,
                     }
@@ -312,7 +319,7 @@ namespace AdminView.Tests
                         CreatedBy = "editor@admin.com",
                         CustomersUsedBy = new List<Customer>(),
                         Start = new DateTime(2014, 09, 01),
-                        Buy = 3,
+                        NumberOfProductsToBuy = 3,
                         IsActive = true,
                         FreeProduct = new Product
                         {

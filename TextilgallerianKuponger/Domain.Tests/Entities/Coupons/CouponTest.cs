@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities;
 using Domain.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSpec;
+using Domain.Tests.Helpers;
 
 namespace Domain.Tests.Entities
 {
@@ -28,7 +30,7 @@ namespace Domain.Tests.Entities
                 Start = DateTime.Now,
                 End = DateTime.Now.AddDays(10),
                 UseLimit = 5,
-                Buy = 3,
+                NumberOfProductsToBuy = 3,
                 PayFor = 2,
                 MinPurchase = 500,
                 Products = new List<Product>
@@ -245,6 +247,182 @@ namespace Domain.Tests.Entities
                         Amount = 2,
                         Product = _validProduct
                     },
+            };
+
+            _coupon.IsValidFor(_cart).should_be_false();
+        }
+
+
+        /// <summary>
+        ///     
+        /// </summary>
+        [TestMethod]
+        public void TestCouponIsValidIfProductIsInProductsList()
+        {
+            _coupon.Products = new List<Product>
+            {
+                Testdata.RandomProduct()
+            };
+
+            _cart.Rows = new List<Row>
+            {
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 3,
+                        Product = _coupon.Products.Last()
+                    },
+            };
+
+            _coupon.IsValidFor(_cart).should_be_true();
+        }
+
+        /// <summary>
+        ///     
+        /// </summary>
+        [TestMethod]
+        public void TestCouponIsNotValidIfProductIsNotInProductsList()
+        {
+            _coupon.Products = new List<Product>
+            {
+                Testdata.RandomProduct()
+            };
+
+            _cart.Rows = new List<Row>
+            {
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 3,
+                        Product = Testdata.RandomProduct()
+                    },
+            };
+
+            _coupon.IsValidFor(_cart).should_be_false();
+        }
+
+        /// <summary>
+        ///     
+        /// </summary>
+        [TestMethod]
+        public void TestCouponIsValidIfBrandIsInBrandsList()
+        {
+            _coupon.Brands = new List<Brand>
+            {
+                Testdata.RandomBrand()
+            };
+
+            _coupon.Products = new List<Product>
+            {
+                Testdata.RandomProduct(),
+            };
+
+            _cart.Rows = new List<Row>
+            {
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 3,
+                        Product = _coupon.Products.Last(),
+                        Brand = _coupon.Brands.Last()
+                    },
+            };
+
+            _coupon.IsValidFor(_cart).should_be_true();
+        }
+
+
+        /// <summary>
+        ///     
+        /// </summary>
+        [TestMethod]
+        public void TestCouponIsNotValidIfBrandIsNotInBrandsList()
+        {
+            _coupon.Brands = new List<Brand>
+            {
+                Testdata.RandomBrand()
+            };
+
+            _coupon.Products = new List<Product>
+            {
+                Testdata.RandomProduct(),
+            };
+
+            _cart.Rows = new List<Row>
+            {
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 3,
+                        Product = _coupon.Products.Last(),
+                        Brand = Testdata.RandomBrand()
+                    },
+            };
+
+            _coupon.IsValidFor(_cart).should_be_false();
+        }
+
+        /// <summary>
+        ///     
+        /// </summary>
+        [TestMethod]
+        public void TestCouponIsValidIfCategoryIsInCategoriesList()
+        {
+            _coupon.Categories = new List<Category>
+            {
+                Testdata.RandomCategory()
+            };
+
+            _coupon.Products = new List<Product>
+            {
+                Testdata.RandomProduct(),
+            };
+
+            _cart.Rows = new List<Row>
+            {
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 3,
+                        Product = _coupon.Products.Last(),
+                        Categories = new List<Category>
+                        {
+                            _coupon.Categories.Last()
+                        }
+                    }
+            };
+
+            _coupon.IsValidFor(_cart).should_be_true();
+        }
+
+        /// <summary>
+        ///     
+        /// </summary>
+        [TestMethod]
+        public void TestCouponIsNotValidIfCategoryIsNotInCategoriesList()
+        {
+            _coupon.Categories = new List<Category>
+            {
+                Testdata.RandomCategory()
+            };
+
+            _coupon.Products = new List<Product>
+            {
+                Testdata.RandomProduct(),
+            };
+
+            _cart.Rows = new List<Row>
+            {
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 3,
+                        Product = _coupon.Products.Last(),
+                        Categories = new List<Category>
+                        {
+                            Testdata.RandomCategory()
+                        }
+                    }
             };
 
             _coupon.IsValidFor(_cart).should_be_false();

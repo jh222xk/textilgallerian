@@ -18,9 +18,12 @@ namespace Api.Tests.E2E
                 CouponCode = "Inactive",
                 Rows = new List<Row>(),
             });
-            
+
             response.CouponCode.should_be("Inactive");
-            response.Customer.should_be_null();
+            response.Customer.CouponUses.should_be(0);
+            response.Customer.CouponCode.should_be_null();
+            response.Customer.Email.should_be_null();
+            response.Customer.SocialSecurityNumber.should_be_null();
             response.Rows.Count.should_be(0);
             response.Discounts.Count.should_be(0);
             response.TotalSum.should_be(0);
@@ -39,7 +42,10 @@ namespace Api.Tests.E2E
             });
 
             response.CouponCode.should_be("Active");
-            response.Customer.should_be_null();
+            response.Customer.CouponUses.should_be(0);
+            response.Customer.CouponCode.should_be_null();
+            response.Customer.Email.should_be_null();
+            response.Customer.SocialSecurityNumber.should_be_null();
             response.Rows.Count.should_be(0);
             response.Discounts.Count.should_be(1);
             response.Discounts[0].should_cast_to<TotalSumAmountDiscount>();
@@ -72,7 +78,10 @@ namespace Api.Tests.E2E
             });
 
             response.CouponCode.should_be("MinPurchase");
-            response.Customer.should_be_null();
+            response.Customer.CouponUses.should_be(0);
+            response.Customer.CouponCode.should_be_null();
+            response.Customer.Email.should_be_null();
+            response.Customer.SocialSecurityNumber.should_be_null();
             response.Rows.Count.should_be(0);
             response.Discounts.Count.should_be(0);
             response.TotalSum.should_be(0);
@@ -108,7 +117,10 @@ namespace Api.Tests.E2E
             });
 
             response.CouponCode.should_be("Outdated");
-            response.Customer.should_be_null();
+            response.Customer.CouponUses.should_be(0);
+            response.Customer.CouponCode.should_be_null();
+            response.Customer.Email.should_be_null();
+            response.Customer.SocialSecurityNumber.should_be_null();
             response.Rows.Count.should_be(0);
             response.Discounts.Count.should_be(0);
             response.TotalSum.should_be(0);
@@ -256,7 +268,10 @@ namespace Api.Tests.E2E
                 Rows = new List<Row>(),
             });
 
-            response.Customer.should_be_null();
+            response.Customer.CouponUses.should_be(0);
+            response.Customer.CouponCode.should_be_null();
+            response.Customer.Email.should_be_null();
+            response.Customer.SocialSecurityNumber.should_be_null();
             response.Discounts.Count.should_be(1);
         }
 
@@ -270,7 +285,10 @@ namespace Api.Tests.E2E
                 Rows = new List<Row>(),
             });
 
-            response.Customer.should_be_null();
+            response.Customer.CouponUses.should_be(0);
+            response.Customer.CouponCode.should_be_null();
+            response.Customer.Email.should_be_null();
+            response.Customer.SocialSecurityNumber.should_be_null();
             response.Discounts.Count.should_be(0);
         }
 

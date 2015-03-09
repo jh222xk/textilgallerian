@@ -29,6 +29,7 @@ namespace Domain.Tests.Services
         public void SetUp()
         {
             _repositoryFactory = new RepositoryFactory();
+
             _couponRepository = _repositoryFactory.Get();
 
             _couponService = new CouponService(_couponRepository);
@@ -73,7 +74,7 @@ namespace Domain.Tests.Services
                     new Customer { CouponCode = "CustomerCode" }
                 },
                 Products = new List<Product> {_cart.Rows.First().Product},
-                Buy = 1,
+                NumberOfProductsToBuy = 1,
                 FreeProduct = _freeProduct,
                 Start = DateTime.Now,
                 UseLimit = 1000
@@ -83,7 +84,7 @@ namespace Domain.Tests.Services
                 Name = "Free but uncombineable product",
                 CustomersValidFor = new List<Customer> {_cart.Customer},
                 Products = new List<Product> {_cart.Rows.First().Product},
-                Buy = 1,
+                NumberOfProductsToBuy = 1,
                 FreeProduct = _invalidProduct,
                 Start = DateTime.Now,
                 UseLimit = 1000,
@@ -102,18 +103,9 @@ namespace Domain.Tests.Services
             true));
             _couponRepository.Store(Testdata.RandomCoupon(new BuyXProductsPayForYProducts
             {
-                Name = "3 for 2",
-                Products = new List<Product> {_cart.Rows.First().Product},
-                Buy = 3,
-                PayFor = 2,
-                Start = DateTime.Now,
-                UseLimit = 1000
-            }, false, true));
-            _couponRepository.Store(Testdata.RandomCoupon(new BuyXProductsPayForYProducts
-            {
                 Code = "3 for 2",
-                Products = new List<Product> { _cart.Rows.First().Product },
-                Buy = 3,
+                Products = new List<Product> {_cart.Rows.First().Product},
+                NumberOfProductsToBuy = 3,
                 PayFor = 2,
                 Start = DateTime.Now,
                 UseLimit = 1000
@@ -143,6 +135,8 @@ namespace Domain.Tests.Services
         public void TestThatItCanFindCouponsByProvidedCodeOnCustomers()
         {
             var cart = Testdata.RandomCart("CustomerCode");
+
+            cart.Rows.Add(_cart.Rows.First());
 
             var result = _couponService.FindBestCouponsForCart(cart).Discounts;
 
@@ -258,14 +252,22 @@ namespace Domain.Tests.Services
             _couponRepository.Store(coupon);
             _couponRepository.SaveChanges();
 
+            _cart.Rows.Add(
+                new Row
+                {
+                    Product = coupon.Products.Last()
+                }
+                
+            );
+
             var result = _couponService.FindBestCouponsForCart(_cart);
 
             // We only want 2 discounts and 2 rows as the other "free product" coupon isn't combinable
             result.Discounts.Count.should_be(2);
             result.Discounts[0].Name.should_be("free product");
             result.Discounts[1].Name.should_be("20%");
-            result.Rows.Count.should_be(2);
-            result.Rows[1].Product.should_be(_freeProduct);
+            result.Rows.Count.should_be(3);
+            result.Rows[2].Product.should_be(_freeProduct);
         }
 
         [TestMethod]

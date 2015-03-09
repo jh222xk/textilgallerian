@@ -89,7 +89,9 @@ namespace Api.Controllers
         private static Customer FindCustomer(Customer customer, List<Customer> customers, String code = null)
         {
 
-            if (customer == null)
+            if (customer.CouponCode == null &&
+                customer.Email == null &&
+                customer.SocialSecurityNumber == null)
             {
                 return customers.Find(cust => (cust.CouponCode == code && cust.CouponCode != null));
             }

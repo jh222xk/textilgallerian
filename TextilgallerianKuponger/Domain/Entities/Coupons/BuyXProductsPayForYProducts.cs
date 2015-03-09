@@ -20,14 +20,12 @@ namespace Domain.Entities
         {
             base.SetProperties(properties);
             PayFor = Decimal.Parse(properties["PayFor"], CultureInfo.InvariantCulture);
-            Buy = Decimal.Parse(properties["Buy"], CultureInfo.InvariantCulture);
         }
 
         public override Dictionary<String, String> GetProperties() 
         {
             var dictionary = base.GetProperties();
             dictionary.Add("PayFor", PayFor.ToString(CultureInfo.InvariantCulture));
-            dictionary.Add("Buy", Buy.ToString(CultureInfo.InvariantCulture));
 
             return dictionary;
         }
@@ -40,11 +38,6 @@ namespace Domain.Entities
         ///     How many free products
         /// </summary>
         public Decimal PayFor { get; set; }
-
-        /// <summary>
-        ///     How many products customer need to buy
-        /// </summary>
-        public Decimal Buy { get; set; }
 
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart
@@ -68,7 +61,7 @@ namespace Domain.Entities
                         .OrderBy(r => r.ProductPrice)
                         .ToList();
             }
-            var free = Buy - PayFor;
+            var free = NumberOfProductsToBuy - PayFor;
             Decimal discount = 0;
 
             while (free > 0 && products.Count > 0)

@@ -26,6 +26,7 @@ namespace AdminView.Controllers
 
         // POST: /
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Index(AuthorizationViewModel model)
         {
             if (model.Email == "data")

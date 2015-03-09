@@ -237,7 +237,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 72
   testRunner.And("I have entered \"2014-06-01\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 73
-  testRunner.And("I have entered \"3\" in the \"Buy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"3\" in the \"NumberOfProductsToBuy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 74
   testRunner.And("I have entered \"2\" in the \"PayFor\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 75
@@ -280,7 +280,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 89
   testRunner.And("I have entered \"2014-09-01\" in the \"Start\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 90
-  testRunner.And("I have entered \"3\" in the \"Buy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("I have entered \"3\" in the \"NumberOfProductsToBuy\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 91
   testRunner.And("I have entered \"3\" in the \"AmountOfProducts\" field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 92

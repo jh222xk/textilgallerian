@@ -13,7 +13,6 @@ namespace Domain.Entities
         public BuyProductXRecieveProductY()
         {
         }
-        
 
         //public BuyProductXRecieveProductY(IReadOnlyDictionary<string, string> properties) : base(properties)
         public BuyProductXRecieveProductY(IReadOnlyDictionary<String, String> properties)
@@ -25,19 +24,15 @@ namespace Domain.Entities
         {
             base.SetProperties(properties);
             AmountOfProducts = Decimal.Parse(properties["AmountOfProducts"], CultureInfo.InvariantCulture);
-            Buy = Decimal.Parse(properties["Buy"], CultureInfo.InvariantCulture);
             //TODO: Check if "FreeProduct" is valid!!
             FreeProduct = new Product { ProductId = properties["FreeProduct"]};
 
         }
 
-
-
         public override Dictionary<String, String> GetProperties()
         {
             var dictionary = base.GetProperties();
             dictionary.Add("AmountOfProducts", AmountOfProducts.ToString(CultureInfo.InvariantCulture));
-            dictionary.Add("Buy", Buy.ToString(CultureInfo.InvariantCulture));
             dictionary.Add("FreeProduct", FreeProduct.ProductId);
             dictionary.Add("ProductName", FreeProduct.Name);
 
@@ -54,11 +49,6 @@ namespace Domain.Entities
         /// </summary>
         public Decimal AmountOfProducts { get; set; }
 
-        ///// <summary>
-        /////     How many products customer need to buy
-        ///// </summary>
-        public Decimal Buy { get; set; }
-
         /// <summary>
         ///     Returns the dicount in amount of money, this method may have side effects like adding a free product to the cart
         ///     and shuld therfore only evere be called once per coupon if it's actually valid.
@@ -72,19 +62,6 @@ namespace Domain.Entities
                 ProductPrice = 0
             });
             return 0; // This coupon gives a free product instead of a sum of money
-        }
-
-        /// <summary>
-        ///     Check if specified Cart is valid for this Coupon
-        /// </summary>
-        public override Boolean IsValidFor(Cart cart)
-        {
-            if (!base.IsValidFor(cart))
-            {
-                return false;
-            }
-
-            return cart.NumberOfProducts >= Buy;
         }
     }
 }

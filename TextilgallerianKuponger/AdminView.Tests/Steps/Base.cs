@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using NSpec;
 using OpenQA.Selenium;
@@ -54,6 +55,15 @@ namespace AdminView.Tests.Steps
                     _driver = new PhantomJSDriver();
                 }
                 return _driver;
+            }
+        }
+
+        public virtual void CleanupCoupons()
+        {
+            using (var session = _documentStore.OpenSession("Coupons"))
+            {
+                session.Query<Coupon>().ForEach(session.Delete);
+                session.SaveChanges();
             }
         }
 
