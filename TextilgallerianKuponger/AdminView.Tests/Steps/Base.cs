@@ -145,7 +145,7 @@ namespace AdminView.Tests.Steps
             {
                 var json = JsonConvert.SerializeObject(cart);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("http://localhost:1250/api/cart", content);
+                var response = await client.PostAsync("http://localhost:8001/api/cart", content);
                 var responseString = await response.Content.ReadAsStringAsync();
                 return responseString;
             }
