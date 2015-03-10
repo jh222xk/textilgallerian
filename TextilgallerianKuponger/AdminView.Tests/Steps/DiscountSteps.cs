@@ -129,6 +129,8 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
+                        Brand = new Brand(),
+                        Categories = new List<Category>(),
                         ProductPrice = 50,
                     }
                 },
@@ -149,6 +151,8 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
+                        Brand = new Brand(),
+                        Categories = new List<Category>(),
                         ProductPrice = 50,
                     }
                 },
@@ -197,6 +201,8 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
+                        Brand = new Brand(),
+                        Categories = new List<Category>(),
                         ProductPrice = 50,
                     }
                 },
@@ -214,6 +220,8 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
+                        Brand = new Brand(),
+                        Categories = new List<Category>(),
                         ProductPrice = 50,
                     }
                 },
@@ -251,6 +259,8 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
+                        Brand = new Brand(),
+                        Categories = new List<Category>(),
                         ProductPrice = 50,
                     }
                 },
@@ -268,6 +278,8 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
+                        Brand = new Brand(),
+                        Categories = new List<Category>(),
                         ProductPrice = 50,
                     }
                 },
@@ -306,6 +318,8 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
+                        Brand = new Brand(),
+                        Categories = new List<Category>(),
                         ProductPrice = 50,
                     }
                 },
@@ -345,6 +359,8 @@ namespace AdminView.Tests
                             Name = "Egg",
                             ProductId = "Egg",
                         },
+                        Brand = new Brand(),
+                        Categories = new List<Category>(),
                         ProductPrice = 50,
                     }
                 },
