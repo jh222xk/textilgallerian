@@ -112,7 +112,7 @@ namespace AdminView.Tests
                     },
                 });
             }
-            catch (HttpRequestException)
+            catch (AggregateException)
             {
                 Debug.WriteLine("Skipping API test, can't reach server");
             }
@@ -195,7 +195,7 @@ namespace AdminView.Tests
                     },
                 });
             }
-            catch (HttpRequestException)
+            catch (AggregateException)
             {
                 Debug.WriteLine("Skipping API test, can't reach server");
             }
@@ -260,7 +260,7 @@ namespace AdminView.Tests
                     },
                 });
             }
-            catch (HttpRequestException)
+            catch (AggregateException)
             {
                 Debug.WriteLine("Skipping API test, can't reach server");
             }
@@ -325,7 +325,7 @@ namespace AdminView.Tests
                     },
                 });
             }
-            catch (HttpRequestException)
+            catch (AggregateException)
             {
                 Debug.WriteLine("Skipping API test, can't reach server");
             }
@@ -398,7 +398,7 @@ namespace AdminView.Tests
                     },
                 }).should_be_json_for(cart);
             }
-            catch (HttpRequestException)
+            catch (AggregateException)
             {
                 Debug.WriteLine("Skipping API test, can't reach server");
             }
