@@ -21,6 +21,10 @@ namespace Api.Controllers
 
         public Cart Post([FromBody] Cart cart)
         {
+            if (cart.Customer == null)
+            {
+                cart.Customer = new Customer();
+            }
             return _couponService.FindBestCouponsForCart(cart);
         }
 
@@ -85,7 +89,9 @@ namespace Api.Controllers
         private static Customer FindCustomer(Customer customer, List<Customer> customers, String code = null)
         {
 
-            if (customer == null)
+            if (customer.CouponCode == null &&
+                customer.Email == null &&
+                customer.SocialSecurityNumber == null)
             {
                 return customers.Find(cust => (cust.CouponCode == code && cust.CouponCode != null));
             }

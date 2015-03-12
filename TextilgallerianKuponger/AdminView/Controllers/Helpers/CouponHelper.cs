@@ -1,11 +1,9 @@
-﻿using AdminView.ViewModel;
-using Domain.Entities;
+﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace AdminView.Controllers.Helpers
 {
@@ -25,11 +23,11 @@ namespace AdminView.Controllers.Helpers
             if (customerString == null) { return null; }
 
             //split at newline and create array.
-            string[] lines = customerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var lines = customerString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var customers = new List<Customer>();
 
-            Regex mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
-            Regex ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
+            var mailRegex = new Regex(@"^.+?@.+?\.\w{2,8}$");
+            var ssnRegex = new Regex(@"^[0-9]{6,8}-?[0-9]{4}$");
 
             foreach (var line in lines)
             {
@@ -117,8 +115,8 @@ namespace AdminView.Controllers.Helpers
             if (productsString == null) { return null; }
 
             //split at newline and create array.
-            string[] lines = productsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            var products = new List<Product>();        
+            var lines = productsString.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var products = new List<Product>();
 
             //Loop through all lines, and split on : if it exist, add the value to right of it, if no : just add line to productID.
             foreach (var line in lines)
@@ -126,13 +124,15 @@ namespace AdminView.Controllers.Helpers
                 var product = new Product();
                 var splitLine = line.Split(':');
 
-                if(splitLine.Length == 2)
+                switch (splitLine.Length)
                 {
-                    product.ProductId = splitLine[1];
-                }
-                else if(splitLine.Length == 1)
-                {
-                    product.ProductId = splitLine[0];
+                    case 2:
+                        product.Name = splitLine[0];
+                        product.ProductId = splitLine[1];
+                        break;
+                    case 1:
+                        product.ProductId = splitLine[0];
+                        break;
                 }   
                
             }

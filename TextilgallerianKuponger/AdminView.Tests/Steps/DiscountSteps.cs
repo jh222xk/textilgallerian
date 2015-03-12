@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
+using AdminView.Tests.Helpers;
 using AdminView.Tests.Steps;
+using Domain.Entities;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSpec;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
@@ -11,6 +17,12 @@ namespace AdminView.Tests
     public class DiscountSteps : Base
     {
         private readonly CommonSteps _common = new CommonSteps();
+
+        [TestInitialize]
+        public override void CleanupCoupons()
+        {
+            base.CleanupCoupons();
+        }
 
         [Given(@"I am on the add new discount page")]
         public void GivenIAmOnTheAddNewDiscountPage()
@@ -51,6 +63,345 @@ namespace AdminView.Tests
         public void ThenTheDiscountShouldNotBeCombinable()
         {
             ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"the Holiday Season API test should pass")]
+        public void ThenTheHolidaySeasonAPITestShouldPass()
+        {
+            try
+            {
+                CallApi(new Cart
+                {
+                    CouponCode = "XMAS15",
+                    Customer = new Customer
+                    {
+                        SocialSecurityNumber = "900105-3001"
+                    },
+                }).should_be_json_for(new Cart
+                {
+                    CouponCode = "XMAS15",
+                    Customer = new Customer
+                    {
+                        SocialSecurityNumber = "900105-3001"
+                    },
+                    Rows = new List<Row>(),
+                    Discounts = new List<Coupon>
+                    {
+                        new TotalSumPercentageDiscount
+                        {
+                            Name = "Holiday Season",
+                            Code = "XMAS15",
+                            Description = "Test coupon",
+                            CreatedBy = "editor@admin.com",
+                            CustomersUsedBy = new List<Customer>(),
+                            CustomersValidFor = new List<Customer>
+                            {
+                                new Customer
+                                {
+                                    SocialSecurityNumber = "900105-3001"
+                                }
+                            },
+                            DiscountOnWholeCart = false,
+                            Start = new DateTime(2015, 01, 15),
+                            End = new DateTime(2016, 04, 30),
+                            Percentage = 0.3m,
+                            CanBeCombined = true,
+                            UseLimit = 2,
+                            IsActive = true,
+                        }
+                    },
+                });
+            }
+            catch (AggregateException)
+            {
+                Debug.WriteLine("Skipping API test, can't reach server");
+            }
+        }
+
+        [Then(@"the Holiday Season 16 API test should pass")]
+        public void ThenTheHolidaySeason16APITestShouldPass()
+        {
+            try
+            {
+                CallApi(new Cart
+                {
+                    CouponCode = "XMAS16",
+                    Customer = new Customer
+                    {
+                        Email = "customer@email.com"
+                    },
+                    Rows = new List<Row>
+                    {
+                        new Row
+                        {
+                            Amount = 10,
+                            Product = new Product
+                            {
+                                Name = "Egg",
+                                ProductId = "Egg",
+                            },
+                            Brand = new Brand(),
+                            Categories = new List<Category>(),
+                            ProductPrice = 50,
+                        }
+                    },
+                }).should_be_json_for(new Cart
+                {
+                    CouponCode = "XMAS16",
+                    Customer = new Customer
+                    {
+                        Email = "customer@email.com"
+                    },
+                    Rows = new List<Row>
+                    {
+                        new Row
+                        {
+                            Amount = 10,
+                            Product = new Product
+                            {
+                                Name = "Egg",
+                                ProductId = "Egg",
+                            },
+                            Brand = new Brand(),
+                            Categories = new List<Category>(),
+                            ProductPrice = 50,
+                        }
+                    },
+                    Discounts = new List<Coupon>
+                    {
+                        new TotalSumPercentageDiscount
+                        {
+                            Name = "Holiday Season 16",
+                            Code = "XMAS16",
+                            Description = "Test coupon",
+                            CreatedBy = "editor@admin.com",
+                            CustomersUsedBy = new List<Customer>(),
+                            CustomersValidFor = new List<Customer>
+                            {
+                                new Customer
+                                {
+                                    Email = "customer@email.com"
+                                }
+                            },
+                            DiscountOnWholeCart = false,
+                            Start = new DateTime(2014, 04, 15),
+                            End = new DateTime(2016, 04, 30),
+                            Percentage = 0.3m,
+                            CanBeCombined = true,
+                            UseLimit = 2,
+                            IsActive = true,
+                            MinPurchase = 500,
+                        }
+                    },
+                });
+            }
+            catch (AggregateException)
+            {
+                Debug.WriteLine("Skipping API test, can't reach server");
+            }
+        }
+
+        [Then(@"the Easter Season API test should pass")]
+        public void ThenTheEasterSeasonAPITestShouldPass()
+        {
+            try
+            {
+                CallApi(new Cart
+                {
+                    CouponCode = "Chicken",
+                    Rows = new List<Row>
+                    {
+                        new Row
+                        {
+                            Amount = 10,
+                            Product = new Product
+                            {
+                                Name = "Egg",
+                                ProductId = "Egg",
+                            },
+                            Brand = new Brand(),
+                            Categories = new List<Category>(),
+                            ProductPrice = 50,
+                        }
+                    },
+                }).should_be_json_for(new Cart
+                {
+                    CouponCode = "Chicken",
+                    Customer = new Customer(),
+                    Rows = new List<Row>
+                    {
+                        new Row
+                        {
+                            Amount = 10,
+                            Product = new Product
+                            {
+                                Name = "Egg",
+                                ProductId = "Egg",
+                            },
+                            Brand = new Brand(),
+                            Categories = new List<Category>(),
+                            ProductPrice = 50,
+                        }
+                    },
+                    Discounts = new List<Coupon>
+                    {
+                        new TotalSumAmountDiscount
+                        {
+                            Name = "Easter Season",
+                            Code = "Chicken",
+                            Description = "TotalSumAmountDiscount",
+                            CreatedBy = "editor@admin.com",
+                            CustomersUsedBy = new List<Customer>(),
+                            Start = new DateTime(2015, 01, 15),
+                            Amount = 100m,
+                            IsActive = true,
+                            MinPurchase = 500m,
+                        }
+                    },
+                });
+            }
+            catch (AggregateException)
+            {
+                Debug.WriteLine("Skipping API test, can't reach server");
+            }
+        }
+
+        [Then(@"the Summer API test should pass")]
+        public void ThenTheSummerAPITestShouldPass()
+        {
+            try
+            {
+                CallApi(new Cart
+                {
+                    CouponCode = "Beach",
+                    Rows = new List<Row>
+                    {
+                        new Row
+                        {
+                            Amount = 3,
+                            Product = new Product
+                            {
+                                Name = "Egg",
+                                ProductId = "Egg",
+                            },
+                            Brand = new Brand(),
+                            Categories = new List<Category>(),
+                            ProductPrice = 50,
+                        }
+                    },
+                }).should_be_json_for(new Cart
+                {
+                    CouponCode = "Beach",
+                    Customer = new Customer(),
+                    Rows = new List<Row>
+                    {
+                        new Row
+                        {
+                            Amount = 3,
+                            Product = new Product
+                            {
+                                Name = "Egg",
+                                ProductId = "Egg",
+                            },
+                            Brand = new Brand(),
+                            Categories = new List<Category>(),
+                            ProductPrice = 50,
+                        }
+                    },
+                    Discounts = new List<Coupon>
+                    {
+                        new BuyXProductsPayForYProducts
+                        {
+                            Name = "Summer",
+                            Code = "Beach",
+                            Description = "",
+                            CreatedBy = "editor@admin.com",
+                            CustomersUsedBy = new List<Customer>(),
+                            Start = new DateTime(2014, 06, 01),
+                            NumberOfProductsToBuy = 3,
+                            PayFor = 2,
+                            IsActive = true,
+                        }
+                    },
+                });
+            }
+            catch (AggregateException)
+            {
+                Debug.WriteLine("Skipping API test, can't reach server");
+            }
+        }
+
+        [Then(@"the Halloween API test should pass")]
+        public void ThenTheHalloweenAPITestShouldPass()
+        {
+            try
+            {
+                var cart = new Cart
+                {
+                    CouponCode = "pumpkin",
+                    Customer = new Customer(),
+                    Rows = new List<Row>
+                    {
+                        new Row
+                        {
+                            Amount = 3,
+                            Product = new Product
+                            {
+                                Name = "Egg",
+                                ProductId = "Egg",
+                            },
+                            Brand = new Brand(),
+                            Categories = new List<Category>(),
+                            ProductPrice = 50,
+                        }
+                    },
+                    Discounts = new List<Coupon>
+                    {
+                        new BuyProductXRecieveProductY
+                        {
+                            Name = "Halloween",
+                            Code = "pumpkin",
+                            Description = "",
+                            CreatedBy = "editor@admin.com",
+                            CustomersUsedBy = new List<Customer>(),
+                            Start = new DateTime(2014, 09, 01),
+                            NumberOfProductsToBuy = 3,
+                            IsActive = true,
+                            FreeProduct = new Product
+                            {
+                                ProductId = "Pink Curtain",
+                            },
+                            AmountOfProducts = 3,
+                            MinPurchase = 100
+                        }
+                    },
+                };
+                cart.CalculateDiscount();
+
+                CallApi(new Cart
+                {
+                    CouponCode = "pumpkin",
+                    Rows = new List<Row>
+                    {
+                        new Row
+                        {
+                            Amount = 3,
+                            Product = new Product
+                            {
+                                Name = "Egg",
+                                ProductId = "Egg",
+                            },
+                            Brand = new Brand(),
+                            Categories = new List<Category>(),
+                            ProductPrice = 50,
+                        }
+                    },
+                }).should_be_json_for(cart);
+            }
+            catch (AggregateException)
+            {
+                Debug.WriteLine("Skipping API test, can't reach server");
+            }
         }
     }
 }

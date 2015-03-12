@@ -45,8 +45,22 @@ namespace Domain.Entities
         /// </summary>
         public override Decimal CalculateDiscount(Cart cart)
         {
-            var products =
-                cart.Rows.Where(r => r.Product.In(Products)).OrderBy(r => r.ProductPrice).ToList();
+            
+            List<Row> products;
+            if (Products == null)
+            {
+                products =
+                    cart.Rows
+                        .OrderBy(r => r.ProductPrice)
+                        .ToList();
+            }
+            else
+            {
+                products =
+                    cart.Rows.Where(r => r.Product.In(Products))
+                        .OrderBy(r => r.ProductPrice)
+                        .ToList();
+            }
             var free = NumberOfProductsToBuy - PayFor;
             Decimal discount = 0;
 
