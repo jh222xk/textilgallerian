@@ -45,28 +45,35 @@ namespace Domain.Entities
         /// </summary>
         public override Decimal CalculateDiscount(Cart cart)
         {
-            
-            List<Row> products;
-            if (Products == null)
-            {
-                products =
-                    cart.Rows
-                        .OrderBy(r => r.ProductPrice)
-                        .ToList();
-            }
-            else
-            {
-                products =
-                    cart.Rows.Where(r => r.Product.In(Products))
-                        .OrderBy(r => r.ProductPrice)
-                        .ToList();
-            }
-            var free = NumberOfProductsToBuy - PayFor;
+            var rows = cart.Rows;
             Decimal discount = 0;
 
-            while (free > 0 && products.Count > 0)
+            if (Products != null)
             {
-                var cheapestProduct = products.First();
+                rows = rows.Where(row => Products.Exists(p => p.ProductId == row.Product.ProductId)).ToList();
+            }
+
+            if (Brands != null)
+            {
+                rows = rows.Where(row => Brands.Exists(b => b.BrandName == row.Brand.BrandName)).ToList();
+            }
+
+            if (Categories != null)
+            {
+                rows =
+                    rows.Where(
+                        row => Categories.Exists(c => row.Categories.Select(e => e.CategoryName).Contains(c.CategoryName)))
+                        .ToList();
+            }
+
+            var free = NumberOfProductsToBuy - PayFor;
+
+            // Order by cheapest first
+            rows = rows.OrderBy(r => r.ProductPrice).ToList();
+
+            while (free > 0 && rows.Count > 0)
+            {
+                var cheapestProduct = rows.First();
                 if (free > cheapestProduct.Amount)
                 {
                     discount += cheapestProduct.Amount*cheapestProduct.ProductPrice;
@@ -76,7 +83,7 @@ namespace Domain.Entities
                     discount += free*cheapestProduct.ProductPrice;
                 }
                 free -= cheapestProduct.Amount;
-                products.RemoveAt(0);
+                rows.RemoveAt(0);
             }
 
             return discount;

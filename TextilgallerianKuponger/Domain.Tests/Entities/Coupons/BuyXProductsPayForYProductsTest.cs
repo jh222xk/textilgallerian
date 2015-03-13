@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.Entities;
 using Domain.Tests.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -54,19 +55,34 @@ namespace Domain.Tests.Entities
                     {
                         ProductPrice = 100,
                         Amount = 1.5m,
-                        Product = _validProduct
+                        Product = _validProduct,
+                        Brand = Testdata.RandomBrand(),
+                        Categories = new List<Category>
+                        {
+                            Testdata.RandomCategory()
+                        }
                     },
                     new Row
                     {
                         ProductPrice = 500,
                         Amount = 2.75m,
-                        Product = Testdata.RandomProduct()
+                        Product = Testdata.RandomProduct(),
+                        Brand = Testdata.RandomBrand(),
+                        Categories = new List<Category>
+                        {
+                            Testdata.RandomCategory()
+                        }
                     },
                     new Row
                     {
                         ProductPrice = 50,
                         Amount = 1.5m,
-                        Product = _validProduct
+                        Product = _validProduct,
+                        Brand = Testdata.RandomBrand(),
+                        Categories = new List<Category>
+                        {
+                            Testdata.RandomCategory()
+                        }
                     }
                 }
             };
@@ -102,6 +118,223 @@ namespace Domain.Tests.Entities
             // ReSharper disable once PossibleNullReferenceException
             (_coupon as BuyXProductsPayForYProducts).NumberOfProductsToBuy = 10;
             _coupon.CalculateDiscount(_cart).should_be(225);
+        }
+
+        [TestMethod]
+        public void TestThatDiscountIsCorrectIfBrandsAreSpecifiedAndValid()
+        {
+            var coupon = Testdata.RandomCoupon(new BuyXProductsPayForYProducts
+            {
+                NumberOfProductsToBuy = 3,
+                PayFor = 2,
+                Brands = new List<Brand>
+                {
+                    Testdata.RandomBrand()
+                }
+            });
+
+            coupon.Products = null;
+
+            var cart = new Cart
+            {
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        ProductPrice = 100,
+                        Amount = 1.5m,
+                        Product = Testdata.RandomProduct(),
+                        Brand = coupon.Brands.Last()
+                    },
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 2.75m,
+                        Product = Testdata.RandomProduct(),
+                        Brand = coupon.Brands.Last()
+                    },
+                    new Row
+                    {
+                        ProductPrice = 50,
+                        Amount = 1.5m,
+                        Product = Testdata.RandomProduct(),
+                        Brand = coupon.Brands.Last()
+                    }
+                }
+            };
+
+            coupon.CalculateDiscount(cart).should_be(50);
+        }
+
+        [TestMethod]
+        public void TestThatDiscountIsCorrectIfBrandsAndProductsAreSpecifiedAndValid()
+        {
+            var coupon = Testdata.RandomCoupon(new BuyXProductsPayForYProducts
+            {
+                NumberOfProductsToBuy = 3,
+                PayFor = 2,
+                Products = new List<Product>
+                {
+                    Testdata.RandomProduct()
+                },
+                Brands = new List<Brand>
+                {
+                    Testdata.RandomBrand()
+                }
+            });
+
+            var cart = new Cart
+            {
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        ProductPrice = 100,
+                        Amount = 1.5m,
+                        Product = coupon.Products.Last(),
+                        Brand = coupon.Brands.Last()
+                    },
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 2.75m,
+                        Product = coupon.Products.Last(),
+                        Brand = coupon.Brands.Last()
+                    },
+                    new Row
+                    {
+                        ProductPrice = 300,
+                        Amount = 1.5m,
+                        Product = coupon.Products.Last(),
+                        Brand = coupon.Brands.Last()
+                    }
+                }
+            };
+
+            coupon.CalculateDiscount(cart).should_be(100);
+        }
+
+        [TestMethod]
+        public void TestThatDiscountIsCorrectIfCategoriesAreSpecifiedAndValid()
+        {
+            var coupon = Testdata.RandomCoupon(new BuyXProductsPayForYProducts
+            {
+                NumberOfProductsToBuy = 3,
+                PayFor = 2,
+                Categories = new List<Category>
+                {
+                    Testdata.RandomCategory()
+                }
+            });
+
+            coupon.Products = null;
+            coupon.Brands = null;
+
+            var cart = new Cart
+            {
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        ProductPrice = 100,
+                        Amount = 1.5m,
+                        Product = Testdata.RandomProduct(),
+                        Brand = Testdata.RandomBrand(),
+                        Categories = new List<Category>
+                        {
+                            coupon.Categories.Last()
+                        }
+                    },
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 2.75m,
+                        Product = Testdata.RandomProduct(),
+                        Brand = Testdata.RandomBrand(),
+                        Categories = new List<Category>
+                        {
+                            coupon.Categories.Last()
+                        }
+                    },
+                    new Row
+                    {
+                        ProductPrice = 50,
+                        Amount = 1.5m,
+                        Product = Testdata.RandomProduct(),
+                        Brand = Testdata.RandomBrand(),
+                        Categories = new List<Category>
+                        {
+                            coupon.Categories.Last()
+                        }
+                    }
+                }
+            };
+
+            coupon.CalculateDiscount(cart).should_be(50);
+        }
+
+        [TestMethod]
+        public void TestThatDiscountIsCorrectIfAllAreSpecifiedAndValid()
+        {
+            var coupon = Testdata.RandomCoupon(new BuyXProductsPayForYProducts
+            {
+                NumberOfProductsToBuy = 3,
+                PayFor = 2,
+                Products = new List<Product>
+                {
+                    Testdata.RandomProduct()
+                },
+                Brands = new List<Brand>
+                {
+                    Testdata.RandomBrand()
+                },
+                Categories = new List<Category>
+                {
+                    Testdata.RandomCategory()
+                }
+            });
+
+            var cart = new Cart
+            {
+                Rows = new List<Row>
+                {
+                    new Row
+                    {
+                        ProductPrice = 600,
+                        Amount = 1.5m,
+                        Product = coupon.Products.Last(),
+                        Brand = coupon.Brands.Last(),
+                        Categories = new List<Category>
+                        {
+                            coupon.Categories.Last()
+                        }
+                    },
+                    new Row
+                    {
+                        ProductPrice = 700,
+                        Amount = 2.75m,
+                        Product = coupon.Products.Last(),
+                        Brand = coupon.Brands.Last(),
+                        Categories = new List<Category>
+                        {
+                            coupon.Categories.Last()
+                        }
+                    },
+                    new Row
+                    {
+                        ProductPrice = 500,
+                        Amount = 1.5m,
+                        Product = coupon.Products.Last(),
+                        Brand = coupon.Brands.Last(),
+                        Categories = new List<Category>
+                        {
+                            coupon.Categories.Last()
+                        }
+                    }
+                }
+            };
+
+            coupon.CalculateDiscount(cart).should_be(500);
         }
     }
 }
