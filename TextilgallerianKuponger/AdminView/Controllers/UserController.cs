@@ -119,6 +119,7 @@ namespace AdminView.Controllers
         }
 
         // GET: User/Edit/5
+        [ValidateInput(false)]
         [RequiredPermission(Permission.CanChangeUsers)]
         public ActionResult Edit(String email)
         {
@@ -137,6 +138,7 @@ namespace AdminView.Controllers
 
         // POST: User/Edit/5
         [HttpPost]
+        [ValidateInput(false)]
         [RequiredPermission(Permission.CanChangeUsers)]
         public ActionResult Edit(AuthorizationViewModel model)
         {
@@ -205,8 +207,9 @@ namespace AdminView.Controllers
             return View(model);
         }
 
-        // POST: User/SetStatus/5
+        // POST Delete: User/SetStatus/5
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         [RequiredPermission(Permission.CanDeleteUsers)]
         public ActionResult SetStatus(String email)
         {
